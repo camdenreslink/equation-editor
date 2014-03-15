@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="261.55865"
+   height="165.75002"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.48.3.1 r9886"
+   sodipodi:docname="divisionOperator.svg"
+   inkscape:export-filename="/home/camden/Documents/EquationEditorRefactored/src/Images/divisionOperatorHighlight.png"
+   inkscape:export-xdpi="172.04555"
+   inkscape:export-ydpi="172.04555">
+  <defs
+     id="defs4" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="1.4"
+     inkscape:cx="215.5159"
+     inkscape:cy="48.041161"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0"
+     inkscape:window-width="959"
+     inkscape:window-height="576"
+     inkscape:window-x="65"
+     inkscape:window-y="24"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-168.57143,-405.79075)">
+    <g
+       id="g3013"
+       style="fill:#000000">
+      <path
+         style="fill:#000000;fill-opacity:1;stroke:none"
+         d="m 175.71428,480.93362 247.27294,0 c 3.95715,0 7.14286,3.51225 7.14286,7.875 0,4.36275 -3.18571,7.875 -7.14286,7.875 l -247.27294,0 c -3.95714,0 -7.14285,-3.51225 -7.14285,-7.875 0,-4.36275 3.18571,-7.875 7.14285,-7.875 z"
+         id="rect2985"
+         inkscape:connector-curvature="0" />
+      <path
+         transform="matrix(1.2623656,0,0,1.2489361,15.278043,-121.26657)"
+         style="fill:#000000;fill-opacity:1;stroke:none"
+         d="m 241.78572,438.79074 c 0,9.2705 -7.43527,16.78572 -16.60715,16.78572 -9.17187,0 -16.60714,-7.51522 -16.60714,-16.78572 0,-9.27049 7.43527,-16.78571 16.60714,-16.78571 9.17188,0 16.60715,7.51522 16.60715,16.78571 z"
+         id="path2993"
+         inkscape:connector-curvature="0" />
+      <path
+         transform="matrix(1.2623656,0,0,1.2489361,15.385172,2.5548712)"
+         style="fill:#000000;fill-opacity:1;stroke:none"
+         d="m 241.78572,438.79074 c 0,9.2705 -7.43527,16.78572 -16.60715,16.78572 -9.17187,0 -16.60714,-7.51522 -16.60714,-16.78572 0,-9.27049 7.43527,-16.78571 16.60714,-16.78571 9.17188,0 16.60715,7.51522 16.60715,16.78571 z"
+         id="path2993-8"
+         inkscape:connector-curvature="0" />
+    </g>
+  </g>
+</svg>
