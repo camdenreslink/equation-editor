@@ -70,11 +70,13 @@
 }
 
 .fontSizeSmaller {
-    font-size: 45px;
+    /*font-size: 45px;*/
+    font-size: 42.06px; /* fontSizeNormal * 0.707 */
 }
 
 .fontSizeSmallest {
-    font-size: 40px;
+    /*font-size: 40px;*/
+    font-size: 30px; /* fontSizeNormal * 0.5 */
 }
 
 .fontTest {
