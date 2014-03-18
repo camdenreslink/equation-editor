@@ -161,7 +161,18 @@
     position: absolute;
 }
 
-.bracket {
+.wholeBracket {
+    position: absolute;
+}
+
+.topBracket {
+    position: absolute;
+}
+.middleBracket {
+    position: absolute;
+}
+
+.bottomBracket {
     position: absolute;
 }
 

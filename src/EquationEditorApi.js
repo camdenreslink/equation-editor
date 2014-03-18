@@ -73,7 +73,7 @@ eqEd.SymbolSizeConfiguration = function() {
     this.fontNormal = ['0', '1', '2', '3', '4', '5', '6', '7', '8', 
                  '9', '+', '&#x2212;', '&#x00f7;', '&#x22c5;', '&#x2248;', 
                  '=', '&#60;', '&#62;', '&#x2264;', '&#x2265;', '&#x221e;', 
-                 '%', '!', '.'];
+                 '%', '!', '.', '(', ')', '[', ']', '{', '}'];
     // Lists all characters which need to be rendered in an italic font. 
     this.fontItalic = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 
                  'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 
@@ -235,7 +235,13 @@ eqEd.SymbolSizeConfiguration = function() {
         '&#x221e;': {},
         '%': {},
         '!': {},
-        '.': {}
+        '.': {},
+        '(': {},
+        ')': {},
+        '[': {},
+        ']': {},
+        '{': {},
+        '}': {}
     };
 
     this.charWidthExceedsBoundingBox = {
@@ -375,7 +381,13 @@ eqEd.SymbolSizeConfiguration = function() {
         '&#x221e;': 0,
         '%': 0,
         '!': 0,
-        '.': 0
+        '.': 0,
+        '(': 0,
+        ')': 0,
+        '[': 0,
+        ']': 0,
+        '{': 0,
+        '}': 0
     };
 
     //Initialize the object.
@@ -963,20 +975,6 @@ eqEd.Container.prototype = new eqEd.EquationObject(eqEd.noConstructorCall);
             }
         }
 
-        /*
-        // Change padding on unary/binary operators
-        if (nextWrapper instanceof eqEd.OperatorWrapper) {
-            if (prevWrapper instanceof eqEd.OperatorWrapper
-                || this.wrappers[i-1] instanceof eqEd.LeftBracketWrapper
-                || minIndex === 0) {
-                nextWrapper.padRight = 0;
-                nextWrapper.updateFormattingDeep();
-            } else {
-                nextWrapper.padRight = 0.075;
-                nextWrapper.updateFormattingDeep();
-            }
-        }
-        */
         if (this.wrappers.length > 0) {
             this.updateFormatting();
             // Ascend through anscestor wrappers/containers to update their formatting
@@ -998,96 +996,13 @@ eqEd.Container.prototype = new eqEd.EquationObject(eqEd.noConstructorCall);
         // object.
 
         var fontHeight = this.symbolSizeConfig.height[this.fontSize];
-        // Update the brackets, so that they are matched up.
-        var pairIndices = [];
-        var bracketStack = [];
         for (var i = 0; i < this.wrappers.length; i++) {
-            if (this.wrappers[i] instanceof eqEd.LeftBracketWrapper) {
-                bracketStack.push(this.wrappers[i]);
-            } else if (this.wrappers[i] instanceof eqEd.RightBracketWrapper) {
-                if (bracketStack.length > 0) {
-                    if ((bracketStack[bracketStack.length - 1].bracket instanceof eqEd.ParenthesesLeftBracket
-                        && this.wrappers[i].bracket instanceof eqEd.ParenthesesRightBracket) || 
-                        (bracketStack[bracketStack.length - 1].bracket instanceof eqEd.CurlyLeftBracket
-                        && this.wrappers[i].bracket instanceof eqEd.CurlyRightBracket) || 
-                        (bracketStack[bracketStack.length - 1].bracket instanceof eqEd.SquareLeftBracket
-                        && this.wrappers[i].bracket instanceof eqEd.SquareRightBracket)) {
-                        pairIndices.push([bracketStack.pop(), this.wrappers[i]]);
-                    }
-                } else {
-                    // Setting height to 0 resets the bracket formatting.
-                    this.wrappers[i].bracket.height = 0;
-                    this.wrappers[i].updateFormattingDeep();
-
-                    var j = 1;
-                    while (j > 0) {
-                        if (this.wrappers[i + j] instanceof eqEd.SuperscriptWrapper
-                            || this.wrappers[i + j] instanceof eqEd.SubscriptWrapper
-                            || this.wrappers[i + j] instanceof eqEd.SuperscriptAndSubscriptWrapper) {
-                            this.wrappers[i + j].updateFormattingDeep();
-                            j += 1;
-                        } else {
-                            j = 0;
-                        }
-                    }
-                }
-            }
-        }
-        for (var i = 0; i < bracketStack.length; i++) {
-            // Setting height to 0 resets the bracket formatting.
-            this.wrappers[bracketStack[i].index].bracket.height = 0;
-            this.wrappers[bracketStack[i].index].updateFormattingDeep();
             var j = 1;
             while (j > 0) {
-                if (this.wrappers[bracketStack[i].index + j] instanceof eqEd.SuperscriptWrapper
-                    || this.wrappers[bracketStack[i].index + j] instanceof eqEd.SubscriptWrapper
-                    || this.wrappers[bracketStack[i].index + j] instanceof eqEd.SuperscriptAndSubscriptWrapper) {
-                    this.wrappers[bracketStack[i].index + j].updateFormattingDeep();
-                    j += 1;
-                } else {
-                    j = 0;
-                }
-            }
-        }
-        for (var i = 0; i < pairIndices.length; i++) {
-            var maxTopAlign = 0;
-            var maxBottomAlign = 0;
-            for (var j = pairIndices[i][0].index + 1; j < pairIndices[i][1].index; j++) {
-                if (this.wrappers[j].topAlign > maxTopAlign) {
-                    maxTopAlign = this.wrappers[j].topAlign;
-                }
-                if (this.wrappers[j].bottomAlign > maxBottomAlign) {
-                    maxBottomAlign = this.wrappers[j].bottomAlign;
-                }
-            }
-            var maxHeight = maxTopAlign + maxBottomAlign;
-            pairIndices[i][0].topAlign = maxTopAlign;
-            pairIndices[i][0].bottomAlign = maxBottomAlign;
-            pairIndices[i][1].topAlign = maxTopAlign;
-            pairIndices[i][1].bottomAlign = maxBottomAlign;
-            pairIndices[i][0].bracket.height = maxHeight;
-            pairIndices[i][1].bracket.height = maxHeight;
-            pairIndices[i][0].updateFormattingDeep();
-            var index = pairIndices[i][0].index;
-            var j = 1;
-            while (j > 0) {
-                if (this.wrappers[index + j] instanceof eqEd.SuperscriptWrapper
-                    || this.wrappers[index + j] instanceof eqEd.SubscriptWrapper
-                    || this.wrappers[index + j] instanceof eqEd.SuperscriptAndSubscriptWrapper) {
-                    this.wrappers[index + j].updateFormattingDeep();
-                    j += 1;
-                } else {
-                    j = 0;
-                }
-            }
-            pairIndices[i][1].updateFormattingDeep();
-            index = pairIndices[i][1].index;
-            j = 1
-            while (j > 0) {
-                if (this.wrappers[index + j] instanceof eqEd.SuperscriptWrapper
-                    || this.wrappers[index + j] instanceof eqEd.SubscriptWrapper
-                    || this.wrappers[index + j] instanceof eqEd.SuperscriptAndSubscriptWrapper) {
-                    this.wrappers[index + j].updateFormattingDeep();
+                if (this.wrappers[i + j] instanceof eqEd.SuperscriptWrapper
+                    || this.wrappers[i + j] instanceof eqEd.SubscriptWrapper
+                    || this.wrappers[i + j] instanceof eqEd.SuperscriptAndSubscriptWrapper) {
+                    this.wrappers[i + j].updateFormattingDeep();
                     j += 1;
                 } else {
                     j = 0;
@@ -2856,37 +2771,96 @@ eqEd.BracketWrapper = function(symbolSizeConfig, bracketType) {
     if (arguments[0] instanceof eqEd.NoConstructorCall) { return; }
     eqEd.Wrapper.call(this, symbolSizeConfig);
 
-    this.bracketList = {"leftParenthesis": eqEd.ParenthesesLeftBracket, "rightParenthesis": eqEd.ParenthesesRightBracket, "leftCurly": eqEd.CurlyLeftBracket, "rightCurly": eqEd.CurlyRightBracket, "leftSquare": eqEd.SquareLeftBracket, "rightSquare": eqEd.SquareRightBracket};
-    this.bracket = new this.bracketList[bracketType](symbolSizeConfig);
-    this.jQueryObject.append(this.bracket.jQueryObject);
-    this.bracket.parent = this;
-    this.childNoncontainers = [this.bracket];
+    this.bracketList = {"leftParenthesis": {whole: "(", top: "&#9115;", middle: "&#9116;", bottom: "&#9117;"}, "rightParenthesis": {whole: ")", top: "&#9118;", middle: "&#9119;", bottom: "&#9120;"}, "leftCurly": {whole: "{", top: null, middle: null, bottom: null}, "rightCurly": {whole: "}", top: null, middle: null, bottom: null}, "leftSquare": {whole: "[", top: null, middle: null, bottom: null}, "rightSquare": {whole: "]", top: null, middle: null, bottom: null}};
+    this.bracketType = bracketType;
+    this.wholeBracket = new eqEd.WholeBracket(symbolSizeConfig, this.bracketList[this.bracketType]["whole"], "MathJax_Main");
+    this.topBracket = null;
+    this.middleBrackets = [];
+    this.bottomBracket = null;
+    this.jQueryObject.append(this.wholeBracket.jQueryObject);
+    this.wholeBracket.parent = this;
+    this.childNoncontainers = [this.wholeBracket];
+
+    this.padLeft = 0;
+    this.padTop = 0.0;//0.15;
+    this.padRight = 0;
+    this.padBottom = 0.05;//-0.10;
 }
 
 eqEd.BracketWrapper.prototype = new eqEd.Wrapper(eqEd.noConstructorCall);
 (function() {
     eqEd.BracketWrapper.prototype.updateWidth = function() {
         var fontHeight = this.symbolSizeConfig.height[this.parent.fontSize];
-        this.width = this.bracket.width + (this.padLeft + this.padRight)*fontHeight;
+        if (this.wholeBracket !== null) {
+            this.width = this.wholeBracket.width + (this.padLeft + this.padRight)*fontHeight;
+        }
     }
     eqEd.BracketWrapper.prototype.updateTopAlign = function() {
         var fontHeight = this.symbolSizeConfig.height[this.parent.fontSize];
-        // This seems hackish, fix if there is time.
-        var symbolWrapper = new eqEd.SymbolWrapper(this.symbolSizeConfig, 'a')
-        if (this.bracket.height < (1.01 + symbolWrapper.padBottom) * fontHeight) {
-            this.topAlign = this.bracket.height * 0.5 + this.padTop * fontHeight;
+        if (this.wholeBracket !== null) {
+            this.topAlign = this.wholeBracket.height * 0.5 + this.padTop * fontHeight;
         }
     }
     eqEd.BracketWrapper.prototype.updateBottomAlign = function() {
         var fontHeight = this.symbolSizeConfig.height[this.parent.fontSize];
-        // This seems hackish, fix if there is time.
-        var symbolWrapper = new eqEd.SymbolWrapper(this.symbolSizeConfig, 'a')
-        if (this.bracket.height < (1.01 + symbolWrapper.padBottom) * fontHeight) {
-            this.bottomAlign = this.bracket.height * 0.5 + this.padBottom * fontHeight;
+        if (this.wholeBracket !== null) {
+            this.bottomAlign = this.wholeBracket.height * (0.5 + 0.075) + this.padBottom * fontHeight;
         }
     }
     eqEd.BracketWrapper.prototype.buildHtmlRepresentation = function() {
         return '<div class="wrapper bracketWrapper"></div>';
+    }
+    eqEd.BracketWrapper.prototype.updateBracketHeight = function(desiredHeight) {
+        var fontHeight = this.symbolSizeConfig.height[this.parent.fontSize];
+        var heightRatio = desiredHeight / fontHeight;
+        if (heightRatio <= (1 + this.padBottom)) {
+            this.wholeBracket = new eqEd.WholeBracket(symbolSizeConfig, this.bracketList[this.bracketType]["whole"], "MathJax_Main");
+            this.topBracket = null;
+            this.middleBrackets = [];
+            this.bottomBracket = null;
+            this.jQueryObject.append(this.wholeBracket.jQueryObject);
+            this.wholeBracket.parent = this;
+            this.childNoncontainers = [this.wholeBracket];
+            // These ranges will need to be tweaked
+        } else if (heightRatio > (1 + this.padBottom) && heightRatio <= 2.5) {
+            this.wholeBracket = new eqEd.WholeBracket(symbolSizeConfig, this.bracketList[this.bracketType]["whole"], "MathJax_Size3");
+            this.topBracket = null;
+            this.middleBrackets = [];
+            this.bottomBracket = null;
+            this.jQueryObject.append(this.wholeBracket.jQueryObject);
+            this.wholeBracket.parent = this;
+            this.childNoncontainers = [this.wholeBracket];
+            // These ranges will need to be tweaked
+        } else if (heightRatio > (1 + this.padBottom) && heightRatio <= 3.5) {
+            this.wholeBracket = new eqEd.WholeBracket(symbolSizeConfig, this.bracketList[this.bracketType]["whole"], "MathJax_Size4");
+            this.topBracket = null;
+            this.middleBrackets = [];
+            this.bottomBracket = null;
+            this.jQueryObject.append(this.wholeBracket.jQueryObject);
+            this.wholeBracket.parent = this;
+            this.childNoncontainers = [this.wholeBracket];
+        } else if (heightRatio > 3.5 && heightRatio <= 3.9) {
+            this.wholeBracket = null;
+            this.topBracket = new TopBracket(symbolSizeConfig, this.bracketList[this.bracketType]["top"]);
+            this.middleBrackets = [];
+            this.bottomBracket = new BottomBracket(symbolSizeConfig, this.bracketList[this.bracketType]["bottom"]);
+            this.jQueryObject.append(this.topBracket.jQueryObject);
+            this.topBracket.parent = this;
+            this.jQueryObject.append(this.bottomBracket.jQueryObject);
+            this.bottomBracket.parent = this;
+            this.childNoncontainers = [this.topBracket, this.bottomBracket];
+        } else {
+            var numberOfBrackets = (heightRatio - 3.5);
+            this.wholeBracket = null;
+            this.topBracket = new TopBracket(symbolSizeConfig, this.bracketList[this.bracketType]["top"]);
+            this.middleBrackets = [];
+            this.bottomBracket = new BottomBracket(symbolSizeConfig, this.bracketList[this.bracketType]["bottom"]);
+            this.jQueryObject.append(this.topBracket.jQueryObject);
+            this.topBracket.parent = this;
+            this.jQueryObject.append(this.bottomBracket.jQueryObject);
+            this.bottomBracket.parent = this;
+            this.childNoncontainers = [this.topBracket, this.bottomBracket];
+        }
     }
 })();
 /////// End BracketWrapper Class ///////
@@ -2896,9 +2870,6 @@ eqEd.LeftBracketWrapper = function(symbolSizeConfig, bracketType) {
     if (arguments[0] instanceof eqEd.NoConstructorCall) { return; }
 
     eqEd.BracketWrapper.call(this, symbolSizeConfig, bracketType);
-    this.padLeft = 0.1;
-    //this.padRight = 0.025;
-    this.padRight = 0;
     this.jQueryObject.addClass('leftBracket');
 }
 
@@ -2910,239 +2881,128 @@ eqEd.RightBracketWrapper = function(symbolSizeConfig, bracketType) {
     if (arguments[0] instanceof eqEd.NoConstructorCall) { return; }
 
     eqEd.BracketWrapper.call(this, symbolSizeConfig, bracketType);
-    this.padLeft = 0.075;
-    this.padRight = 0.1;
     this.jQueryObject.addClass('rightBracket');
 }
 
 eqEd.RightBracketWrapper.prototype = new eqEd.BracketWrapper(eqEd.noConstructorCall);
 /////// End RightBracketWrapper Class ///////
 
-/////// Begin Bracket Class ///////
+/////// Begin WholeBracket Class ///////
 
-eqEd.Bracket = function(symbolSizeConfig) {
+eqEd.WholeBracket = function(symbolSizeConfig, character, fontFamily) {
     if (arguments[0] instanceof eqEd.NoConstructorCall) { return; }
+    this.character = character;
+    this.fontFamily = fontFamily;
+
     eqEd.EquationObject.call(this, symbolSizeConfig);
 
     this.parent = null;
-    this.adjustLeft = 0;
+    this.adjustLeft = 0.001;
     this.adjustTop = 0;
-    this.height = 0;
 }
 
-eqEd.Bracket.prototype = new eqEd.EquationObject(eqEd.noConstructorCall);
+eqEd.WholeBracket.prototype = new eqEd.EquationObject(eqEd.noConstructorCall);
 (function() {
-    eqEd.Bracket.prototype.updateTop = function() {
+    eqEd.WholeBracket.prototype.updateTop = function() {
         var fontHeight = this.symbolSizeConfig.height[this.parent.parent.fontSize];
         this.top = (this.parent.padTop + this.adjustTop) * fontHeight;
     }
-    eqEd.Bracket.prototype.updateLeft = function() {
+    eqEd.WholeBracket.prototype.updateLeft = function() {
         var fontHeight = this.symbolSizeConfig.height[this.parent.parent.fontSize];
         this.left = (this.parent.padLeft + this.adjustLeft) * fontHeight;
     }
-    eqEd.Bracket.prototype.updateWidth = function() {}
-    eqEd.Bracket.prototype.updateHeight = function() {
-        var fontHeight = this.symbolSizeConfig.height[this.parent.parent.fontSize];
-        //if (this.height < 1.125 * fontHeight) {
-        //    this.height = 1.125 * fontHeight;
-        //}
-        var symbolWrapper = new eqEd.SymbolWrapper(this.symbolSizeConfig, 'a')
-        if (this.height < (1 + symbolWrapper.padBottom) * fontHeight) {
-            this.height = (1 + symbolWrapper.padBottom) * fontHeight;
-        }
+    eqEd.WholeBracket.prototype.updateWidth = function() {
+        var characterWidth = this.symbolSizeConfig.width[this.character][this.parent.parent.fontSize];
+        this.width = characterWidth;
     }
-    eqEd.Bracket.prototype.buildHtmlRepresentation = function() {}
-})();
-
-/////// End Bracket Class ///////
-
-/////// Begin ParenthesesLeftBracket Class ///////
-
-eqEd.ParenthesesLeftBracket = function(symbolSizeConfig) {
-    if (arguments[0] instanceof eqEd.NoConstructorCall) { return; }
-    eqEd.Bracket.call(this, symbolSizeConfig);
-
-    this.parent = null;
-    this.adjustLeft = 0;
-    this.adjustTop = 0;
-}
-
-eqEd.ParenthesesLeftBracket.prototype = new eqEd.Bracket(eqEd.noConstructorCall);
-(function() {
-    eqEd.ParenthesesLeftBracket.prototype.updateWidth = function() {
+    eqEd.WholeBracket.prototype.updateHeight = function() {
         var fontHeight = this.symbolSizeConfig.height[this.parent.parent.fontSize];
-        //alert(this.height + ", " + 1.01 * fontHeight);
-        var symbolWrapper = new eqEd.SymbolWrapper(this.symbolSizeConfig, 'a')
-        if (this.height < (1.01 + symbolWrapper.padBottom) * fontHeight) {
-            this.width = 0.3 * this.height;
-        } else {
-            this.width = 0.18208382639 * this.height;
-        }
-    };
-    eqEd.ParenthesesLeftBracket.prototype.buildHtmlRepresentation = function() {
-        var img;
-        if(Modernizr.svg) {
-            img = '<div class="bracket parenthesesLeftBracket" style="width: 53.661411; height: 294.70718;"><svg style="position: absolute; width: 100%; height: 100%;" viewBox="0 0 53.661411 294.70718" preserveAspectRatio="none"><g transform="translate(-278.62008,-276.48379)"><g transform="scale(-1,1)" style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:2.86740971000000000;stroke-linecap:butt;stroke-opacity:1"><path d="m -329.9925,569.75725 c -0.57019,-2.8e-4 -0.85528,-0.28538 -0.85528,-0.85527 0,-0.28538 0.0634,-0.49128 0.19006,-0.6177 8.04594,-9.50337 14.79312,-20.00427 20.24158,-31.50273 5.4484,-11.49898 9.6456,-23.43326 12.59159,-35.80288 2.94591,-12.37006 5.00491,-24.84284 6.177,-37.4184 1.17201,-12.57592 1.75803,-25.80103 1.75807,-39.67538 -4e-5,-13.93799 -0.58606,-27.21062 -1.75807,-39.81793 -1.17209,-12.60752 -3.23109,-25.07239 -6.177,-37.39465 -2.94599,-12.32238 -7.14319,-24.25666 -12.59159,-35.80287 -5.44846,-11.54627 -12.19564,-22.03925 -20.24158,-31.47898 -0.12671,-0.1267 -0.19006,-0.31676 -0.19006,-0.57018 0,-0.60186 0.28509,-0.90279 0.85528,-0.90279 l 2.80341,0 c 0.0317,0 0.23757,0.095 0.6177,0.28509 8.90121,9.28134 16.40864,19.64761 22.52231,31.09885 6.11362,11.45118 10.91267,23.46465 14.39718,36.04045 3.48442,12.57567 5.95522,25.3098 7.41241,38.20241 1.45708,12.8924 2.18565,26.33925 2.18571,40.3406 -6e-5,13.9377 -0.72863,27.34496 -2.18571,40.22181 -1.45719,12.87648 -3.93591,25.61061 -7.43617,38.2024 -3.50034,12.59136 -8.29148,24.59691 -14.37342,36.0167 -6.08199,11.41927 -13.58942,21.80138 -22.52231,31.14636 -0.38013,0.18978 -0.58603,0.28481 -0.6177,0.28509 z" /></g></g></svg></div>';
-        } else {
-            img = '<div class="bracket parenthesesLeftBracket"><img class="nonHighlightVersion" src="Images/parenthesesLeftBracket.png" style="width: 100%; height: 100%; position: absolute; top: 0px; left: 0px;" /><img class="highlightVersion" src="Images/parenthesesLeftBracketHighlight.png" style="width: 100%; height: 100%; visibility: hidden; position: absolute; top: 0px; left: 0px;" /></div>';
-        }
-        return img;
-    };
+        this.height = fontHeight;
+    }
+    eqEd.WholeBracket.prototype.buildHtmlRepresentation = function() {
+        return '<div class="wholeBracket" style="font-family: ' + this.fontFamily + '">' + this.character + '</div>';
+    }
 })();
 
-/////// End ParenthesesLeftBracket Class ///////
+/////// End WholeBracket Class ///////
 
-/////// Begin ParenthesesRightBracket Class ///////
+/////// Begin TopBracket Class ///////
 
-eqEd.ParenthesesRightBracket = function(symbolSizeConfig) {
+eqEd.TopBracket = function(symbolSizeConfig, character) {
     if (arguments[0] instanceof eqEd.NoConstructorCall) { return; }
-    eqEd.Bracket.call(this, symbolSizeConfig);
+    this.character = character;
+
+    eqEd.EquationObject.call(this, symbolSizeConfig);
 
     this.parent = null;
-    this.adjustLeft = 0;
-    this.adjustTop = 0;
+    this.adjustLeft = 0.001;
+    this.adjustTop = 0.41;
 }
 
-eqEd.ParenthesesRightBracket.prototype = new eqEd.Bracket(eqEd.noConstructorCall);
+eqEd.TopBracket.prototype = new eqEd.EquationObject(eqEd.noConstructorCall);
 (function() {
-    eqEd.ParenthesesRightBracket.prototype.updateWidth = function() {
+    eqEd.TopBracket.prototype.updateTop = function() {
         var fontHeight = this.symbolSizeConfig.height[this.parent.parent.fontSize];
-        var symbolWrapper = new eqEd.SymbolWrapper(this.symbolSizeConfig, 'a')
-        if (this.height < (1.01 + symbolWrapper.padBottom) * fontHeight) {
-            //alert('yo')
-            this.width = 0.3 * this.height;
-        } else {
-            this.width = 0.18208382639 * this.height;
-        }
-    };
-    eqEd.ParenthesesRightBracket.prototype.buildHtmlRepresentation = function() {
-        var img;
-        if(Modernizr.svg) {
-            img = '<div class="bracket parenthesesRightBracket" style="width:  53.661411; height: 294.70718;"><svg style="position: absolute; width: 100%; height: 100%;" viewBox="0 0 53.661411 294.70718" preserveAspectRatio="none"><g transform="translate(-278.62008,-276.48379)"><g transform="translate(610.90156,0)" style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:2.86740971000000000;stroke-linecap:butt;stroke-opacity:1"><path d="m -329.9925,569.75725 c -0.57019,-2.8e-4 -0.85528,-0.28538 -0.85528,-0.85527 0,-0.28538 0.0634,-0.49128 0.19006,-0.6177 8.04594,-9.50337 14.79312,-20.00427 20.24158,-31.50273 5.4484,-11.49898 9.6456,-23.43326 12.59159,-35.80288 2.94591,-12.37006 5.00491,-24.84284 6.177,-37.4184 1.17201,-12.57592 1.75803,-25.80103 1.75807,-39.67538 -4e-5,-13.93799 -0.58606,-27.21062 -1.75807,-39.81793 -1.17209,-12.60752 -3.23109,-25.07239 -6.177,-37.39465 -2.94599,-12.32238 -7.14319,-24.25666 -12.59159,-35.80287 -5.44846,-11.54627 -12.19564,-22.03925 -20.24158,-31.47898 -0.12671,-0.1267 -0.19006,-0.31676 -0.19006,-0.57018 0,-0.60186 0.28509,-0.90279 0.85528,-0.90279 l 2.80341,0 c 0.0317,0 0.23757,0.095 0.6177,0.28509 8.90121,9.28134 16.40864,19.64761 22.52231,31.09885 6.11362,11.45118 10.91267,23.46465 14.39718,36.04045 3.48442,12.57567 5.95522,25.3098 7.41241,38.20241 1.45708,12.8924 2.18565,26.33925 2.18571,40.3406 -6e-5,13.9377 -0.72863,27.34496 -2.18571,40.22181 -1.45719,12.87648 -3.93591,25.61061 -7.43617,38.2024 -3.50034,12.59136 -8.29148,24.59691 -14.37342,36.0167 -6.08199,11.41927 -13.58942,21.80138 -22.52231,31.14636 -0.38013,0.18978 -0.58603,0.28481 -0.6177,0.28509 z" /></g></g></svg></div>';
-        } else {
-            img = '<div class="bracket parenthesesRightBracket"><img class="nonHighlightVersion" src="Images/parenthesesRightBracket.png" style="width: 100%; height: 100%; position: absolute; top: 0px; left: 0px;" /><img class="highlightVersion" src="Images/parenthesesRightBracketHighlight.png" style="width: 100%; height: 100%; visibility: hidden; position: absolute; top: 0px; left: 0px;" /></div>';
-        }
-        return img;
-    };
+        this.top = (this.parent.padTop + this.adjustTop) * fontHeight;
+    }
+    eqEd.TopBracket.prototype.updateLeft = function() {
+        var fontHeight = this.symbolSizeConfig.height[this.parent.parent.fontSize];
+        this.left = (this.parent.padLeft + this.adjustLeft) * fontHeight;
+    }
+    eqEd.TopBracket.prototype.updateWidth = function() {
+        var characterWidth = this.symbolSizeConfig.width[this.character][this.parent.parent.fontSize];
+        this.width = characterWidth;
+    }
+    eqEd.TopBracket.prototype.updateHeight = function() {
+        var fontHeight = this.symbolSizeConfig.height[this.parent.parent.fontSize];
+        this.height = fontHeight;
+    }
+    eqEd.TopBracket.prototype.buildHtmlRepresentation = function() {
+        return '<div class="topBracket" style="font-family: MathJax_Size4">' + this.character + '</div>';
+    }
 })();
 
-/////// End ParenthesesRightBracket Class ///////
+/////// End TopBracket Class ///////
 
-/////// Begin CurlyLeftBracket Class ///////
+/////// Begin MiddleBracket Class ///////
 
-eqEd.CurlyLeftBracket = function(symbolSizeConfig) {
+eqEd.MiddleBracket = function(symbolSizeConfig, character, index) {
     if (arguments[0] instanceof eqEd.NoConstructorCall) { return; }
-    eqEd.Bracket.call(this, symbolSizeConfig);
+    this.character = character;
+
+    eqEd.EquationObject.call(this, symbolSizeConfig);
 
     this.parent = null;
-    this.adjustLeft = 0;
-    this.adjustTop = 0;
+    this.adjustLeft = 0.001;
+    this.adjustTop = -2.847;
+    this.index = index;
 }
 
-eqEd.CurlyLeftBracket.prototype = new eqEd.Bracket(eqEd.noConstructorCall);
+eqEd.MiddleBracket.prototype = new eqEd.EquationObject(eqEd.noConstructorCall);
 (function() {
-    eqEd.CurlyLeftBracket.prototype.updateWidth = function() {
-        this.width = 0.3 * this.height;
-    };
-    eqEd.CurlyLeftBracket.prototype.buildHtmlRepresentation = function() {
-        var img;
-        if(Modernizr.svg) {
-            img = '<div class="bracket curlyLeftBracket" style="width: 25.559999; height: 72;"><svg style="position: absolute; width: 100%; height: 100%;" viewBox="0 0 25.559999 72" preserveAspectRatio="none"><g transform="translate(-259.46971,-284.07648)"><g><path d="m 285.02971,355.28448 c 0,-0.72 -0.43201,-0.72 -1.152,-0.792 -5.688,-0.36 -8.35201,-3.60001 -9,-6.192 -0.216,-0.792 -0.216,-0.93601 -0.216,-3.456 l 0,-10.8 c 0,-2.16 0,-5.832 -0.144,-6.552 -0.936,-4.752 -5.54401,-6.624 -8.352,-7.416 8.49599,-2.448 8.496,-7.56 8.496,-9.576 l 0,-12.96 c 0,-5.184 0,-6.768 1.728,-8.568 1.29599,-1.296 2.952,-3.024 7.992,-3.312 0.36,-0.072 0.648,-0.36 0.648,-0.792 0,-0.792 -0.57601,-0.792 -1.44,-0.792 -7.2,0 -13.608,3.672 -13.752,8.856 l 0,13.176 c 0,6.76799 -1e-5,7.92 -1.872,9.936 -1.008,1.008 -2.95201,2.952 -7.488,3.24 -0.504,0 -1.008,0.072 -1.008,0.792 0,0.72 0.432,0.72 1.152,0.792 3.09599,0.216 9.216,1.728 9.216,8.928 l 0,14.256 c 0,4.17599 0,6.624 3.744,9.288 3.09599,2.15999 7.776,2.736 10.008,2.736 0.86399,0 1.44,0 1.44,-0.792" /></g></g></svg></div>';
-        } else {
-            img = '<div class="bracket curlyLeftBracket"><img class="nonHighlightVersion" src="Images/curlyLeftBracket.png" style="width: 100%; height: 100%; position: absolute; top: 0px; left: 0px;" /><img class="highlightVersion" src="Images/curlyLeftBracketHighlight.png" style="width: 100%; height: 100%; visibility: hidden; position: absolute; top: 0px; left: 0px;" /></div>';
-        }
-        return img;
-    };
+    eqEd.MiddleBracket.prototype.updateTop = function() {
+        var fontHeight = this.symbolSizeConfig.height[this.parent.parent.fontSize];
+        this.top = (this.parent.padTop + this.adjustTop) * fontHeight;
+    }
+    eqEd.MiddleBracket.prototype.updateLeft = function() {
+        var fontHeight = this.symbolSizeConfig.height[this.parent.parent.fontSize];
+        this.left = (this.parent.padLeft + this.adjustLeft) * fontHeight;
+    }
+    eqEd.MiddleBracket.prototype.updateWidth = function() {
+        var characterWidth = this.symbolSizeConfig.width[this.character][this.parent.parent.fontSize];
+        this.width = characterWidth;
+    }
+    eqEd.MiddleBracket.prototype.updateHeight = function() {
+        var fontHeight = this.symbolSizeConfig.height[this.parent.parent.fontSize];
+        this.height = fontHeight;
+    }
+    eqEd.MiddleBracket.prototype.buildHtmlRepresentation = function() {
+        return '<div class="topBracket" style="font-family: MathJax_Size4">' + this.character + '</div>';
+    }
 })();
 
-/////// End CurlyLeftBracket Class ///////
+/////// End MiddleBracket Class ///////
 
-/////// Begin CurlyRightBracket Class ///////
-
-eqEd.CurlyRightBracket = function(symbolSizeConfig) {
-    if (arguments[0] instanceof eqEd.NoConstructorCall) { return; }
-    eqEd.Bracket.call(this, symbolSizeConfig);
-
-    this.parent = null;
-    this.adjustLeft = 0;
-    this.adjustTop = 0;
-}
-
-eqEd.CurlyRightBracket.prototype = new eqEd.Bracket(eqEd.noConstructorCall);
-(function() {
-    eqEd.CurlyRightBracket.prototype.updateWidth = function() {
-        this.width = 0.3 * this.height;
-    };
-    eqEd.CurlyRightBracket.prototype.buildHtmlRepresentation = function() {
-        var img;
-        if(Modernizr.svg) {
-            img = '<div class="bracket curlyRightBracket" style="width: 25.559999; height: 72;"><svg style="position: absolute; width: 100%; height: 100%;" viewBox="0 0 25.559999 72" preserveAspectRatio="none"><g transform="translate(-259.46971,-284.07648)"><g transform="matrix(-1,0,0,1,544.49942,0)"><path d="m 285.02971,355.28448 c 0,-0.72 -0.43201,-0.72 -1.152,-0.792 -5.688,-0.36 -8.35201,-3.60001 -9,-6.192 -0.216,-0.792 -0.216,-0.93601 -0.216,-3.456 l 0,-10.8 c 0,-2.16 0,-5.832 -0.144,-6.552 -0.936,-4.752 -5.54401,-6.624 -8.352,-7.416 8.49599,-2.448 8.496,-7.56 8.496,-9.576 l 0,-12.96 c 0,-5.184 0,-6.768 1.728,-8.568 1.29599,-1.296 2.952,-3.024 7.992,-3.312 0.36,-0.072 0.648,-0.36 0.648,-0.792 0,-0.792 -0.57601,-0.792 -1.44,-0.792 -7.2,0 -13.608,3.672 -13.752,8.856 l 0,13.176 c 0,6.76799 -1e-5,7.92 -1.872,9.936 -1.008,1.008 -2.95201,2.952 -7.488,3.24 -0.504,0 -1.008,0.072 -1.008,0.792 0,0.72 0.432,0.72 1.152,0.792 3.09599,0.216 9.216,1.728 9.216,8.928 l 0,14.256 c 0,4.17599 0,6.624 3.744,9.288 3.09599,2.15999 7.776,2.736 10.008,2.736 0.86399,0 1.44,0 1.44,-0.792" /></g></g></svg></div>';
-        } else {
-            img = '<div class="bracket curlyRightBracket"><img class="nonHighlightVersion" src="Images/curlyRightBracket.png" style="width: 100%; height: 100%; position: absolute; top: 0px; left: 0px;" /><img class="highlightVersion" src="Images/curlyRightBracketHighlight.png" style="width: 100%; height: 100%; visibility: hidden; position: absolute; top: 0px; left: 0px;" /></div>';
-        }
-        return img;
-    };
-})();
-
-/////// End CurlyRightBracket Class ///////
-
-/////// Begin SquareLeftBracket Class ///////
-
-eqEd.SquareLeftBracket = function(symbolSizeConfig) {
-    if (arguments[0] instanceof eqEd.NoConstructorCall) { return; }
-    eqEd.Bracket.call(this, symbolSizeConfig);
-
-    this.parent = null;
-    this.adjustLeft = 0;
-    this.adjustTop = 0;
-}
-
-eqEd.SquareLeftBracket.prototype = new eqEd.Bracket(eqEd.noConstructorCall);
-(function() {
-    eqEd.SquareLeftBracket.prototype.updateWidth = function() {
-        this.width = 0.13700000416 * this.height;
-    };
-    eqEd.SquareLeftBracket.prototype.buildHtmlRepresentation = function() {
-        var img;
-        if(Modernizr.svg) {
-            img = '<div class="bracket squareLeftBracket" style="width: 9.8640003; height: 72;"><svg style="position: absolute; width: 100%; height: 100%;" viewBox="0 0 9.8640003 72" preserveAspectRatio="none"><g transform="translate(-259.46971,-284.07648)"><g><path d="m 269.33371,356.07648 0,-2.88 -6.984,0 0,-66.24 6.984,0 0,-2.88 -9.864,0 0,72 9.864,0" /></g></g></svg></div>';
-        } else {
-            img = '<div class="bracket squareLeftBracket"><img class="nonHighlightVersion" src="Images/squareLeftBracket.png" style="width: 100%; height: 100%; position: absolute; top: 0px; left: 0px;" /><img class="highlightVersion" src="Images/squareLeftBracketHighlight.png" style="width: 100%; height: 100%; visibility: hidden; position: absolute; top: 0px; left: 0px;" /></div>';
-        }
-        return img;
-    };
-})();
-
-/////// End SquareLeftBracket Class ///////
-
-/////// Begin SquareRightBracket Class ///////
-
-eqEd.SquareRightBracket = function(symbolSizeConfig) {
-    if (arguments[0] instanceof eqEd.NoConstructorCall) { return; }
-    eqEd.Bracket.call(this, symbolSizeConfig);
-
-    this.parent = null;
-    this.adjustLeft = 0;
-    this.adjustTop = 0;
-}
-
-eqEd.SquareRightBracket.prototype = new eqEd.Bracket(eqEd.noConstructorCall);
-(function() {
-    eqEd.SquareRightBracket.prototype.updateWidth = function() {
-        this.width = 0.13700000416 * this.height;
-    };
-    eqEd.SquareRightBracket.prototype.buildHtmlRepresentation = function() {
-        var img;
-        if(Modernizr.svg) {
-            img = '<div class="bracket squareRightBracket" style="width: 9.8640003; height: 72;"><svg style="position: absolute; width: 100%; height: 100%;" viewBox="0 0 9.8640003 72" preserveAspectRatio="none"><g transform="translate(-259.46971,-284.07648)"><g transform="scale(-1,1)"><path d="m -259.46971,356.07648 0,-2.88 -6.984,0 0,-66.24 6.984,0 0,-2.88 -9.864,0 0,72 9.864,0" /></g></g></svg></div>';
-        } else {
-            img = '<div class="bracket squareRightBracket"><img class="nonHighlightVersion" src="Images/squareRightBracket.png" style="width: 100%; height: 100%; position: absolute; top: 0px; left: 0px;" /><img class="highlightVersion" src="Images/squareRightBracketHighlight.png" style="width: 100%; height: 100%; visibility: hidden; position: absolute; top: 0px; left: 0px;" /></div>';
-        }
-        return img;
-    };
-})();
-
-/////// End SquareRightBracket Class ///////
 
 /////// Begin BigOperatorWrapper Class ///////
 
