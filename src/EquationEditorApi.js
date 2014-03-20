@@ -893,7 +893,6 @@ eqEd.Container.prototype = new eqEd.EquationObject(eqEd.noConstructorCall);
                     }
                 }
             }
-            
         }
 
         // Update properties that belong to this container object.
@@ -996,6 +995,112 @@ eqEd.Container.prototype = new eqEd.EquationObject(eqEd.noConstructorCall);
         // object.
 
         var fontHeight = this.symbolSizeConfig.height[this.fontSize];
+
+        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+        var pairIndices = [];
+        var bracketStack = [];
+        for (var i = 0; i < this.wrappers.length; i++) {
+            if (this.wrappers[i] instanceof eqEd.LeftBracketWrapper) {
+                bracketStack.push(this.wrappers[i]);
+            } else if (this.wrappers[i] instanceof eqEd.RightBracketWrapper) {
+                if (bracketStack.length > 0) {
+                    if ((bracketStack[bracketStack.length - 1].bracketType === "leftParenthesis"
+                        && this.wrappers[i].bracketType === "rightParenthesis") || 
+                        (bracketStack[bracketStack.length - 1].bracketType === "leftCurly"
+                        && this.wrappers[i].bracketType === "rightCurly") || 
+                        (bracketStack[bracketStack.length - 1].bracketType === "leftSquare"
+                        && this.wrappers[i].bracketType === "rightSquare")) {
+                        pairIndices.push([bracketStack.pop(), this.wrappers[i]]);
+                    }
+                } else {
+                    // This case covers right brackets without pairs.
+                    this.wrappers[i].updateBracketHeight(fontHeight);
+                    this.wrappers[i].updateFormattingDeep();
+
+                    var j = 1;
+                    while (j > 0) {
+                        if (this.wrappers[i + j] instanceof eqEd.SuperscriptWrapper
+                            || this.wrappers[i + j] instanceof eqEd.SubscriptWrapper
+                            || this.wrappers[i + j] instanceof eqEd.SuperscriptAndSubscriptWrapper) {
+                            this.wrappers[i + j].updateFormattingDeep();
+                            j += 1;
+                        } else {
+                            j = 0;
+                        }
+                    }
+                }
+            }
+        }
+        for (var i = 0; i < bracketStack.length; i++) {
+            // This case covers left brackets without pairs.
+            this.wrappers[bracketStack[i].index].updateBracketHeight(fontHeight);
+            this.wrappers[bracketStack[i].index].updateFormattingDeep();
+            var j = 1;
+            while (j > 0) {
+                if (this.wrappers[bracketStack[i].index + j] instanceof eqEd.SuperscriptWrapper
+                    || this.wrappers[bracketStack[i].index + j] instanceof eqEd.SubscriptWrapper
+                    || this.wrappers[bracketStack[i].index + j] instanceof eqEd.SuperscriptAndSubscriptWrapper) {
+                    this.wrappers[bracketStack[i].index + j].updateFormattingDeep();
+                    j += 1;
+                } else {
+                    j = 0;
+                }
+            }
+        }
+        for (var i = 0; i < pairIndices.length; i++) {
+            var maxTopAlign = 0;
+            var maxBottomAlign = 0;
+            for (var j = pairIndices[i][0].index + 1; j < pairIndices[i][1].index; j++) {
+                if (this.wrappers[j].topAlign > maxTopAlign) {
+                    maxTopAlign = this.wrappers[j].topAlign;
+                }
+                if (this.wrappers[j].bottomAlign > maxBottomAlign) {
+                    maxBottomAlign = this.wrappers[j].bottomAlign;
+                }
+            }
+            var maxAlign = (maxTopAlign > maxBottomAlign) ? maxTopAlign : maxBottomAlign;
+            var maxHeight = 2*maxAlign;
+            /*
+            pairIndices[i][0].topAlign = maxTopAlign;
+            pairIndices[i][0].bottomAlign = maxBottomAlign;
+            pairIndices[i][1].topAlign = maxTopAlign;
+            pairIndices[i][1].bottomAlign = maxBottomAlign;
+            pairIndices[i][0].bracket.height = maxHeight;
+            pairIndices[i][1].bracket.height = maxHeight;
+            */
+            pairIndices[i][0].updateBracketHeight(maxHeight);
+            pairIndices[i][0].updateFormattingDeep();
+            var index = pairIndices[i][0].index;
+            var j = 1;
+            while (j > 0) {
+                if (this.wrappers[index + j] instanceof eqEd.SuperscriptWrapper
+                    || this.wrappers[index + j] instanceof eqEd.SubscriptWrapper
+                    || this.wrappers[index + j] instanceof eqEd.SuperscriptAndSubscriptWrapper) {
+                    this.wrappers[index + j].updateFormattingDeep();
+                    j += 1;
+                } else {
+                    j = 0;
+                }
+            }
+            pairIndices[i][1].updateBracketHeight(maxHeight);
+            pairIndices[i][1].updateFormattingDeep();
+            index = pairIndices[i][1].index;
+            j = 1
+            while (j > 0) {
+                if (this.wrappers[index + j] instanceof eqEd.SuperscriptWrapper
+                    || this.wrappers[index + j] instanceof eqEd.SubscriptWrapper
+                    || this.wrappers[index + j] instanceof eqEd.SuperscriptAndSubscriptWrapper) {
+                    this.wrappers[index + j].updateFormattingDeep();
+                    j += 1;
+                } else {
+                    j = 0;
+                }
+            }
+        }
+
+        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
         for (var i = 0; i < this.wrappers.length; i++) {
             var j = 1;
             while (j > 0) {
@@ -1607,7 +1712,8 @@ eqEd.StackedFractionDenominatorContainer.prototype = new eqEd.Container(eqEd.noC
     eqEd.StackedFractionDenominatorContainer.prototype.updateTop = function() {
         // I'm puttin this here because it gets called everytime the container gets updated
         var fontHeight = this.symbolSizeConfig.height[this.parent.parent.fontSize];
-        this.top = this.parent.stackedFractionNumeratorContainer.height + (this.parent.stackedFractionHorizontalBar.barHeightRatio + this.parent.padTop + this.adjustTop) * fontHeight;
+        var fontHeightNormal = this.symbolSizeConfig.height["fontSizeNormal"];
+        this.top = this.parent.stackedFractionNumeratorContainer.height + this.parent.stackedFractionHorizontalBar.barHeightRatio * fontHeightNormal + (this.parent.padTop + this.adjustTop) * fontHeight;
     }
     eqEd.StackedFractionDenominatorContainer.prototype.updateFontSize = function() {
         if (this.parent.parent.fontSize === "fontSizeSmaller" || this.parent.parent.fontSize === "fontSizeSmallest") {
@@ -1657,7 +1763,8 @@ eqEd.StackedFractionHorizontalBar.prototype = new eqEd.EquationObject(eqEd.noCon
         this.width = maxNumDenomWidth + this.exceedsMaxNumDenomWidth * fontHeight;
     }
     eqEd.StackedFractionHorizontalBar.prototype.updateHeight = function() {
-        var fontHeight = this.symbolSizeConfig.height[this.parent.parent.fontSize];
+        //var fontHeight = this.symbolSizeConfig.height[this.parent.parent.fontSize];
+        var fontHeight = this.symbolSizeConfig.height["fontSizeNormal"];
         this.height = this.barHeightRatio * fontHeight;
     }
     eqEd.StackedFractionHorizontalBar.prototype.buildHtmlRepresentation = function() {
@@ -2771,7 +2878,7 @@ eqEd.BracketWrapper = function(symbolSizeConfig, bracketType) {
     if (arguments[0] instanceof eqEd.NoConstructorCall) { return; }
     eqEd.Wrapper.call(this, symbolSizeConfig);
 
-    this.bracketList = {"leftParenthesis": {whole: "(", top: "&#9115;", middle: "&#9116;", bottom: "&#9117;"}, "rightParenthesis": {whole: ")", top: "&#9118;", middle: "&#9119;", bottom: "&#9120;"}, "leftCurly": {whole: "{", top: null, middle: null, bottom: null}, "rightCurly": {whole: "}", top: null, middle: null, bottom: null}, "leftSquare": {whole: "[", top: null, middle: null, bottom: null}, "rightSquare": {whole: "]", top: null, middle: null, bottom: null}};
+    this.bracketList = {"leftParenthesis": {whole: "(", top: "&#9115;", middle: "&#9116;", bottom: "&#9117;"}, "rightParenthesis": {whole: ")", top: "&#9118;", middle: "&#9119;", bottom: "&#9120;"}, "leftCurly": {whole: "{", top: null, middle: null, bottom: null}, "rightCurly": {whole: "}", top: null, middle: null, bottom: null}, "leftSquare": {whole: "[", top: "&#9121;", middle: "&#9122;", bottom: "&#9123;"}, "rightSquare": {whole: "]", top: "&#9124;", middle: "&#9125;", bottom: "&#9126;"}};
     this.bracketType = bracketType;
     this.wholeBracket = new eqEd.WholeBracket(symbolSizeConfig, this.bracketList[this.bracketType]["whole"], "MathJax_Main");
     this.topBracket = null;
@@ -2784,82 +2891,140 @@ eqEd.BracketWrapper = function(symbolSizeConfig, bracketType) {
     this.padLeft = 0;
     this.padTop = 0.0;//0.15;
     this.padRight = 0;
-    this.padBottom = 0.05;//-0.10;
+    this.padBottom = 0.1;//-0.10;
 }
 
 eqEd.BracketWrapper.prototype = new eqEd.Wrapper(eqEd.noConstructorCall);
 (function() {
     eqEd.BracketWrapper.prototype.updateWidth = function() {
+        /*
         var fontHeight = this.symbolSizeConfig.height[this.parent.fontSize];
         if (this.wholeBracket !== null) {
             this.width = this.wholeBracket.width + (this.padLeft + this.padRight)*fontHeight;
+        } else {
+            this.width = (0.878 + this.padLeft + this.padRight) * fontHeight;
         }
+        */
     }
-    eqEd.BracketWrapper.prototype.updateTopAlign = function() {
-        var fontHeight = this.symbolSizeConfig.height[this.parent.fontSize];
-        if (this.wholeBracket !== null) {
-            this.topAlign = this.wholeBracket.height * 0.5 + this.padTop * fontHeight;
-        }
-    }
-    eqEd.BracketWrapper.prototype.updateBottomAlign = function() {
-        var fontHeight = this.symbolSizeConfig.height[this.parent.fontSize];
-        if (this.wholeBracket !== null) {
-            this.bottomAlign = this.wholeBracket.height * (0.5 + 0.075) + this.padBottom * fontHeight;
-        }
-    }
+    eqEd.BracketWrapper.prototype.updateTopAlign = function() { }
+    eqEd.BracketWrapper.prototype.updateBottomAlign = function() { }
     eqEd.BracketWrapper.prototype.buildHtmlRepresentation = function() {
         return '<div class="wrapper bracketWrapper"></div>';
     }
     eqEd.BracketWrapper.prototype.updateBracketHeight = function(desiredHeight) {
         var fontHeight = this.symbolSizeConfig.height[this.parent.fontSize];
         var heightRatio = desiredHeight / fontHeight;
-        if (heightRatio <= (1 + this.padBottom)) {
-            this.wholeBracket = new eqEd.WholeBracket(symbolSizeConfig, this.bracketList[this.bracketType]["whole"], "MathJax_Main");
+        this.topAlign = ((heightRatio / 2) + this.padTop) * fontHeight;
+        this.bottomAlign = ((heightRatio / 2) + this.padBottom) * fontHeight;
+        this.jQueryObject.empty();
+        if (heightRatio <= 1.5) {
+            this.padTop = 0;
+            this.padBottom = 0.1;
+            this.wholeBracket = new eqEd.WholeBracket(this.symbolSizeConfig, this.bracketList[this.bracketType]["whole"], "MathJax_Main");
             this.topBracket = null;
             this.middleBrackets = [];
             this.bottomBracket = null;
             this.jQueryObject.append(this.wholeBracket.jQueryObject);
             this.wholeBracket.parent = this;
             this.childNoncontainers = [this.wholeBracket];
-            // These ranges will need to be tweaked
-        } else if (heightRatio > (1 + this.padBottom) && heightRatio <= 2.5) {
-            this.wholeBracket = new eqEd.WholeBracket(symbolSizeConfig, this.bracketList[this.bracketType]["whole"], "MathJax_Size3");
+            this.topAlign = (0.5 + this.padTop) * fontHeight;
+            this.bottomAlign = (0.5 + this.padBottom) * fontHeight;
+            if (this.bracketType === "leftParenthesis" || this.bracketType =="rightParenthesis") {
+                this.width = (0.383 + this.padLeft + this.padRight) * fontHeight;
+            } else if (this.bracketType === "leftSquare" || this.bracketType =="rightSquare") {
+                this.width = (0.283 + this.padLeft + this.padRight) * fontHeight;
+            } else if (this.bracketType === "leftCurly" || this.bracketType =="rightCurly") {
+                this.width = (0.5 + this.padLeft + this.padRight) * fontHeight;
+            }
+            
+        } else if (heightRatio > 1.5 && heightRatio <= 2.42) {
+            this.padTop = 0.1;
+            this.padBottom = 0.1;
+            this.wholeBracket = new eqEd.WholeBracket(this.symbolSizeConfig, this.bracketList[this.bracketType]["whole"], "MathJax_Size3");
             this.topBracket = null;
             this.middleBrackets = [];
             this.bottomBracket = null;
             this.jQueryObject.append(this.wholeBracket.jQueryObject);
             this.wholeBracket.parent = this;
             this.childNoncontainers = [this.wholeBracket];
-            // These ranges will need to be tweaked
-        } else if (heightRatio > (1 + this.padBottom) && heightRatio <= 3.5) {
-            this.wholeBracket = new eqEd.WholeBracket(symbolSizeConfig, this.bracketList[this.bracketType]["whole"], "MathJax_Size4");
+            this.topAlign = (1.21 + this.padTop) * fontHeight;
+            this.bottomAlign = (1.21 + this.padBottom) * fontHeight;
+            if (this.bracketType === "leftParenthesis" || this.bracketType =="rightParenthesis") {
+                this.width = (0.753 + this.padLeft + this.padRight) * fontHeight;
+            } else if (this.bracketType === "leftSquare" || this.bracketType =="rightSquare") {
+                this.width = (0.538 + this.padLeft + this.padRight) * fontHeight;
+            } else if (this.bracketType === "leftCurly" || this.bracketType =="rightCurly") {
+                this.width = (0.769 + this.padLeft + this.padRight) * fontHeight;
+            }
+        } else if (heightRatio > 2.42 && heightRatio <= 3.02) {
+            this.padTop = 0.1;
+            this.padBottom = 0.1;
+            this.wholeBracket = new eqEd.WholeBracket(this.symbolSizeConfig, this.bracketList[this.bracketType]["whole"], "MathJax_Size4");
             this.topBracket = null;
             this.middleBrackets = [];
             this.bottomBracket = null;
             this.jQueryObject.append(this.wholeBracket.jQueryObject);
             this.wholeBracket.parent = this;
             this.childNoncontainers = [this.wholeBracket];
-        } else if (heightRatio > 3.5 && heightRatio <= 3.9) {
+            this.topAlign = (1.51 + this.padTop) * fontHeight;
+            this.bottomAlign = (1.51 + this.padBottom) * fontHeight;
+
+            if (this.bracketType === "leftParenthesis" || this.bracketType =="rightParenthesis") {
+                this.width = (0.8 + this.padLeft + this.padRight) * fontHeight;
+            } else if (this.bracketType === "leftSquare" || this.bracketType =="rightSquare") {
+                this.width = (0.6 + this.padLeft + this.padRight) * fontHeight;
+            } else if (this.bracketType === "leftCurly" || this.bracketType =="rightCurly") {
+                this.width = (0.815 + this.padLeft + this.padRight) * fontHeight;
+            }
+        } else if (heightRatio > 3.02 && heightRatio <= 3.5) {
+            this.padTop = 0.1;
+            this.padBottom = 0.1;
             this.wholeBracket = null;
-            this.topBracket = new TopBracket(symbolSizeConfig, this.bracketList[this.bracketType]["top"]);
+            this.topBracket = new eqEd.TopBracket(this.symbolSizeConfig, this.bracketList[this.bracketType]["top"]);
             this.middleBrackets = [];
-            this.bottomBracket = new BottomBracket(symbolSizeConfig, this.bracketList[this.bracketType]["bottom"]);
+            this.bottomBracket = new eqEd.BottomBracket(this.symbolSizeConfig, this.bracketList[this.bracketType]["bottom"]);
             this.jQueryObject.append(this.topBracket.jQueryObject);
             this.topBracket.parent = this;
             this.jQueryObject.append(this.bottomBracket.jQueryObject);
             this.bottomBracket.parent = this;
             this.childNoncontainers = [this.topBracket, this.bottomBracket];
+            this.topAlign = (1.75 + this.padTop) * fontHeight;
+            this.bottomAlign = (1.75 + this.padBottom) * fontHeight;
+
+            if (this.bracketType === "leftParenthesis" || this.bracketType =="rightParenthesis") {
+                this.width = (0.877 + this.padLeft + this.padRight) * fontHeight;
+            } else if (this.bracketType === "leftSquare" || this.bracketType =="rightSquare") {
+                this.width = (0.662 + this.padLeft + this.padRight) * fontHeight;
+            } else if (this.bracketType === "leftCurly" || this.bracketType =="rightCurly") {
+                this.width = (0 + this.padLeft + this.padRight) * fontHeight;
+            }
         } else {
-            var numberOfBrackets = (heightRatio - 3.5);
+            this.padTop = 0.1;
+            this.padBottom = 0.1;
+            var numberOfBrackets = Math.round((heightRatio - 3.9)/0.45) + 1;
             this.wholeBracket = null;
-            this.topBracket = new TopBracket(symbolSizeConfig, this.bracketList[this.bracketType]["top"]);
-            this.middleBrackets = [];
-            this.bottomBracket = new BottomBracket(symbolSizeConfig, this.bracketList[this.bracketType]["bottom"]);
+            this.topBracket = new eqEd.TopBracket(this.symbolSizeConfig, this.bracketList[this.bracketType]["top"]);
             this.jQueryObject.append(this.topBracket.jQueryObject);
             this.topBracket.parent = this;
+            this.middleBrackets = [];
+            for (var i = 0; i < numberOfBrackets; i++) {
+                var middleBracket = new eqEd.MiddleBracket(this.symbolSizeConfig, this.bracketList[this.bracketType]["middle"], i);
+                middleBracket.parent = this;
+                this.jQueryObject.append(middleBracket.jQueryObject);
+                this.middleBrackets.push(middleBracket);
+            }
+            
+            this.bottomBracket = new eqEd.BottomBracket(this.symbolSizeConfig, this.bracketList[this.bracketType]["bottom"]);
             this.jQueryObject.append(this.bottomBracket.jQueryObject);
             this.bottomBracket.parent = this;
-            this.childNoncontainers = [this.topBracket, this.bottomBracket];
+            this.childNoncontainers = [this.topBracket].concat(this.middleBrackets).concat([this.bottomBracket]);
+            if (this.bracketType === "leftParenthesis" || this.bracketType =="rightParenthesis") {
+                this.width = (0.877 + this.padLeft + this.padRight) * fontHeight;
+            } else if (this.bracketType === "leftSquare" || this.bracketType =="rightSquare") {
+                this.width = (0.662 + this.padLeft + this.padRight) * fontHeight;
+            } else if (this.bracketType === "leftCurly" || this.bracketType =="rightCurly") {
+                this.width = (0 + this.padLeft + this.padRight) * fontHeight;
+            }
         }
     }
 })();
@@ -2898,7 +3063,13 @@ eqEd.WholeBracket = function(symbolSizeConfig, character, fontFamily) {
 
     this.parent = null;
     this.adjustLeft = 0.001;
-    this.adjustTop = 0;
+    if (fontFamily === "MathJax_Size3") {
+        this.adjustTop = 0.71;
+    } else if (fontFamily === "MathJax_Size4") {
+        this.adjustTop = 1.01;
+    } else {
+        this.adjustTop = 0;
+    }
 }
 
 eqEd.WholeBracket.prototype = new eqEd.EquationObject(eqEd.noConstructorCall);
@@ -2912,12 +3083,12 @@ eqEd.WholeBracket.prototype = new eqEd.EquationObject(eqEd.noConstructorCall);
         this.left = (this.parent.padLeft + this.adjustLeft) * fontHeight;
     }
     eqEd.WholeBracket.prototype.updateWidth = function() {
-        var characterWidth = this.symbolSizeConfig.width[this.character][this.parent.parent.fontSize];
-        this.width = characterWidth;
+        //var characterWidth = this.symbolSizeConfig.width[this.character][this.parent.parent.fontSize];
+        this.width = 0;
     }
     eqEd.WholeBracket.prototype.updateHeight = function() {
-        var fontHeight = this.symbolSizeConfig.height[this.parent.parent.fontSize];
-        this.height = fontHeight;
+        //var fontHeight = this.symbolSizeConfig.height[this.parent.parent.fontSize];
+        this.height = 0;
     }
     eqEd.WholeBracket.prototype.buildHtmlRepresentation = function() {
         return '<div class="wholeBracket" style="font-family: ' + this.fontFamily + '">' + this.character + '</div>';
@@ -2950,12 +3121,12 @@ eqEd.TopBracket.prototype = new eqEd.EquationObject(eqEd.noConstructorCall);
         this.left = (this.parent.padLeft + this.adjustLeft) * fontHeight;
     }
     eqEd.TopBracket.prototype.updateWidth = function() {
-        var characterWidth = this.symbolSizeConfig.width[this.character][this.parent.parent.fontSize];
-        this.width = characterWidth;
+        //var characterWidth = this.symbolSizeConfig.width[this.character][this.parent.parent.fontSize];
+        this.width = 0;
     }
     eqEd.TopBracket.prototype.updateHeight = function() {
-        var fontHeight = this.symbolSizeConfig.height[this.parent.parent.fontSize];
-        this.height = fontHeight;
+        //var fontHeight = this.symbolSizeConfig.height[this.parent.parent.fontSize];
+        this.height = 0;
     }
     eqEd.TopBracket.prototype.buildHtmlRepresentation = function() {
         return '<div class="topBracket" style="font-family: MathJax_Size4">' + this.character + '</div>';
@@ -2974,7 +3145,7 @@ eqEd.MiddleBracket = function(symbolSizeConfig, character, index) {
 
     this.parent = null;
     this.adjustLeft = 0.001;
-    this.adjustTop = -2.847;
+    this.adjustTopFactor = 0.45;
     this.index = index;
 }
 
@@ -2982,27 +3153,63 @@ eqEd.MiddleBracket.prototype = new eqEd.EquationObject(eqEd.noConstructorCall);
 (function() {
     eqEd.MiddleBracket.prototype.updateTop = function() {
         var fontHeight = this.symbolSizeConfig.height[this.parent.parent.fontSize];
-        this.top = (this.parent.padTop + this.adjustTop) * fontHeight;
+        this.top = (this.parent.padTop + this.adjustTopFactor * this.index + 1.5) * fontHeight;
     }
     eqEd.MiddleBracket.prototype.updateLeft = function() {
         var fontHeight = this.symbolSizeConfig.height[this.parent.parent.fontSize];
         this.left = (this.parent.padLeft + this.adjustLeft) * fontHeight;
     }
     eqEd.MiddleBracket.prototype.updateWidth = function() {
-        var characterWidth = this.symbolSizeConfig.width[this.character][this.parent.parent.fontSize];
-        this.width = characterWidth;
+        //var characterWidth = this.symbolSizeConfig.width[this.character][this.parent.parent.fontSize];
+        this.width = 0;
     }
     eqEd.MiddleBracket.prototype.updateHeight = function() {
-        var fontHeight = this.symbolSizeConfig.height[this.parent.parent.fontSize];
-        this.height = fontHeight;
+        //var fontHeight = this.symbolSizeConfig.height[this.parent.parent.fontSize];
+        this.height = 0;
     }
     eqEd.MiddleBracket.prototype.buildHtmlRepresentation = function() {
-        return '<div class="topBracket" style="font-family: MathJax_Size4">' + this.character + '</div>';
+        return '<div class="middleBracket" style="font-family: MathJax_Size4">' + this.character + '</div>';
     }
 })();
 
 /////// End MiddleBracket Class ///////
 
+/////// Begin BottomBracket Class ///////
+
+eqEd.BottomBracket = function(symbolSizeConfig, character) {
+    if (arguments[0] instanceof eqEd.NoConstructorCall) { return; }
+    this.character = character;
+
+    eqEd.EquationObject.call(this, symbolSizeConfig);
+
+    this.parent = null;
+    this.adjustLeft = 0.001;
+}
+
+eqEd.BottomBracket.prototype = new eqEd.EquationObject(eqEd.noConstructorCall);
+(function() {
+    eqEd.BottomBracket.prototype.updateTop = function() {
+        var fontHeight = this.symbolSizeConfig.height[this.parent.parent.fontSize];
+        this.top = (this.parent.padTop + (2.5 + (0.45 * (this.parent.middleBrackets.length - 1)))) * fontHeight;
+    }
+    eqEd.BottomBracket.prototype.updateLeft = function() {
+        var fontHeight = this.symbolSizeConfig.height[this.parent.parent.fontSize];
+        this.left = (this.parent.padLeft + this.adjustLeft) * fontHeight;
+    }
+    eqEd.BottomBracket.prototype.updateWidth = function() {
+        //var characterWidth = this.symbolSizeConfig.width[this.character][this.parent.parent.fontSize];
+        this.width = 0;
+    }
+    eqEd.BottomBracket.prototype.updateHeight = function() {
+        //var fontHeight = this.symbolSizeConfig.height[this.parent.parent.fontSize];
+        this.height = 0;
+    }
+    eqEd.BottomBracket.prototype.buildHtmlRepresentation = function() {
+        return '<div class="bottomBracket" style="font-family: MathJax_Size4">' + this.character + '</div>';
+    }
+})();
+
+/////// End BottomBracket Class ///////
 
 /////// Begin BigOperatorWrapper Class ///////
 
