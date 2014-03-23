@@ -1013,6 +1013,10 @@ eqEd.Container.prototype = new eqEd.EquationObject(eqEd.noConstructorCall);
                         (bracketStack[bracketStack.length - 1].bracketType === "leftSquare"
                         && this.wrappers[i].bracketType === "rightSquare")) {
                         pairIndices.push([bracketStack.pop(), this.wrappers[i]]);
+                    } else {
+                        // This case covers right brackets without pairs.
+                        this.wrappers[i].updateBracketHeight(fontHeight);
+                        this.wrappers[i].updateFormattingDeep();
                     }
                 } else {
                     // This case covers right brackets without pairs.
@@ -1341,7 +1345,7 @@ eqEd.Symbol = function(symbolSizeConfig, character) {
     // Superclass constructor needs to get called after character and fontStyle are defined,
     // because the object method buildHtmlRepresentation depends on them.
     eqEd.EquationObject.call(this, symbolSizeConfig);
-
+IEVersion
     
     // line-height seems to be messed up in IE 9+
     if (IEVersion >= 7) {
@@ -2978,19 +2982,16 @@ eqEd.BracketWrapper.prototype = new eqEd.Wrapper(eqEd.noConstructorCall);
                 this.topBracket.parent = this;
                 this.middleBrackets = [];
                 for (var i = 0; i < Math.round(0.5 * numberOfBrackets); i++) {
-                    console.log("fh: " + i);
                     var middleBracket = new eqEd.MiddleBracket(this.symbolSizeConfig, this.bracketList[this.bracketType]["middleVert"], i);
                     middleBracket.parent = this;
                     this.jQueryObject.append(middleBracket.jQueryObject);
                     this.middleBrackets.push(middleBracket);
                 }
-                console.log("m: " + Math.round(0.5 * numberOfBrackets))
                 var middleCurly = new eqEd.MiddleBracket(this.symbolSizeConfig, this.bracketList[this.bracketType]["middleCurly"], Math.round(0.5 * numberOfBrackets));
                 middleCurly.parent = this;
                 this.jQueryObject.append(middleCurly.jQueryObject);
                 this.middleBrackets.push(middleCurly);
                 for (var i = (Math.round(0.5 * numberOfBrackets) + 1); i < (numberOfBrackets + 1); i++) {
-                    console.log("bh: " + i);
                     var middleBracket = new eqEd.MiddleBracket(this.symbolSizeConfig, this.bracketList[this.bracketType]["middleVert"], i);
                     middleBracket.parent = this;
                     this.jQueryObject.append(middleBracket.jQueryObject);
@@ -3001,7 +3002,6 @@ eqEd.BracketWrapper.prototype = new eqEd.Wrapper(eqEd.noConstructorCall);
                 this.bottomBracket.parent = this;
                 this.childNoncontainers = [this.topBracket].concat(this.middleBrackets).concat([this.bottomBracket]);
                 this.width = (0.892 + this.padLeft + this.padRight) * fontHeight;
-                console.log("this.middleBrackets.length: " + this.middleBrackets.length);
             }
         } else if (this.bracketType === "leftParenthesis" || this.bracketType =="rightParenthesis" || this.bracketType === "leftSquare" || this.bracketType =="rightSquare") {
             if (heightRatio <= 1.5) {
@@ -3327,7 +3327,6 @@ eqEd.BottomBracket.prototype = new eqEd.EquationObject(eqEd.noConstructorCall);
         if (this.parent.bracketType === "leftCurly" || this.parent.bracketType === "rightCurly") {
             var length = this.parent.middleBrackets.length;
             var centerIndex = Math.floor(length / 2);
-            console.log(length - centerIndex);
             this.top = this.parent.middleBrackets[centerIndex].top + ((length - 1 - centerIndex) * 0.231 + 0.5 + this.parent.padTop + this.adjustTop) * fontHeight;
         } else if (this.parent.bracketType === "leftParenthesis" || this.parent.bracketType =="rightParenthesis" || this.bracketType === "leftSquare" || this.bracketType =="rightSquare") {
             this.top = (this.parent.padTop + this.adjustTop + (2.5 + (0.45 * (this.parent.middleBrackets.length - 1)))) * fontHeight;
