@@ -2969,22 +2969,27 @@ eqEd.BracketWrapper.prototype = new eqEd.Wrapper(eqEd.noConstructorCall);
                 this.padTop = 0.1;
                 this.padBottom = 0.1;
                 var numberOfBrackets = Math.round((heightRatio - 3.4) / 0.231);
+                numberOfBrackets = (numberOfBrackets % 2 !== 0) ? (numberOfBrackets - 1) : numberOfBrackets;
+                //console.log("numOfBrackets: " + numberOfBrackets);
                 this.wholeBracket = null;
                 this.topBracket = new eqEd.TopBracket(this.symbolSizeConfig, this.bracketList[this.bracketType]["top"]);
                 this.jQueryObject.append(this.topBracket.jQueryObject);
                 this.topBracket.parent = this;
                 this.middleBrackets = [];
                 for (var i = 0; i < Math.round(0.5 * numberOfBrackets); i++) {
+                    console.log("fh: " + i);
                     var middleBracket = new eqEd.MiddleBracket(this.symbolSizeConfig, this.bracketList[this.bracketType]["middleVert"], i);
                     middleBracket.parent = this;
                     this.jQueryObject.append(middleBracket.jQueryObject);
                     this.middleBrackets.push(middleBracket);
                 }
+                console.log("m: " + Math.round(0.5 * numberOfBrackets))
                 var middleCurly = new eqEd.MiddleBracket(this.symbolSizeConfig, this.bracketList[this.bracketType]["middleCurly"], Math.round(0.5 * numberOfBrackets));
                 middleCurly.parent = this;
                 this.jQueryObject.append(middleCurly.jQueryObject);
                 this.middleBrackets.push(middleCurly);
-                for (var i = (Math.round(0.5 * numberOfBrackets) + 1); i < numberOfBrackets; i++) {
+                for (var i = (Math.round(0.5 * numberOfBrackets) + 1); i < (numberOfBrackets + 1); i++) {
+                    console.log("bh: " + i);
                     var middleBracket = new eqEd.MiddleBracket(this.symbolSizeConfig, this.bracketList[this.bracketType]["middleVert"], i);
                     middleBracket.parent = this;
                     this.jQueryObject.append(middleBracket.jQueryObject);
@@ -2995,6 +3000,7 @@ eqEd.BracketWrapper.prototype = new eqEd.Wrapper(eqEd.noConstructorCall);
                 this.bottomBracket.parent = this;
                 this.childNoncontainers = [this.topBracket].concat(this.middleBrackets).concat([this.bottomBracket]);
                 this.width = (0.892 + this.padLeft + this.padRight) * fontHeight;
+                console.log("this.middleBrackets.length: " + this.middleBrackets.length);
             }
         } else if (this.bracketType === "leftParenthesis" || this.bracketType =="rightParenthesis" || this.bracketType === "leftSquare" || this.bracketType =="rightSquare") {
             if (heightRatio <= 1.5) {
@@ -3233,9 +3239,9 @@ eqEd.MiddleBracket = function(symbolSizeConfig, character, index) {
     this.adjustTop = 0;
     this.adjustLeft = 0.001;
     this.adjustTopFactor = 0;
-    if (this.character === "&#9127;" || this.character === "&#9131;") {
+    if (this.character === "&#9130;" || this.character === "&#9128;" || this.character === "&#9132;") {
         this.adjustTopFactor = 0.231;
-    } else if (this.character === "&#9115;" || this.character === "&#9118;" || this.character === "&#9121;" || this.character === "&#9124;") {
+    } else if (this.character === "&#9116;" || this.character === "&#9119;" || this.character === "&#9122;" || this.character === "&#9125;") {
         this.adjustTopFactor = 0.45;
     }
     this.index = index;
@@ -3249,17 +3255,29 @@ eqEd.MiddleBracket.prototype = new eqEd.EquationObject(eqEd.noConstructorCall);
             this.adjustTop += (-0.02 + 0.3);
         }
         if (this.parent.bracketType === "leftCurly" || this.parent.bracketType === "rightCurly") {
-            alert(this.index);
-            alert(this.adjustTopFactor);
-            alert(Math.round(this.parent.middleBrackets.length / 2));
-            if (this.index < Math.round(this.parent.middleBrackets.length / 2)) {
-                this.top = (this.index + 1) * this.adjustTopFactor + 0.15;
-            } else if (this.index === Math.round(this.parent.middleBrackets.length / 2)) {
-                this.top = this.index * this.adjustTopFactor + 1.1 + 0.15;
+            //console.log("index: " + this.index);
+            // numSegs refers to the number of vertical middle segments.
+            var numSegs = this.parent.middleBrackets.length - 1;
+            if (this.index < Math.round(numSegs / 2)) {
+                this.top = ((this.index + 1) * this.adjustTopFactor + 0.15) * fontHeight;
+            } else if (this.index === Math.round(numSegs / 2)) {
+                this.top = (this.index * this.adjustTopFactor + 1.1 + 0.15) * fontHeight;
             } else {
-                var centerBracket = Math.round(this.parent.middleBrackets.length / 2) * this.adjustTopFactor + 1.1 + 0.15;
-                this.top = centerBracket + 0.878 + (this.index - Math.round(this.parent.middleBrackets.length / 2) - 1) * this.adjustTopFactor;
+                //console.log(this.adjustTopFactor);
+                var centerBracket = Math.round(numSegs / 2) * this.adjustTopFactor + 1.1 + 0.15;
+                this.top = (centerBracket + 0.878 + (this.index - Math.round(numSegs / 2) - 1) * this.adjustTopFactor) * fontHeight;
             }
+
+            /*
+            if (this.index < Math.round((this.parent.middleBrackets.length - 1) / 2)) {
+                this.top = ((this.index + 1) * this.adjustTopFactor + 0.15) * fontHeight;
+            } else if (this.index === Math.round((this.parent.middleBrackets.length - 1) / 2)) {
+                this.top = (this.index * this.adjustTopFactor + 1.1 + 0.15) * fontHeight;
+            } else {
+                var centerBracket = Math.round((this.parent.middleBrackets.length - 1) / 2) * this.adjustTopFactor + 1.1 + 0.15;
+                this.top = (centerBracket + 0.878 + (this.index - Math.round((this.parent.middleBrackets.length - 1) / 2) - 1) * this.adjustTopFactor) * fontHeight;
+            }
+            */
         } else if (this.parent.bracketType === "leftParenthesis" || this.parent.bracketType =="rightParenthesis" || this.bracketType === "leftSquare" || this.bracketType =="rightSquare") {
             this.top = (this.parent.padTop + this.adjustTop + this.adjustTopFactor * this.index + 1.5) * fontHeight;
         }
@@ -3306,7 +3324,10 @@ eqEd.BottomBracket.prototype = new eqEd.EquationObject(eqEd.noConstructorCall);
             this.adjustTop += (-0.02 + 0.3);
         }
         if (this.parent.bracketType === "leftCurly" || this.parent.bracketType === "rightCurly") {
-            this.top = (this.parent.padTop + this.adjustTop + this.parent.middleBrackets[(this.parent.middleBrackets.length - 1)].top + 1.65) * fontHeight;
+            var length = this.parent.middleBrackets.length;
+            var centerIndex = Math.floor(length / 2);
+            console.log(length - centerIndex);
+            this.top = this.parent.middleBrackets[centerIndex].top + ((length - 1 - centerIndex) * 0.231 + 0.5 + this.parent.padTop + this.adjustTop) * fontHeight;
         } else if (this.parent.bracketType === "leftParenthesis" || this.parent.bracketType =="rightParenthesis" || this.bracketType === "leftSquare" || this.bracketType =="rightSquare") {
             this.top = (this.parent.padTop + this.adjustTop + (2.5 + (0.45 * (this.parent.middleBrackets.length - 1)))) * fontHeight;
         }
