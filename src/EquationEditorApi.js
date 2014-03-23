@@ -2886,7 +2886,7 @@ eqEd.BracketWrapper = function(symbolSizeConfig, bracketType) {
     if (arguments[0] instanceof eqEd.NoConstructorCall) { return; }
     eqEd.Wrapper.call(this, symbolSizeConfig);
 
-    this.bracketList = {"leftParenthesis": {whole: "(", top: "&#9115;", middle: "&#9116;", bottom: "&#9117;"}, "rightParenthesis": {whole: ")", top: "&#9118;", middle: "&#9119;", bottom: "&#9120;"}, "leftCurly": {whole: "{", top: null, middle: null, bottom: null}, "rightCurly": {whole: "}", top: null, middle: null, bottom: null}, "leftSquare": {whole: "[", top: "&#9121;", middle: "&#9122;", bottom: "&#9123;"}, "rightSquare": {whole: "]", top: "&#9124;", middle: "&#9125;", bottom: "&#9126;"}};
+    this.bracketList = {"leftParenthesis": {whole: "(", top: "&#9115;", middle: "&#9116;", bottom: "&#9117;"}, "rightParenthesis": {whole: ")", top: "&#9118;", middle: "&#9119;", bottom: "&#9120;"}, "leftCurly": {whole: "{", top: "&#9127;", middleVert: "&#9130;", middleCurly: "&#9128;", bottom: "&#9129;"}, "rightCurly": {whole: "}", top: "&#9131;", middleVert: "&#9130;", middleCurly: "&#9132;", bottom: "&#9133;"}, "leftSquare": {whole: "[", top: "&#9121;", middle: "&#9122;", bottom: "&#9123;"}, "rightSquare": {whole: "]", top: "&#9124;", middle: "&#9125;", bottom: "&#9126;"}};
     this.bracketType = bracketType;
     this.wholeBracket = new eqEd.WholeBracket(symbolSizeConfig, this.bracketList[this.bracketType]["whole"], "MathJax_Main");
     this.topBracket = null;
@@ -2925,121 +2925,176 @@ eqEd.BracketWrapper.prototype = new eqEd.Wrapper(eqEd.noConstructorCall);
         this.topAlign = ((heightRatio / 2) + this.padTop) * fontHeight;
         this.bottomAlign = ((heightRatio / 2) + this.padBottom) * fontHeight;
         this.jQueryObject.empty();
-        if (heightRatio <= 1.5) {
-            this.padTop = 0;
-            this.padBottom = 0.1;
-            this.wholeBracket = new eqEd.WholeBracket(this.symbolSizeConfig, this.bracketList[this.bracketType]["whole"], "MathJax_Main");
-            this.topBracket = null;
-            this.middleBrackets = [];
-            this.bottomBracket = null;
-            this.jQueryObject.append(this.wholeBracket.jQueryObject);
-            this.wholeBracket.parent = this;
-            this.childNoncontainers = [this.wholeBracket];
-            this.topAlign = (0.5 + this.padTop) * fontHeight;
-            this.bottomAlign = (0.5 + this.padBottom) * fontHeight;
-            if (this.bracketType === "leftParenthesis" || this.bracketType =="rightParenthesis") {
-                this.width = (0.383 + this.padLeft + this.padRight) * fontHeight;
-            } else if (this.bracketType === "leftSquare" || this.bracketType =="rightSquare") {
-                this.width = (0.283 + this.padLeft + this.padRight) * fontHeight;
-            } else if (this.bracketType === "leftCurly" || this.bracketType =="rightCurly") {
+        if (this.bracketType === "leftCurly" || this.bracketType === "rightCurly") {
+            if (heightRatio <= 1.5) {
+                this.padTop = 0;
+                this.padBottom = 0.1;
+                this.wholeBracket = new eqEd.WholeBracket(this.symbolSizeConfig, this.bracketList[this.bracketType]["whole"], "MathJax_Main");
+                this.topBracket = null;
+                this.middleBrackets = [];
+                this.bottomBracket = null;
+                this.jQueryObject.append(this.wholeBracket.jQueryObject);
+                this.wholeBracket.parent = this;
+                this.childNoncontainers = [this.wholeBracket];
+                this.topAlign = (0.5 + this.padTop) * fontHeight;
+                this.bottomAlign = (0.5 + this.padBottom) * fontHeight;
                 this.width = (0.5 + this.padLeft + this.padRight) * fontHeight;
-            }
-            
-        } else if (heightRatio > 1.5 && heightRatio <= 2.42) {
-            this.padTop = 0.1;
-            this.padBottom = 0.1;
-            this.wholeBracket = new eqEd.WholeBracket(this.symbolSizeConfig, this.bracketList[this.bracketType]["whole"], "MathJax_Size3");
-            this.topBracket = null;
-            this.middleBrackets = [];
-            this.bottomBracket = null;
-            this.jQueryObject.append(this.wholeBracket.jQueryObject);
-            this.wholeBracket.parent = this;
-            this.childNoncontainers = [this.wholeBracket];
-            this.topAlign = (1.21 + this.padTop) * fontHeight;
-            this.bottomAlign = (1.21 + this.padBottom) * fontHeight;
-            if (this.bracketType === "leftParenthesis" || this.bracketType =="rightParenthesis") {
-                this.width = (0.753 + this.padLeft + this.padRight) * fontHeight;
-            } else if (this.bracketType === "leftSquare" || this.bracketType =="rightSquare") {
-                this.width = (0.538 + this.padLeft + this.padRight) * fontHeight;
-            } else if (this.bracketType === "leftCurly" || this.bracketType =="rightCurly") {
+            } else if (heightRatio > 1.5 && heightRatio <= 2.42) {
+                this.padTop = 0.1;
+                this.padBottom = 0.1;
+                this.wholeBracket = new eqEd.WholeBracket(this.symbolSizeConfig, this.bracketList[this.bracketType]["whole"], "MathJax_Size3");
+                this.topBracket = null;
+                this.middleBrackets = [];
+                this.bottomBracket = null;
+                this.jQueryObject.append(this.wholeBracket.jQueryObject);
+                this.wholeBracket.parent = this;
+                this.childNoncontainers = [this.wholeBracket];
+                this.topAlign = (1.21 + this.padTop) * fontHeight;
+                this.bottomAlign = (1.21 + this.padBottom) * fontHeight;
                 this.width = (0.769 + this.padLeft + this.padRight) * fontHeight;
-            }
-        } else if (heightRatio > 2.42 && heightRatio <= 3.02) {
-            this.padTop = 0.1;
-            this.padBottom = 0.1;
-            this.wholeBracket = new eqEd.WholeBracket(this.symbolSizeConfig, this.bracketList[this.bracketType]["whole"], "MathJax_Size4");
-            this.topBracket = null;
-            this.middleBrackets = [];
-            this.bottomBracket = null;
-            this.jQueryObject.append(this.wholeBracket.jQueryObject);
-            this.wholeBracket.parent = this;
-            this.childNoncontainers = [this.wholeBracket];
-            this.topAlign = (1.51 + this.padTop) * fontHeight;
-            this.bottomAlign = (1.51 + this.padBottom) * fontHeight;
-
-            if (this.bracketType === "leftParenthesis" || this.bracketType =="rightParenthesis") {
-                this.width = (0.8 + this.padLeft + this.padRight) * fontHeight;
-            } else if (this.bracketType === "leftSquare" || this.bracketType =="rightSquare") {
-                this.width = (0.6 + this.padLeft + this.padRight) * fontHeight;
-            } else if (this.bracketType === "leftCurly" || this.bracketType =="rightCurly") {
+            } else if (heightRatio > 2.42 && heightRatio <= 3.4) {
+                this.padTop = 0.1;
+                this.padBottom = 0.1;
+                this.wholeBracket = new eqEd.WholeBracket(this.symbolSizeConfig, this.bracketList[this.bracketType]["whole"], "MathJax_Size4");
+                this.topBracket = null;
+                this.middleBrackets = [];
+                this.bottomBracket = null;
+                this.jQueryObject.append(this.wholeBracket.jQueryObject);
+                this.wholeBracket.parent = this;
+                this.childNoncontainers = [this.wholeBracket];
+                this.topAlign = (1.51 + this.padTop) * fontHeight;
+                this.bottomAlign = (1.51 + this.padBottom) * fontHeight;
                 this.width = (0.815 + this.padLeft + this.padRight) * fontHeight;
+            } else {
+                this.padTop = 0.1;
+                this.padBottom = 0.1;
+                var numberOfBrackets = Math.round((heightRatio - 3.4) / 0.231);
+                this.wholeBracket = null;
+                this.topBracket = new eqEd.TopBracket(this.symbolSizeConfig, this.bracketList[this.bracketType]["top"]);
+                this.jQueryObject.append(this.topBracket.jQueryObject);
+                this.topBracket.parent = this;
+                this.middleBrackets = [];
+                for (var i = 0; i < Math.round(0.5 * numberOfBrackets); i++) {
+                    var middleBracket = new eqEd.MiddleBracket(this.symbolSizeConfig, this.bracketList[this.bracketType]["middleVert"], i);
+                    middleBracket.parent = this;
+                    this.jQueryObject.append(middleBracket.jQueryObject);
+                    this.middleBrackets.push(middleBracket);
+                }
+                var middleCurly = new eqEd.MiddleBracket(this.symbolSizeConfig, this.bracketList[this.bracketType]["middleCurly"], Math.round(0.5 * numberOfBrackets));
+                middleCurly.parent = this;
+                this.jQueryObject.append(middleCurly.jQueryObject);
+                this.middleBrackets.push(middleCurly);
+                for (var i = (Math.round(0.5 * numberOfBrackets) + 1); i < numberOfBrackets; i++) {
+                    var middleBracket = new eqEd.MiddleBracket(this.symbolSizeConfig, this.bracketList[this.bracketType]["middleVert"], i);
+                    middleBracket.parent = this;
+                    this.jQueryObject.append(middleBracket.jQueryObject);
+                    this.middleBrackets.push(middleBracket);
+                }
+                this.bottomBracket = new eqEd.BottomBracket(this.symbolSizeConfig, this.bracketList[this.bracketType]["bottom"]);
+                this.jQueryObject.append(this.bottomBracket.jQueryObject);
+                this.bottomBracket.parent = this;
+                this.childNoncontainers = [this.topBracket].concat(this.middleBrackets).concat([this.bottomBracket]);
+                this.width = (0.892 + this.padLeft + this.padRight) * fontHeight;
             }
-        } else if (heightRatio > 3.02 && heightRatio <= 3.5) {
-            this.padTop = 0.1;
-            this.padBottom = 0.1;
-            this.wholeBracket = null;
-            this.topBracket = new eqEd.TopBracket(this.symbolSizeConfig, this.bracketList[this.bracketType]["top"]);
-            this.middleBrackets = [];
-            this.bottomBracket = new eqEd.BottomBracket(this.symbolSizeConfig, this.bracketList[this.bracketType]["bottom"]);
-            this.jQueryObject.append(this.topBracket.jQueryObject);
-            this.topBracket.parent = this;
-            this.jQueryObject.append(this.bottomBracket.jQueryObject);
-            this.bottomBracket.parent = this;
-            this.childNoncontainers = [this.topBracket, this.bottomBracket];
-            this.topAlign = (1.75 + this.padTop) * fontHeight;
-            this.bottomAlign = (1.75 + this.padBottom) * fontHeight;
+        } else if (this.bracketType === "leftParenthesis" || this.bracketType =="rightParenthesis" || this.bracketType === "leftSquare" || this.bracketType =="rightSquare") {
+            if (heightRatio <= 1.5) {
+                this.padTop = 0;
+                this.padBottom = 0.1;
+                this.wholeBracket = new eqEd.WholeBracket(this.symbolSizeConfig, this.bracketList[this.bracketType]["whole"], "MathJax_Main");
+                this.topBracket = null;
+                this.middleBrackets = [];
+                this.bottomBracket = null;
+                this.jQueryObject.append(this.wholeBracket.jQueryObject);
+                this.wholeBracket.parent = this;
+                this.childNoncontainers = [this.wholeBracket];
+                this.topAlign = (0.5 + this.padTop) * fontHeight;
+                this.bottomAlign = (0.5 + this.padBottom) * fontHeight;
+                if (this.bracketType === "leftParenthesis" || this.bracketType =="rightParenthesis") {
+                    this.width = (0.383 + this.padLeft + this.padRight) * fontHeight;
+                } else if (this.bracketType === "leftSquare" || this.bracketType =="rightSquare") {
+                    this.width = (0.283 + this.padLeft + this.padRight) * fontHeight;
+                }
+                
+            } else if (heightRatio > 1.5 && heightRatio <= 2.42) {
+                this.padTop = 0.1;
+                this.padBottom = 0.1;
+                this.wholeBracket = new eqEd.WholeBracket(this.symbolSizeConfig, this.bracketList[this.bracketType]["whole"], "MathJax_Size3");
+                this.topBracket = null;
+                this.middleBrackets = [];
+                this.bottomBracket = null;
+                this.jQueryObject.append(this.wholeBracket.jQueryObject);
+                this.wholeBracket.parent = this;
+                this.childNoncontainers = [this.wholeBracket];
+                this.topAlign = (1.21 + this.padTop) * fontHeight;
+                this.bottomAlign = (1.21 + this.padBottom) * fontHeight;
+                if (this.bracketType === "leftParenthesis" || this.bracketType =="rightParenthesis") {
+                    this.width = (0.753 + this.padLeft + this.padRight) * fontHeight;
+                } else if (this.bracketType === "leftSquare" || this.bracketType =="rightSquare") {
+                    this.width = (0.538 + this.padLeft + this.padRight) * fontHeight;
+                }
+            } else if (heightRatio > 2.42 && heightRatio <= 3.02) {
+                this.padTop = 0.1;
+                this.padBottom = 0.1;
+                this.wholeBracket = new eqEd.WholeBracket(this.symbolSizeConfig, this.bracketList[this.bracketType]["whole"], "MathJax_Size4");
+                this.topBracket = null;
+                this.middleBrackets = [];
+                this.bottomBracket = null;
+                this.jQueryObject.append(this.wholeBracket.jQueryObject);
+                this.wholeBracket.parent = this;
+                this.childNoncontainers = [this.wholeBracket];
+                this.topAlign = (1.51 + this.padTop) * fontHeight;
+                this.bottomAlign = (1.51 + this.padBottom) * fontHeight;
 
-            if (this.bracketType === "leftParenthesis" || this.bracketType =="rightParenthesis") {
-                this.width = (0.877 + this.padLeft + this.padRight) * fontHeight;
-            } else if (this.bracketType === "leftSquare" || this.bracketType =="rightSquare") {
-                this.width = (0.662 + this.padLeft + this.padRight) * fontHeight;
-            } else if (this.bracketType === "leftCurly" || this.bracketType =="rightCurly") {
-                this.width = (0 + this.padLeft + this.padRight) * fontHeight;
-            }
-        } else {
-            this.padTop = 0.1;
-            this.padBottom = 0.1;
-            var numberOfBrackets = Math.round((heightRatio - 3.9)/0.45) + 1;
-            this.wholeBracket = null;
-            this.topBracket = new eqEd.TopBracket(this.symbolSizeConfig, this.bracketList[this.bracketType]["top"]);
-            this.jQueryObject.append(this.topBracket.jQueryObject);
-            this.topBracket.parent = this;
-            this.middleBrackets = [];
-            for (var i = 0; i < numberOfBrackets; i++) {
-                var middleBracket = new eqEd.MiddleBracket(this.symbolSizeConfig, this.bracketList[this.bracketType]["middle"], i);
-                middleBracket.parent = this;
-                this.jQueryObject.append(middleBracket.jQueryObject);
-                this.middleBrackets.push(middleBracket);
-            }
-            
-            this.bottomBracket = new eqEd.BottomBracket(this.symbolSizeConfig, this.bracketList[this.bracketType]["bottom"]);
-            this.jQueryObject.append(this.bottomBracket.jQueryObject);
-            this.bottomBracket.parent = this;
-            this.childNoncontainers = [this.topBracket].concat(this.middleBrackets).concat([this.bottomBracket]);
-            if (this.bracketType === "leftParenthesis" || this.bracketType =="rightParenthesis") {
-                this.width = (0.877 + this.padLeft + this.padRight) * fontHeight;
-            } else if (this.bracketType === "leftSquare" || this.bracketType =="rightSquare") {
-                this.width = (0.662 + this.padLeft + this.padRight) * fontHeight;
-            } else if (this.bracketType === "leftCurly" || this.bracketType =="rightCurly") {
-                this.width = (0 + this.padLeft + this.padRight) * fontHeight;
-            }
-        }
-        for (var i = 0; i < this.childNoncontainers.length; i++) {
-            var bracketObject = this.childNoncontainers[i];
-            if (IEVersion >= 7) {
-                //bracketObject.jQueryObject.css("line-height", "normal");
-                //bracketObject.adjustTop = -0.075;
-                //alert("bracketObject.top: " + bracketObject.top);
+                if (this.bracketType === "leftParenthesis" || this.bracketType =="rightParenthesis") {
+                    this.width = (0.8 + this.padLeft + this.padRight) * fontHeight;
+                } else if (this.bracketType === "leftSquare" || this.bracketType =="rightSquare") {
+                    this.width = (0.6 + this.padLeft + this.padRight) * fontHeight;
+                }
+            } else if (heightRatio > 3.02 && heightRatio <= 3.5) {
+                this.padTop = 0.1;
+                this.padBottom = 0.1;
+                this.wholeBracket = null;
+                this.topBracket = new eqEd.TopBracket(this.symbolSizeConfig, this.bracketList[this.bracketType]["top"]);
+                this.middleBrackets = [];
+                this.bottomBracket = new eqEd.BottomBracket(this.symbolSizeConfig, this.bracketList[this.bracketType]["bottom"]);
+                this.jQueryObject.append(this.topBracket.jQueryObject);
+                this.topBracket.parent = this;
+                this.jQueryObject.append(this.bottomBracket.jQueryObject);
+                this.bottomBracket.parent = this;
+                this.childNoncontainers = [this.topBracket, this.bottomBracket];
+                this.topAlign = (1.75 + this.padTop) * fontHeight;
+                this.bottomAlign = (1.75 + this.padBottom) * fontHeight;
+
+                if (this.bracketType === "leftParenthesis" || this.bracketType =="rightParenthesis") {
+                    this.width = (0.877 + this.padLeft + this.padRight) * fontHeight;
+                } else if (this.bracketType === "leftSquare" || this.bracketType =="rightSquare") {
+                    this.width = (0.662 + this.padLeft + this.padRight) * fontHeight;
+                }
+            } else {
+                this.padTop = 0.1;
+                this.padBottom = 0.1;
+                var numberOfBrackets = Math.round((heightRatio - 3.9)/0.45) + 1;
+                this.wholeBracket = null;
+                this.topBracket = new eqEd.TopBracket(this.symbolSizeConfig, this.bracketList[this.bracketType]["top"]);
+                this.jQueryObject.append(this.topBracket.jQueryObject);
+                this.topBracket.parent = this;
+                this.middleBrackets = [];
+                for (var i = 0; i < numberOfBrackets; i++) {
+                    var middleBracket = new eqEd.MiddleBracket(this.symbolSizeConfig, this.bracketList[this.bracketType]["middle"], i);
+                    middleBracket.parent = this;
+                    this.jQueryObject.append(middleBracket.jQueryObject);
+                    this.middleBrackets.push(middleBracket);
+                }
+                
+                this.bottomBracket = new eqEd.BottomBracket(this.symbolSizeConfig, this.bracketList[this.bracketType]["bottom"]);
+                this.jQueryObject.append(this.bottomBracket.jQueryObject);
+                this.bottomBracket.parent = this;
+                this.childNoncontainers = [this.topBracket].concat(this.middleBrackets).concat([this.bottomBracket]);
+                if (this.bracketType === "leftParenthesis" || this.bracketType =="rightParenthesis") {
+                    this.width = (0.877 + this.padLeft + this.padRight) * fontHeight;
+                } else if (this.bracketType === "leftSquare" || this.bracketType =="rightSquare") {
+                    this.width = (0.662 + this.padLeft + this.padRight) * fontHeight;
+                }
             }
         }
     }
@@ -3129,7 +3184,11 @@ eqEd.TopBracket = function(symbolSizeConfig, character) {
 
     this.parent = null;
     this.adjustLeft = 0.001;
-    this.adjustTop = 0.41;
+    if (this.character === "&#9127;" || this.character === "&#9131;") {
+        this.adjustTop = 0.15;
+    } else if (this.character === "&#9115;" || this.character === "&#9118;" || this.character === "&#9121;" || this.character === "&#9124;") {
+        this.adjustTop = 0.41;
+    }
 }
 
 eqEd.TopBracket.prototype = new eqEd.EquationObject(eqEd.noConstructorCall);
@@ -3173,7 +3232,12 @@ eqEd.MiddleBracket = function(symbolSizeConfig, character, index) {
     this.parent = null;
     this.adjustTop = 0;
     this.adjustLeft = 0.001;
-    this.adjustTopFactor = 0.45;
+    this.adjustTopFactor = 0;
+    if (this.character === "&#9127;" || this.character === "&#9131;") {
+        this.adjustTopFactor = 0.231;
+    } else if (this.character === "&#9115;" || this.character === "&#9118;" || this.character === "&#9121;" || this.character === "&#9124;") {
+        this.adjustTopFactor = 0.45;
+    }
     this.index = index;
 }
 
@@ -3184,7 +3248,21 @@ eqEd.MiddleBracket.prototype = new eqEd.EquationObject(eqEd.noConstructorCall);
         if (IEVersion >= 7) {
             this.adjustTop += (-0.02 + 0.3);
         }
-        this.top = (this.parent.padTop + this.adjustTop + this.adjustTopFactor * this.index + 1.5) * fontHeight;
+        if (this.parent.bracketType === "leftCurly" || this.parent.bracketType === "rightCurly") {
+            alert(this.index);
+            alert(this.adjustTopFactor);
+            alert(Math.round(this.parent.middleBrackets.length / 2));
+            if (this.index < Math.round(this.parent.middleBrackets.length / 2)) {
+                this.top = (this.index + 1) * this.adjustTopFactor + 0.15;
+            } else if (this.index === Math.round(this.parent.middleBrackets.length / 2)) {
+                this.top = this.index * this.adjustTopFactor + 1.1 + 0.15;
+            } else {
+                var centerBracket = Math.round(this.parent.middleBrackets.length / 2) * this.adjustTopFactor + 1.1 + 0.15;
+                this.top = centerBracket + 0.878 + (this.index - Math.round(this.parent.middleBrackets.length / 2) - 1) * this.adjustTopFactor;
+            }
+        } else if (this.parent.bracketType === "leftParenthesis" || this.parent.bracketType =="rightParenthesis" || this.bracketType === "leftSquare" || this.bracketType =="rightSquare") {
+            this.top = (this.parent.padTop + this.adjustTop + this.adjustTopFactor * this.index + 1.5) * fontHeight;
+        }
     }
     eqEd.MiddleBracket.prototype.updateLeft = function() {
         var fontHeight = this.symbolSizeConfig.height[this.parent.parent.fontSize];
@@ -3227,7 +3305,12 @@ eqEd.BottomBracket.prototype = new eqEd.EquationObject(eqEd.noConstructorCall);
         if (IEVersion >= 7) {
             this.adjustTop += (-0.02 + 0.3);
         }
-        this.top = (this.parent.padTop + this.adjustTop + (2.5 + (0.45 * (this.parent.middleBrackets.length - 1)))) * fontHeight;
+        if (this.parent.bracketType === "leftCurly" || this.parent.bracketType === "rightCurly") {
+            this.top = (this.parent.padTop + this.adjustTop + this.parent.middleBrackets[(this.parent.middleBrackets.length - 1)].top + 1.65) * fontHeight;
+        } else if (this.parent.bracketType === "leftParenthesis" || this.parent.bracketType =="rightParenthesis" || this.bracketType === "leftSquare" || this.bracketType =="rightSquare") {
+            this.top = (this.parent.padTop + this.adjustTop + (2.5 + (0.45 * (this.parent.middleBrackets.length - 1)))) * fontHeight;
+        }
+        
     }
     eqEd.BottomBracket.prototype.updateLeft = function() {
         var fontHeight = this.symbolSizeConfig.height[this.parent.parent.fontSize];
