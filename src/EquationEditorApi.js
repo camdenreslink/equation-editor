@@ -1348,7 +1348,7 @@ eqEd.Symbol = function(symbolSizeConfig, character) {
 IEVersion
     
     // line-height seems to be messed up in IE 9+
-    if (IEVersion >= 7) {
+    if (IEVersion >= 9) {
         //this.jQueryObject.css("line-height", "normal");
         //this.adjustTopItalic = 0.2;
         //this.adjustTopItalic = 0.175;
@@ -2851,7 +2851,7 @@ eqEd.Operator = function(symbolSizeConfig, character) {
     this.parent = null;
     this.adjustLeft = 0;
     this.adjustTop = 0;
-    if (IEVersion >= 7) {
+    if (IEVersion >= 9) {
         //this.jQueryObject.css("line-height", "normal");
         //this.adjustTopItalic = 0.2;
         this.adjustTop = 0.3;
@@ -3154,7 +3154,7 @@ eqEd.WholeBracket.prototype = new eqEd.EquationObject(eqEd.noConstructorCall);
 (function() {
     eqEd.WholeBracket.prototype.updateTop = function() {
         var fontHeight = this.symbolSizeConfig.height[this.parent.parent.fontSize];
-        if (IEVersion >= 7) {
+        if (IEVersion >= 9) {
             this.adjustTop += (-0.02 + 0.3);
         }
         this.top = (this.parent.padTop + this.adjustTop) * fontHeight;
@@ -3202,7 +3202,7 @@ eqEd.TopBracket.prototype = new eqEd.EquationObject(eqEd.noConstructorCall);
 (function() {
     eqEd.TopBracket.prototype.updateTop = function() {
         var fontHeight = this.symbolSizeConfig.height[this.parent.parent.fontSize];
-        if (IEVersion >= 7) {
+        if (IEVersion >= 9) {
             this.adjustTop += (-0.02 + 0.3);
         }
         this.top = (this.parent.padTop + this.adjustTop) * fontHeight;
@@ -3252,7 +3252,7 @@ eqEd.MiddleBracket.prototype = new eqEd.EquationObject(eqEd.noConstructorCall);
 (function() {
     eqEd.MiddleBracket.prototype.updateTop = function() {
         var fontHeight = this.symbolSizeConfig.height[this.parent.parent.fontSize];
-        if (IEVersion >= 7) {
+        if (IEVersion >= 9) {
             this.adjustTop += (-0.02 + 0.3);
         }
         if (this.parent.bracketType === "leftCurly" || this.parent.bracketType === "rightCurly") {
@@ -3260,13 +3260,13 @@ eqEd.MiddleBracket.prototype = new eqEd.EquationObject(eqEd.noConstructorCall);
             // numSegs refers to the number of vertical middle segments.
             var numSegs = this.parent.middleBrackets.length - 1;
             if (this.index < Math.round(numSegs / 2)) {
-                this.top = ((this.index + 1) * this.adjustTopFactor + 0.15) * fontHeight;
+                this.top = ((this.index + 1) * this.adjustTopFactor + 0.15 + this.adjustTop + this.parent.padTop) * fontHeight;
             } else if (this.index === Math.round(numSegs / 2)) {
-                this.top = (this.index * this.adjustTopFactor + 1.1 + 0.15) * fontHeight;
+                this.top = (this.index * this.adjustTopFactor + 1.1 + 0.15 + this.adjustTop + this.parent.padTop) * fontHeight;
             } else {
                 //console.log(this.adjustTopFactor);
                 var centerBracket = Math.round(numSegs / 2) * this.adjustTopFactor + 1.1 + 0.15;
-                this.top = (centerBracket + 0.878 + (this.index - Math.round(numSegs / 2) - 1) * this.adjustTopFactor) * fontHeight;
+                this.top = (centerBracket + 0.878 + (this.index - Math.round(numSegs / 2) - 1) * this.adjustTopFactor + this.adjustTop + this.parent.padTop) * fontHeight;
             }
 
             /*
@@ -3321,13 +3321,15 @@ eqEd.BottomBracket.prototype = new eqEd.EquationObject(eqEd.noConstructorCall);
 (function() {
     eqEd.BottomBracket.prototype.updateTop = function() {
         var fontHeight = this.symbolSizeConfig.height[this.parent.parent.fontSize];
-        if (IEVersion >= 7) {
+        if (IEVersion >= 9) {
             this.adjustTop += (-0.02 + 0.3);
         }
         if (this.parent.bracketType === "leftCurly" || this.parent.bracketType === "rightCurly") {
             var length = this.parent.middleBrackets.length;
             var centerIndex = Math.floor(length / 2);
-            this.top = this.parent.middleBrackets[centerIndex].top + ((length - 1 - centerIndex) * 0.231 + 0.5 + this.parent.padTop + this.adjustTop) * fontHeight;
+            // don't need to add adjustTop twice, bc it is already taken into consideration
+            // when taking top value of centerIndex.
+            this.top = this.parent.middleBrackets[centerIndex].top + ((length - 1 - centerIndex) * 0.231 + 0.5 + this.parent.padTop) * fontHeight;
         } else if (this.parent.bracketType === "leftParenthesis" || this.parent.bracketType =="rightParenthesis" || this.bracketType === "leftSquare" || this.bracketType =="rightSquare") {
             this.top = (this.parent.padTop + this.adjustTop + (2.5 + (0.45 * (this.parent.middleBrackets.length - 1)))) * fontHeight;
         }
