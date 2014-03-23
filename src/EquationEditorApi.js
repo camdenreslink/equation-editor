@@ -1350,14 +1350,15 @@ eqEd.Symbol = function(symbolSizeConfig, character) {
         //this.adjustTopItalic = 0.175;
         //this.adjustTopItalic = 0.025;
         this.adjustTopItalic = 0.025 + 0.3;
+        this.adjustTop = 0.3;
     } else {
         //this.adjustTopItalic = 0.025;
-        this.adjustTopItalic = 0;
-
+        this.adjustTopItalic = 0.025;
+        this.adjustTop = 0;
     }
     this.parent = null;
     this.adjustLeft = 0;
-    this.adjustTop = 0.3;
+    
 }
 
 eqEd.Symbol.prototype = new eqEd.EquationObject(eqEd.noConstructorCall);
