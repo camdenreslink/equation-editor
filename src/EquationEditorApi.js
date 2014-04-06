@@ -1902,6 +1902,7 @@ eqEd.SuperscriptContainer.prototype = new eqEd.Container(eqEd.noConstructorCall)
 (function() {
     eqEd.SuperscriptContainer.prototype.updateLeft = function() {
         var fontHeight = this.symbolSizeConfig.height[this.parent.parent.fontSize];
+        
         this.left = (this.parent.padLeft + this.adjustLeft) * fontHeight;
     }
     eqEd.SuperscriptContainer.prototype.updateTop = function() {
@@ -2902,9 +2903,14 @@ eqEd.BracketWrapper = function(symbolSizeConfig, bracketType) {
     this.wholeBracket.parent = this;
     this.childNoncontainers = [this.wholeBracket];
 
-    this.padLeft = 0;
+    if (this instanceof eqEd.LeftBracketWrapper) {
+        this.padLeft = -0.075;
+        this.padRight = 0;
+    } else {
+        this.padLeft = 0;
+        this.padRight = -0.075;
+    }
     this.padTop = 0.0;//0.15;
-    this.padRight = 0;
     this.padBottom = 0.1;//-0.10;
 }
 
