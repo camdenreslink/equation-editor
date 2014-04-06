@@ -2904,7 +2904,7 @@ eqEd.BracketWrapper = function(symbolSizeConfig, bracketType) {
     this.childNoncontainers = [this.wholeBracket];
 
     if (this instanceof eqEd.LeftBracketWrapper) {
-        this.padLeft = -0.075;
+        this.padLeft = 0;
         this.padRight = 0;
     } else {
         this.padLeft = 0;

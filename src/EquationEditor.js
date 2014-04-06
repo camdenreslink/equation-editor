@@ -164,7 +164,7 @@ $(window).load( function () {
             $('#fontTestNormal').remove();
             // remove this line when I figure out how I'm initializing equations
             setupContainer();
-        } else if (checkFontCounter > 12) {
+        }/* else if (checkFontCounter > 12) {
             window.clearInterval(intervalId);
             symbolSizeConfig = new eqEd.SymbolSizeConfiguration();
             $('#fontTestItalic').remove();
@@ -172,7 +172,7 @@ $(window).load( function () {
             // remove this line when I figure out how I'm initializing equations
             setupContainer();
         }
-        checkFontCounter = checkFontCounter + 1;
+        checkFontCounter = checkFontCounter + 1;*/
     }
     //alert("before checkIfFontsLoaded");
     var intervalId = window.setInterval(checkIfFontsLoaded, 250);
