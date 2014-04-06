@@ -1066,6 +1066,7 @@ eqEd.Container.prototype = new eqEd.EquationObject(eqEd.noConstructorCall);
             }
             var maxAlign = (maxTopAlign > maxBottomAlign) ? maxTopAlign : maxBottomAlign;
             var maxHeight = 2*maxAlign;
+            console.log("max: " + maxHeight);
             /*
             pairIndices[i][0].topAlign = maxTopAlign;
             pairIndices[i][0].bottomAlign = maxBottomAlign;
@@ -2933,7 +2934,7 @@ eqEd.BracketWrapper.prototype = new eqEd.Wrapper(eqEd.noConstructorCall);
         if (this.bracketType === "leftCurly" || this.bracketType === "rightCurly") {
             if (heightRatio <= 1.5) {
                 this.padTop = 0;
-                this.padBottom = 0.1;
+                this.padBottom = 0.15;
                 this.wholeBracket = new eqEd.WholeBracket(this.symbolSizeConfig, this.bracketList[this.bracketType]["whole"], "MathJax_Main");
                 this.topBracket = null;
                 this.middleBrackets = [];
@@ -2972,7 +2973,7 @@ eqEd.BracketWrapper.prototype = new eqEd.Wrapper(eqEd.noConstructorCall);
                 this.width = (0.815 + this.padLeft + this.padRight) * fontHeight;
             } else {
                 this.padTop = 0.1;
-                this.padBottom = 0.1;
+                this.padBottom = 0;
                 var numberOfBrackets = Math.round((heightRatio - 3.4) / 0.231);
                 numberOfBrackets = (numberOfBrackets % 2 !== 0) ? (numberOfBrackets - 1) : numberOfBrackets;
                 //console.log("numOfBrackets: " + numberOfBrackets);
@@ -3001,6 +3002,11 @@ eqEd.BracketWrapper.prototype = new eqEd.Wrapper(eqEd.noConstructorCall);
                 this.jQueryObject.append(this.bottomBracket.jQueryObject);
                 this.bottomBracket.parent = this;
                 this.childNoncontainers = [this.topBracket].concat(this.middleBrackets).concat([this.bottomBracket]);
+                var center = 0.15 + (numberOfBrackets/2)*0.231 + 1.1;
+                var bottom = center + 0.5 + (numberOfBrackets/2)*0.231;
+                var height = bottom + 1.65;
+                this.topAlign = (height/2 + this.padTop) * fontHeight;
+                this.bottomAlign = (height/2 + 0.2 + this.padBottom) * fontHeight;
                 this.width = (0.892 + this.padLeft + this.padRight) * fontHeight;
             }
         } else if (this.bracketType === "leftParenthesis" || this.bracketType =="rightParenthesis" || this.bracketType === "leftSquare" || this.bracketType =="rightSquare") {
@@ -3015,7 +3021,7 @@ eqEd.BracketWrapper.prototype = new eqEd.Wrapper(eqEd.noConstructorCall);
                 this.wholeBracket.parent = this;
                 this.childNoncontainers = [this.wholeBracket];
                 this.topAlign = (0.5 + this.padTop) * fontHeight;
-                this.bottomAlign = (0.5 + this.padBottom) * fontHeight;
+                this.bottomAlign = (0.6 + this.padBottom) * fontHeight;
                 if (this.bracketType === "leftParenthesis" || this.bracketType =="rightParenthesis") {
                     this.width = (0.383 + this.padLeft + this.padRight) * fontHeight;
                 } else if (this.bracketType === "leftSquare" || this.bracketType =="rightSquare") {
@@ -3070,7 +3076,6 @@ eqEd.BracketWrapper.prototype = new eqEd.Wrapper(eqEd.noConstructorCall);
                 this.childNoncontainers = [this.topBracket, this.bottomBracket];
                 this.topAlign = (1.75 + this.padTop) * fontHeight;
                 this.bottomAlign = (1.75 + this.padBottom) * fontHeight;
-
                 if (this.bracketType === "leftParenthesis" || this.bracketType =="rightParenthesis") {
                     this.width = (0.877 + this.padLeft + this.padRight) * fontHeight;
                 } else if (this.bracketType === "leftSquare" || this.bracketType =="rightSquare") {
@@ -3078,7 +3083,7 @@ eqEd.BracketWrapper.prototype = new eqEd.Wrapper(eqEd.noConstructorCall);
                 }
             } else {
                 this.padTop = 0.1;
-                this.padBottom = 0.1;
+                this.padBottom = 0;
                 var numberOfBrackets = Math.round((heightRatio - 3.9)/0.45) + 1;
                 this.wholeBracket = null;
                 this.topBracket = new eqEd.TopBracket(this.symbolSizeConfig, this.bracketList[this.bracketType]["top"]);
@@ -3096,6 +3101,10 @@ eqEd.BracketWrapper.prototype = new eqEd.Wrapper(eqEd.noConstructorCall);
                 this.jQueryObject.append(this.bottomBracket.jQueryObject);
                 this.bottomBracket.parent = this;
                 this.childNoncontainers = [this.topBracket].concat(this.middleBrackets).concat([this.bottomBracket]);
+
+                this.topAlign = (0.5 * (numberOfBrackets*0.45 + 3.7) + this.padTop) * fontHeight;
+                this.bottomAlign = (0.5 * (numberOfBrackets*0.45 + 3.7) + this.padBottom) * fontHeight;
+
                 if (this.bracketType === "leftParenthesis" || this.bracketType =="rightParenthesis") {
                     this.width = (0.877 + this.padLeft + this.padRight) * fontHeight;
                 } else if (this.bracketType === "leftSquare" || this.bracketType =="rightSquare") {
