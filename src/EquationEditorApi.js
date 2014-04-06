@@ -450,15 +450,165 @@ eqEd.Cursor = function() {
 (function() {
 
     eqEd.Cursor.prototype.moveLeft = function() {
-        if (this.index !== 0) {
-            this.index = this.index - 1;
-            this.updateFormatting();
+        var parentContainer = null;       
+        var newIndex = null;
+        if (!this.parent.jQueryObject.children().first().hasClass('topLevelEmptyContainerWrapper')) {
+            if (this.parent.jQueryObject.hasClass("squareEmptyContainer")) {
+                parentContainer = this.parent.parent.parent.jQueryObject.prev('.container');
+                if (parentContainer.length === 0) {
+                    newIndex = this.parent.parent.parent.parent.index;
+                    parentContainer = this.parent.parent.parent.parent.parent;
+                    this.parent.jQueryObject.removeClass("activeContainer");
+                    parentContainer.jQueryObject.addClass("activeContainer");
+                    this.removeCursor();
+                    this.addCursor(parentContainer);
+                    this.index = newIndex;
+                    this.updateFormatting();
+                    
+                } else {
+                    this.parent.jQueryObject.removeClass("activeContainer");
+                    this.removeCursor();
+                    
+                    if (parentContainer.children().first().hasClass('squareEmptyContainerWrapper')) {
+                        parentContainer = parentContainer.children('.squareEmptyContainerWrapper').children('.squareEmptyContainer');
+                    }
+                    parentContainer = parentContainer.data("eqObject");
+                    parentContainer.jQueryObject.addClass("activeContainer");
+                    this.addCursor(parentContainer);
+                    this.index = parentContainer.wrappers.length;
+                    this.updateFormatting();
+                }
+            } else {
+                parentContainer = this.parent.jQueryObject.prev('.container');
+                if (this.index > 0) {
+                    this.index = this.index -1;
+                    if (this.parent.wrappers[this.index].childContainers.length !== 0) {
+                        parentContainer = this.parent.wrappers[this.index].childContainers[this.parent.wrappers[this.index].childContainers.length -1];
+                        this.parent.jQueryObject.removeClass("activeContainer");
+                        this.removeCursor();
+                        
+                        parentContainer = parentContainer.jQueryObject;
+
+                        if (parentContainer.children().first().hasClass('squareEmptyContainerWrapper')) {
+                            parentContainer = parentContainer.children('.squareEmptyContainerWrapper').children('.squareEmptyContainer');
+                        }
+                        
+                        parentContainer = parentContainer.data("eqObject");
+                        parentContainer.jQueryObject.addClass("activeContainer");
+                        this.addCursor(parentContainer);
+                        this.index = parentContainer.wrappers.length;
+
+                    }
+                    this.updateFormatting();
+                } else {
+                    if (parentContainer.length === 0) {
+                        if (!this.parent.jQueryObject.parent().hasClass('equation')) {
+                            newIndex = this.parent.parent.index;
+                            parentContainer = this.parent.parent.parent;
+                            parentContainer.jQueryObject.addClass("activeContainer");
+                            this.parent.jQueryObject.removeClass("activeContainer");
+                            this.removeCursor();
+                            this.addCursor(parentContainer);
+                            this.index = newIndex;
+                            this.updateFormatting();
+                        }
+                    } else {
+                        this.parent.jQueryObject.removeClass("activeContainer");
+                        this.removeCursor();
+                        
+                        if (parentContainer.children().first().hasClass('squareEmptyContainerWrapper')) {
+                            parentContainer = parentContainer.children('.squareEmptyContainerWrapper').children('.squareEmptyContainer');
+                        }
+                        
+                        parentContainer = parentContainer.data("eqObject");
+                        parentContainer.jQueryObject.addClass("activeContainer");
+                        this.addCursor(parentContainer);
+                        this.index = parentContainer.wrappers.length;
+                        this.updateFormatting();
+                    }
+                }
+            }
         }
     }
     eqEd.Cursor.prototype.moveRight = function() {
-        if (this.index < this.parent.wrappers.length) {
-            this.index = this.index + 1;
-            this.updateFormatting();
+        var parentContainer = null;       
+        var newIndex = null;
+        if (!this.parent.jQueryObject.children().first().hasClass('topLevelEmptyContainerWrapper')) {
+            if (this.parent.jQueryObject.hasClass("squareEmptyContainer")) {
+                parentContainer = this.parent.parent.parent.jQueryObject.next('.container');
+                if (parentContainer.length === 0) {
+                    newIndex = this.parent.parent.parent.parent.index + 1;
+                    parentContainer = this.parent.parent.parent.parent.parent;
+                    this.parent.jQueryObject.removeClass("activeContainer");
+                    parentContainer.jQueryObject.addClass("activeContainer");
+                    this.removeCursor();
+                    this.addCursor(parentContainer);
+                    this.index = newIndex;
+                    this.updateFormatting();
+                    
+                } else {
+                    this.parent.jQueryObject.removeClass("activeContainer");
+                    this.removeCursor();
+                    
+                    if (parentContainer.children().first().hasClass('squareEmptyContainerWrapper')) {
+                        parentContainer = parentContainer.children('.squareEmptyContainerWrapper').children('.squareEmptyContainer');
+                    }
+                    parentContainer = parentContainer.data("eqObject");
+                    parentContainer.jQueryObject.addClass("activeContainer");
+                    this.addCursor(parentContainer);
+                    this.index = 0;
+                    this.updateFormatting();
+                }
+            } else {
+                parentContainer = this.parent.jQueryObject.next('.container');
+                if (this.index < this.parent.wrappers.length) {
+                    this.index = this.index + 1;
+                    if (this.parent.wrappers[this.index - 1].childContainers.length !== 0) {
+                        parentContainer = this.parent.wrappers[this.index - 1].childContainers[0];
+                        this.parent.jQueryObject.removeClass("activeContainer");
+                        this.removeCursor();
+                        
+                        parentContainer = parentContainer.jQueryObject;
+
+                        if (parentContainer.children().first().hasClass('squareEmptyContainerWrapper')) {
+                            parentContainer = parentContainer.children('.squareEmptyContainerWrapper').children('.squareEmptyContainer');
+                        }
+                        
+                        parentContainer = parentContainer.data("eqObject");
+                        parentContainer.jQueryObject.addClass("activeContainer");
+                        this.addCursor(parentContainer);
+                        this.index = 0;
+
+                    }
+                    this.updateFormatting();
+                } else {
+                    if (parentContainer.length === 0) {
+                        if (!this.parent.jQueryObject.parent().hasClass('equation')) {
+                            newIndex = this.parent.parent.index + 1;
+                            parentContainer = this.parent.parent.parent;
+                            parentContainer.jQueryObject.addClass("activeContainer");
+                            this.parent.jQueryObject.removeClass("activeContainer");
+                            this.removeCursor();
+                            this.addCursor(parentContainer);
+                            this.index = newIndex;
+                            this.updateFormatting();
+                        }
+                    } else {
+                        this.parent.jQueryObject.removeClass("activeContainer");
+                        this.removeCursor();
+                        
+                        if (parentContainer.children().first().hasClass('squareEmptyContainerWrapper')) {
+                            parentContainer = parentContainer.children('.squareEmptyContainerWrapper').children('.squareEmptyContainer');
+                        }
+                        
+                        parentContainer = parentContainer.data("eqObject");
+                        parentContainer.jQueryObject.addClass("activeContainer");
+                        this.addCursor(parentContainer);
+                        this.index = 0;
+                        this.updateFormatting();
+                    }
+                }
+            }
         }
     }
     eqEd.Cursor.prototype.buildHtmlRepresentation = function() {
