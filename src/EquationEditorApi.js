@@ -3021,7 +3021,6 @@ eqEd.BracketWrapper.prototype = new eqEd.Wrapper(eqEd.noConstructorCall);
                 } else if (this.bracketType === "leftSquare" || this.bracketType =="rightSquare") {
                     this.width = (0.283 + this.padLeft + this.padRight) * fontHeight;
                 }
-                
             } else if (heightRatio > 1.5 && heightRatio <= 2.42) {
                 this.padTop = 0.1;
                 this.padBottom = 0.1;
@@ -3279,7 +3278,7 @@ eqEd.MiddleBracket.prototype = new eqEd.EquationObject(eqEd.noConstructorCall);
                 this.top = (centerBracket + 0.878 + (this.index - Math.round((this.parent.middleBrackets.length - 1) / 2) - 1) * this.adjustTopFactor) * fontHeight;
             }
             */
-        } else if (this.parent.bracketType === "leftParenthesis" || this.parent.bracketType =="rightParenthesis" || this.bracketType === "leftSquare" || this.bracketType =="rightSquare") {
+        } else if (this.parent.bracketType === "leftParenthesis" || this.parent.bracketType =="rightParenthesis" || this.parent.bracketType === "leftSquare" || this.parent.bracketType =="rightSquare") {
             this.top = (this.parent.padTop + this.adjustTop + this.adjustTopFactor * this.index + 1.5) * fontHeight;
         }
     }
@@ -3330,7 +3329,7 @@ eqEd.BottomBracket.prototype = new eqEd.EquationObject(eqEd.noConstructorCall);
             // don't need to add adjustTop twice, bc it is already taken into consideration
             // when taking top value of centerIndex.
             this.top = this.parent.middleBrackets[centerIndex].top + ((length - 1 - centerIndex) * 0.231 + 0.5 + this.parent.padTop) * fontHeight;
-        } else if (this.parent.bracketType === "leftParenthesis" || this.parent.bracketType =="rightParenthesis" || this.bracketType === "leftSquare" || this.bracketType =="rightSquare") {
+        } else if (this.parent.bracketType === "leftParenthesis" || this.parent.bracketType =="rightParenthesis" || this.parent.bracketType === "leftSquare" || this.parent.bracketType =="rightSquare") {
             this.top = (this.parent.padTop + this.adjustTop + (2.5 + (0.45 * (this.parent.middleBrackets.length - 1)))) * fontHeight;
         }
         
