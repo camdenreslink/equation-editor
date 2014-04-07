@@ -281,9 +281,20 @@ $(window).load( function () {
                 case 8: // backspace
                     if ($('.highlighted').length === 0) {
                         if (cursor.index !== 0 && $('#cursor').length > 0) {
-                            cursor.index = cursor.index - 1;
-                            cursor.parent.removeWrappers(cursor.index);
-                            cursor.updateFormatting();
+                            highlight.removeHighlight();
+                            if (cursor.parent.wrappers[cursor.index - 1].childContainers.length > 0) {
+                                cursor.parent.wrappers[cursor.index - 1].jQueryObject.addClass('highlighted');
+                                highlight.startIndex = cursor.index - 1;
+                                highlight.endIndex = cursor.index;
+                                highlight.addHighlight(cursor.parent);
+                                highlight.updateFormatting();
+                                cursor.removeCursor();
+                            } else {
+                                cursor.index = cursor.index - 1;
+                                cursor.parent.removeWrappers(cursor.index);
+                                cursor.updateFormatting();
+                            }
+                            
                         }
                     } else {
                         var deleteWrappers;
@@ -298,7 +309,7 @@ $(window).load( function () {
                         highlight.removeHighlight();
                         cursor.parent.jQueryObject.addClass('activeContainer');
                     }
-                    if (cursor.parent.wrappers.length === 0) {
+                    if (cursor.parent !== null && cursor.parent.wrappers.length === 0) {
                         if (!cursor.parent.jQueryObject.parent().hasClass('wrapper')) {
                             var topLevelEmptyContainerWrapper = new eqEd.TopLevelEmptyContainerWrapper(symbolSizeConfig);
                             topLevelEmptyContainerWrapper.jQueryObject.css('background', '#DEDEDE');
@@ -316,16 +327,29 @@ $(window).load( function () {
                     }
                     break;
                 case 37: // left
-                    if ($('#cursor').length > 0) {
-                        cursor.moveLeft();
+                    if ($('.highlighted').length > 0) {
+                        cursor.index = (highlight.startIndex < highlight.endIndex) ? highlight.startIndex : highlight.endIndex;
+                        cursor.addCursor(highlight.parent);
+                        highlight.removeHighlight();
+                    } else {
+                        if ($('#cursor').length > 0) {
+                            cursor.moveLeft();
+                        }
                     }
+
                     break;
                 case 38: // up
                     var x = 2;
                     break;
                 case 39: // right
-                    if ($('#cursor').length > 0) {
-                        cursor.moveRight();
+                    if ($('.highlighted').length > 0) {
+                        cursor.index = (highlight.startIndex > highlight.endIndex) ? highlight.startIndex : highlight.endIndex;
+                        cursor.addCursor(highlight.parent);
+                        highlight.removeHighlight();
+                    } else {
+                        if ($('#cursor').length > 0) {
+                            cursor.moveRight();
+                        }
                     }
                     break;
                 case 40: // down
@@ -336,8 +360,19 @@ $(window).load( function () {
                         if (cursor.index !== cursor.parent.wrappers.length 
                                 && $('#cursor').length > 0 
                                 && !cursor.parent.jQueryObject.hasClass('squareEmptyContainer')) {
-                            cursor.parent.removeWrappers(cursor.index);
-                            cursor.updateFormatting();
+
+                            highlight.removeHighlight();
+                            if (cursor.parent.wrappers[cursor.index].childContainers.length > 0) {
+                                cursor.parent.wrappers[cursor.index].jQueryObject.addClass('highlighted');
+                                highlight.startIndex = cursor.index;
+                                highlight.endIndex = cursor.index + 1;
+                                highlight.addHighlight(cursor.parent);
+                                highlight.updateFormatting();
+                                cursor.removeCursor();
+                            } else {
+                                cursor.parent.removeWrappers(cursor.index);
+                                cursor.updateFormatting();
+                            }
                         }
                     } else {
                         var deleteWrappers;
@@ -352,7 +387,7 @@ $(window).load( function () {
                         highlight.removeHighlight();
                         cursor.parent.jQueryObject.addClass('activeContainer');
                     }
-                    if (cursor.parent.wrappers.length === 0) {
+                    if (cursor.parent !== null && cursor.parent.wrappers.length === 0) {
                         if (!cursor.parent.jQueryObject.parent().hasClass('wrapper')) {
                             var topLevelEmptyContainerWrapper = new eqEd.TopLevelEmptyContainerWrapper(symbolSizeConfig);
                             topLevelEmptyContainerWrapper.jQueryObject.css('background', '#DEDEDE');

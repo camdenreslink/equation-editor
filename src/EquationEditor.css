@@ -96,8 +96,12 @@
     /*z-index: 3 !important;*/
 }
 
-.highlighted {
+.highlighted .symbol {
     color: #FFFFFF;
+}
+
+.highlighted .container {
+    border-color: #FFFFFF;
 }
 
 #highlight {
