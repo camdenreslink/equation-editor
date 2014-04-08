@@ -96,11 +96,7 @@
     /*z-index: 3 !important;*/
 }
 
-.highlighted .symbol {
-    color: #FFFFFF;
-}
-
-.highlighted .operator {
+.highlighted {
     color: #FFFFFF;
 }
 
@@ -183,6 +179,10 @@
 
 .bottomBracket {
     position: absolute;
+}
+
+.bracketWrapper {
+    overflow: hidden;
 }
 
 .bigOperatorSymbol {
