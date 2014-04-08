@@ -880,9 +880,10 @@ eqEd.Highlight = function() {
 
 /////// Begin EquationObject Class ///////
 
-eqEd.EquationObject = function(symbolSizeConfig) {
+eqEd.EquationObject = function(symbolSizeConfig, args) {
     if (arguments[0] instanceof eqEd.NoConstructorCall) { return; }
 
+    this.args = args;
     this.jQueryObject = $(this.buildHtmlRepresentation());
     this.jQueryObject.data("eqObject", this);
     this.symbolSizeConfig = symbolSizeConfig;
@@ -916,9 +917,9 @@ eqEd.EquationObject = function(symbolSizeConfig) {
 
 /////// Begin Container Class ///////
 
-eqEd.Container = function(symbolSizeConfig) {
+eqEd.Container = function(symbolSizeConfig, args) {
     if (arguments[0] instanceof eqEd.NoConstructorCall) { return; }
-    eqEd.EquationObject.call(this, symbolSizeConfig);
+    eqEd.EquationObject.call(this, symbolSizeConfig, args);
 
     this.wrappers = [];
     this.topAlign = 0;
@@ -1322,9 +1323,9 @@ eqEd.Container.prototype = new eqEd.EquationObject(eqEd.noConstructorCall);
 
 /////// Begin Wrapper Class ///////
 
-eqEd.Wrapper = function(symbolSizeConfig) {
+eqEd.Wrapper = function(symbolSizeConfig, args) {
     if (arguments[0] instanceof eqEd.NoConstructorCall) { return; }
-    eqEd.EquationObject.call(this, symbolSizeConfig);
+    eqEd.EquationObject.call(this, symbolSizeConfig, args);
 
     this.padLeft = 0;
     this.padTop = 0;
@@ -1351,6 +1352,10 @@ eqEd.Wrapper.prototype = new eqEd.EquationObject(eqEd.noConstructorCall);
     eqEd.Wrapper.prototype.updateFormatting = function() {
         // It is assumed that child containers have already had their
         // width, height, topAlign, and bottomAlign calculated/applied.
+
+        if (this.parent === null) {
+            return undefined;
+        }
 
         for (var i = 0; i < this.childNoncontainers.length; i++) {
             this.childNoncontainers[i].updateHeight();
@@ -1452,7 +1457,10 @@ eqEd.Wrapper.prototype = new eqEd.EquationObject(eqEd.noConstructorCall);
 /////// Begin SymbolWrapper Class ///////
 eqEd.SymbolWrapper = function(symbolSizeConfig, character) {
     if (arguments[0] instanceof eqEd.NoConstructorCall) { return; }
-    eqEd.Wrapper.call(this, symbolSizeConfig);
+
+    var args = Array.prototype.slice.call(arguments);
+
+    eqEd.Wrapper.call(this, symbolSizeConfig, args);
 
     this.symbol = new eqEd.Symbol(symbolSizeConfig, character);
     this.jQueryObject.append(this.symbol.jQueryObject);
@@ -1483,6 +1491,8 @@ eqEd.SymbolWrapper.prototype = new eqEd.Wrapper(eqEd.noConstructorCall);
     eqEd.SymbolWrapper.prototype.buildHtmlRepresentation = function() {
         return '<div class="wrapper symbolWrapper"></div>';
     }
+
+    eqEd.SymbolWrapper.prototype.constructor = eqEd.SymbolWrapper;
 })();
 /////// End SymbolWrapper Class ///////
 
@@ -1547,13 +1557,18 @@ eqEd.Symbol.prototype = new eqEd.EquationObject(eqEd.noConstructorCall);
 
 /////// Begin EmptyContainerWrapper Class ///////
 
-eqEd.EmptyContainerWrapper = function(symbolSizeConfig) {
+eqEd.EmptyContainerWrapper = function(symbolSizeConfig, args) {
     if (arguments[0] instanceof eqEd.NoConstructorCall) { return; }
-    eqEd.Wrapper.call(this, symbolSizeConfig);
+
+    eqEd.Wrapper.call(this, symbolSizeConfig, args);
 
 }
 
 eqEd.EmptyContainerWrapper.prototype = new eqEd.Wrapper(eqEd.noConstructorCall);
+(function() {
+    eqEd.EmptyContainerWrapper.prototype.constructor = eqEd.EmptyContainerWrapper;
+})();
+
 
 /////// End EmptyContainerWrapper Class ///////
 
@@ -1561,7 +1576,10 @@ eqEd.EmptyContainerWrapper.prototype = new eqEd.Wrapper(eqEd.noConstructorCall);
 
 eqEd.TopLevelEmptyContainerWrapper = function(symbolSizeConfig) {
     if (arguments[0] instanceof eqEd.NoConstructorCall) { return; }
-    eqEd.EmptyContainerWrapper.call(this, symbolSizeConfig);
+
+    var args = Array.prototype.slice.call(arguments);
+
+    eqEd.EmptyContainerWrapper.call(this, symbolSizeConfig, args);
 
     this.topLevelEmptyContainerMessage = new eqEd.TopLevelEmptyContainerMessage(symbolSizeConfig);
     this.topLevelEmptyContainerMessage.parent = this;
@@ -1591,6 +1609,7 @@ eqEd.TopLevelEmptyContainerWrapper.prototype = new eqEd.EmptyContainerWrapper(eq
     eqEd.TopLevelEmptyContainerWrapper.prototype.buildHtmlRepresentation = function() {
         return '<div class="wrapper emptyContainerWrapper topLevelEmptyContainerWrapper"></div>';
     }
+    eqEd.TopLevelEmptyContainerWrapper.prototype.constructor = eqEd.TopLevelEmptyContainerWrapper;
 })();
 /////// End TopLevelEmptyContainerWrapper Class ///////
 
@@ -1601,8 +1620,9 @@ eqEd.TopLevelEmptyContainerMessage = function(symbolSizeConfig) {
 
     // Need to set message before superclass call b/c I need it for buildHtmlRepresentation.
     this.message = "Enter&nbsp;Your&nbsp;Equation&nbsp;Here";
+    var args = Array.prototype.slice.call(arguments);
 
-    eqEd.EquationObject.call(this, symbolSizeConfig);
+    eqEd.EquationObject.call(this, symbolSizeConfig, args);
 
     this.parent = null;
     var fontHeight = this.symbolSizeConfig.height["fontSizeNormal"];
@@ -1632,6 +1652,7 @@ eqEd.TopLevelEmptyContainerMessage.prototype = new eqEd.EquationObject(eqEd.noCo
     eqEd.TopLevelEmptyContainerMessage.prototype.buildHtmlRepresentation = function() {
         return '<span class="topLevelEmptyContainerMessage">' + this.message + '</span>';
     }
+    eqEd.TopLevelEmptyContainerMessage.prototype.constructor = eqEd.TopLevelEmptyContainerMessage;
 })();
 
 /////// End TopLevelEmptyContainerMessage Class ///////
@@ -1640,7 +1661,10 @@ eqEd.TopLevelEmptyContainerMessage.prototype = new eqEd.EquationObject(eqEd.noCo
 
 eqEd.SquareEmptyContainerWrapper = function(symbolSizeConfig) {
     if (arguments[0] instanceof eqEd.NoConstructorCall) { return; }
-    eqEd.EmptyContainerWrapper.call(this, symbolSizeConfig);
+
+    var args = Array.prototype.slice.call(arguments);
+
+    eqEd.EmptyContainerWrapper.call(this, symbolSizeConfig, args);
 
     this.squareEmptyContainer = new eqEd.SquareEmptyContainer(symbolSizeConfig);
     this.jQueryObject.append(this.squareEmptyContainer.jQueryObject);
@@ -1675,6 +1699,8 @@ eqEd.SquareEmptyContainerWrapper.prototype = new eqEd.EmptyContainerWrapper(eqEd
     eqEd.SquareEmptyContainerWrapper.prototype.buildHtmlRepresentation = function() {
         return '<div class="wrapper emptyContainerWrapper squareEmptyContainerWrapper"></div>';
     }
+
+    eqEd.SquareEmptyContainerWrapper.prototype.constructor = eqEd.SquareEmptyContainerWrapper;
 })();
 
 /////// End SquareEmptyContainerWrapper Class ///////
@@ -1683,7 +1709,10 @@ eqEd.SquareEmptyContainerWrapper.prototype = new eqEd.EmptyContainerWrapper(eqEd
 
 eqEd.SquareEmptyContainer = function(symbolSizeConfig) {
     if (arguments[0] instanceof eqEd.NoConstructorCall) { return; }
-    eqEd.Container.call(this, symbolSizeConfig);
+
+    var args = Array.prototype.slice.call(arguments);
+
+    eqEd.Container.call(this, symbolSizeConfig, args);
 
     // This will get overwritten when the EmptyContainerWrapper is added to a container.
     this.fontSize = "fontSizeNormal";
@@ -1722,6 +1751,7 @@ eqEd.SquareEmptyContainer.prototype = new eqEd.Container(eqEd.noConstructorCall)
     eqEd.SquareEmptyContainer.prototype.buildHtmlRepresentation = function() {
         return '<div class="container squareEmptyContainer"></div>';
     }
+    eqEd.SquareEmptyContainer.prototype.constructor = eqEd.SquareEmptyContainer;
 })();   
 /////// End SquareEmptyContainer Class ///////
 
@@ -1729,7 +1759,10 @@ eqEd.SquareEmptyContainer.prototype = new eqEd.Container(eqEd.noConstructorCall)
 
 eqEd.SquareEmptyContainerFillerWrapper = function(symbolSizeConfig) {
     if (arguments[0] instanceof eqEd.NoConstructorCall) { return; }
-    eqEd.Wrapper.call(this, symbolSizeConfig);
+
+    var args = Array.prototype.slice.call(arguments);
+
+    eqEd.Wrapper.call(this, symbolSizeConfig, args);
 
     this.sideLength = 0.6;
 }
@@ -1753,6 +1786,7 @@ eqEd.SquareEmptyContainerFillerWrapper.prototype = new eqEd.Wrapper(eqEd.noConst
     eqEd.SquareEmptyContainerFillerWrapper.prototype.buildHtmlRepresentation = function() {
         return '<div class="wrapper squareEmptyContainerFillerWrapper"></div>';
     }
+    eqEd.SquareEmptyContainerFillerWrapper.prototype.constructor = eqEd.SquareEmptyContainerFillerWrapper;
 })();
 
 /////// End SquareEmptyContainerFillerWrapper Class ///////
@@ -1761,7 +1795,10 @@ eqEd.SquareEmptyContainerFillerWrapper.prototype = new eqEd.Wrapper(eqEd.noConst
 
 eqEd.StackedFractionWrapper = function(symbolSizeConfig) {
     if (arguments[0] instanceof eqEd.NoConstructorCall) { return; }
-    eqEd.Wrapper.call(this, symbolSizeConfig);
+
+    var args = Array.prototype.slice.call(arguments);
+
+    eqEd.Wrapper.call(this, symbolSizeConfig, args);
 
     this.stackedFractionNumeratorContainer = new eqEd.StackedFractionNumeratorContainer(symbolSizeConfig);
     this.stackedFractionDenominatorContainer = new eqEd.StackedFractionDenominatorContainer(symbolSizeConfig);
@@ -1798,6 +1835,7 @@ eqEd.StackedFractionWrapper.prototype = new eqEd.Wrapper(eqEd.noConstructorCall)
     eqEd.StackedFractionWrapper.prototype.buildHtmlRepresentation = function() {
         return '<div class="wrapper stackedFractionWrapper"></div>';
     }
+    eqEd.StackedFractionWrapper.prototype.constructor = eqEd.StackedFractionWrapper;
 })();
 
 /////// End StackedFractionWrapper Class ///////
@@ -1806,7 +1844,10 @@ eqEd.StackedFractionWrapper.prototype = new eqEd.Wrapper(eqEd.noConstructorCall)
 
 eqEd.StackedFractionNumeratorContainer = function(symbolSizeConfig) {
     if (arguments[0] instanceof eqEd.NoConstructorCall) { return; }
-    eqEd.Container.call(this, symbolSizeConfig);
+
+    var args = Array.prototype.slice.call(arguments);
+
+    eqEd.Container.call(this, symbolSizeConfig, args);
 
     this.parent = null;
     this.squareEmptyContainerWrapper = new eqEd.SquareEmptyContainerWrapper(symbolSizeConfig);
@@ -1844,6 +1885,7 @@ eqEd.StackedFractionNumeratorContainer.prototype = new eqEd.Container(eqEd.noCon
     eqEd.StackedFractionNumeratorContainer.prototype.buildHtmlRepresentation = function() {
         return '<div class="container stackedFractionNumeratorContainer"></div>';
     }
+    eqEd.StackedFractionNumeratorContainer.prototype.constructor = eqEd.StackedFractionNumeratorContainer;
 })();   
 /////// End StackedFractionNumeratorContainer Class ///////
 
@@ -1851,7 +1893,10 @@ eqEd.StackedFractionNumeratorContainer.prototype = new eqEd.Container(eqEd.noCon
 
 eqEd.StackedFractionDenominatorContainer = function(symbolSizeConfig) {
     if (arguments[0] instanceof eqEd.NoConstructorCall) { return; }
-    eqEd.Container.call(this, symbolSizeConfig);
+
+    var args = Array.prototype.slice.call(arguments);
+
+    eqEd.Container.call(this, symbolSizeConfig, args);
 
     this.parent = null;
     this.squareEmptyContainerWrapper = new eqEd.SquareEmptyContainerWrapper(symbolSizeConfig);
@@ -1891,6 +1936,7 @@ eqEd.StackedFractionDenominatorContainer.prototype = new eqEd.Container(eqEd.noC
     eqEd.StackedFractionDenominatorContainer.prototype.buildHtmlRepresentation = function() {
         return '<div class="container stackedFractionDenominatorContainer"></div>';
     }
+    eqEd.StackedFractionDenominatorContainer.prototype.constructor = eqEd.StackedFractionDenominatorContainer;
 })();   
 /////// End StackedFractionNumeratorContainer Class ///////
 
@@ -1898,7 +1944,10 @@ eqEd.StackedFractionDenominatorContainer.prototype = new eqEd.Container(eqEd.noC
 
 eqEd.StackedFractionHorizontalBar = function(symbolSizeConfig) {
     if (arguments[0] instanceof eqEd.NoConstructorCall) { return; }
-    eqEd.EquationObject.call(this, symbolSizeConfig);
+
+    var args = Array.prototype.slice.call(arguments);
+
+    eqEd.EquationObject.call(this, symbolSizeConfig, args);
 
     this.parent = null;
     this.adjustLeft = 0;
@@ -1932,6 +1981,7 @@ eqEd.StackedFractionHorizontalBar.prototype = new eqEd.EquationObject(eqEd.noCon
     eqEd.StackedFractionHorizontalBar.prototype.buildHtmlRepresentation = function() {
         return '<div class="stackedFractionHorizontalBar"></span>';
     }
+    eqEd.StackedFractionHorizontalBar.prototype.constructor = eqEd.StackedFractionHorizontalBar;
 })();
 
 /////// End StackedFractionHorizontalBar Class ///////
@@ -1940,7 +1990,10 @@ eqEd.StackedFractionHorizontalBar.prototype = new eqEd.EquationObject(eqEd.noCon
 
 eqEd.SuperscriptWrapper = function(symbolSizeConfig) {
     if (arguments[0] instanceof eqEd.NoConstructorCall) { return; }
-    eqEd.Wrapper.call(this, symbolSizeConfig);
+
+    var args = Array.prototype.slice.call(arguments);
+
+    eqEd.Wrapper.call(this, symbolSizeConfig, args);
 
     this.superscriptContainer = new eqEd.SuperscriptContainer(symbolSizeConfig);
     this.jQueryObject.append(this.superscriptContainer.jQueryObject);
@@ -2028,6 +2081,7 @@ eqEd.SuperscriptWrapper.prototype = new eqEd.Wrapper(eqEd.noConstructorCall);
     eqEd.SuperscriptWrapper.prototype.buildHtmlRepresentation = function() {
         return '<div class="wrapper superscriptWrapper"></div>';
     }
+    eqEd.SuperscriptWrapper.prototype.constructor = eqEd.SuperscriptWrapper;
 })();
 
 /////// End SuperscriptWrapper Class ///////
@@ -2036,7 +2090,10 @@ eqEd.SuperscriptWrapper.prototype = new eqEd.Wrapper(eqEd.noConstructorCall);
 
 eqEd.SuperscriptContainer = function(symbolSizeConfig) {
     if (arguments[0] instanceof eqEd.NoConstructorCall) { return; }
-    eqEd.Container.call(this, symbolSizeConfig);
+
+    var args = Array.prototype.slice.call(arguments);
+
+    eqEd.Container.call(this, symbolSizeConfig, args);
 
     this.parent = null;
     this.squareEmptyContainerWrapper = new eqEd.SquareEmptyContainerWrapper(symbolSizeConfig);
@@ -2084,6 +2141,7 @@ eqEd.SuperscriptContainer.prototype = new eqEd.Container(eqEd.noConstructorCall)
     eqEd.SuperscriptContainer.prototype.buildHtmlRepresentation = function() {
         return '<div class="container superscriptContainer"></div>';
     }
+    eqEd.SuperscriptContainer.prototype.constructor = eqEd.SuperscriptContainer;
 })();   
 /////// End SuperscriptContainer Class ///////
 
@@ -2091,7 +2149,10 @@ eqEd.SuperscriptContainer.prototype = new eqEd.Container(eqEd.noConstructorCall)
 
 eqEd.SubscriptWrapper = function(symbolSizeConfig) {
     if (arguments[0] instanceof eqEd.NoConstructorCall) { return; }
-    eqEd.Wrapper.call(this, symbolSizeConfig);
+
+    var args = Array.prototype.slice.call(arguments);
+
+    eqEd.Wrapper.call(this, symbolSizeConfig, args);
 
     this.subscriptContainer = new eqEd.SubscriptContainer(symbolSizeConfig);
     this.jQueryObject.append(this.subscriptContainer.jQueryObject);
@@ -2149,6 +2210,7 @@ eqEd.SubscriptWrapper.prototype = new eqEd.Wrapper(eqEd.noConstructorCall);
     eqEd.SubscriptWrapper.prototype.buildHtmlRepresentation = function() {
         return '<div class="wrapper subscriptWrapper"></div>';
     }
+    eqEd.SubscriptWrapper.prototype.constructor = eqEd.SubscriptWrapper;
 })();
 
 /////// End SubscriptWrapper Class ///////
@@ -2157,7 +2219,10 @@ eqEd.SubscriptWrapper.prototype = new eqEd.Wrapper(eqEd.noConstructorCall);
 
 eqEd.SubscriptContainer = function(symbolSizeConfig) {
     if (arguments[0] instanceof eqEd.NoConstructorCall) { return; }
-    eqEd.Container.call(this, symbolSizeConfig);
+
+    var args = Array.prototype.slice.call(arguments);
+
+    eqEd.Container.call(this, symbolSizeConfig, args);
 
     this.parent = null;
     this.squareEmptyContainerWrapper = new eqEd.SquareEmptyContainerWrapper(symbolSizeConfig);
@@ -2216,6 +2281,7 @@ eqEd.SubscriptContainer.prototype = new eqEd.Container(eqEd.noConstructorCall);
     eqEd.SubscriptContainer.prototype.buildHtmlRepresentation = function() {
         return '<div class="container subscriptContainer"></div>';
     }
+    eqEd.SubscriptContainer.prototype.constructor = eqEd.SubscriptContainer;
 })();   
 /////// End SubscriptContainer Class ///////
 
@@ -2223,7 +2289,10 @@ eqEd.SubscriptContainer.prototype = new eqEd.Container(eqEd.noConstructorCall);
 
 eqEd.SuperscriptAndSubscriptWrapper = function(symbolSizeConfig) {
     if (arguments[0] instanceof eqEd.NoConstructorCall) { return; }
-    eqEd.Wrapper.call(this, symbolSizeConfig);
+
+    var args = Array.prototype.slice.call(arguments);
+
+    eqEd.Wrapper.call(this, symbolSizeConfig, args);
     this.superscriptContainer = new eqEd.SuperscriptContainer(symbolSizeConfig)
     this.subscriptContainer = new eqEd.SubscriptContainer(symbolSizeConfig);
     this.subscriptContainer.adjustTop = -0.15;
@@ -2297,6 +2366,7 @@ eqEd.SuperscriptAndSubscriptWrapper.prototype = new eqEd.Wrapper(eqEd.noConstruc
     eqEd.SuperscriptAndSubscriptWrapper.prototype.buildHtmlRepresentation = function() {
         return '<div class="wrapper superscriptAndSubscriptWrapper"></div>';
     }
+    eqEd.SuperscriptAndSubscriptWrapper.prototype.constructor = eqEd.SuperscriptAndSubscriptWrapper;
 })();
 
 /////// End SuperscriptAndSubscriptWrapper Class ///////
@@ -2305,7 +2375,10 @@ eqEd.SuperscriptAndSubscriptWrapper.prototype = new eqEd.Wrapper(eqEd.noConstruc
 
 eqEd.SquareRootWrapper = function(symbolSizeConfig) {
     if (arguments[0] instanceof eqEd.NoConstructorCall) { return; }
-    eqEd.Wrapper.call(this, symbolSizeConfig);
+
+    var args = Array.prototype.slice.call(arguments);
+
+    eqEd.Wrapper.call(this, symbolSizeConfig, args);
     this.radicandContainer = new eqEd.SquareRootRadicandContainer(symbolSizeConfig);
     this.squareRootOverBar = new eqEd.SquareRootOverBar(symbolSizeConfig);
     this.radical = new eqEd.SquareRootRadical(symbolSizeConfig);
@@ -2358,6 +2431,7 @@ eqEd.SquareRootWrapper.prototype = new eqEd.Wrapper(eqEd.noConstructorCall);
     eqEd.SquareRootWrapper.prototype.buildHtmlRepresentation = function() {
         return '<div class="wrapper squareRootWrapper"></div>';
     }
+    eqEd.SquareRootWrapper.prototype.constructor = eqEd.SquareRootWrapper;
 })();
 
 /////// End SquareRootWrapper Class ///////
@@ -2366,7 +2440,10 @@ eqEd.SquareRootWrapper.prototype = new eqEd.Wrapper(eqEd.noConstructorCall);
 
 eqEd.SquareRootOverBar = function(symbolSizeConfig) {
     if (arguments[0] instanceof eqEd.NoConstructorCall) { return; }
-    eqEd.EquationObject.call(this, symbolSizeConfig);
+
+    var args = Array.prototype.slice.call(arguments);
+
+    eqEd.EquationObject.call(this, symbolSizeConfig, args);
 
     this.parent = null;
     this.adjustLeft = -0.06;
@@ -2395,6 +2472,7 @@ eqEd.SquareRootOverBar.prototype = new eqEd.EquationObject(eqEd.noConstructorCal
     eqEd.SquareRootOverBar.prototype.buildHtmlRepresentation = function() {
         return '<div class="squareRootOverBar"></div>';
     }
+    eqEd.SquareRootOverBar.prototype.constructor = eqEd.SquareRootOverBar;
 })();
 
 /////// End SquareRootOverBar Class ///////
@@ -2403,7 +2481,10 @@ eqEd.SquareRootOverBar.prototype = new eqEd.EquationObject(eqEd.noConstructorCal
 
 eqEd.SquareRootRadical = function(symbolSizeConfig) {
     if (arguments[0] instanceof eqEd.NoConstructorCall) { return; }
-    eqEd.EquationObject.call(this, symbolSizeConfig);
+
+    var args = Array.prototype.slice.call(arguments);
+
+    eqEd.EquationObject.call(this, symbolSizeConfig, args);
 
     this.parent = null;
     this.adjustLeft = 0;
@@ -2445,6 +2526,7 @@ eqEd.SquareRootRadical.prototype = new eqEd.EquationObject(eqEd.noConstructorCal
         }
         return img;
     };
+    eqEd.SquareRootRadical.prototype.constructor = eqEd.SquareRootRadical;
 })();
 
 /////// End SquareRootRadical Class ///////
@@ -2453,7 +2535,10 @@ eqEd.SquareRootRadical.prototype = new eqEd.EquationObject(eqEd.noConstructorCal
 
 eqEd.SquareRootDiagonal = function(symbolSizeConfig) {
     if (arguments[0] instanceof eqEd.NoConstructorCall) { return; }
-    eqEd.EquationObject.call(this, symbolSizeConfig);
+
+    var args = Array.prototype.slice.call(arguments);
+
+    eqEd.EquationObject.call(this, symbolSizeConfig, args);
 
     this.parent = null;
     this.adjustLeft = -0.035;
@@ -2496,6 +2581,7 @@ eqEd.SquareRootDiagonal.prototype = new eqEd.EquationObject(eqEd.noConstructorCa
         }
         return img;
     };
+    eqEd.SquareRootDiagonal.prototype.constructor = eqEd.SquareRootDiagonal;
 })();
 
 /////// End SquareRootDiagonal Class ///////
@@ -2504,7 +2590,10 @@ eqEd.SquareRootDiagonal.prototype = new eqEd.EquationObject(eqEd.noConstructorCa
 
 eqEd.SquareRootRadicandContainer = function(symbolSizeConfig) {
     if (arguments[0] instanceof eqEd.NoConstructorCall) { return; }
-    eqEd.Container.call(this, symbolSizeConfig);
+
+    var args = Array.prototype.slice.call(arguments);
+
+    eqEd.Container.call(this, symbolSizeConfig, args);
 
     this.parent = null;
     this.squareEmptyContainerWrapper = new eqEd.SquareEmptyContainerWrapper(symbolSizeConfig);
@@ -2555,6 +2644,7 @@ eqEd.SquareRootRadicandContainer.prototype = new eqEd.Container(eqEd.noConstruct
         eqEd.Container.prototype.updateFormatting.apply(this);
         this.computeIsMaxTopAlignRootWrapper();
     }
+    eqEd.SquareRootRadicandContainer.prototype.constructor = eqEd.SquareRootRadicandContainer;
 })();   
 /////// End SquareRootRadicandContainer Class ///////
 
@@ -2562,7 +2652,8 @@ eqEd.SquareRootRadicandContainer.prototype = new eqEd.Container(eqEd.noConstruct
 
 eqEd.NthRootWrapper = function(symbolSizeConfig) {
     if (arguments[0] instanceof eqEd.NoConstructorCall) { return; }
-    eqEd.Wrapper.call(this, symbolSizeConfig);
+    var args = Array.prototype.slice.call(arguments);
+    eqEd.Wrapper.call(this, symbolSizeConfig, args);
     this.radicandContainer = new eqEd.NthRootRadicandContainer(symbolSizeConfig);
     this.nthRootOverBar = new eqEd.NthRootOverBar(symbolSizeConfig);
     this.radical = new eqEd.NthRootRadical(symbolSizeConfig);
@@ -2627,6 +2718,7 @@ eqEd.NthRootWrapper.prototype = new eqEd.Wrapper(eqEd.noConstructorCall);
     eqEd.NthRootWrapper.prototype.buildHtmlRepresentation = function() {
         return '<div class="wrapper nthRootWrapper"></div>';
     }
+    eqEd.NthRootWrapper.prototype.constructor = eqEd.NthRootWrapper;
 })();
 
 /////// End NthRootWrapper Class ///////
@@ -2635,7 +2727,8 @@ eqEd.NthRootWrapper.prototype = new eqEd.Wrapper(eqEd.noConstructorCall);
 
 eqEd.NthRootOverBar = function(symbolSizeConfig) {
     if (arguments[0] instanceof eqEd.NoConstructorCall) { return; }
-    eqEd.EquationObject.call(this, symbolSizeConfig);
+    var args = Array.prototype.slice.call(arguments);
+    eqEd.EquationObject.call(this, symbolSizeConfig, args);
 
     this.parent = null;
     this.adjustLeft = -0.06;
@@ -2674,6 +2767,7 @@ eqEd.NthRootOverBar.prototype = new eqEd.EquationObject(eqEd.noConstructorCall);
     eqEd.NthRootOverBar.prototype.buildHtmlRepresentation = function() {
         return '<div class="nthRootOverBar"></div>';
     }
+    eqEd.NthRootOverBar.prototype.constructor = eqEd.NthRootOverBar;
 })();
 
 /////// End NthRootOverBar Class ///////
@@ -2682,7 +2776,10 @@ eqEd.NthRootOverBar.prototype = new eqEd.EquationObject(eqEd.noConstructorCall);
 
 eqEd.NthRootRadical = function(symbolSizeConfig) {
     if (arguments[0] instanceof eqEd.NoConstructorCall) { return; }
-    eqEd.EquationObject.call(this, symbolSizeConfig);
+
+    var args = Array.prototype.slice.call(arguments);
+
+    eqEd.EquationObject.call(this, symbolSizeConfig, args);
 
     this.parent = null;
     this.adjustLeft = 0;
@@ -2736,6 +2833,7 @@ eqEd.NthRootRadical.prototype = new eqEd.EquationObject(eqEd.noConstructorCall);
         }
         return img;
     };
+    eqEd.NthRootRadical.prototype.constructor = eqEd.NthRootRadical;
 })();
 
 /////// End NthRootRadical Class ///////
@@ -2744,7 +2842,10 @@ eqEd.NthRootRadical.prototype = new eqEd.EquationObject(eqEd.noConstructorCall);
 
 eqEd.NthRootDiagonal = function(symbolSizeConfig) {
     if (arguments[0] instanceof eqEd.NoConstructorCall) { return; }
-    eqEd.EquationObject.call(this, symbolSizeConfig);
+
+    var args = Array.prototype.slice.call(arguments);
+
+    eqEd.EquationObject.call(this, symbolSizeConfig, args);
 
     this.parent = null;
     this.adjustLeft = -0.035;
@@ -2803,6 +2904,7 @@ eqEd.NthRootDiagonal.prototype = new eqEd.EquationObject(eqEd.noConstructorCall)
         }
         return img;
     };
+    eqEd.NthRootDiagonal.prototype.constructor = eqEd.NthRootDiagonal;
 })();
 
 /////// End NthRootDiagonal Class ///////
@@ -2811,7 +2913,10 @@ eqEd.NthRootDiagonal.prototype = new eqEd.EquationObject(eqEd.noConstructorCall)
 
 eqEd.NthRootRadicandContainer = function(symbolSizeConfig) {
     if (arguments[0] instanceof eqEd.NoConstructorCall) { return; }
-    eqEd.Container.call(this, symbolSizeConfig);
+
+    var args = Array.prototype.slice.call(arguments);
+
+    eqEd.Container.call(this, symbolSizeConfig, args);
 
     this.parent = null;
     this.squareEmptyContainerWrapper = new eqEd.SquareEmptyContainerWrapper(symbolSizeConfig);
@@ -2872,6 +2977,7 @@ eqEd.NthRootRadicandContainer.prototype = new eqEd.Container(eqEd.noConstructorC
         eqEd.Container.prototype.updateFormatting.apply(this);
         this.computeIsMaxTopAlignRootWrapper();
     }
+    eqEd.NthRootRadicandContainer.prototype.constructor = eqEd.NthRootRadicandContainer;
 })();   
 /////// End NthRootRadicandContainer Class ///////
 
@@ -2879,7 +2985,10 @@ eqEd.NthRootRadicandContainer.prototype = new eqEd.Container(eqEd.noConstructorC
 
 eqEd.NthRootDegreeContainer = function(symbolSizeConfig) {
     if (arguments[0] instanceof eqEd.NoConstructorCall) { return; }
-    eqEd.Container.call(this, symbolSizeConfig);
+
+    var args = Array.prototype.slice.call(arguments);
+
+    eqEd.Container.call(this, symbolSizeConfig, args);
 
     this.parent = null;
     this.squareEmptyContainerWrapper = new eqEd.SquareEmptyContainerWrapper(symbolSizeConfig);
@@ -2944,13 +3053,17 @@ eqEd.NthRootDegreeContainer.prototype = new eqEd.Container(eqEd.noConstructorCal
             this.isLeftFlushToWrapper = true;
         }
     }
+    eqEd.NthRootDegreeContainer.prototype.constructor = eqEd.NthRootDegreeContainer;
 })();   
 /////// End NthRootRadicandContainer Class ///////
 
 /////// Begin OperatorWrapper Class ///////
 eqEd.OperatorWrapper = function(symbolSizeConfig, operatorSymbol) {
     if (arguments[0] instanceof eqEd.NoConstructorCall) { return; }
-    eqEd.Wrapper.call(this, symbolSizeConfig);
+
+    var args = Array.prototype.slice.call(arguments);
+
+    eqEd.Wrapper.call(this, symbolSizeConfig, args);
 
     this.operatorList = {"addition": "+", "subtraction": "&#x2212;", "dotProduct": "&#x22c5;", "equal": "=", 'lessThan': "&#60;", 'greaterThan': "&#62;", 'lessThanOrEqualTo': "&#x2264;", 'greaterThanOrEqualTo': "&#x2265;", 'division': "&#x00f7;"};
     this.operator = new eqEd.Operator(symbolSizeConfig, this.operatorList[operatorSymbol]);
@@ -2988,6 +3101,7 @@ eqEd.OperatorWrapper.prototype = new eqEd.Wrapper(eqEd.noConstructorCall);
     eqEd.OperatorWrapper.prototype.buildHtmlRepresentation = function() {
         return '<div class="wrapper operatorWrapper"></div>';
     }
+    eqEd.OperatorWrapper.prototype.constructor = eqEd.OperatorWrapper;
 })();
 /////// End OperatorWrapper Class ///////
 
@@ -2997,8 +3111,9 @@ eqEd.Operator = function(symbolSizeConfig, character) {
     if (arguments[0] instanceof eqEd.NoConstructorCall) { return; }
 
     this.character = character;
+    var args = Array.prototype.slice.call(arguments);
 
-    eqEd.EquationObject.call(this, symbolSizeConfig);
+    eqEd.EquationObject.call(this, symbolSizeConfig, args);
 
     this.parent = null;
     this.adjustLeft = 0;
@@ -3034,14 +3149,16 @@ eqEd.Operator.prototype = new eqEd.EquationObject(eqEd.noConstructorCall);
     eqEd.Operator.prototype.buildHtmlRepresentation = function() {
         return '<div class="operator fontNormal">' + this.character + '</div>';
     }
+    eqEd.Operator.prototype.constructor = eqEd.Operator;
 })();
 
 /////// End Operator Class ///////
 
 /////// Begin BracketWrapper Class ///////
-eqEd.BracketWrapper = function(symbolSizeConfig, bracketType) {
+eqEd.BracketWrapper = function(symbolSizeConfig, bracketType, args) {
     if (arguments[0] instanceof eqEd.NoConstructorCall) { return; }
-    eqEd.Wrapper.call(this, symbolSizeConfig);
+
+    eqEd.Wrapper.call(this, symbolSizeConfig, args);
 
     this.bracketList = {"leftParenthesis": {whole: "(", top: "&#9115;", middle: "&#9116;", bottom: "&#9117;"}, "rightParenthesis": {whole: ")", top: "&#9118;", middle: "&#9119;", bottom: "&#9120;"}, "leftCurly": {whole: "{", top: "&#9127;", middleVert: "&#9130;", middleCurly: "&#9128;", bottom: "&#9129;"}, "rightCurly": {whole: "}", top: "&#9131;", middleVert: "&#9130;", middleCurly: "&#9132;", bottom: "&#9133;"}, "leftSquare": {whole: "[", top: "&#9121;", middle: "&#9122;", bottom: "&#9123;"}, "rightSquare": {whole: "]", top: "&#9124;", middle: "&#9125;", bottom: "&#9126;"}};
     this.bracketType = bracketType;
@@ -3276,22 +3393,32 @@ eqEd.BracketWrapper.prototype = new eqEd.Wrapper(eqEd.noConstructorCall);
 eqEd.LeftBracketWrapper = function(symbolSizeConfig, bracketType) {
     if (arguments[0] instanceof eqEd.NoConstructorCall) { return; }
 
-    eqEd.BracketWrapper.call(this, symbolSizeConfig, bracketType);
+    var args = Array.prototype.slice.call(arguments);
+
+    eqEd.BracketWrapper.call(this, symbolSizeConfig, bracketType, args);
     this.jQueryObject.addClass('leftBracket');
 }
 
 eqEd.LeftBracketWrapper.prototype = new eqEd.BracketWrapper(eqEd.noConstructorCall);
+(function() {
+    eqEd.LeftBracketWrapper.prototype.constructor = eqEd.LeftBracketWrapper;
+})();
 /////// End LeftBracketWrapper Class ///////
 
 /////// Begin RightBracketWrapper Class ///////
 eqEd.RightBracketWrapper = function(symbolSizeConfig, bracketType) {
     if (arguments[0] instanceof eqEd.NoConstructorCall) { return; }
 
-    eqEd.BracketWrapper.call(this, symbolSizeConfig, bracketType);
+    var args = Array.prototype.slice.call(arguments);
+
+    eqEd.BracketWrapper.call(this, symbolSizeConfig, bracketType, args);
     this.jQueryObject.addClass('rightBracket');
 }
 
 eqEd.RightBracketWrapper.prototype = new eqEd.BracketWrapper(eqEd.noConstructorCall);
+(function() {
+    eqEd.RightBracketWrapper.prototype.constructor = eqEd.RightBracketWrapper;
+})();
 /////// End RightBracketWrapper Class ///////
 
 /////// Begin WholeBracket Class ///////
@@ -3301,7 +3428,9 @@ eqEd.WholeBracket = function(symbolSizeConfig, character, fontFamily) {
     this.character = character;
     this.fontFamily = fontFamily;
 
-    eqEd.EquationObject.call(this, symbolSizeConfig);
+    var args = Array.prototype.slice.call(arguments);
+
+    eqEd.EquationObject.call(this, symbolSizeConfig, args);
 
     this.parent = null;
     this.adjustLeft = 0.001;
@@ -3341,6 +3470,7 @@ eqEd.WholeBracket.prototype = new eqEd.EquationObject(eqEd.noConstructorCall);
     eqEd.WholeBracket.prototype.buildHtmlRepresentation = function() {
         return '<div class="wholeBracket" style="font-family: ' + this.fontFamily + '">' + this.character + '</div>';
     }
+    eqEd.WholeBracket.prototype.constructor = eqEd.WholeBracket;
 })();
 
 /////// End WholeBracket Class ///////
@@ -3351,7 +3481,9 @@ eqEd.TopBracket = function(symbolSizeConfig, character) {
     if (arguments[0] instanceof eqEd.NoConstructorCall) { return; }
     this.character = character;
 
-    eqEd.EquationObject.call(this, symbolSizeConfig);
+    var args = Array.prototype.slice.call(arguments);
+
+    eqEd.EquationObject.call(this, symbolSizeConfig, args);
 
     this.parent = null;
     this.adjustLeft = 0.001;
@@ -3388,6 +3520,7 @@ eqEd.TopBracket.prototype = new eqEd.EquationObject(eqEd.noConstructorCall);
     eqEd.TopBracket.prototype.buildHtmlRepresentation = function() {
         return '<div class="topBracket" style="font-family: MathJax_Size4">' + this.character + '</div>';
     }
+    eqEd.TopBracket.prototype.constructor = eqEd.TopBracket;
 })();
 
 /////// End TopBracket Class ///////
@@ -3398,7 +3531,9 @@ eqEd.MiddleBracket = function(symbolSizeConfig, character, index) {
     if (arguments[0] instanceof eqEd.NoConstructorCall) { return; }
     this.character = character;
 
-    eqEd.EquationObject.call(this, symbolSizeConfig);
+    var args = Array.prototype.slice.call(arguments);
+
+    eqEd.EquationObject.call(this, symbolSizeConfig, args);
 
     this.parent = null;
     this.adjustTop = 0;
@@ -3464,6 +3599,7 @@ eqEd.MiddleBracket.prototype = new eqEd.EquationObject(eqEd.noConstructorCall);
     eqEd.MiddleBracket.prototype.buildHtmlRepresentation = function() {
         return '<div class="middleBracket" style="font-family: MathJax_Size4">' + this.character + '</div>';
     }
+    eqEd.MiddleBracket.prototype.constructor = eqEd.MiddleBracket;
 })();
 
 /////// End MiddleBracket Class ///////
@@ -3474,7 +3610,9 @@ eqEd.BottomBracket = function(symbolSizeConfig, character) {
     if (arguments[0] instanceof eqEd.NoConstructorCall) { return; }
     this.character = character;
 
-    eqEd.EquationObject.call(this, symbolSizeConfig);
+    var args = Array.prototype.slice.call(arguments);
+
+    eqEd.EquationObject.call(this, symbolSizeConfig, args);
 
     this.parent = null;
     this.adjustLeft = 0.001;
@@ -3516,6 +3654,7 @@ eqEd.BottomBracket.prototype = new eqEd.EquationObject(eqEd.noConstructorCall);
     eqEd.BottomBracket.prototype.buildHtmlRepresentation = function() {
         return '<div class="bottomBracket" style="font-family: MathJax_Size4">' + this.character + '</div>';
     }
+    eqEd.BottomBracket.prototype.constructor = eqEd.BottomBracket;
 })();
 
 /////// End BottomBracket Class ///////
@@ -3524,7 +3663,10 @@ eqEd.BottomBracket.prototype = new eqEd.EquationObject(eqEd.noConstructorCall);
 
 eqEd.BigOperatorWrapper = function(symbolSizeConfig, bigOperatorType) {
     if (arguments[0] instanceof eqEd.NoConstructorCall) { return; }
-    eqEd.Wrapper.call(this, symbolSizeConfig);
+
+    var args = Array.prototype.slice.call(arguments);
+
+    eqEd.Wrapper.call(this, symbolSizeConfig, args);
 
     this.bigOperatorTopContainer = new eqEd.BigOperatorTopContainer(symbolSizeConfig);
     this.bigOperatorBottomContainer = new eqEd.BigOperatorBottomContainer(symbolSizeConfig);
@@ -3566,6 +3708,7 @@ eqEd.BigOperatorWrapper.prototype = new eqEd.Wrapper(eqEd.noConstructorCall);
     eqEd.BigOperatorWrapper.prototype.buildHtmlRepresentation = function() {
         return '<div class="wrapper bigOperatorWrapper"></div>';
     }
+    eqEd.BigOperatorWrapper.prototype.constructor = eqEd.BigOperatorWrapper;
 })();
 
 /////// End BigOperatorWrapper Class ///////
@@ -3574,7 +3717,10 @@ eqEd.BigOperatorWrapper.prototype = new eqEd.Wrapper(eqEd.noConstructorCall);
 
 eqEd.BigOperatorTopContainer = function(symbolSizeConfig) {
     if (arguments[0] instanceof eqEd.NoConstructorCall) { return; }
-    eqEd.Container.call(this, symbolSizeConfig);
+
+    var args = Array.prototype.slice.call(arguments);
+
+    eqEd.Container.call(this, symbolSizeConfig, args);
 
     this.parent = null;
     this.squareEmptyContainerWrapper = new eqEd.SquareEmptyContainerWrapper(symbolSizeConfig);
@@ -3604,6 +3750,7 @@ eqEd.BigOperatorTopContainer.prototype = new eqEd.Container(eqEd.noConstructorCa
     eqEd.BigOperatorTopContainer.prototype.buildHtmlRepresentation = function() {
         return '<div class="container bigOperatorTopContainer"></div>';
     }
+    eqEd.BigOperatorTopContainer.prototype.constructor = eqEd.BigOperatorTopContainer;
 })();   
 /////// End BigOperatorTopContainer Class ///////
 
@@ -3611,7 +3758,10 @@ eqEd.BigOperatorTopContainer.prototype = new eqEd.Container(eqEd.noConstructorCa
 
 eqEd.BigOperatorBottomContainer = function(symbolSizeConfig) {
     if (arguments[0] instanceof eqEd.NoConstructorCall) { return; }
-    eqEd.Container.call(this, symbolSizeConfig);
+
+    var args = Array.prototype.slice.call(arguments);
+
+    eqEd.Container.call(this, symbolSizeConfig, args);
 
     this.parent = null;
     this.squareEmptyContainerWrapper = new eqEd.SquareEmptyContainerWrapper(symbolSizeConfig);
@@ -3642,6 +3792,7 @@ eqEd.BigOperatorBottomContainer.prototype = new eqEd.Container(eqEd.noConstructo
     eqEd.BigOperatorBottomContainer.prototype.buildHtmlRepresentation = function() {
         return '<div class="container bigOperatorBottomContainer"></div>';
     }
+    eqEd.BigOperatorBottomContainer.prototype.constructor = eqEd.BigOperatorBottomContainer;
 })();   
 /////// End BigOperatorBottomContainer Class ///////
 
@@ -3649,7 +3800,10 @@ eqEd.BigOperatorBottomContainer.prototype = new eqEd.Container(eqEd.noConstructo
 
 eqEd.BigOperatorSymbol = function(symbolSizeConfig) {
     if (arguments[0] instanceof eqEd.NoConstructorCall) { return; }
-    eqEd.EquationObject.call(this, symbolSizeConfig);
+
+    var args = Array.prototype.slice.call(arguments);
+
+    eqEd.EquationObject.call(this, symbolSizeConfig, args);
 
     this.parent = null;
     this.adjustLeft = 0;
@@ -3671,6 +3825,7 @@ eqEd.BigOperatorSymbol.prototype = new eqEd.EquationObject(eqEd.noConstructorCal
     eqEd.BigOperatorSymbol.prototype.updateWidth = function() {}
     eqEd.BigOperatorSymbol.prototype.updateHeight = function() {}
     eqEd.BigOperatorSymbol.prototype.buildHtmlRepresentation = function() {}
+    eqEd.BigOperatorSymbol.prototype.constructor = eqEd.BigOperatorSymbol;
 })();
 
 /////// End BigOperatorSymbol Class ///////
@@ -3679,7 +3834,10 @@ eqEd.BigOperatorSymbol.prototype = new eqEd.EquationObject(eqEd.noConstructorCal
 
 eqEd.SumBigOperatorSymbol = function(symbolSizeConfig) {
     if (arguments[0] instanceof eqEd.NoConstructorCall) { return; }
-    eqEd.BigOperatorSymbol.call(this, symbolSizeConfig);
+
+    var args = Array.prototype.slice.call(arguments);
+
+    eqEd.BigOperatorSymbol.call(this, symbolSizeConfig, args);
 
     this.parent = null;
     this.adjustLeft = 0;
@@ -3705,6 +3863,7 @@ eqEd.SumBigOperatorSymbol.prototype = new eqEd.BigOperatorSymbol(eqEd.noConstruc
         }
         return img;
     };
+    eqEd.SumBigOperatorSymbol.prototype.constructor = eqEd.SumBigOperatorSymbol;
 })();
 
 /////// End SumBigOperatorSymbol Class ///////

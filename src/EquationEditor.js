@@ -895,6 +895,7 @@ $(window).load( function () {
     })
 
     $(document).on('mousedown', '.container', function(e) {
+        console.log($(this).data('eqObject'));
         if (!$(this).children().first().hasClass('squareEmptyContainerWrapper')) {
             e.preventDefault();
             e.stopPropagation();
@@ -1012,6 +1013,59 @@ $(window).load( function () {
         }
     });
 
+    function reassignDataObject(container) {
+        /*
+        container.jQueryObject.data('eqObject', container);
+        for (var i = 0; i < container.wrappers.length; i++) {
+            container.wrappers[i].jQueryObject.data('eqObject', container.wrappers[i]);
+            for (var j = 0; j < container.wrappers[i].childContainers.length; j++) {
+                reassignDataObject(container.wrappers[i].childContainers[j]);
+            }
+        }
+        */
+    }
+
+    var clone = function(wrapper) {
+        var clonedWrapper = new wrapper.constructor(eqEd.noConstructorCall);
+        wrapper.constructor.apply(clonedWrapper, wrapper.args);
+        console.log("creating new wrapper: " + wrapper.jQueryObject.attr('class'));
+        //if (!clonedWrapper instanceof eqEd.SquareEmptyContainerWrapper) {
+        
+            for (var i = 0; i < wrapper.childContainers.length; i++) {
+                var container = wrapper.childContainers[i];
+                var clonedContainer = clonedWrapper.childContainers[i];
+                /*
+                if (container.wrappers[0] instanceof eqEd.SquareEmptyContainerWrapper && clonedContainer.wrappers[0] instanceof eqEd.SquareEmptyContainerWrapper) {
+                    alert('yo')    
+                    clonedContainer.removeWrappers(0);
+                }
+                */
+                clonedContainer.removeWrappers(0);
+                console.log("looping through containers: " + i + " " + container.jQueryObject.attr('class'));
+                //console.log(container.wrappers[0].constructor)
+                //if (container instanceof eqEd.SquareEmptyContainer) {
+                //    container = container.parent.parent;
+                //    container.removeWrappers(0);
+                //}
+                for (var j = 0; j < container.wrappers.length; j++) {
+                    //alert(container.wrappers.length);
+                    //console.log(i + ": " + j);
+                    // else {
+                    //if (!wrapper instanceof eqEd.EmptyContainerWrapper) {
+                    console.log("addWrapper: " + j + " " + container.wrappers[j].jQueryObject.attr('class'));
+                    //if (!clonedContainer instanceof eqEd.SquareEmptyContainer) {
+                        clonedContainer.addWrappers([j, clone(container.wrappers[j])]);
+                    //}
+                    //}
+                    //}
+                    
+                }
+            }
+        //}
+
+        return clonedWrapper;
+    }
+
     $(document).on('mousedown', '#stackedFractionButton', function (e) {
         e.preventDefault();
         e.stopPropagation();
@@ -1039,12 +1093,23 @@ $(window).load( function () {
             } else {
                 deleteWrappers = _.range(highlight.endIndex, highlight.startIndex);
             }
-            eqEd.Container.prototype.removeWrappers.apply(highlight.parent, deleteWrappers);
+            var numWrappers = [];
             var insertIndex = (highlight.startIndex < highlight.endIndex) ? highlight.startIndex : highlight.endIndex;
             container.addWrappers([insertIndex, stackedFractionWrapper]);
-            cursor.index = (highlight.startIndex < highlight.endIndex) ? highlight.startIndex + 1 : highlight.endIndex + 1;
-            cursor.addCursor(stackedFractionWrapper.stackedFractionNumeratorContainer.wrappers[0].squareEmptyContainer);
+            stackedFractionWrapper.stackedFractionNumeratorContainer.removeWrappers(0);
+            var newDeleteWrappers = [];
+            for (var i = 0; i < deleteWrappers.length; i++) {
+                stackedFractionWrapper.stackedFractionNumeratorContainer.addWrappers([i, clone(container.wrappers[deleteWrappers[i] + 1])]);
+                stackedFractionWrapper.stackedFractionNumeratorContainer.wrappers[i].updateFormattingDeep();
+                newDeleteWrappers.push(deleteWrappers[i] + 1);
+            }
+            eqEd.Container.prototype.removeWrappers.apply(highlight.parent, newDeleteWrappers);
+            stackedFractionWrapper.updateFormattingDeep();
+            cursor.index = deleteWrappers.length;
+            cursor.addCursor(stackedFractionWrapper.stackedFractionNumeratorContainer);
+            cursor.updateFormatting();
             highlight.removeHighlight();
+            $('.highlighted').removeClass('highlighted');
             $('.activeContainer').removeClass('activeContainer');
             cursor.parent.jQueryObject.addClass('activeContainer');
         }
@@ -1077,12 +1142,23 @@ $(window).load( function () {
             } else {
                 deleteWrappers = _.range(highlight.endIndex, highlight.startIndex);
             }
-            eqEd.Container.prototype.removeWrappers.apply(highlight.parent, deleteWrappers);
+            var numWrappers = [];
             var insertIndex = (highlight.startIndex < highlight.endIndex) ? highlight.startIndex : highlight.endIndex;
             container.addWrappers([insertIndex, superscriptWrapper]);
-            cursor.index = (highlight.startIndex < highlight.endIndex) ? highlight.startIndex + 1 : highlight.endIndex + 1;
-            cursor.addCursor(superscriptWrapper.superscriptContainer.wrappers[0].squareEmptyContainer);
+            superscriptWrapper.superscriptContainer.removeWrappers(0);
+            var newDeleteWrappers = [];
+            for (var i = 0; i < deleteWrappers.length; i++) {
+                superscriptWrapper.superscriptContainer.addWrappers([i, clone(container.wrappers[deleteWrappers[i] + 1])]);
+                superscriptWrapper.superscriptContainer.wrappers[i].updateFormattingDeep();
+                newDeleteWrappers.push(deleteWrappers[i] + 1);
+            }
+            eqEd.Container.prototype.removeWrappers.apply(highlight.parent, newDeleteWrappers);
+            superscriptWrapper.updateFormattingDeep();
+            cursor.index = deleteWrappers.length;
+            cursor.addCursor(superscriptWrapper.superscriptContainer);
+            cursor.updateFormatting();
             highlight.removeHighlight();
+            $('.highlighted').removeClass('highlighted');
             $('.activeContainer').removeClass('activeContainer');
             cursor.parent.jQueryObject.addClass('activeContainer');
         }
@@ -1115,12 +1191,23 @@ $(window).load( function () {
             } else {
                 deleteWrappers = _.range(highlight.endIndex, highlight.startIndex);
             }
-            eqEd.Container.prototype.removeWrappers.apply(highlight.parent, deleteWrappers);
+            var numWrappers = [];
             var insertIndex = (highlight.startIndex < highlight.endIndex) ? highlight.startIndex : highlight.endIndex;
             container.addWrappers([insertIndex, subscriptWrapper]);
-            cursor.index = (highlight.startIndex < highlight.endIndex) ? highlight.startIndex + 1 : highlight.endIndex + 1;
-            cursor.addCursor(subscriptWrapper.subscriptContainer.wrappers[0].squareEmptyContainer);
+            subscriptWrapper.subscriptContainer.removeWrappers(0);
+            var newDeleteWrappers = [];
+            for (var i = 0; i < deleteWrappers.length; i++) {
+                subscriptWrapper.subscriptContainer.addWrappers([i, clone(container.wrappers[deleteWrappers[i] + 1])]);
+                subscriptWrapper.subscriptContainer.wrappers[i].updateFormattingDeep();
+                newDeleteWrappers.push(deleteWrappers[i] + 1);
+            }
+            eqEd.Container.prototype.removeWrappers.apply(highlight.parent, newDeleteWrappers);
+            subscriptWrapper.updateFormattingDeep();
+            cursor.index = deleteWrappers.length;
+            cursor.addCursor(subscriptWrapper.subscriptContainer);
+            cursor.updateFormatting();
             highlight.removeHighlight();
+            $('.highlighted').removeClass('highlighted');
             $('.activeContainer').removeClass('activeContainer');
             cursor.parent.jQueryObject.addClass('activeContainer');
         }
@@ -1153,12 +1240,23 @@ $(window).load( function () {
             } else {
                 deleteWrappers = _.range(highlight.endIndex, highlight.startIndex);
             }
-            eqEd.Container.prototype.removeWrappers.apply(highlight.parent, deleteWrappers);
+            var numWrappers = [];
             var insertIndex = (highlight.startIndex < highlight.endIndex) ? highlight.startIndex : highlight.endIndex;
             container.addWrappers([insertIndex, superscriptAndSubscriptWrapper]);
-            cursor.index = (highlight.startIndex < highlight.endIndex) ? highlight.startIndex + 1 : highlight.endIndex + 1;
-            cursor.addCursor(superscriptAndSubscriptWrapper.superscriptContainer.wrappers[0].squareEmptyContainer);
+            superscriptAndSubscriptWrapper.superscriptContainer.removeWrappers(0);
+            var newDeleteWrappers = [];
+            for (var i = 0; i < deleteWrappers.length; i++) {
+                superscriptAndSubscriptWrapper.superscriptContainer.addWrappers([i, clone(container.wrappers[deleteWrappers[i] + 1])]);
+                superscriptAndSubscriptWrapper.superscriptContainer.wrappers[i].updateFormattingDeep();
+                newDeleteWrappers.push(deleteWrappers[i] + 1);
+            }
+            eqEd.Container.prototype.removeWrappers.apply(highlight.parent, newDeleteWrappers);
+            superscriptAndSubscriptWrapper.updateFormattingDeep();
+            cursor.index = deleteWrappers.length;
+            cursor.addCursor(superscriptAndSubscriptWrapper.superscriptContainer);
+            cursor.updateFormatting();
             highlight.removeHighlight();
+            $('.highlighted').removeClass('highlighted');
             $('.activeContainer').removeClass('activeContainer');
             cursor.parent.jQueryObject.addClass('activeContainer');
         }
@@ -1191,12 +1289,23 @@ $(window).load( function () {
             } else {
                 deleteWrappers = _.range(highlight.endIndex, highlight.startIndex);
             }
-            eqEd.Container.prototype.removeWrappers.apply(highlight.parent, deleteWrappers);
+            var numWrappers = [];
             var insertIndex = (highlight.startIndex < highlight.endIndex) ? highlight.startIndex : highlight.endIndex;
             container.addWrappers([insertIndex, squareRootWrapper]);
-            cursor.index = (highlight.startIndex < highlight.endIndex) ? highlight.startIndex + 1 : highlight.endIndex + 1;
-            cursor.addCursor(squareRootWrapper.radicandContainer.wrappers[0].squareEmptyContainer);
+            squareRootWrapper.radicandContainer.removeWrappers(0);
+            var newDeleteWrappers = [];
+            for (var i = 0; i < deleteWrappers.length; i++) {
+                squareRootWrapper.radicandContainer.addWrappers([i, clone(container.wrappers[deleteWrappers[i] + 1])]);
+                squareRootWrapper.radicandContainer.wrappers[i].updateFormattingDeep();
+                newDeleteWrappers.push(deleteWrappers[i] + 1);
+            }
+            eqEd.Container.prototype.removeWrappers.apply(highlight.parent, newDeleteWrappers);
+            squareRootWrapper.updateFormattingDeep();
+            cursor.index = deleteWrappers.length;
+            cursor.addCursor(squareRootWrapper.radicandContainer);
+            cursor.updateFormatting();
             highlight.removeHighlight();
+            $('.highlighted').removeClass('highlighted');
             $('.activeContainer').removeClass('activeContainer');
             cursor.parent.jQueryObject.addClass('activeContainer');
         }
@@ -1228,12 +1337,23 @@ $(window).load( function () {
             } else {
                 deleteWrappers = _.range(highlight.endIndex, highlight.startIndex);
             }
-            eqEd.Container.prototype.removeWrappers.apply(highlight.parent, deleteWrappers);
+            var numWrappers = [];
             var insertIndex = (highlight.startIndex < highlight.endIndex) ? highlight.startIndex : highlight.endIndex;
             container.addWrappers([insertIndex, nthRootWrapper]);
-            cursor.index = (highlight.startIndex < highlight.endIndex) ? highlight.startIndex + 1 : highlight.endIndex + 1;
-            cursor.addCursor(nthRootWrapper.radicandContainer.wrappers[0].squareEmptyContainer);
+            nthRootWrapper.radicandContainer.removeWrappers(0);
+            var newDeleteWrappers = [];
+            for (var i = 0; i < deleteWrappers.length; i++) {
+                nthRootWrapper.radicandContainer.addWrappers([i, clone(container.wrappers[deleteWrappers[i] + 1])]);
+                nthRootWrapper.radicandContainer.wrappers[i].updateFormattingDeep();
+                newDeleteWrappers.push(deleteWrappers[i] + 1);
+            }
+            eqEd.Container.prototype.removeWrappers.apply(highlight.parent, newDeleteWrappers);
+            nthRootWrapper.updateFormattingDeep();
+            cursor.index = deleteWrappers.length;
+            cursor.addCursor(nthRootWrapper.radicandContainer);
+            cursor.updateFormatting();
             highlight.removeHighlight();
+            $('.highlighted').removeClass('highlighted');
             $('.activeContainer').removeClass('activeContainer');
             cursor.parent.jQueryObject.addClass('activeContainer');
         }
@@ -1336,19 +1456,31 @@ $(document).on('mousedown', '#sumButton', function (e) {
         } else if ($('.highlighted').length > 0) {
             var container = highlight.parent;
             var operatorWrapper = new eqEd.BigOperatorWrapper(symbolSizeConfig, "sum");
-
             var deleteWrappers;
             if (highlight.startIndex < highlight.endIndex) {
                 deleteWrappers = _.range(highlight.startIndex, highlight.endIndex);
             } else {
                 deleteWrappers = _.range(highlight.endIndex, highlight.startIndex);
             }
-            eqEd.Container.prototype.removeWrappers.apply(highlight.parent, deleteWrappers);
+            var numWrappers = [];
             var insertIndex = (highlight.startIndex < highlight.endIndex) ? highlight.startIndex : highlight.endIndex;
             container.addWrappers([insertIndex, operatorWrapper]);
-            cursor.index = (highlight.startIndex < highlight.endIndex) ? highlight.startIndex + 1 : highlight.endIndex + 1;
-            cursor.addCursor(container);
+            operatorWrapper.bigOperatorTopContainer.removeWrappers(0);
+            var newDeleteWrappers = [];
+            for (var i = 0; i < deleteWrappers.length; i++) {
+                operatorWrapper.bigOperatorTopContainer.addWrappers([i, clone(container.wrappers[deleteWrappers[i] + 1])]);
+                operatorWrapper.bigOperatorTopContainer.wrappers[i].updateFormattingDeep();
+                newDeleteWrappers.push(deleteWrappers[i] + 1);
+            }
+            eqEd.Container.prototype.removeWrappers.apply(highlight.parent, newDeleteWrappers);
+            operatorWrapper.updateFormattingDeep();
+            cursor.index = deleteWrappers.length;
+            cursor.addCursor(operatorWrapper.bigOperatorTopContainer);
+            cursor.updateFormatting();
             highlight.removeHighlight();
+            $('.highlighted').removeClass('highlighted');
+            $('.activeContainer').removeClass('activeContainer');
+            cursor.parent.jQueryObject.addClass('activeContainer');
         }
     });
 });

@@ -100,6 +100,10 @@
     color: #FFFFFF;
 }
 
+.highlighted .operator {
+    color: #FFFFFF;
+}
+
 .highlighted .container {
     border-color: #FFFFFF;
 }
