@@ -1514,7 +1514,7 @@ IEVersion
         //this.adjustTopItalic = 0.2;
         //this.adjustTopItalic = 0.175;
         //this.adjustTopItalic = 0.025;
-        this.adjustTopItalic = 0.025 + 0.3;
+        this.adjustTopItalic = 0.045 + 0.3;
         this.adjustTop = 0.3;
     } else {
         //this.adjustTopItalic = 0.025;
