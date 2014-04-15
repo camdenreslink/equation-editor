@@ -1,82 +1,79 @@
 function Property(initialValue, ctx) {
 	// Each property will get a unique id.
-    this.id = ++Property.id;
+    this.id = (++Property.id).toString();
     this.value = initialValue;
     this.isUpdated = false;
     this.context = ctx;
     Property.dependsOn[this.id] = [];
     Property.isDependedOnBy[this.id] = [];
+    Property.idMapping[this.id] = this;
 }
 // Static properties on Property function.
 Property.id = 0;
 Property.dependsOn = {};
 Property.isDependedOnBy = {};
+Property.idMapping = {};
+
+// Calling this updates all dependencies from the node outward.
+Property.resolveDependencies = function(node) {
+	node = node.id;
+	var visible = [];
+	// Using Depth First Search to mark visibility (only want to update dependencies that are visible).
+	var depthFirst = function(node) {
+	  visible.push(node);
+	  console.log(node);
+	  console.log(Property.isDependedOnBy);
+	  for (var i = 0; i < Property.isDependedOnBy[node].length; i++) {
+	    depthFirst(Property.isDependedOnBy[node][i]);
+	  }
+	};
+	depthFirst(node);
+	// Topological sort to make sure updates are done in the correct order.
+	var generateOrder = function(inbound) {
+	  var noIncomingEdges = [];
+	  for (var key in inbound) {
+	    if (inbound.hasOwnProperty(key)) {
+	      if(inbound[key].length === 0) {
+	      	// Only call update if visible.
+	        if (_.indexOf(visible, key) !== -1) {
+	          Property.idMapping[key].computeValue();
+	        }
+	        noIncomingEdges.push(key);
+	        delete inbound[key];
+	      }
+	    }
+	  }
+	  
+	  for (var key in inbound) {
+	    if (inbound.hasOwnProperty(key)) {
+	      for (var i = 0; i < noIncomingEdges.length; i++) {
+	        inbound[key] = _.without(inbound[key], noIncomingEdges[i]);
+	      }
+	    }
+	  }
+	  
+	  // Check if the object has anymore nodes.
+	  for(var prop in inbound) {
+	    if (Object.prototype.hasOwnProperty.call(inbound, prop)) {
+	      generateOrder(inbound);
+	    }
+	  }
+	  
+	};
+	generateOrder(_.clone(Property.dependsOn));
+};
 Property.prototype.get = function() {
-    return this.value;
-};
+	return this.value;
+}
 Property.prototype.set = function(value) {
-	// only want to set value, and resolve dependencies if value is different
-	// from previous value.
-	if (this.value !== value) {
-		this.value = value;
-		console.log("isUpdated is now true for " + this.id);
-		this.isUpdated = true;
-	    // When this property has it's value set, make the properties that depend
-	    // on it aware of the change.
-	    console.log("set " + this.id);
-	    for (var i = 0; i < Property.isDependedOnBy[this.id].length; i++) {
-	    	if (!Property.isDependedOnBy[this.id][i].isUpdated) {
-	    		console.log("After setting " + this.id + ", while looping through isDependedOnBy, isUpdated is false for " + Property.isDependedOnBy[this.id][i].id)
-	    		Property.isDependedOnBy[this.id][i].update();
-	    	}
-		}
-	}
-    
-};
-Property.prototype.update = function() {
-	this.update_before();
-	this.update_after();
+	this.value = value;
+}
+Property.prototype.computeValue = function() {
 	// Call code that updates this.value.
 };
-Property.prototype.update_before = function() {
-	// When update is called on this property, check if all of its dependencies have been updated.
-	// If not, call update on them.
-	console.log("update " + this.id);
-	for (var i = 0; i < Property.dependsOn[this.id].length; i++) {
-		if (!Property.dependsOn[this.id][i].isUpdated) {
-			//console.log("While updating " + this.id + ", while looping through dependsOn, isUpdated is false for " + Property.dependsOn[this.id][i].id);
-			
-			Property.dependsOn[this.id][i].update();
-		}
-	}
-}
-Property.prototype.update_after = function() {
-	
-	// This code resets isUpdated when a dependency has been removed from update loop.
-	var allDependenciesResolved = true;
-	for (var i = 0; i < Property.dependsOn[this.id].length; i++) {
-	    var property = Property.dependsOn[this.id][i]
-	    console.log(property.id + " looping through dependencies")
-	    for (var j = 0; j < Property.isDependedOnBy[property.id].length; j++) {
-	    	console.log(Property.isDependedOnBy[property.id][j].id + " looping through all that depend on it.")
-	        if (!Property.isDependedOnBy[property.id][j].isUpdated) {
-	            allDependenciesResolved = false;
-	            break;
-	        }
-	    }
-	    if (allDependenciesResolved) {
-	        for (var j = 0; j < Property.isDependedOnBy[property.id].length; j++) {
-	        	console.log("isUpdated is now false for " + Property.isDependedOnBy[property.id][j].id);
-	            Property.isDependedOnBy[property.id][j].isUpdated = false;
-	        }
-	    }
-	}
-	
-}
 Property.prototype.dependsOn = function(prop) {
-	console.log(this.id + " depends on " + prop.id);
-	Property.dependsOn[this.id].push(prop);
-    Property.isDependedOnBy[prop.id].push(this);
+	Property.dependsOn[this.id].push(prop.id);
+    Property.isDependedOnBy[prop.id].push(this.id);
 }
 
 function PropertyFactory(methodObject) {
@@ -92,12 +89,8 @@ function PropertyFactory(methodObject) {
     if (methodObject.set !== null) {
     	PropType.prototype.set = methodObject.set;
     }
-    if (methodObject.update !== null) {
-    	PropType.prototype.update = function() {
-    		this.update_before();
-    		methodObject.update.call(this);
-    		this.update_after();
-    	}
+    if (methodObject.computeValue !== null) {
+    	PropType.prototype.computeValue = methodObject.computeValue;
     }
     
     return new PropType(methodObject.initialValue);
@@ -109,12 +102,13 @@ function MyClassContainer() {
     	initialValue: 0,
     	get: null,
     	set: null,
-    	update: function() {
+    	computeValue: function() {
     		var self = this.context;
     		var updatedVal = self.children[0].prop.get() + self.children[1].prop.get();
     		this.set(updatedVal);
     	}
     });
+
 }
 MyClassContainer.prototype.addChildren = function(child) {
 	if (this.children.length === 0 || this.children.length === 1) {
@@ -128,7 +122,7 @@ function MyClass() {
 		initialValue: 5,
 		get: null,
 		set: null,
-		update: null
+		computeValue: null
 	});
 }
 
@@ -137,17 +131,24 @@ var c1 = new MyClass();
 var c2 = new MyClass();
 c.addChildren(c1);
 c.addChildren(c2);
-c.prop.update();
+
+console.log(Property.dependsOn);
+console.log(Property.isDependedOnBy);
+console.log(Property.idMapping);
+
+c.prop.computeValue();
 console.log("c: " + c.prop.get());
 console.log("c1: " + c1.prop.get());
 console.log("c2: " + c2.prop.get());
 console.log("//////// Now setting value of c1 ////////")
 c1.prop.set(3);
+Property.resolveDependencies(c1.prop);
 console.log("c: " + c.prop.get());
 console.log("c1: " + c1.prop.get());
 console.log("c2: " + c2.prop.get());
 console.log("//////// Now setting value of c2 ////////")
 c2.prop.set(2);
+Property.resolveDependencies(c2.prop);
 console.log("c: " + c.prop.get());
 console.log("c1: " + c1.prop.get());
 console.log("c2: " + c2.prop.get());
