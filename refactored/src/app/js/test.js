@@ -1,84 +1,90 @@
+// Not short circuited logical and
+Boolean.prototype.and = function(bool) {
+  var value = true;
+  if (!this.valueOf()) {
+    value = false;
+  }
+  if (!bool.valueOf()) {
+    value = false;
+  }
+  return value;
+};
+
+// Not short circuited logical or
+Boolean.prototype.or = function(bool) {
+  var value = false;
+  if (this.valueOf()) {
+    value = true;
+  }
+  if (bool.valueOf()) {
+    value = true;
+  }
+  return value;
+};
+
 function Property(propertyArgs) {
   this.uniqueId = (++Property.uniqueId).toString();
   this.context = propertyArgs.context;
   this.propertyName = propertyArgs.property;
   this.value = this.context[this.propertyName];
   this.compute = propertyArgs.compute;
-  Property.dependsOn[this.uniqueId] = [];
-  Property.isDependedOnBy[this.uniqueId] = [];
+  this.conditionals = [];
   Property.idMapping[this.uniqueId] = this;
 }
+
 Property.prototype.dependsOn = function(prop) {
+  if (typeof Property.dependsOn[this.uniqueId] === "undefined") {
+    Property.dependsOn[this.uniqueId] = [];
+  }
+  if (typeof Property.isDependedOnBy[prop.uniqueId] === "undefined") {
+    Property.isDependedOnBy[prop.uniqueId] = [];
+  }
   Property.dependsOn[this.uniqueId].push(prop.uniqueId);
   Property.isDependedOnBy[prop.uniqueId].push(this.uniqueId);
 };
-// 
-Property.prototype.noLongerDependsOn = function(prop) {
-  var dependsOnArr = Property.dependsOn[this.uniqueId];
-  var isDependedOnByArr = Property.isDependedOnBy[prop.uniqueId];
-  var dependsOnRemoveIndex = dependsOnArr.indexOf(prop.uniqueId);
-  var isDependedOnByRemoveIndex = isDependedOnByArr.indexOf(this.uniqueId);
-  if (dependsOnRemoveIndex > -1) {
-    dependsOnArr.splice(dependsOnRemoveIndex, 1);
-  }
-  if (isDependedOnByRemoveIndex > -1) {
-    isDependedOnByArr.splice(isDependedOnByRemoveIndex, 1);
-  }
-};
-// I'm not sure if a dereferencing step is required for memory considerations...
-// Will totally remove a property from the dependency graph.
-Property.prototype.dereference = function() {
-  delete Property.idMapping[this.uniqueId];
-  delete Property.dependsOn[this.uniqueId];
-  // Loop through the properties that have an outbound vertice
-  // connected to our dereferenced property.
-  for (var propId in Property.isDependedOnBy) {
-    // Only want properties not in the prototype chain
-    if (Property.isDependedOnBy.hasOwnProperty(propId)) {
-      var withProperty = Property.isDependedOnBy[propId];
-      var withoutProperty = [];
-      for (var i = 0; i < withProperty.length; i++) {
-        if (withProperty[i] !== this.uniqueId) {
-          withoutProperty.push(withProperty[i]);
+
+Property.prototype.scanCompute = function() {
+  Property.isScan = true;
+  Property.currentlyScanning = this;
+  // Check if this property has already had its dependencies mapped,
+  // i.e. this property has already had its compute method scanned.
+  if (typeof Property.dependsOn[this.uniqueId] === "undefined") {
+    //This property has not had its compute method scanned yet
+    if (this.conditionals.length > 0) {
+      // This property's compute method has conditionals within it.
+      for (var i = 0; i < this.conditionals.length; i++) {
+        var conditionalObj = this.conditionals[i];
+        var conditionalDeps = getConditionalDeps(conditionalObj);
+        for (var j = 0; j < conditionalDeps.length; j++) {
+          conditionalDeps[j].scanCompute();
+          Property.isScan = false;
+          Property.currentlyScanning = null;
+          conditionalDeps[j].compute();
+          Property.isScan = true;
+          Property.currentlyScanning = this;
+        }
+        if (conditionalObj.condition) {
+          this.compute = conditionalObj.compute;
+          break;
         }
       }
-      // This will be the dependency array with the dereferenced
-      // property id removed.
-      Property.isDependedOnBy[propId] = withoutProperty;
     }
+    // At this point, the property should have a compute method
+    // defined. Now we can do the scanning to set up the dependencies.
+    this.compute();
   }
-};
-// Static properties
+  Property.isScan = false;
+  Property.currentlyScanning = null;
+  return Property.dependsOn[this.uniqueId]
+}
+
 Property.uniqueId = 0;
 Property.dependsOn = {};
 Property.isDependedOnBy = {};
 Property.idMapping = {};
-Property.setUpProperty = function(ctx, propName, propObj, methods) {
-  Object.defineProperty(ctx, propName,{
-    get: function() {
-      if (typeof this.property !== "undefined") {
-        this.property.dependsOn(propObj[propName]);
-      }
-      return methods.get.call(ctx);
-    },
-    set: function(value) {
-      methods.set.call(ctx, value);
-      propObj[propName].value = ctx[propName];
-    }
-  });
-  propObj[propName] = new Property({
-    context: ctx,
-    property: propName,
-    compute: function() {
-      ctx[propName] = methods.compute.call(ctx);
-    }
-  });
-  
-  // Set up dependencies automagically
-  var copy = Object.create(ctx);
-  copy.property = propObj[propName];
-  methods.compute.call(copy);
-};
+Property.isScan = false;
+Property.currentlyScanning = null;
+
 Property.resolveDependencies = function(node) {
   // prop is a vertice in a Directed Acyclic Graph (DAG)
   // Need to perform topological sort on the graph, and
@@ -130,11 +136,44 @@ Property.resolveDependencies = function(node) {
   generateOrder(_.clone(Property.dependsOn));
 };
 
-/////////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////////
+Property.setUpDependencyGraph = function() {
+  for (var propId in Property.idMapping) {
+    if (Property.idMapping.hasOwnProperty(propId)) {
+      Property.idMapping[propId].scanCompute();
+    }
+  }
+}
+
+Property.setUpProperty = function(ctx, propName, propObj, methods) {
+  Object.defineProperty(ctx, propName,{
+    get: function() {
+      if (Property.isScan) {
+        // This property is being accessed from within a "scanning" compute
+        // method call!
+        Property.currentlyScanning.dependsOn(propObj[propName]);
+      }
+      return methods.get.call(ctx);
+    },
+    set: function(value) {
+      methods.set.call(ctx, value);
+      propObj[propName].value = ctx[propName];
+    }
+  });
+  propObj[propName] = new Property({
+    context: ctx,
+    property: propName,
+    compute: function() {
+      // by assigning the result to the original object,
+      // this allows the compute method to just have to return
+      // a value, instead of its own assignment.
+      if (Property.isScan) {
+        methods.compute.call(ctx);
+      } else {
+        ctx[propName] = methods.compute.call(ctx);
+      }
+    }
+  });
+};
 
 function MyClass() {
   this.properties = {};
@@ -191,12 +230,6 @@ function MyClass() {
 }
 
 var myInstance = new MyClass();
-myInstance.a = 22;
-myInstance.b = 14;
-Property.resolveDependencies(myInstance.properties.c);
-console.log(myInstance.a);
-console.log(myInstance.b);
-console.log(myInstance.c);
-console.log(Property.dependsOn);
-console.log(Property.isDependedOnBy);
+Property.setUpDependencyGraph();
 console.log(Property.idMapping);
+console.log(Property.dependsOn);
