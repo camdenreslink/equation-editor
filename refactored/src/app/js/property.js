@@ -1,4 +1,5 @@
 function Property(propertyArgs, propertyRepo) {
+  // property Args should contain context, property, conditionals, and compute
   this.parentRepo = propertyRepo;
   this.uniqueId = (++this.parentRepo.uniqueId).toString();
   this.context = propertyArgs.context;
