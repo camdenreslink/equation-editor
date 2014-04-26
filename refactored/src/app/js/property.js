@@ -8,30 +8,29 @@ function Property(ctx, propName, initialValue, methods) {
   Object.defineProperty(ctx, propName,{
       get: function() {
           if (!self.isAlreadyComputed && Property.isComputing) {
-            var oldValue = self.value;
             self.compute();
             self.isAlreadyComputed = true;
             Property.alreadyComputed.push(self);
-            self.updateDom(oldValue);
+            
           }
           return methods.get.call(ctx);
       },
       set: function(value) {
-          self.value = value;
           methods.set.call(ctx, value);
       }
     });
     this.compute = function() {
-      this.value = methods.compute.call(ctx);
-      ctx[propName] = this.value;
+      var oldValue = self.value;
+      self.value = methods.compute.call(ctx);
+      ctx[propName] = self.value;
+      self.updateDom(oldValue);
     };
     this.updateDom = function(oldValue) {
       // This assumes the property has a numeric value.
       // Will have to update to see what type it is
       // before testing if the value has changed.
-      console.log(oldValue + ", " + this.value)
-      if (Math.abs(oldValue - this.value) >= 1) {
-        methods.updateDom(ctx);
+      if (Math.abs(oldValue - self.value) >= 1) {
+        methods.updateDom.call(ctx);
       }
     };
 }

@@ -84,17 +84,9 @@ module("Property Tests");
         for (var i = 0; i < Property.alreadyComputed.length; i++) {
             Property.alreadyComputed[i].isAlreadyComputed = false;
         }
+        Property.alreadyComputed = [];
         Property.isComputing = false;
     }
-    test("Basic check to see if values are updated correctly with compute()", function() {
-        var obj1 = new DummyConstructor1();
-        var obj2 = new DummyConstructor2(obj1);
-        obj1.a = 2;
-        obj2.update();
-        strictEqual(obj2.c, 16, "");
-        strictEqual(obj1.b, 4, "");
-        strictEqual(obj1.a, 2, "");
-    });
     test("Basic check to see if values are updated correctly with compute()", function() {
         var obj1 = new DummyConstructor1();
         var obj2 = new DummyConstructor2(obj1);
@@ -113,7 +105,6 @@ module("Property Tests");
         strictEqual(obj1.bCounter, 1, "");
         strictEqual(obj1.aCounter, 1, "");
     });
-
     test("Make sure updateDom is called when property changed", function() {
         var obj1 = new DummyConstructor1();
         var obj2 = new DummyConstructor2(obj1);
@@ -122,5 +113,25 @@ module("Property Tests");
         strictEqual(obj2.cDomCounter, 1, "");
         strictEqual(obj1.bDomCounter, 1, "");
         strictEqual(obj1.aDomCounter, 1, "");
+    });
+    test("Make sure updateDom is not called when property unchanged", function() {
+        var obj1 = new DummyConstructor1();
+        var obj2 = new DummyConstructor2(obj1);
+        obj2.update();
+        strictEqual(obj2.cCounter, 1, "");
+        strictEqual(obj1.bCounter, 1, "");
+        strictEqual(obj1.aCounter, 1, "");
+
+        strictEqual(obj2.cDomCounter, 0, "");
+        strictEqual(obj1.bDomCounter, 0, "");
+        strictEqual(obj1.aDomCounter, 0, "");
+    });
+    test("alreadyComputer should be empty and isComputing false after compute", function() {
+        var obj1 = new DummyConstructor1();
+        var obj2 = new DummyConstructor2(obj1);
+        obj1.a = 2;
+        obj2.update();
+        strictEqual(Property.alreadyComputed.length, 0, "");
+        ok(!Property.isComputing, "");
     });
 })();
