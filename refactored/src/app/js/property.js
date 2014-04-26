@@ -1,62 +1,39 @@
-function Property(propertyArgs, propertyRepo) {
-  // property Args should contain context, property, conditionals, and compute
-  this.parentRepo = propertyRepo;
-  this.uniqueId = (++this.parentRepo.uniqueId).toString();
-  this.context = propertyArgs.context;
-  this.propertyName = propertyArgs.property;
-  this.value = this.context[this.propertyName];
-  this.compute = propertyArgs.compute;
-  this.conditionals = propertyArgs.conditionals;
-  this.parentRepo.idMapping[this.uniqueId] = this;
-}
-
-Property.prototype.dependsOn = function(prop) {
-  if (typeof this.parentRepo.dependsOn[this.uniqueId] === "undefined") {
-    this.parentRepo.dependsOn[this.uniqueId] = [];
-  }
-  if (typeof this.parentRepo.isDependedOnBy[prop.uniqueId] === "undefined") {
-    this.parentRepo.isDependedOnBy[prop.uniqueId] = [];
-  }
-  this.parentRepo.dependsOn[this.uniqueId].push(prop.uniqueId);
-  this.parentRepo.isDependedOnBy[prop.uniqueId].push(this.uniqueId);
-};
-
-Property.prototype.scanCompute = function() {
-  this.parentRepo.isScan = true;
-  this.parentRepo.currentlyScanning = this;
-  // Check if this property has already had its dependencies mapped,
-  // i.e. this property has already had its compute method scanned.
-  if (typeof this.parentRepo.dependsOn[this.uniqueId] === "undefined") {
-    //This property has not had its compute method scanned yet
-    if (this.conditionals.length > 0) {
-      // This property's compute method has conditionals within it.
-      for (var i = 0; i < this.conditionals.length; i++) {
-        var conditionalObj = this.conditionals[i];
-        this.parentRepo.isScanConditional = true;
-        conditionalObj.condition.call(this.context);
-        // Using non-short circuited ops will cause each getter to be called
-        this.parentRepo.isScanConditional = false;
-        for (var j = 0; j < this.parentRepo.conditionalDeps.length; j++) {
-          this.parentRepo.conditionalDeps[j].scanCompute();
-          this.parentRepo.isScan = false;
-          this.parentRepo.currentlyScanning = null;
-          this.parentRepo.conditionalDeps[j].compute();
-          this.parentRepo.isScan = true;
-          this.parentRepo.currentlyScanning = this;
-        }
-
-        this.parentRepo.conditionalDeps = [];
-        if (conditionalObj.condition) {
-          this.compute = conditionalObj.compute;
-          break;
-        }
+function Property(ctx, propName, initialValue, methods) {
+  // methods should be get, set, compute, updateDom.
+  this.isAlreadyComputed = false;
+  this.ctx = ctx;
+  this.propName = propName;
+  this.value = initialValue;
+  var self = this;
+  Object.defineProperty(ctx, propName,{
+      get: function() {
+          if (!self.isAlreadyComputed && Property.isComputing) {
+            var oldValue = self.value;
+            self.compute();
+            self.isAlreadyComputed = true;
+            Property.alreadyComputed.push(self);
+            self.updateDom(oldValue);
+          }
+          return methods.get.call(ctx);
+      },
+      set: function(value) {
+          self.value = value;
+          methods.set.call(ctx, value);
       }
-    }
-    // At this point, the property should have a compute method
-    // defined. Now we can do the scanning to set up the dependencies.
-    this.compute();
-  }
-  this.parentRepo.isScan = false;
-  this.parentRepo.currentlyScanning = null;
-  return this.parentRepo.dependsOn[this.uniqueId];
+    });
+    this.compute = function() {
+      this.value = methods.compute.call(ctx);
+      ctx[propName] = this.value;
+    };
+    this.updateDom = function(oldValue) {
+      // This assumes the property has a numeric value.
+      // Will have to update to see what type it is
+      // before testing if the value has changed.
+      console.log(oldValue + ", " + this.value)
+      if (Math.abs(oldValue - this.value) >= 1) {
+        methods.updateDom(ctx);
+      }
+    };
 }
+Property.alreadyComputed = [];
+Property.isComputing = false;
