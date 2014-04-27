@@ -21,6 +21,11 @@ function Property(ctx, propName, initialValue, methods) {
     });
     this.compute = function() {
       var oldValue = self.value;
+      // ** NOTE: Do not reference the property being computed
+      // in the compute method using "this" (e.g. this.prop1).
+      // This will cause an infinite loop, and stack overflow.
+      // Instead, reference the corresponding private variable
+      // in the constructor.
       self.value = methods.compute.call(ctx);
       ctx[propName] = self.value;
       self.updateDom(oldValue);
