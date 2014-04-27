@@ -1,0 +1,9 @@
+.equation {
+    position: relative;
+}
+
+.equation div {
+    position: absolute;
+    top: 0em;
+    left: 0em;
+}
