@@ -28,8 +28,7 @@ eqEd.Equation = function() {
     this.adjustTop = 0;
     // Each object will have a corresponding object residing
     // in the Dom. To populate this property, call
-    // this.createDomObj().  Only call this once all of the
-    // dependencies for buildHtml() have been created.
+    // this.buildDomObj().
     this.domObj = null;
     // Every object has a parent (except for the very top
     // level container, which will have a parent value of
@@ -46,21 +45,9 @@ eqEd.Equation = function() {
     // because will need deep clones of equations for
     // copy/cut, paste mechanisms.
     eqEd.Equation.prototype.clone = function() {};
-    // Use buildHtml() to create the string of html
-    // that will be used to create the Dom node. For
-    // example in jquery $(buildHtml());
-    eqEd.Equation.prototype.buildHtml = function() {
-        return '';
-    };
-    // createDomObj() will return the Dom object to associate with this
-    // POJSO. Currently returning a jQuery object. Could
-    // instead use a different library, or native code.
-    // Put the results in this.domObj;
-    eqEd.Equation.prototype.createDomObj = function() {
-        var domObj = $(this.buildHtml());
-        domObj.data("eqObject", this);
-        return domObj;
-    }
+    // Use buildDomObj() to create an instance of
+    // equationDom.
+    eqEd.Equation.prototype.buildDomObj = function() {}
     // update() will recursively call compute() on
     // nested objects while making sure all depencencies
     // are resolved in the correct order. Requires the
