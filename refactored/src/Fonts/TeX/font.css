@@ -1,0 +1,48 @@
+@font-face {
+    font-family: 'MathJax_Main';
+    src: url('eot/MathJax_Main-Regular.eot'); /* IE9 Compat Modes */
+    src: url('eot/MathJax_Main-Regular.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+         url('woff/MathJax_Main-Regular.woff') format('woff'), /* Modern Browsers */
+         url('svg/MathJax_Main-Regular.svg#MathJax_Main') format('svg');
+}
+
+@font-face {
+    font-family: 'MathJax_Math';
+    src: url('eot/MathJax_Math-Italic.eot'); /* IE9 Compat Modes */
+    src: url('eot/MathJax_Math-Italic.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+         url('woff/MathJax_Math-Italic.woff') format('woff'), /* Modern Browsers */
+         url('svg/MathJax_Math-Italic.svg#MathJax_Math') format('svg');
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'MathJax_Size1';
+    src: url('eot/MathJax_Size1-Regular.eot'); /* IE9 Compat Modes */
+    src: url('eot/MathJax_Size1-Regular.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+         url('woff/MathJax_Size1-Regular.woff') format('woff'), /* Modern Browsers */
+         url('svg/MathJax_Size1-Regular.svg#MathJax_Size1') format('svg');
+}
+
+@font-face {
+    font-family: 'MathJax_Size2';
+    src: url('eot/MathJax_Size2-Regular.eot'); /* IE9 Compat Modes */
+    src: url('eot/MathJax_Size2-Regular.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+         url('woff/MathJax_Size2-Regular.woff') format('woff'), /* Modern Browsers */
+         url('svg/MathJax_Size2-Regular.svg#MathJax_Size2') format('svg');
+}
+
+@font-face {
+    font-family: 'MathJax_Size3';
+    src: url('eot/MathJax_Size3-Regular.eot'); /* IE9 Compat Modes */
+    src: url('eot/MathJax_Size3-Regular.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+         url('woff/MathJax_Size3-Regular.woff') format('woff'), /* Modern Browsers */
+         url('svg/MathJax_Size3-Regular.svg#MathJax_Size3') format('svg');
+}
+
+@font-face {
+    font-family: 'MathJax_Size4';
+    src: url('eot/MathJax_Size4-Regular.eot'); /* IE9 Compat Modes */
+    src: url('eot/MathJax_Size4-Regular.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+         url('woff/MathJax_Size4-Regular.woff') format('woff'), /* Modern Browsers */
+         url('svg/MathJax_Size4-Regular.svg#MathJax_Size4') format('svg');
+}

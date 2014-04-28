@@ -1,9 +1,33 @@
 .equation {
     position: relative;
+    line-height: 1;
 }
 
 .equation div {
     position: absolute;
     top: 0em;
     left: 0em;
+}
+
+.fontSizeNormal {
+    font-size: 45px;
+}
+
+.fontSizeSmaller {
+    /*font-size: 45px;*/
+    font-size: 37px; /* fontSizeNormal * 0.707 */
+}
+
+.fontSizeSmallest {
+    /*font-size: 40px;*/
+    font-size: 37px; /* fontSizeNormal * 0.5 */
+}
+
+.fontItalic {
+    font-family: 'MathJax_Math';
+    font-style: italic;
+}
+
+.fontNormal {
+    font-family: 'MathJax_Main';
 }
