@@ -23,11 +23,20 @@
     font-size: 37px; /* fontSizeNormal * 0.5 */
 }
 
-.fontItalic {
+.MathJax_MathItalic {
     font-family: 'MathJax_Math';
     font-style: italic;
 }
 
-.fontNormal {
+.MathJax_Main {
     font-family: 'MathJax_Main';
 }
+
+.MathJax_Size3 {
+    font-family: 'MathJax_Size3';
+}
+
+.MathJax_Size4 {
+    font-family: 'MathJax_Size4';
+}
+

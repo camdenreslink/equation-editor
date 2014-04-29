@@ -5,6 +5,66 @@ eqEd.Wrapper = function() {
     this.index = null;
     this.childContainers = [];
     this.childNoncontainers = [];
+
+    // Set up the left calculation
+    var left = 0;
+    this.properties.push(new Property(this, "left", left, {
+        get: function() {
+            return left;
+        },
+        set: function(value) {
+            left = value;
+        },
+        compute: function() {
+            var newLeft = 0;
+            if (this.index === 0) {
+                newLeft = this.parent.padLeft;
+            } else {
+                var prevWrapper = this.parent.wrappers[this.index - 1];
+                newLeft = prevWrapper.left + prevWrapper.width;
+            }
+            return newLeft;
+        },
+        updateDom: function() {
+            this.domObj.updateLeft(this.left);
+        }
+    }));
+
+    // Set up the top calculation
+    var top = 0;
+    this.properties.push(new Property(this, "top", top, {
+        get: function() {
+            return top;
+        },
+        set: function(value) {
+            top = value;
+        },
+        compute: function() {
+            return this.parent.wrappers[this.parent.maxTopAlignIndex].topAlign - this.topAlign + this.parent.padTop;
+        },
+        updateDom: function() {
+            console.log("this top: " + this.top);
+            this.domObj.updateTop(this.top);
+        }
+    }));
+
+    // Set up the height calculation
+    var height = 0;
+    this.properties.push(new Property(this, "height", height, {
+        get: function() {
+            return height;
+        },
+        set: function(value) {
+            height = value;
+        },
+        compute: function() {
+            return this.topAlign + this.bottomAlign;
+        },
+        updateDom: function() {
+            this.domObj.updateHeight(this.height);
+        }
+    }));
+
 };
 (function() {
     // subclass extends superclass
@@ -31,4 +91,7 @@ eqEd.Wrapper = function() {
             this.childNoncontainers[i].update();
         }
     }
+    // Each wrapper class will require its own clone implementation
+    // because each wrapper has its own unique properties.
+    eqEd.Wrapper.prototype.clone = function() {};
 })();

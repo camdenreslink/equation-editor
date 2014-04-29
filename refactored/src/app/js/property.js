@@ -34,7 +34,7 @@ function Property(ctx, propName, initialValue, methods) {
       // This assumes the property has a numeric value.
       // Will have to update to see what type it is
       // before testing if the value has changed.
-      if (Math.abs(oldValue - self.value) >= 1) {
+      if (Math.abs(oldValue - self.value) >= 0.001) {
         methods.updateDom.call(ctx);
       }
     };

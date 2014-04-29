@@ -1506,7 +1506,6 @@ eqEd.Symbol = function(symbolSizeConfig, character) {
     // Superclass constructor needs to get called after character and fontStyle are defined,
     // because the object method buildHtmlRepresentation depends on them.
     eqEd.EquationObject.call(this, symbolSizeConfig);
-IEVersion
     
     // line-height seems to be messed up in IE 9+
     if (IEVersion >= 9) {

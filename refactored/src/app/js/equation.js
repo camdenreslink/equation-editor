@@ -41,6 +41,7 @@ eqEd.Equation = function() {
 };
 
 (function() {
+    eqEd.Equation.prototype.constructor = eqEd.Equation;
     // Each object must have a definition for clone,
     // because will need deep clones of equations for
     // copy/cut, paste mechanisms.
