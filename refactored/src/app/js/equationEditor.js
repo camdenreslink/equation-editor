@@ -4,13 +4,13 @@ var test = function() {
 	var container = new eqEd.Container();
 	container.fontSize = "fontSizeNormal";
 	container.domObj = new eqEd.ContainerDom(container, '<div class="container fontSizeNormal"></div>');
-	var w1 = new eqEd.SymbolWrapper('a', 'MathJax_MathItalic', symbolSizeConfig);
-	var w2 = new eqEd.SymbolWrapper('b', 'MathJax_MathItalic', symbolSizeConfig);
-	var w3 = new eqEd.SymbolWrapper('c', 'MathJax_MathItalic', symbolSizeConfig);
-	var w4 = new eqEd.SymbolWrapper('d', 'MathJax_MathItalic', symbolSizeConfig);
+	var w1 = new eqEd.SymbolWrapper('1', 'MathJax_Main', symbolSizeConfig);
+	var w2 = new eqEd.SymbolWrapper('2', 'MathJax_Main', symbolSizeConfig);
+	var w3 = new eqEd.SymbolWrapper('3', 'MathJax_Main', symbolSizeConfig);
+	var w4 = new eqEd.SymbolWrapper('x', 'MathJax_MathItalic', symbolSizeConfig);
 	var w5 = new eqEd.SymbolWrapper('e', 'MathJax_MathItalic', symbolSizeConfig);
 	var w6 = new eqEd.SymbolWrapper('q', 'MathJax_MathItalic', symbolSizeConfig);
-	container.addWrappers([0, w1], [1, w2], [2, w3], [3, w4], [4, w5], [5, w6]);
+	container.addWrappers([3, w1], [4, w2], [1, w3], [0, w4], [2, w5], [3, w6]);
 	$('.symbolWrapperTest').append(container.domObj.value);
 }
 WebFont.load({
@@ -20,7 +20,6 @@ WebFont.load({
         urls: ['../../Fonts/TeX/font.css']
     },
     active: function() {
-    	console.log("yo");
     	test();
     }
 });

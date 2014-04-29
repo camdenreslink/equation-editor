@@ -40,3 +40,10 @@
     font-family: 'MathJax_Size4';
 }
 
+.fontTest {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    line-height: 1;
+    visibility: hidden;
+}
