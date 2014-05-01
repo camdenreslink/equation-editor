@@ -73,7 +73,6 @@ eqEd.SymbolSizeConfiguration = function() {
                     if (typeof this.height[character][fontStyle] === "undefined") {
                         this.height[character][fontStyle] = {};
                     }
-                    console.log(fontTest.css('font-size') + ", " + fontSize)
                     //this.height[character][fontStyle][fontSize] = fontTest.outerHeight();
                     this.width[character][fontStyle][fontSize] = fontTest.outerWidth() / fontTest.outerHeight();
                     

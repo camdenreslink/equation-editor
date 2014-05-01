@@ -60,11 +60,6 @@ eqEd.Equation = function() {
         for (var i = 0; i < this.properties.length; i++) {
             this.properties[i].compute();
         }
-        for (var i = 0; i < Property.alreadyComputed.length; i++) {
-            Property.alreadyComputed[i].isAlreadyComputed = false;
-        }
-        Property.alreadyComputed = [];
-        Property.isComputing = false;
     }
     // updateAll allows formatting the entire equation
     // that some object belongs to without having a
@@ -76,7 +71,6 @@ eqEd.Equation = function() {
             currentElement = currentElement.parent;
         }
         var rootElement = currentElement;
-
         // Do some set up in the static Property object
         // to allow for scanning of compute() methods
         // to determine dependencies dynamically.

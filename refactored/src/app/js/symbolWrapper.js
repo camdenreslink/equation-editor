@@ -16,11 +16,9 @@ eqEd.SymbolWrapper = function(character, fontStyle, symbolSizeConfig) {
             width = value;
         },
         compute: function() {
-        	//console.log("compute: " + (this.symbol.width + this.padLeft + this.padRight));
             return this.symbol.width + this.padLeft + this.padRight;
         },
         updateDom: function() {
-        	//console.log("update: " + this.width);
             this.domObj.updateWidth(this.width);
         }
     }));

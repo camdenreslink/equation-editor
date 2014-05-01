@@ -1,5 +1,6 @@
 function Property(ctx, propName, initialValue, methods) {
   // methods should be get, set, compute, updateDom.
+  this.uniqueId = ++Property.uniqueId;
   this.isAlreadyComputed = false;
   this.ctx = ctx;
   this.propName = propName;
@@ -9,9 +10,6 @@ function Property(ctx, propName, initialValue, methods) {
       get: function() {
           if (!self.isAlreadyComputed && Property.isComputing) {
             self.compute();
-            self.isAlreadyComputed = true;
-            Property.alreadyComputed.push(self);
-            
           }
           return methods.get.call(ctx);
       },
@@ -20,15 +18,19 @@ function Property(ctx, propName, initialValue, methods) {
       }
     });
     this.compute = function() {
-      var oldValue = self.value;
-      // ** NOTE: Do not reference the property being computed
-      // in the compute method using "this" (e.g. this.prop1).
-      // This will cause an infinite loop, and stack overflow.
-      // Instead, reference the corresponding private variable
-      // in the constructor.
-      self.value = methods.compute.call(ctx);
-      ctx[propName] = self.value;
-      self.updateDom(oldValue);
+      if (!self.isAlreadyComputed) {
+        var oldValue = self.value;
+        // ** NOTE: Do not reference the property being computed
+        // in the compute method using "this" (e.g. this.prop1).
+        // This will cause an infinite loop, and stack overflow.
+        // Instead, reference the corresponding private variable
+        // in the constructor.
+        self.value = methods.compute.call(ctx);
+        self.isAlreadyComputed = true;
+        Property.alreadyComputed.push(self);
+        ctx[propName] = self.value;
+        self.updateDom(oldValue);
+      }
     };
     this.updateDom = function(oldValue) {
       // This assumes the property has a numeric value.
@@ -41,3 +43,4 @@ function Property(ctx, propName, initialValue, methods) {
 }
 Property.alreadyComputed = [];
 Property.isComputing = false;
+Property.uniqueId = 0;

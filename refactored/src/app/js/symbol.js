@@ -25,8 +25,6 @@ eqEd.Symbol = function(character, fontStyle, symbolSizeConfig) {
             width = value;
         },
         compute: function() {
-            //console.log(this.character + ", " + this.fontStyle + ", " + this.parent.parent.fontSize);
-            //console.log(this.symbolSizeConfig.width[this.character][this.fontStyle][this.parent.parent.fontSize] + this.padLeft + this.padBottom)
             return this.symbolSizeConfig.width[this.character][this.fontStyle][this.parent.parent.fontSize] + this.padLeft + this.padBottom;
         },
         updateDom: function() {
