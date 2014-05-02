@@ -7,10 +7,13 @@
   <link href="../css/equationEditor.css" rel="stylesheet" type="text/css" charset="utf-8" />
   <script src="../../lib/jquery-2.0.0.js"></script>
   <script src="../../lib/underscore-1.6.0.js"></script>
+  <script src="../../lib/modernizr-svg-2.8.0.js"></script>
+  <script src="../../lib/mousetrap-1.4.6.js"></script>
   <script src="http://ajax.googleapis.com/ajax/libs/webfont/1.4.7/webfont.js"></script>
+  <script src="../js/property.js"></script>
+  <script src="../js/keyboardRules.js"></script>
   <script src="../js/init.js"></script>
   <script src="../js/symbolSizeConfiguration.js"></script>
-  <script src="../js/property.js"></script>
   <script src="../js/formatting.js"></script>
   <script src="../js/equation.js"></script>
   <script src="../js/equationDom.js"></script>
@@ -20,10 +23,21 @@
   <script src="../js/wrapperDom.js"></script>
   <script src="../js/symbol.js"></script>
   <script src="../js/symbolWrapper.js"></script>
+  <script src="../js/emptyContainerWrapper.js"></script>
+  <script src="../js/topLevelEmptyContainerWrapper.js"></script>
+  <script src="../js/topLevelEmptyContainerMessage.js"></script>
   <script src="../js/equationEditor.js"></script>
 </head>
 <body>
+    <button id="stackedFractionButton">Stacked Fraction</button>
+    <button id="superscriptButton">Superscript</button>
+    <button id="subscriptButton">Subscript</button>
+    <button id="superscriptAndSubscriptButton">SuperscriptAndSubscript</button>
+    <button id="squareRootButton">SquareRoot</button>
+    <button id="nthRootButton">NthRoot</button>
+    <button id="lessThanOrEqualToButton">LessThanOrEqualTo</button>
+    <button id="greaterThanOrEqualToButton">GreaterThanOrEqualTo</button>
+    <button id="sumButton">Sum</button>
     <div class="testEquation equation"></div>
-    <div class="equation symbolWrapperTest"></div>
 </body>
 </html>

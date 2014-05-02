@@ -8,5 +8,5 @@ eqEd.ContainerDom.prototype.addWrapper = function(index, wrapper) {
     this.value.insertAt(index, wrapper.domObj.value);
 }
 eqEd.ContainerDom.prototype.removeWrapper = function(index) {
-    this.domObj.children().eq(index).remove();
+    this.value.children().eq(index).remove();
 }

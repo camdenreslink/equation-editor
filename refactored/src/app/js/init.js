@@ -2,30 +2,6 @@
 // collisions between libraries.
 var eqEd = eqEd || {};
 
-// Not short circuited logical and
-Boolean.prototype.and = function(bool) {
-  var value = true;
-  if (!this.valueOf()) {
-    value = false;
-  }
-  if (!bool.valueOf()) {
-    value = false;
-  }
-  return value;
-};
-
-// Not short circuited logical or
-Boolean.prototype.or = function(bool) {
-  var value = false;
-  if (this.valueOf()) {
-    value = true;
-  }
-  if (bool.valueOf()) {
-    value = true;
-  }
-  return value;
-};
-
 var getInternetExplorerVersion = function()
 {
   var rv = -1;
@@ -83,3 +59,52 @@ Array.prototype.getMinIndex = function() {
     }
     return minIndex;
 }
+
+// Set up some general rules for computing property values.
+Property.postComputeHooks['width'] = function(value) {
+  if (typeof value === "undefined" || value === null) {
+    value = 0;
+  }
+  return value + this.padLeft + this.padRight;
+};
+Property.postComputeHooks['height'] = function(value) {
+  if (typeof value === "undefined" || value === null) {
+    value = 0;
+  }
+  return value + this.padTop + this.padBottom;
+};
+Property.postComputeHooks['left'] = function(value) {
+  if (typeof value === "undefined" || value === null) {
+    value = 0;
+  }
+
+  // Don't want to add parent's padLeft for a Wrapper,
+  // because the definition of Wrapper.left checks the
+  // left value of immediately preceding wrapper.left
+  // value.
+  var additionalLeft = 0;
+  if (this instanceof eqEd.Wrapper) {
+    additionalLeft = this.adjustLeft;
+  } else {
+    additionalLeft = this.parent.padLeft + this.adjustLeft;
+  }
+  return value + additionalLeft;
+};
+Property.postComputeHooks['top'] = function(value) {
+  if (typeof value === "undefined" || value === null) {
+    value = 0;
+  }
+  return value + this.parent.padTop + this.adjustTop;
+};
+Property.postComputeHooks['topAlign'] = function(value) {
+  if (typeof value === "undefined" || value === null) {
+    value = 0;
+  }
+  return value + this.padTop;
+};
+Property.postComputeHooks['bottomAlign'] = function(value) {
+  if (typeof value === "undefined" || value === null) {
+    value = 0;
+  }
+  return value + this.padBottom;
+};

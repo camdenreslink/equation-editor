@@ -71,7 +71,7 @@ eqEd.Container = function() {
       for (var i = 0; i < this.wrappers.length; i++) {
         sum += this.wrappers[i].width;
       }
-      return sum + this.padLeft + this.padRight;
+      return sum;
     },
     updateDom: function() {
         this.domObj.updateWidth(this.width);
@@ -86,7 +86,7 @@ eqEd.Container = function() {
       height = value;
     },
     compute: function() {
-      return this.wrappers[this.maxTopAlignIndex].topAlign + this.wrappers[this.maxBottomAlignIndex].bottomAlign + this.padTop + this.padBottom;
+      return this.wrappers[this.maxTopAlignIndex].topAlign + this.wrappers[this.maxBottomAlignIndex].bottomAlign;
     },
     updateDom: function() {
         this.domObj.updateHeight(this.height);
@@ -191,5 +191,9 @@ eqEd.Container = function() {
       }
       copy.addWrappers.apply(copy, indexAndWrapperList);
       return copy;
+    }
+    eqEd.Container.prototype.buildDomObj = function() {
+      return new eqEd.ContainerDom(this,
+            '<div class="container"></div>');
     }
 })();

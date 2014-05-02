@@ -26,6 +26,9 @@ function Property(ctx, propName, initialValue, methods) {
         // Instead, reference the corresponding private variable
         // in the constructor.
         self.value = methods.compute.call(ctx);
+        if (typeof Property.postComputeHooks[self.propName] !== "undefined") {
+          self.value = Property.postComputeHooks[self.propName].call(ctx, self.value);
+        }
         self.isAlreadyComputed = true;
         Property.alreadyComputed.push(self);
         ctx[propName] = self.value;
@@ -44,3 +47,4 @@ function Property(ctx, propName, initialValue, methods) {
 Property.alreadyComputed = [];
 Property.isComputing = false;
 Property.uniqueId = 0;
+Property.postComputeHooks = {};

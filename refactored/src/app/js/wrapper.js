@@ -16,6 +16,8 @@ eqEd.Wrapper = function() {
             left = value;
         },
         compute: function() {
+            // special code added to prevent compute hook from
+            // executing on this property.
             var newLeft = 0;
             if (this.index === 0) {
                 newLeft = this.parent.padLeft;
@@ -40,7 +42,7 @@ eqEd.Wrapper = function() {
             top = value;
         },
         compute: function() {
-            return this.parent.wrappers[this.parent.maxTopAlignIndex].topAlign - this.topAlign + this.parent.padTop;
+            return this.parent.wrappers[this.parent.maxTopAlignIndex].topAlign - this.topAlign;
         },
         updateDom: function() {
             console.log("this top: " + this.top);
@@ -58,6 +60,7 @@ eqEd.Wrapper = function() {
             height = value;
         },
         compute: function() {
+            // remember compute hooks get called.
             return this.topAlign + this.bottomAlign;
         },
         updateDom: function() {

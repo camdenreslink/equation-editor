@@ -1,20 +1,7 @@
-eqEd.Symbol = function(character, fontStyle, symbolSizeConfig) {
+eqEd.TopLevelEmptyContainerMessage = function(character, fontStyle, symbolSizeConfig) {
     eqEd.Equation.call(this); // call super constructor.
-    this.character = character;
-    this.fontStyle = fontStyle;
-    this.symbolSizeConfig = symbolSizeConfig;
+    this.message = "Enter&nbsp;Your&nbsp;Equation&nbsp;Here";
     this.domObj = this.buildDomObj();
-    if (IEVersion >= 9) {
-        if (this.fontStyle === "MathJax_MathItalic") {
-            this.adjustTop = 0.345;
-        } else {
-            this.adjustTop = 0.3;
-        }
-    } else {
-        if (this.fontStyle === "MathJax_MathItalic") {
-            this.adjustTop = 0.025;
-        }
-    }
     // Set up the width calculation
     var width = 0;
     this.properties.push(new Property(this, "width", width, {
@@ -25,7 +12,9 @@ eqEd.Symbol = function(character, fontStyle, symbolSizeConfig) {
             width = value;
         },
         compute: function() {
-            return this.symbolSizeConfig.width[this.character][this.fontStyle][this.parent.parent.fontSize];
+            // not good; jQuery specific function in code.
+            // wanted to abstract through domObj.
+            return 4.7;
         },
         updateDom: function() {
             this.domObj.updateWidth(this.width);
@@ -42,6 +31,8 @@ eqEd.Symbol = function(character, fontStyle, symbolSizeConfig) {
             height = value;
         },
         compute: function() {
+            // not good; jQuery specific function in code.
+            // wanted to abstract through domObj.
             return 1;
         },
         updateDom: function() {
@@ -78,7 +69,7 @@ eqEd.Symbol = function(character, fontStyle, symbolSizeConfig) {
         },
         compute: function() {
             // remember compute hooks get called.
-            return 0;
+            return 0.6;
         },
         updateDom: function() {
             this.domObj.updateTop(this.top);
@@ -88,17 +79,17 @@ eqEd.Symbol = function(character, fontStyle, symbolSizeConfig) {
 };
 (function() {
     // subclass extends superclass
-    eqEd.Symbol.prototype = Object.create(eqEd.Equation.prototype);
-    eqEd.Symbol.prototype.constructor = eqEd.Symbol;
-    eqEd.Symbol.prototype.clone = function() {
+    eqEd.TopLevelEmptyContainerMessage.prototype = Object.create(eqEd.Equation.prototype);
+    eqEd.TopLevelEmptyContainerMessage.prototype.constructor = eqEd.TopLevelEmptyContainerMessage;
+    eqEd.TopLevelEmptyContainerMessage.prototype.clone = function() {
         // character doesn't need cloned, because it isn't an object, it's
         // a native type.  symbolSizeConfig doesn't need cloned, because
         // it is a singleton over the equation life cycle. Only need a 
         // reference to the singleton.
-        return new this.constructor(this.character, this.symbolSizeConfig);
+        return new this.constructor();
     };
-    eqEd.Symbol.prototype.buildDomObj = function() {
+    eqEd.TopLevelEmptyContainerMessage.prototype.buildDomObj = function() {
         return new eqEd.EquationDom(this,
-            '<div class="symbol ' + this.fontStyle + '">' + this.character + '</div>');
+            '<div class="topLevelEmptyContainerMessage fontSizeMessage">' + this.message + '</div>');
     };
 })();

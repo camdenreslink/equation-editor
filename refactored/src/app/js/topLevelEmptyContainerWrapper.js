@@ -1,13 +1,15 @@
-eqEd.SymbolWrapper = function(character, fontStyle, symbolSizeConfig) {
-	eqEd.Wrapper.call(this); // call super constructor.
-	
-    this.symbol = new eqEd.Symbol(character, fontStyle, symbolSizeConfig);
-	this.symbol.parent = this;
-	this.domObj = this.buildDomObj();
-	this.domObj.append(this.symbol.domObj);
-	this.childNoncontainers = [this.symbol];
+eqEd.TopLevelEmptyContainerWrapper = function() {
+    eqEd.EmptyContainerWrapper.call(this); // call super constructor.
 
-	// Set up the width calculation
+    this.topLevelEmptyContainerMessage = new eqEd.TopLevelEmptyContainerMessage();
+    this.topLevelEmptyContainerMessage.parent = this;
+    this.domObj = this.buildDomObj();
+    this.domObj.append(this.topLevelEmptyContainerMessage.domObj);
+    this.childNoncontainers = [this.topLevelEmptyContainerMessage];
+    this.padLeft = 0;
+    this.padRight = 0;
+
+    // Set up the width calculation
     var width = 0;
     this.properties.push(new Property(this, "width", width, {
         get: function() {
@@ -17,7 +19,7 @@ eqEd.SymbolWrapper = function(character, fontStyle, symbolSizeConfig) {
             width = value;
         },
         compute: function() {
-            return this.symbol.width;
+            return this.topLevelEmptyContainerMessage.width;
         },
         updateDom: function() {
             this.domObj.updateWidth(this.width);
@@ -34,7 +36,7 @@ eqEd.SymbolWrapper = function(character, fontStyle, symbolSizeConfig) {
             topAlign = value;
         },
         compute: function() {
-            return 0.5 * this.symbol.height;
+            return 0.5;
         },
         updateDom: function() {}
     }));
@@ -49,20 +51,17 @@ eqEd.SymbolWrapper = function(character, fontStyle, symbolSizeConfig) {
             bottomAlign = value;
         },
         compute: function() {
-            return 0.5 * this.symbol.height;
+            return 0.5;
         },
         updateDom: function() {}
     }));
 };
 (function() {
     // subclass extends superclass
-    eqEd.SymbolWrapper.prototype = Object.create(eqEd.Wrapper.prototype);
-    eqEd.SymbolWrapper.prototype.constructor = eqEd.SymbolWrapper;
-    eqEd.SymbolWrapper.prototype.clone = function() {
-    	return new this.constructor(this.symbol.clone());
-    };
-    eqEd.SymbolWrapper.prototype.buildDomObj = function() {
+    eqEd.TopLevelEmptyContainerWrapper.prototype = Object.create(eqEd.EmptyContainerWrapper.prototype);
+    eqEd.TopLevelEmptyContainerWrapper.prototype.constructor = eqEd.TopLevelEmptyContainerWrapper;
+    eqEd.TopLevelEmptyContainerWrapper.prototype.buildDomObj = function() {
         return new eqEd.WrapperDom(this,
-            '<div class="wrapper symbolWrapper"></div>')
+            '<div class="wrapper emptyContainerWrapper topLevelEmptyContainerWrapper"></div>');
     }
 })();

@@ -1,24 +1,44 @@
 eqEd.EquationDom = function(binding, html) {
     this.binding = binding;
+    this.html = html;
     this.value = $(html);
     this.value.data("eqObject", this.binding);
+    this.width = 0;
+    this.height = 0;
+    this.left = 0;
+    this.top = 0;
 }
 eqEd.EquationDom.prototype.constructor = eqEd.EquationDom;
 eqEd.EquationDom.prototype.updateWidth = function(width) {
+    this.width = width;
     this.value.css('width', width + 'em');
 }
 eqEd.EquationDom.prototype.updateHeight = function(height) {
+    this.height = height;
     this.value.css('height', height + 'em');
 }
 eqEd.EquationDom.prototype.updateLeft = function(left) {
+    this.left = left;
     this.value.css('left', left + 'em');
 }
 eqEd.EquationDom.prototype.updateTop = function(top) {
+    this.top = top;
     this.value.css('top', top + 'em');
 }
 eqEd.EquationDom.prototype.clone = function() {
-	return this.value.clone();
+    var copy = new eqEd.EquationDom(this.binding, this.html);
+    copy.updateWidth(this.width);
+    copy.updateHeight(this.height);
+    copy.updateLeft(this.left);
+    copy.updateTop(this.top);
+	return copy;
 }
 eqEd.EquationDom.prototype.append = function(domObject) {
 	this.value.append(domObject.value);
+}
+eqEd.EquationDom.prototype.updateFontSize = function(fontSize) {
+    this.value.removeClass('fontSizeNormal');
+    this.value.removeClass('fontSizeSmaller');
+    this.value.removeClass('fontSizeSmallest');
+    this.value.addClass(fontSize);
 }
