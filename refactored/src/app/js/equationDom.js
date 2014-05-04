@@ -11,19 +11,19 @@ eqEd.EquationDom = function(binding, html) {
 eqEd.EquationDom.prototype.constructor = eqEd.EquationDom;
 eqEd.EquationDom.prototype.updateWidth = function(width) {
     this.width = width;
-    this.value.css('width', width + 'em');
+    this.value.css('width', width + 'px');
 }
 eqEd.EquationDom.prototype.updateHeight = function(height) {
     this.height = height;
-    this.value.css('height', height + 'em');
+    this.value.css('height', height + 'px');
 }
 eqEd.EquationDom.prototype.updateLeft = function(left) {
     this.left = left;
-    this.value.css('left', left + 'em');
+    this.value.css('left', left + 'px');
 }
 eqEd.EquationDom.prototype.updateTop = function(top) {
     this.top = top;
-    this.value.css('top', top + 'em');
+    this.value.css('top', top + 'px');
 }
 eqEd.EquationDom.prototype.clone = function() {
     var copy = new eqEd.EquationDom(this.binding, this.html);

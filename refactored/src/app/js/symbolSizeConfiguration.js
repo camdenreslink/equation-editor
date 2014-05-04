@@ -33,8 +33,15 @@ eqEd.SymbolSizeConfiguration = function() {
     // This will be the union of the characters in each font style.
     // Can be used to see if a character is allowed to be part of an equation.
     this.character = [];
-    // Eventual format will be this.height[character][fontStyle][fontSize]
-    this.height = {};
+    // Eventual format will be this.height[fontStyle] = pixel size;
+    // needs to be mapped by hand.
+    // NOTE: Might want to add automatic process in the future.
+    this.height = {
+        "fontSizeMessage": 20,
+        "fontSizeSmallest": 37, 
+        "fontSizeSmaller": 37, 
+        "fontSizeNormal": 45
+    };
     // Eventual format will be this.width[character][fontStyle][fontSize]
     this.width = {};
 
@@ -73,8 +80,7 @@ eqEd.SymbolSizeConfiguration = function() {
                     if (typeof this.height[character][fontStyle] === "undefined") {
                         this.height[character][fontStyle] = {};
                     }
-                    //this.height[character][fontStyle][fontSize] = fontTest.outerHeight();
-                    this.width[character][fontStyle][fontSize] = fontTest.outerWidth() / fontTest.outerHeight();
+                    this.width[character][fontStyle][fontSize] = fontTest.outerWidth();
                     
                     fontTest.remove();
                 }

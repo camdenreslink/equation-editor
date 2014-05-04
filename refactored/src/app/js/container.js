@@ -3,8 +3,8 @@
 // in a row. A container may be within a wrapper
 // (example: numerator in a fraction; numerator 
 // defines a new scope).
-eqEd.Container = function() {
-  eqEd.Equation.call(this); // call super constructor.
+eqEd.Container = function(symbolSizeConfig) {
+  eqEd.Equation.call(this, symbolSizeConfig); // call super constructor.
 
   // The wrappers property defines the wrapper objects
   // that are within this container object. Wrapper

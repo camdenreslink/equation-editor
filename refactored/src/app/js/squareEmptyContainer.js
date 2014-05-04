@@ -1,0 +1,3 @@
+eqEd.SquareEmptyContainer = function(symbolSizeConfig) {
+    
+}

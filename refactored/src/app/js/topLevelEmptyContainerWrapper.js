@@ -1,13 +1,13 @@
-eqEd.TopLevelEmptyContainerWrapper = function() {
-    eqEd.EmptyContainerWrapper.call(this); // call super constructor.
+eqEd.TopLevelEmptyContainerWrapper = function(symbolSizeConfig) {
+    eqEd.EmptyContainerWrapper.call(this, symbolSizeConfig); // call super constructor.
 
-    this.topLevelEmptyContainerMessage = new eqEd.TopLevelEmptyContainerMessage();
+    this.topLevelEmptyContainerMessage = new eqEd.TopLevelEmptyContainerMessage(symbolSizeConfig);
     this.topLevelEmptyContainerMessage.parent = this;
     this.domObj = this.buildDomObj();
     this.domObj.append(this.topLevelEmptyContainerMessage.domObj);
     this.childNoncontainers = [this.topLevelEmptyContainerMessage];
-    this.padLeft = 0;
-    this.padRight = 0;
+    this.padLeft = 0.25;
+    this.padRight = 0.25;
 
     // Set up the width calculation
     var width = 0;
@@ -36,7 +36,8 @@ eqEd.TopLevelEmptyContainerWrapper = function() {
             topAlign = value;
         },
         compute: function() {
-            return 0.5;
+            var fontHeight = this.getFontHeight();
+            return 0.5 * fontHeight;
         },
         updateDom: function() {}
     }));
@@ -51,7 +52,8 @@ eqEd.TopLevelEmptyContainerWrapper = function() {
             bottomAlign = value;
         },
         compute: function() {
-            return 0.5;
+            var fontHeight = this.getFontHeight();
+            return 0.5 * fontHeight;
         },
         updateDom: function() {}
     }));

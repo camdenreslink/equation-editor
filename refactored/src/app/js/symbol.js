@@ -1,8 +1,7 @@
 eqEd.Symbol = function(character, fontStyle, symbolSizeConfig) {
-    eqEd.Equation.call(this); // call super constructor.
+    eqEd.Equation.call(this, symbolSizeConfig); // call super constructor.
     this.character = character;
     this.fontStyle = fontStyle;
-    this.symbolSizeConfig = symbolSizeConfig;
     this.domObj = this.buildDomObj();
     if (IEVersion >= 9) {
         if (this.fontStyle === "MathJax_MathItalic") {
@@ -42,7 +41,8 @@ eqEd.Symbol = function(character, fontStyle, symbolSizeConfig) {
             height = value;
         },
         compute: function() {
-            return 1;
+            var fontHeight = this.getFontHeight();
+            return 1  * fontHeight;
         },
         updateDom: function() {
             this.domObj.updateHeight(this.height);

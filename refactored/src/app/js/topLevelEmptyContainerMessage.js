@@ -1,6 +1,7 @@
-eqEd.TopLevelEmptyContainerMessage = function(character, fontStyle, symbolSizeConfig) {
-    eqEd.Equation.call(this); // call super constructor.
+eqEd.TopLevelEmptyContainerMessage = function(symbolSizeConfig) {
+    eqEd.Equation.call(this, symbolSizeConfig); // call super constructor.
     this.message = "Enter&nbsp;Your&nbsp;Equation&nbsp;Here";
+    this.fontSize = "fontSizeMessage";
     this.domObj = this.buildDomObj();
     // Set up the width calculation
     var width = 0;
@@ -12,9 +13,9 @@ eqEd.TopLevelEmptyContainerMessage = function(character, fontStyle, symbolSizeCo
             width = value;
         },
         compute: function() {
-            // not good; jQuery specific function in code.
+            // not good; jQuery specific function width() in code.
             // wanted to abstract through domObj.
-            return 4.7;
+            return this.domObj.value.width();
         },
         updateDom: function() {
             this.domObj.updateWidth(this.width);
@@ -31,9 +32,9 @@ eqEd.TopLevelEmptyContainerMessage = function(character, fontStyle, symbolSizeCo
             height = value;
         },
         compute: function() {
-            // not good; jQuery specific function in code.
+            // not good; jQuery specific function height() in code.
             // wanted to abstract through domObj.
-            return 1;
+            return this.domObj.value.height();
         },
         updateDom: function() {
             this.domObj.updateHeight(this.height);
@@ -69,7 +70,8 @@ eqEd.TopLevelEmptyContainerMessage = function(character, fontStyle, symbolSizeCo
         },
         compute: function() {
             // remember compute hooks get called.
-            return 0.6;
+            var fontHeight = this.getFontHeight();
+            return 0.5*(this.parent.height - this.height);
         },
         updateDom: function() {
             this.domObj.updateTop(this.top);
@@ -90,6 +92,6 @@ eqEd.TopLevelEmptyContainerMessage = function(character, fontStyle, symbolSizeCo
     };
     eqEd.TopLevelEmptyContainerMessage.prototype.buildDomObj = function() {
         return new eqEd.EquationDom(this,
-            '<div class="topLevelEmptyContainerMessage fontSizeMessage">' + this.message + '</div>');
+            '<span class="topLevelEmptyContainerMessage ' + this.fontSize + '">' + this.message + '</span>');
     };
 })();

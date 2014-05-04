@@ -2,7 +2,11 @@
 // from Equation. This is where methods/properties
 // should be set that will be common to all objects in
 // the editor.
-eqEd.Equation = function() {
+eqEd.Equation = function(symbolSizeConfig) {
+    // SymbolSizeConfig gives some info about fontHeights.
+    // Allows all calculations to happen with plain javascript
+    // objects without accessing the DOM.
+    this.symbolSizeConfig = symbolSizeConfig;
     // The properties array is required for use with Property
     // class. Allows for automatic resolution of dependencies
     // during formatting loop.
@@ -48,7 +52,7 @@ eqEd.Equation = function() {
     eqEd.Equation.prototype.clone = function() {};
     // Use buildDomObj() to create an instance of
     // equationDom.
-    eqEd.Equation.prototype.buildDomObj = function() {}
+    eqEd.Equation.prototype.buildDomObj = function() {};
     // update() will recursively call compute() on
     // nested objects while making sure all depencencies
     // are resolved in the correct order. Requires the
@@ -60,7 +64,7 @@ eqEd.Equation = function() {
         for (var i = 0; i < this.properties.length; i++) {
             this.properties[i].compute();
         }
-    }
+    };
     // updateAll allows formatting the entire equation
     // that some object belongs to without having a
     // reference to the root node.
@@ -87,5 +91,15 @@ eqEd.Equation = function() {
         }
         Property.alreadyComputed = [];
         Property.isComputing = false;
+    };
+    // If this is called during a compute() call, should
+    // call compute on fontSize  properties that are
+    // encountered.
+    eqEd.Equation.prototype.getFontHeight = function() {
+        var context = this;
+        while (typeof context.fontSize === "undefined") {
+          context = context.parent;
+        }
+        return this.symbolSizeConfig.height[context.fontSize];
     }
 })();

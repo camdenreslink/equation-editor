@@ -24,6 +24,31 @@ var getInternetExplorerVersion = function()
 
 var IEVersion = getInternetExplorerVersion();
 
+// clearHighlighted() will clear all highlighted items on the page.
+var clearHighlighted = function () {
+    var isHighlighted;
+    if (window.getSelection) {
+        isHighlighted = (window.getSelection().toString().length > 0);
+    } else if (document.selection && document.selection.type != "Control") {
+        // To accommodate IE prior to IE9
+        isHighlighted = (document.selection.createRange().text.length > 0);
+    }
+    //If text somehow gets selected, clear it on mouse move
+    if (isHighlighted) {
+        if (window.getSelection) {
+            if (window.getSelection().empty) { // Chrome
+                window.getSelection().empty();
+            } else if (window.getSelection().removeAllRanges) { // Firefox
+                window.getSelection().removeAllRanges();
+            }
+        } else if (document.selection) { // IE
+            if (document.selection.empty) {
+                document.selection.empty();
+            }
+        }
+    }
+}
+
 jQuery.fn.insertAt = function(index, element) {
     var lastIndex = this.children().size();
     if (index < 0) {
@@ -60,51 +85,59 @@ Array.prototype.getMinIndex = function() {
     return minIndex;
 }
 
-// Set up some general rules for computing property values.
-Property.postComputeHooks['width'] = function(value) {
-  if (typeof value === "undefined" || value === null) {
-    value = 0;
-  }
-  return value + this.padLeft + this.padRight;
-};
-Property.postComputeHooks['height'] = function(value) {
-  if (typeof value === "undefined" || value === null) {
-    value = 0;
-  }
-  return value + this.padTop + this.padBottom;
-};
-Property.postComputeHooks['left'] = function(value) {
-  if (typeof value === "undefined" || value === null) {
-    value = 0;
-  }
+var inializePropertyHooks = function(symbolSizeConfig) {
+  // Set up some general rules for computing property values.
+  Property.postComputeHooks['width'] = function(value) {
+    if (typeof value === "undefined" || value === null) {
+      value = 0;
+    }
+    var fontHeight = this.getFontHeight();
+    return value + (this.padLeft + this.padRight) * fontHeight;
+  };
+  Property.postComputeHooks['height'] = function(value) {
+    if (typeof value === "undefined" || value === null) {
+      value = 0;
+    }
+    var fontHeight = this.getFontHeight();
+    return value + (this.padTop + this.padBottom) * fontHeight;
+  };
+  Property.postComputeHooks['left'] = function(value) {
+    if (typeof value === "undefined" || value === null) {
+      value = 0;
+    }
 
-  // Don't want to add parent's padLeft for a Wrapper,
-  // because the definition of Wrapper.left checks the
-  // left value of immediately preceding wrapper.left
-  // value.
-  var additionalLeft = 0;
-  if (this instanceof eqEd.Wrapper) {
-    additionalLeft = this.adjustLeft;
-  } else {
-    additionalLeft = this.parent.padLeft + this.adjustLeft;
-  }
-  return value + additionalLeft;
-};
-Property.postComputeHooks['top'] = function(value) {
-  if (typeof value === "undefined" || value === null) {
-    value = 0;
-  }
-  return value + this.parent.padTop + this.adjustTop;
-};
-Property.postComputeHooks['topAlign'] = function(value) {
-  if (typeof value === "undefined" || value === null) {
-    value = 0;
-  }
-  return value + this.padTop;
-};
-Property.postComputeHooks['bottomAlign'] = function(value) {
-  if (typeof value === "undefined" || value === null) {
-    value = 0;
-  }
-  return value + this.padBottom;
+    var fontHeight = this.getFontHeight();
+    var parentFontHeight = this.parent.getFontHeight();
+    // Don't want to add parent's padLeft for a Wrapper,
+    // because the definition of Wrapper.left checks the
+    // left value of immediately preceding wrapper.left
+    // value.
+    var additionalLeft = 0;
+    if (this instanceof eqEd.Wrapper) {
+      additionalLeft = this.adjustLeft;
+    } else {
+      additionalLeft = this.parent.padLeft * parentFontHeight + this.adjustLeft * fontHeight;
+    }
+    return value + additionalLeft;
+  };
+  Property.postComputeHooks['top'] = function(value) {
+    if (typeof value === "undefined" || value === null) {
+      value = 0;
+    }
+    return value + this.parent.padTop + this.adjustTop;
+  };
+  Property.postComputeHooks['topAlign'] = function(value) {
+    if (typeof value === "undefined" || value === null) {
+      value = 0;
+    }
+    var fontHeight = this.getFontHeight();
+    return value + this.padTop * fontHeight;
+  };
+  Property.postComputeHooks['bottomAlign'] = function(value) {
+    if (typeof value === "undefined" || value === null) {
+      value = 0;
+    }
+    var fontHeight = this.getFontHeight();
+    return value + this.padBottom * fontHeight;
+  };
 };

@@ -41,10 +41,6 @@
     font-size: 37px; /* fontSizeNormal * 0.5 */
 }
 
-.fontSizeSmallest {
-    font-size: 37px; /* fontSizeNormal * 0.5 */
-}
-
 .fontSizeMessage {
     font-size: 20px;
 }
@@ -66,20 +62,31 @@
     font-family: 'MathJax_Size4';
 }
 
-#cursor {
+div.cursor {
+    background-color: #000000;
+    /* The cursor should always be on top */
+    z-index: 50 !important;
+}
+
+div.normalCursor {
     width: 2px;
     height: 90%;
     top: 5%;
-    left: 0%;
-    background-color: #000000;
-    z-index: 2 !important;
+    left: 0px;
+}
+
+div.squareCursor {
+    width: 80%;
+    height: 80%;
+    top: 10%;
+    left: 10%;
 }
 
 .cursorOff {
     visibility: hidden;
 }
 
-#highlight {
+.highlight {
     background: #5266FF;
 }
 
@@ -88,12 +95,38 @@
     border-color: #FFFFFF;
 }
 
+.highlighted .stackedFractionHorizontalBar,
+.highlighted .squareRootOverBar,
+.highlighted .nthRootOverBar {
+    background: #FFFFFF;
+}
+
+.highlighted path {
+    fill: #FFFFFF;
+}
+
+.highlight .highlightVersion {
+    visibility: visible;
+}
+
+.highlight .nonHighlightVersion {
+    visibility: hidden;
+}
+
+.nonHighlightVersion {
+    visibility: visible;
+}
+
+.highlightVersion {
+    visibility: hidden;
+}
+
 .container {
     cursor: text;
     z-index: 3;
 }
 
-.activeContainer {
+div.activeContainer {
     background: #DEDEDE;
 }
 

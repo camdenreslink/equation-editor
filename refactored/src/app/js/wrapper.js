@@ -1,5 +1,5 @@
-eqEd.Wrapper = function() {
-    eqEd.Equation.call(this); // call super constructor.
+eqEd.Wrapper = function(symbolSizeConfig) {
+    eqEd.Equation.call(this, symbolSizeConfig); // call super constructor.
     this.topAlign = 0;
     this.bottomAlign = 0;
     this.index = null;
@@ -45,7 +45,6 @@ eqEd.Wrapper = function() {
             return this.parent.wrappers[this.parent.maxTopAlignIndex].topAlign - this.topAlign;
         },
         updateDom: function() {
-            console.log("this top: " + this.top);
             this.domObj.updateTop(this.top);
         }
     }));

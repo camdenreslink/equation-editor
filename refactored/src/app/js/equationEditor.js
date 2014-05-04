@@ -4,19 +4,20 @@ $(window).load(function () {
     var imagesLoaded = false;
 
     var setupInitialContainer = function() {
-        var container = new eqEd.Container();
+        var container = new eqEd.Container(symbolSizeConfig);
         container.fontSize = "fontSizeNormal";
         container.domObj = container.buildDomObj();
         container.domObj.updateFontSize(container.fontSize);
         container.domObj.value.addClass('equation');
-        var topLevelEmptyContainerWrapper = new eqEd.TopLevelEmptyContainerWrapper();
-        container.addWrappers([0, topLevelEmptyContainerWrapper]);
         $('.testEquation').after(container.domObj.value);
+        var topLevelEmptyContainerWrapper = new eqEd.TopLevelEmptyContainerWrapper(symbolSizeConfig);
+        container.addWrappers([0, topLevelEmptyContainerWrapper]);
     };
 
     var setup = function() {
         if (fontsLoaded && imagesLoaded) {
             symbolSizeConfig = new eqEd.SymbolSizeConfiguration();
+            inializePropertyHooks(symbolSizeConfig);
             setupKeyboardEvents(symbolSizeConfig);
             setupInitialContainer();
         }

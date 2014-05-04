@@ -1,5 +1,5 @@
 eqEd.SymbolWrapper = function(character, fontStyle, symbolSizeConfig) {
-	eqEd.Wrapper.call(this); // call super constructor.
+	eqEd.Wrapper.call(this, symbolSizeConfig); // call super constructor.
 	
     this.symbol = new eqEd.Symbol(character, fontStyle, symbolSizeConfig);
 	this.symbol.parent = this;
