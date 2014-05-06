@@ -86,7 +86,12 @@ eqEd.Container = function(symbolSizeConfig) {
       height = value;
     },
     compute: function() {
-      return this.wrappers[this.maxTopAlignIndex].topAlign + this.wrappers[this.maxBottomAlignIndex].bottomAlign;
+      if (this.wrappers.length > 0) {
+        return this.wrappers[this.maxTopAlignIndex].topAlign + this.wrappers[this.maxBottomAlignIndex].bottomAlign;
+      } else {
+        return 0;
+      }
+      
     },
     updateDom: function() {
         this.domObj.updateHeight(this.height);

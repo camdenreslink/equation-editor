@@ -31,6 +31,7 @@ var calculateIndex = function(offsetLeft) {
             index = i;
             break;
         } else {
+            //console.log(toggleLines);
             index = toggleLines.length;
         }
     }
@@ -44,24 +45,67 @@ var addCursor = function(container, e) {
         cursor = $('<div class="cursor squareCursor"></div>');
     } else {
         var characterClickPos = e.pageX - container.domObj.value.offset().left;
-
         var cumulative = 0;
-        var cursorLeft = 0;
+        var cursorLeft = -1;
+        var cursorLeftSet = false;
+        var toggleLinesEmpty = (toggleLines.length === 0);
         if (!container.domObj.value.children().first().hasClass('topLevelEmptyContainerWrapper')) {
             for (var i = 0; i < container.wrappers.length; i++) {
                 var wrapper = container.wrappers[i];
                 cumulative += 0.5 * wrapper.width;
-                toggleLines.push(cumulative);
-                if (characterClickPos < cumulative) {
+                if (toggleLinesEmpty) {
+                    toggleLines.push(cumulative);
+                }
+                if (characterClickPos < cumulative && !cursorLeftSet) {
                     // - 1 because cursor has a width of 2
-                    cursorLeft = cumulative - 0.5 * wrapper.width - 1;
+                    cursorLeft += cumulative - 0.5 * wrapper.width;
                     highlightStartIndex = i;
+                    cursorLeftSet = true;
                 }
                 cumulative += 0.5 * wrapper.width;
                 
             }
+            if (!cursorLeftSet) {
+                cursorLeft += cumulative;
+                highlightStartIndex = container.wrappers.length;
+            }
         } else {
             container.domObj.value.children().first().addClass('activeContainer');
+        }
+        cursor = $('<div class="cursor normalCursor"></div>');
+        cursor.css('left', cursorLeft);
+    }
+    container.domObj.value.append(cursor);
+    console.log(toggleLines.length)
+};
+
+// side effect: populates toggleLines array, and highlightStartIndex.
+var addCursorAtIndex = function(container, index) {
+    var cursor;
+    highlightStartIndex = index;
+    if (container instanceof eqEd.SquareEmptyContainer) {
+        cursor = $('<div class="cursor squareCursor"></div>');
+    } else {
+        var cumulative = 0;
+        var cursorLeft = -1;
+        var cursorLeftSet = false;
+        if (!container.domObj.value.children().first().hasClass('topLevelEmptyContainerWrapper')) {
+            for (var i = 0; i < container.wrappers.length; i++) {
+                var wrapper = container.wrappers[i];
+                if (index === i) {
+                    cursorLeft += cumulative;
+                    cursorLeftSet = true;
+                }
+                cumulative += 0.5 * wrapper.width;
+                toggleLines.push(cumulative);
+                cumulative += 0.5 * wrapper.width;
+            }
+        } else {
+            container.domObj.value.children().first().addClass('activeContainer');
+        }
+        if (!cursorLeftSet) {
+            cursorLeft += cumulative;
+            cursorLeftSet = true;
         }
         cursor = $('<div class="cursor normalCursor"></div>');
         cursor.css('left', cursorLeft);
@@ -78,6 +122,7 @@ var addHighlight = function(container) {
 };
 
 var updateHighlightFormatting = function(container, highlightEndIndex) {
+    console.log(highlightStartIndex + ", " + highlightEndIndex);
     var highlight = $('.highlight');
     if (highlight.length > 0) {
         var left = 0;
@@ -136,14 +181,13 @@ $(document).on('mouseup', function(e) {
         addBlink();
     }
 });
-
 $(document).on('mousedown', '.container', function(e) {
     if (!$(this).children().first().hasClass('squareEmptyContainerWrapper')) {
         e.preventDefault();
         e.stopPropagation();
-
+        console.log("mousedown");
         onMouseDown();
-
+        $('.activeContainer').removeClass('activeContainer');
         $(this).addClass('activeContainer');
         var container = $(this).data("eqObject");
         // addCursor call populates toggleLines array, and highlightStartIndex.
@@ -161,13 +205,12 @@ $(document).on('mousemove', '.container', function(e) {
         && !$(this).hasClass('squareEmptyContainer')
         && !$(this).children().first().hasClass('topLevelEmptyContainerWrapper')) {
         var container = $(this).data("eqObject");
-        if (highlightStartIndex !== null && container.value.children('.highlight').length > 0) {
-            var characterClickPos = e.pageX - container.domObject.value.offset().left;
+        if (highlightStartIndex !== null && container.domObj.value.children('.highlight').length > 0) {
+            var characterClickPos = e.pageX - container.domObj.value.offset().left;
             var index = calculateIndex(characterClickPos);
-
             updateHighlightFormatting(container, index);
             if (highlightStartIndex === index) {
-                addCursor(container, e);
+                addCursorAtIndex(container, index);
             } else {
                 removeCursor();
             }
