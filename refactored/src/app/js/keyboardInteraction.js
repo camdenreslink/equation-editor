@@ -1,18 +1,5 @@
 var setupKeyboardEvents = function(symbolSizeConfig) {
-    var symbolCharacters = [
-        '1',
-        '2',
-        '3',
-        '4',
-        '5',
-        '6',
-        '7',
-        '8',
-        '9',
-        '0',
-        '!',
-        '$',
-        '%',
+    var MathJax_MathItalic = [
         'q',
         'w',
         'e',
@@ -66,6 +53,23 @@ var setupKeyboardEvents = function(symbolSizeConfig) {
         'N',
         'M'
     ];
+    var MathJax_Main = [
+        '1',
+        '2',
+        '3',
+        '4',
+        '5',
+        '6',
+        '7',
+        '8',
+        '9',
+        '0',
+        '!',
+        '$',
+        '%',
+        '.'
+    ];
+
     var operatorCharacters = [
         '*',
         '-',
@@ -85,8 +89,14 @@ var setupKeyboardEvents = function(symbolSizeConfig) {
         '|'
     ];
 
-    Mousetrap.bind(symbolCharacters, function(e, character) {
+    Mousetrap.bind(MathJax_MathItalic, function(e, character) {
         var symbolWrapper = new eqEd.SymbolWrapper(character, "MathJax_MathItalic", symbolSizeConfig) 
+        insertWrapper(symbolWrapper);
+        addBlink();
+    });
+
+    Mousetrap.bind(MathJax_Main, function(e, character) {
+        var symbolWrapper = new eqEd.SymbolWrapper(character, "MathJax_Main", symbolSizeConfig) 
         insertWrapper(symbolWrapper);
         addBlink();
     });

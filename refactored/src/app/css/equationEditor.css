@@ -10,7 +10,7 @@
     position: absolute;
     top: 0em;
     left: 0em;
-
+    overflow: visible;
     /* Try to prevent highlighting */
     -webkit-touch-callout: none;
     -webkit-user-select: none;

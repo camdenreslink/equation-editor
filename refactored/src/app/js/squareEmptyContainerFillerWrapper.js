@@ -1,17 +1,12 @@
-eqEd.SymbolWrapper = function(character, fontStyle, symbolSizeConfig) {
-	eqEd.Wrapper.call(this, symbolSizeConfig); // call super constructor.
-	
-    this.symbol = new eqEd.Symbol(character, fontStyle, symbolSizeConfig);
-	this.symbol.parent = this;
-	this.domObj = this.buildDomObj();
-	this.domObj.append(this.symbol.domObj);
-	this.childNoncontainers = [this.symbol];
+eqEd.SquareEmptyContainerFillerWrapper = function(symbolSizeConfig) {
+    eqEd.Wrapper.call(this, symbolSizeConfig); // call super constructor.
 
-    if ((/[A-Z]/).test(character)) {
-        this.padRight = 0.075;
-    }
+    this.domObj = this.buildDomObj();
 
-	// Set up the width calculation
+
+    this.sideLength = 0.6;
+
+    // Set up the width calculation
     var width = 0;
     this.properties.push(new Property(this, "width", width, {
         get: function() {
@@ -21,7 +16,8 @@ eqEd.SymbolWrapper = function(character, fontStyle, symbolSizeConfig) {
             width = value;
         },
         compute: function() {
-            return this.symbol.width;
+            var fontHeight = this.symbolSizeConfig.height[this.parent.fontSize];
+            return this.sideLength * fontHeight;
         },
         updateDom: function() {
             this.domObj.updateWidth(this.width);
@@ -38,7 +34,8 @@ eqEd.SymbolWrapper = function(character, fontStyle, symbolSizeConfig) {
             topAlign = value;
         },
         compute: function() {
-            return 0.5 * this.symbol.height;
+            var fontHeight = this.symbolSizeConfig.height[this.parent.fontSize];
+            return 0.5 * this.sideLength * fontHeight;
         },
         updateDom: function() {}
     }));
@@ -53,20 +50,15 @@ eqEd.SymbolWrapper = function(character, fontStyle, symbolSizeConfig) {
             bottomAlign = value;
         },
         compute: function() {
-            return 0.5 * this.symbol.height;
+            var fontHeight = this.symbolSizeConfig.height[this.parent.fontSize];
+            return 0.5 * this.sideLength * fontHeight;
         },
         updateDom: function() {}
     }));
 };
 (function() {
-    // subclass extends superclass
-    eqEd.SymbolWrapper.prototype = Object.create(eqEd.Wrapper.prototype);
-    eqEd.SymbolWrapper.prototype.constructor = eqEd.SymbolWrapper;
-    eqEd.SymbolWrapper.prototype.clone = function() {
-    	return new this.constructor(this.symbol.clone());
-    };
-    eqEd.SymbolWrapper.prototype.buildDomObj = function() {
+    eqEd.SquareEmptyContainerWrapper.prototype.buildDomObj = function() {
         return new eqEd.WrapperDom(this,
-            '<div class="wrapper symbolWrapper"></div>')
-    };
-})();
+            '<div class="wrapper squareEmptyContainerFillerWrapper"></div>')
+    }
+});
