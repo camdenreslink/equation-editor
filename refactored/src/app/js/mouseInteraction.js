@@ -16,7 +16,7 @@ var removeHighlight = function() {
     highlightStartIndex = null;
 }
 
-var onMouseDown = function() {
+var clearOnMouseDown = function() {
     mouseDown = true;
     removeCursor();
     removeHighlight();
@@ -25,26 +25,27 @@ var onMouseDown = function() {
 };
 
 var calculateIndex = function(offsetLeft) {
-    var index;
+    var index = 0;
+    var indexSet= false;
     for (var i = 0; i < toggleLines.length; i++) {
         if (offsetLeft < toggleLines[i]) {
             index = i;
+            indexSet = true;
             break;
-        } else {
-            //console.log(toggleLines);
-            index = toggleLines.length;
         }
+    }
+    if (!indexSet) {
+        index = toggleLines.length;
     }
     return index;
 };
 
 // side effect: populates toggleLines array, and highlightStartIndex.
-var addCursor = function(container, e) {
+var addCursor = function(container, characterClickPos) {
     var cursor;
     if (container instanceof eqEd.SquareEmptyContainer) {
         cursor = $('<div class="cursor squareCursor"></div>');
     } else {
-        var characterClickPos = e.pageX - container.domObj.value.offset().left;
         var cumulative = 0;
         var cursorLeft = -1;
         var cursorLeftSet = false;
@@ -76,7 +77,6 @@ var addCursor = function(container, e) {
         cursor.css('left', cursorLeft);
     }
     container.domObj.value.append(cursor);
-    console.log(toggleLines.length)
 };
 
 // side effect: populates toggleLines array, and highlightStartIndex.
@@ -89,6 +89,7 @@ var addCursorAtIndex = function(container, index) {
         var cumulative = 0;
         var cursorLeft = -1;
         var cursorLeftSet = false;
+        var toggleLinesEmpty = (toggleLines.length === 0);
         if (!container.domObj.value.children().first().hasClass('topLevelEmptyContainerWrapper')) {
             for (var i = 0; i < container.wrappers.length; i++) {
                 var wrapper = container.wrappers[i];
@@ -97,7 +98,9 @@ var addCursorAtIndex = function(container, index) {
                     cursorLeftSet = true;
                 }
                 cumulative += 0.5 * wrapper.width;
-                toggleLines.push(cumulative);
+                if (toggleLinesEmpty) {
+                    toggleLines.push(cumulative);
+                }
                 cumulative += 0.5 * wrapper.width;
             }
         } else {
@@ -122,7 +125,6 @@ var addHighlight = function(container) {
 };
 
 var updateHighlightFormatting = function(container, highlightEndIndex) {
-    console.log(highlightStartIndex + ", " + highlightEndIndex);
     var highlight = $('.highlight');
     if (highlight.length > 0) {
         var left = 0;
@@ -172,7 +174,7 @@ var updateHighlightFormatting = function(container, highlightEndIndex) {
 }
 
 $(document).on('mousedown', function(e) {
-    onMouseDown();
+    clearOnMouseDown();
 });
 
 $(document).on('mouseup', function(e) {
@@ -181,19 +183,24 @@ $(document).on('mouseup', function(e) {
         addBlink();
     }
 });
-$(document).on('mousedown', '.container', function(e) {
-    if (!$(this).children().first().hasClass('squareEmptyContainerWrapper')) {
+
+var onMouseDown = function(self, e) {
+    if (!$(self).children().first().hasClass('squareEmptyContainerWrapper')) {
         e.preventDefault();
         e.stopPropagation();
-        console.log("mousedown");
-        onMouseDown();
+        clearOnMouseDown();
         $('.activeContainer').removeClass('activeContainer');
-        $(this).addClass('activeContainer');
-        var container = $(this).data("eqObject");
+        $(self).addClass('activeContainer');
+        var container = $(self).data("eqObject");
         // addCursor call populates toggleLines array, and highlightStartIndex.
         addHighlight(container);
-        addCursor(container, e);
+        var characterClickPos = e.pageX - container.domObj.value.offset().left;
+        addCursor(container, characterClickPos);
     }
+}
+
+$(document).on('mousedown', '.container', function(e) {
+    onMouseDown(this, e);
 });
 
 $(document).on('mousemove', '.container', function(e) {
@@ -222,7 +229,7 @@ $(document).on('mouseenter', '.container', function (e) {
     if (mouseDown) {
         clearHighlighted();
         if (highlightStartIndex === null) {
-            $(this).trigger("mousedown");
+            onMouseDown(this, e);
         } else {
             $(this).trigger("mousemove");
         }
