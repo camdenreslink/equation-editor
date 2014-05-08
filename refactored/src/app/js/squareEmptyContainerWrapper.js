@@ -60,6 +60,9 @@ eqEd.SquareEmptyContainerWrapper = function(symbolSizeConfig) {
     }));
 };
 (function() {
+    // subclass extends superclass
+    eqEd.SquareEmptyContainerWrapper.prototype = Object.create(eqEd.Wrapper.prototype);
+    eqEd.SquareEmptyContainerWrapper.prototype.constructor = eqEd.SquareEmptyContainerWrapper;
     eqEd.SquareEmptyContainerWrapper.prototype.buildDomObj = function() {
         return new eqEd.WrapperDom(this,
             '<div class="wrapper emptyContainerWrapper squareEmptyContainerWrapper"></div>')

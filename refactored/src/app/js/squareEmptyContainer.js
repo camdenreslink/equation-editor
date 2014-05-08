@@ -5,7 +5,7 @@ eqEd.SquareEmptyContainer = function(symbolSizeConfig) {
     this.borderWidth = 4;
     this.fontSize = "fontSizeNormal";
     this.buildDomObj();
-    
+
     // Set up the left calculation
     var left = 0;
     this.properties.push(new Property(this, "left", left, {
@@ -42,40 +42,6 @@ eqEd.SquareEmptyContainer = function(symbolSizeConfig) {
         }
     }));
 
-    // Set up the width calculation
-    var width = 0;
-    this.properties.push(new Property(this, "width", width, {
-        get: function() {
-            return width;
-        },
-        set: function(value) {
-            width = value;
-        },
-        compute: function() {
-            return this.squareEmptyContainerFillerWrapper.width;
-        },
-        updateDom: function() {
-            this.domObj.updateWidth(this.width);
-        }
-    }));
-
-    // Set up the height calculation
-    var height = 0;
-    this.properties.push(new Property(this, "height", height, {
-        get: function() {
-            return height;
-        },
-        set: function(value) {
-            height = value;
-        },
-        compute: function() {
-            return this.squareEmptyContainerFillerWrapper.height;
-        },
-        updateDom: function() {
-            this.domObj.updateHeight(this.height);
-        }
-    }));
-
     // Set up the fontSize calculation
     var fontSize = "";
     this.properties.push(new Property(this, "fontSize", fontSize, {
@@ -94,6 +60,9 @@ eqEd.SquareEmptyContainer = function(symbolSizeConfig) {
     }));
 };
 (function() {
+    // subclass extends superclass
+    eqEd.SquareEmptyContainer.prototype = Object.create(eqEd.Container.prototype);
+    eqEd.SquareEmptyContainer.prototype.constructor = eqEd.SquareEmptyContainer;
     eqEd.SquareEmptyContainer.prototype.buildDomObj = function() {
         return new eqEd.EquationDom(this,
             '<div class="container squareEmptyContainer ' + this.fontSize + '"></div>');
