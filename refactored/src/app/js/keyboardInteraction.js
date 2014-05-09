@@ -133,4 +133,48 @@ var setupKeyboardEvents = function(symbolSizeConfig) {
     Mousetrap.bind(['ctrl+y', 'ctrl+shift+z'], function(e) {
 
     });
+
+    Mousetrap.bind('backspace', function(e) {
+        var cursor = $('.cursor');
+        if (cursor.length > 0) {
+            var container = cursor.parent().data('eqObject');
+            if (highlightStartIndex !== 0 && highlightStartIndex !== null) {
+                if (container.wrappers[highlightStartIndex - 1].childContainers.length > 0) {
+                    container.wrappers[highlightStartIndex - 1].domObj.value.addClass('highlighted');
+                    var endIndex = highlightStartIndex
+                    highlightStartIndex = highlightStartIndex - 1;
+                    updateHighlightFormatting(container, endIndex);
+                    removeCursor();
+                } else {
+                    removeCursor();
+                    highlightStartIndex = highlightStartIndex - 1;
+                    container.removeWrappers(highlightStartIndex);
+                    container.updateAll();
+                    addCursorAtIndex(container, highlightStartIndex);
+                }
+                
+            }
+        }
+    });
+
+    Mousetrap.bind('del', function(e) {
+        var cursor = $('.cursor');
+        if (cursor.length > 0) {
+            var container = cursor.parent().data('eqObject');
+            if (highlightStartIndex !== container.wrappers.length && highlightStartIndex !== null) {
+                if (container.wrappers[highlightStartIndex].childContainers.length > 0) {
+                    container.wrappers[highlightStartIndex].domObj.value.addClass('highlighted');
+                    var endIndex = highlightStartIndex + 1;
+                    updateHighlightFormatting(container, endIndex);
+                    removeCursor();
+                } else {
+                    removeCursor();
+                    container.removeWrappers(highlightStartIndex);
+                    container.updateAll();
+                    addCursorAtIndex(container, highlightStartIndex);
+                }
+                
+            }
+        }
+    });
 };
