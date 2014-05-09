@@ -21,4 +21,4 @@ var insertWrapper = function(wrapper) {
         $('.activeContainer').removeClass('activeContainer');
         container.domObj.value.addClass('activeContainer');
     }
-}
+};
