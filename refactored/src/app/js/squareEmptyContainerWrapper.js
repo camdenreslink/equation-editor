@@ -20,7 +20,7 @@ eqEd.SquareEmptyContainerWrapper = function(symbolSizeConfig) {
             width = value;
         },
         compute: function() {
-            return this.squareEmptyContainer.width;
+            return this.squareEmptyContainer.width + 2 * this.squareEmptyContainer.borderWidth;
         },
         updateDom: function() {
             this.domObj.updateWidth(this.width);
@@ -67,4 +67,4 @@ eqEd.SquareEmptyContainerWrapper = function(symbolSizeConfig) {
         return new eqEd.WrapperDom(this,
             '<div class="wrapper emptyContainerWrapper squareEmptyContainerWrapper"></div>')
     }
-});
+})();

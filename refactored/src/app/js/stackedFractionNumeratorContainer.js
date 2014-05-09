@@ -1,8 +1,8 @@
 eqEd.StackedFractionNumeratorContainer = function(symbolSizeConfig) {
     eqEd.Container.call(this, symbolSizeConfig);
+    this.domObj = this.buildDomObj();
     var squareEmptyContainerWrapper = new eqEd.SquareEmptyContainerWrapper(symbolSizeConfig);
     this.addWrappers([0, squareEmptyContainerWrapper]);
-    this.buildDomObj();
     
     // Set up the left calculation
     var left = 0;
@@ -51,15 +51,17 @@ eqEd.StackedFractionNumeratorContainer = function(symbolSizeConfig) {
             fontSize = value;
         },
         compute: function() {
+            var fontSize = "";
             if (this.parent.parent.fontSize === "fontSizeSmaller" || this.parent.parent.fontSize === "fontSizeSmallest") {
-                return "fontSizeSmallest";
+                fontSize = "fontSizeSmallest";
             } else {
                 if (this.parent.parent.parent instanceof eqEd.StackedFractionWrapper) {
-                    return "fontSizeSmaller";
+                    fontSize = "fontSizeSmaller";
                 } else {
-                    return "fontSizeNormal";
+                    fontSize = "fontSizeNormal";
                 }
             }
+            return fontSize;
         },
         updateDom: function() {
             this.domObj.updateFontSize(this.fontSize);
@@ -71,7 +73,7 @@ eqEd.StackedFractionNumeratorContainer = function(symbolSizeConfig) {
     eqEd.StackedFractionNumeratorContainer.prototype = Object.create(eqEd.Container.prototype);
     eqEd.StackedFractionNumeratorContainer.prototype.constructor = eqEd.StackedFractionNumeratorContainer;
     eqEd.StackedFractionNumeratorContainer.prototype.buildDomObj = function() {
-        return new eqEd.EquationDom(this,
+        return new eqEd.ContainerDom(this,
             '<div class="container stackedFractionNumeratorContainer"></div>');
     };
 })();

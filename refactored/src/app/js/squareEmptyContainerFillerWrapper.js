@@ -64,4 +64,4 @@ eqEd.SquareEmptyContainerFillerWrapper = function(symbolSizeConfig) {
         return new eqEd.WrapperDom(this,
             '<div class="wrapper squareEmptyContainerFillerWrapper"></div>')
     }
-});
+})();

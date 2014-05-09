@@ -122,7 +122,6 @@ eqEd.Container = function(symbolSizeConfig) {
       // If the original list was [w0, w1, w2, w3, w4, w5, w6],
       // it would now be [w0, wrapper1, wrapper2, w1, wrapper3, w2, w3, w4, w5, w6]
       indexAndWrapperList = Array.prototype.slice.call(arguments);
-
       indexAndWrapperList = _.sortBy(indexAndWrapperList, function(innerArr) {
           return innerArr[0];
       });
@@ -140,8 +139,6 @@ eqEd.Container = function(symbolSizeConfig) {
       // This call corrects the indices/parent values of this container's
       // wrappers.
       this.updateWrapperProperties();
-      // This call updates the entire equation.
-      this.updateAll();
     }
 
     eqEd.Container.prototype.removeWrappers = function(indexList) {
@@ -166,8 +163,6 @@ eqEd.Container = function(symbolSizeConfig) {
       // This call corrects the indices/parent values of this container's
       // wrappers.
       this.updateWrapperProperties();
-      // This call updates the entire equation.  
-      this.updateAll();
     }
     eqEd.Container.prototype.update = function() {
       // This first for loop is what does the actual computing

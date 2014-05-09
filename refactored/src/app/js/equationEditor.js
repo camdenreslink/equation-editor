@@ -12,6 +12,7 @@ $(window).load(function () {
         $('.testEquation').after(container.domObj.value);
         var topLevelEmptyContainerWrapper = new eqEd.TopLevelEmptyContainerWrapper(symbolSizeConfig);
         container.addWrappers([0, topLevelEmptyContainerWrapper]);
+        topLevelEmptyContainerWrapper.updateAll();
     };
 
     var setup = function() {
@@ -19,6 +20,7 @@ $(window).load(function () {
             symbolSizeConfig = new eqEd.SymbolSizeConfiguration();
             inializePropertyHooks(symbolSizeConfig);
             setupKeyboardEvents(symbolSizeConfig);
+            setupMenuEvents(symbolSizeConfig);
             setupInitialContainer();
         }
     }

@@ -10,9 +10,11 @@ var insertWrapper = function(wrapper) {
             container.removeWrappers(0);
         }
         container.addWrappers([highlightStartIndex, wrapper]);
+        wrapper.updateAll();
         removeCursor();
         if (wrapper.childContainers.length > 0) {
-            addCursorAtIndex(wrapper.childContainers[0].wrappers[0].childContainers[0], 0)
+            addCursorAtIndex(wrapper.childContainers[0].wrappers[0].childContainers[0], 0);
+            container = wrapper.childContainers[0].wrappers[0].childContainers[0];
         } else {
             addCursorAtIndex(container, (++highlightStartIndex));
         }

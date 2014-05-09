@@ -73,4 +73,4 @@ eqEd.StackedFractionWrapper = function(symbolSizeConfig) {
         return new eqEd.WrapperDom(this,
             '<div class="wrapper stackedFractionWrapper"></div>')
     }
-});
+})();

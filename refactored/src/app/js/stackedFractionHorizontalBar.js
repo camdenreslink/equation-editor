@@ -1,4 +1,4 @@
-eqEd.StackedFractionHorizontalBar = function(character, fontStyle, symbolSizeConfig) {
+eqEd.StackedFractionHorizontalBar = function(symbolSizeConfig) {
     eqEd.Equation.call(this, symbolSizeConfig); // call super constructor.
 
     this.domObj = this.buildDomObj();
@@ -35,7 +35,7 @@ eqEd.StackedFractionHorizontalBar = function(character, fontStyle, symbolSizeCon
         },
         compute: function() {
             var fontHeight = this.symbolSizeConfig.height["fontSizeNormal"];
-        this.height = this.barHeightRatio * fontHeight;
+            return this.barHeightRatio * fontHeight;
         },
         updateDom: function() {
             this.domObj.updateHeight(this.height);

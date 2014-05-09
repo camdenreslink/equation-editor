@@ -31,16 +31,26 @@ function Property(ctx, propName, initialValue, methods) {
         }
         self.isAlreadyComputed = true;
         Property.alreadyComputed.push(self);
-        ctx[propName] = self.value;
+        var isNumeric = !isNaN(self.value);
+        if (isNumeric) {
+          ctx[propName] = Math.ceil(self.value);
+        } else {
+          ctx[propName] = self.value;
+        }
         self.updateDom(oldValue);
       }
     };
     this.updateDom = function(oldValue) {
-      // This assumes the property has a numeric value.
-      // Will have to update to see what type it is
-      // before testing if the value has changed.
-      if (Math.abs(oldValue - self.value) >= 0.001) {
-        methods.updateDom.call(ctx);
+      var isNumeric = !isNaN(self.value);
+      var isString = toString.call(self.value) === '[object String]';
+      if (isNumeric) {
+        if (Math.abs(oldValue - self.value) >= 0.001) {
+          methods.updateDom.call(ctx);
+        }
+      } else if (isString) {
+        if (oldValue !== self.value) {
+          methods.updateDom.call(ctx);
+        }
       }
     };
 }
