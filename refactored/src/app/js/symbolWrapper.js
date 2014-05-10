@@ -63,7 +63,7 @@ eqEd.SymbolWrapper = function(character, fontStyle, symbolSizeConfig) {
     eqEd.SymbolWrapper.prototype = Object.create(eqEd.Wrapper.prototype);
     eqEd.SymbolWrapper.prototype.constructor = eqEd.SymbolWrapper;
     eqEd.SymbolWrapper.prototype.clone = function() {
-    	return new this.constructor(this.symbol.clone());
+    	return new this.constructor(this.symbol.character, this.symbol.fontStyle, this.symbolSizeConfig);
     };
     eqEd.SymbolWrapper.prototype.buildDomObj = function() {
         return new eqEd.WrapperDom(this,

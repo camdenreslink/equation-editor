@@ -93,7 +93,6 @@ eqEd.Wrapper = function(symbolSizeConfig) {
             this.childNoncontainers[i].update();
         }
     }
-    // Each wrapper class will require its own clone implementation
-    // because each wrapper has its own unique properties.
+    // Each wrapper class will need it's own clone() definition
     eqEd.Wrapper.prototype.clone = function() {};
 })();

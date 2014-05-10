@@ -125,7 +125,10 @@ eqEd.Container = function(symbolSizeConfig) {
       indexAndWrapperList = _.sortBy(indexAndWrapperList, function(innerArr) {
           return innerArr[0];
       });
-      console.log(indexAndWrapperList);
+      if (this.wrappers[0] instanceof eqEd.EmptyContainerWrapper || this.wrappers[0] instanceof eqEd.SquareEmptyContainerFillerWrapper) {
+        this.removeWrappers(0);
+      }
+
       // Insert the wrapper objects into this container's wrapper array, and add
       // them to the DOM.
       for (var i = 0; i < indexAndWrapperList.length; i++) {
@@ -185,10 +188,10 @@ eqEd.Container = function(symbolSizeConfig) {
     }
     // TODO Write tests for clone!
     eqEd.Container.prototype.clone = function() {
-      var copy = new this.constructor();
-      var indexWrapperList = [];
+      var copy = new this.constructor(this.symbolSizeConfig);
+      var indexAndWrapperList = [];
       for (var i = 0; i < this.wrappers.length; i++) {
-        indexWrapperList.push([i, this.wrappers[i].clone()]);
+        indexAndWrapperList.push([i, this.wrappers[i].clone()]);
       }
       eqEd.Container.prototype.addWrappers.apply(copy, indexAndWrapperList);
       return copy;

@@ -49,7 +49,10 @@ eqEd.Equation = function(symbolSizeConfig) {
     // Each object must have a definition for clone,
     // because will need deep clones of equations for
     // copy/cut, paste mechanisms.
-    eqEd.Equation.prototype.clone = function() {};
+    eqEd.Equation.prototype.clone = function() {
+        var copy = new this.constructor(this.symbolSizeConfig);
+        return copy;
+    };
     // Use buildDomObj() to create an instance of
     // equationDom.
     eqEd.Equation.prototype.buildDomObj = function() {};

@@ -1,5 +1,5 @@
 eqEd.SquareEmptyContainerWrapper = function(symbolSizeConfig) {
-    eqEd.Wrapper.call(this, symbolSizeConfig); // call super constructor.
+    eqEd.EmptyContainerWrapper.call(this, symbolSizeConfig); // call super constructor.
 
     this.squareEmptyContainer = new eqEd.SquareEmptyContainer(symbolSizeConfig);
     this.squareEmptyContainer.parent = this;
@@ -61,10 +61,19 @@ eqEd.SquareEmptyContainerWrapper = function(symbolSizeConfig) {
 };
 (function() {
     // subclass extends superclass
-    eqEd.SquareEmptyContainerWrapper.prototype = Object.create(eqEd.Wrapper.prototype);
+    eqEd.SquareEmptyContainerWrapper.prototype = Object.create(eqEd.EmptyContainerWrapper.prototype);
     eqEd.SquareEmptyContainerWrapper.prototype.constructor = eqEd.SquareEmptyContainerWrapper;
     eqEd.SquareEmptyContainerWrapper.prototype.buildDomObj = function() {
         return new eqEd.WrapperDom(this,
             '<div class="wrapper emptyContainerWrapper squareEmptyContainerWrapper"></div>')
+    }
+    eqEd.SquareEmptyContainerWrapper.prototype.clone = function() {
+        var copy = new this.constructor(this.symbolSizeConfig);
+        copy.squareEmptyContainer = this.squareEmptyContainer.clone();
+        copy.squareEmptyContainer.parent = copy;
+        copy.domObj = copy.buildDomObj();
+        copy.domObj.append(copy.squareEmptyContainer.domObj);
+        copy.childContainers = [copy.squareEmptyContainer];
+        return copy;
     }
 })();

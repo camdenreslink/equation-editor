@@ -91,13 +91,6 @@ eqEd.Symbol = function(character, fontStyle, symbolSizeConfig) {
     // subclass extends superclass
     eqEd.Symbol.prototype = Object.create(eqEd.Equation.prototype);
     eqEd.Symbol.prototype.constructor = eqEd.Symbol;
-    eqEd.Symbol.prototype.clone = function() {
-        // character doesn't need cloned, because it isn't an object, it's
-        // a native type.  symbolSizeConfig doesn't need cloned, because
-        // it is a singleton over the equation life cycle. Only need a 
-        // reference to the singleton.
-        return new this.constructor(this.character, this.symbolSizeConfig);
-    };
     eqEd.Symbol.prototype.buildDomObj = function() {
         return new eqEd.EquationDom(this,
             '<div class="symbol ' + this.fontStyle + '">' + this.character + '</div>');

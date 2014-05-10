@@ -5,17 +5,17 @@ var insertWrapper = function(wrapper) {
         var container = cursor.parent().data('eqObject');
         if (cursor.parent().hasClass('squareEmptyContainer')) {
             container = container.parent.parent;
-            container.removeWrappers(0);
-        }
-        if (cursor.siblings('.topLevelEmptyContainerWrapper').length > 0) {
-            container.removeWrappers(0);
         }
         container.addWrappers([highlightStartIndex, wrapper]);
         wrapper.updateAll();
         removeCursor();
         if (wrapper.childContainers.length > 0) {
-            addCursorAtIndex(wrapper.childContainers[0].wrappers[0].childContainers[0], 0);
-            container = wrapper.childContainers[0].wrappers[0].childContainers[0];
+            if (wrapper.childContainers[0].wrappers[0] instanceof eqEd.EmptyContainerWrapper) {
+                addCursorAtIndex(wrapper.childContainers[0].wrappers[0].childContainers[0], 0);
+                container = wrapper.childContainers[0].wrappers[0].childContainers[0];
+            } else {
+                addCursorAtIndex(wrapper.childContainers[0], wrapper.childContainers[0].wrappers.length);
+            }
         } else {
             addCursorAtIndex(container, (++highlightStartIndex));
         }
@@ -33,15 +33,19 @@ var insertWrapper = function(wrapper) {
         if (wrapper.childContainers.length > 0) {
             container.addWrappers([highlightStartIndex, wrapper]);
             removeCursor();
+            removeHighlight();
             addCursorAtIndex(wrapper.childContainers[0].wrappers[0].childContainers[0], 0);
+            var copiedWrappers = [];
             for (var i = 0; i < deleteWrappers.length; i++) {
-                var deleteWrapperIndex = deleteWrappers[i];
+                var deleteWrapperIndex = deleteWrappers[i] + 1;
                 var deleteWrapper = container.wrappers[deleteWrapperIndex];
-                insertWrapper(deleteWrapper.clone());
-                container.removeWrappers(deleteWrapperIndex);
+                copiedWrappers.push(deleteWrapper.clone());
+            }
+            eqEd.Container.prototype.removeWrappers.apply(container, _.map(deleteWrappers, function(num){ return num + 1; }));
+            for (var i = 0; i < copiedWrappers.length; i++) {
+                insertWrapper(copiedWrappers[i]);
             }
             container.updateAll();
-            // clone .highlighted, and addWrappers to childContainers[0]
         } else {
             eqEd.Container.prototype.removeWrappers.apply(container, deleteWrappers);
             container.updateAll();

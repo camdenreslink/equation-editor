@@ -64,4 +64,8 @@ eqEd.SquareEmptyContainerFillerWrapper = function(symbolSizeConfig) {
         return new eqEd.WrapperDom(this,
             '<div class="wrapper squareEmptyContainerFillerWrapper"></div>')
     }
+    eqEd.SquareEmptyContainerFillerWrapper.prototype.clone = function() {
+        var copy = new this.constructor(this.symbolSizeConfig);
+        return copy;
+    }
 })();
