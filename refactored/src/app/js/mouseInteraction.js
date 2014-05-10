@@ -1,6 +1,7 @@
 var mouseDown = false;
 var toggleLines = [];
 var highlightStartIndex = null;
+var highlightEndIndex = null;
 
 var removeCursor = function() {
     $('.cursor').remove();
@@ -124,7 +125,8 @@ var addHighlight = function(container) {
     container.domObj.value.append(highlight);
 };
 
-var updateHighlightFormatting = function(container, highlightEndIndex) {
+var updateHighlightFormatting = function(container, endIndex) {
+    highlightEndIndex = endIndex;
     var highlight = $('.highlight');
     if (highlight.length > 0) {
         var left = 0;

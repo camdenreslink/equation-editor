@@ -125,6 +125,7 @@ eqEd.Container = function(symbolSizeConfig) {
       indexAndWrapperList = _.sortBy(indexAndWrapperList, function(innerArr) {
           return innerArr[0];
       });
+      console.log(indexAndWrapperList);
       // Insert the wrapper objects into this container's wrapper array, and add
       // them to the DOM.
       for (var i = 0; i < indexAndWrapperList.length; i++) {
@@ -189,7 +190,7 @@ eqEd.Container = function(symbolSizeConfig) {
       for (var i = 0; i < this.wrappers.length; i++) {
         indexWrapperList.push([i, this.wrappers[i].clone()]);
       }
-      copy.addWrappers.apply(copy, indexAndWrapperList);
+      eqEd.Container.prototype.addWrappers.apply(copy, indexAndWrapperList);
       return copy;
     }
     eqEd.Container.prototype.buildDomObj = function() {
