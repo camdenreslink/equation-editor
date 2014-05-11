@@ -163,7 +163,7 @@ eqEd.Container = function(symbolSizeConfig) {
           // dom object.
           this.domObj.removeWrapper(indexList[i] - correction);
           correction += 1;
-      }
+      }-
       // This call corrects the indices/parent values of this container's
       // wrappers.
       this.updateWrapperProperties();

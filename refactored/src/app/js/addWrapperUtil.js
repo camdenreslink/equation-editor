@@ -34,18 +34,21 @@ var insertWrapper = function(wrapper) {
             container.addWrappers([highlightStartIndex, wrapper]);
             removeCursor();
             removeHighlight();
-            addCursorAtIndex(wrapper.childContainers[0].wrappers[0].childContainers[0], 0);
             var copiedWrappers = [];
             for (var i = 0; i < deleteWrappers.length; i++) {
                 var deleteWrapperIndex = deleteWrappers[i] + 1;
                 var deleteWrapper = container.wrappers[deleteWrapperIndex];
-                copiedWrappers.push(deleteWrapper.clone());
+                copiedWrappers.push([i, deleteWrapper.clone()]);
             }
             eqEd.Container.prototype.removeWrappers.apply(container, _.map(deleteWrappers, function(num){ return num + 1; }));
+            /*
             for (var i = 0; i < copiedWrappers.length; i++) {
                 insertWrapper(copiedWrappers[i]);
             }
+            */
+            eqEd.Container.prototype.addWrappers.apply(wrapper.childContainers[0], copiedWrappers);
             container.updateAll();
+            addCursorAtIndex(wrapper.childContainers[0], copiedWrappers.length);
         } else {
             eqEd.Container.prototype.removeWrappers.apply(container, deleteWrappers);
             container.updateAll();
