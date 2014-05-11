@@ -137,76 +137,121 @@ var setupKeyboardEvents = function(symbolSizeConfig) {
     Mousetrap.bind('backspace', function(e) {
         var cursor = $('.cursor');
         var highlighted = $('.highlighted');
+        var container = null;
         if (cursor.length > 0) {
-            var container = cursor.parent().data('eqObject');
-            if (highlightStartIndex !== 0 && highlightStartIndex !== null) {
-                if (container.wrappers[highlightStartIndex - 1].childContainers.length > 0) {
-                    container.wrappers[highlightStartIndex - 1].domObj.value.addClass('highlighted');
-                    var endIndex = highlightStartIndex
-                    highlightStartIndex = highlightStartIndex - 1;
-                    updateHighlightFormatting(container, endIndex);
-                    removeCursor();
-                } else {
-                    removeCursor();
-                    highlightStartIndex = highlightStartIndex - 1;
-                    container.removeWrappers(highlightStartIndex);
-                    container.updateAll();
-                    addCursorAtIndex(container, highlightStartIndex);
-                    addBlink();
+            container = cursor.parent().data('eqObject');
+            if (!(container.parent instanceof eqEd.EmptyContainerWrapper)) {
+                if (highlightStartIndex !== 0 && highlightStartIndex !== null) {
+                    if (container.wrappers[highlightStartIndex - 1].childContainers.length > 0) {
+                        container.wrappers[highlightStartIndex - 1].domObj.value.addClass('highlighted');
+                        var endIndex = highlightStartIndex
+                        highlightStartIndex = highlightStartIndex - 1;
+                        updateHighlightFormatting(container, endIndex);
+                        removeCursor();
+                    } else {
+                        removeCursor();
+                        highlightStartIndex = highlightStartIndex - 1;
+                        container.removeWrappers(highlightStartIndex);
+                        container.updateAll();
+                        addCursorAtIndex(container, highlightStartIndex);
+                        addBlink();
+                    }
                 }
-                
             }
         } else if (highlighted.length > 0) {
-            var container = highlighted.parent().data('eqObject');
-            var deleteWrappers;
-            if (highlightStartIndex < highlightEndIndex) {
-                deleteWrappers = _.range(highlightStartIndex, highlightEndIndex);
-            } else {
-                deleteWrappers = _.range(highlightEndIndex, highlightStartIndex);
+            container = highlighted.parent().data('eqObject');
+            if (!(container.parent instanceof eqEd.EmptyContainerWrapper)) {
+                var deleteWrappers;
+                if (highlightStartIndex < highlightEndIndex) {
+                    deleteWrappers = _.range(highlightStartIndex, highlightEndIndex);
+                } else {
+                    deleteWrappers = _.range(highlightEndIndex, highlightStartIndex);
+                }
+                eqEd.Container.prototype.removeWrappers.apply(container, deleteWrappers);
+                container.updateAll();
+                highlightStartIndex = (highlightStartIndex < highlightEndIndex) ? highlightStartIndex : highlightEndIndex;
+                updateHighlightFormatting(container, highlightStartIndex);
+                addCursorAtIndex(container, highlightStartIndex);
+                addBlink();
             }
-            eqEd.Container.prototype.removeWrappers.apply(container, deleteWrappers);
-            container.updateAll();
-            highlightStartIndex = (highlightStartIndex < highlightEndIndex) ? highlightStartIndex : highlightEndIndex;
-            updateHighlightFormatting(container, highlightStartIndex);
-            addCursorAtIndex(container, highlightStartIndex);
-            addBlink();
+        }
+        if (container.wrappers.length === 0) {
+            removeCursor();
+            $('.activeContainer').removeClass('activeContainer');
+            if (container.parent === null) {
+                container.addWrappers([0, new eqEd.TopLevelEmptyContainerWrapper(container.symbolSizeConfig)]);
+                container.updateAll();
+                addCursorAtIndex(container, 0);
+                container.domObj.value.addClass('activeContainer');
+                addBlink();
+            } else {
+                container.addWrappers([0, new eqEd.SquareEmptyContainerWrapper(container.symbolSizeConfig)]);
+                container.updateAll();
+                addCursorAtIndex(container.wrappers[0].childContainers[0], 0);
+                container.wrappers[0].childContainers[0].domObj.value.addClass('activeContainer');
+                addBlink();
+            }
+            
         }
     });
 
     Mousetrap.bind('del', function(e) {
         var cursor = $('.cursor');
         var highlighted = $('.highlighted');
+        var container = null;
         if (cursor.length > 0) {
-            var container = cursor.parent().data('eqObject');
-            if (highlightStartIndex !== container.wrappers.length && highlightStartIndex !== null) {
-                if (container.wrappers[highlightStartIndex].childContainers.length > 0) {
-                    container.wrappers[highlightStartIndex].domObj.value.addClass('highlighted');
-                    var endIndex = highlightStartIndex + 1;
-                    updateHighlightFormatting(container, endIndex);
-                    removeCursor();
-                } else {
-                    removeCursor();
-                    container.removeWrappers(highlightStartIndex);
-                    container.updateAll();
-                    addCursorAtIndex(container, highlightStartIndex);
-                    addBlink();
+            container = cursor.parent().data('eqObject');
+            if (!(container.parent instanceof eqEd.EmptyContainerWrapper)) {
+                if (highlightStartIndex !== container.wrappers.length && highlightStartIndex !== null) {
+                    if (container.wrappers[highlightStartIndex].childContainers.length > 0) {
+                        container.wrappers[highlightStartIndex].domObj.value.addClass('highlighted');
+                        var endIndex = highlightStartIndex + 1;
+                        updateHighlightFormatting(container, endIndex);
+                        removeCursor();
+                    } else {
+                        removeCursor();
+                        container.removeWrappers(highlightStartIndex);
+                        container.updateAll();
+                        addCursorAtIndex(container, highlightStartIndex);
+                        addBlink();
+                    }
+                    
                 }
-                
             }
         } else if (highlighted.length > 0) {
-            var container = highlighted.parent().data('eqObject');
-            var deleteWrappers;
-            if (highlightStartIndex < highlightEndIndex) {
-                deleteWrappers = _.range(highlightStartIndex, highlightEndIndex);
-            } else {
-                deleteWrappers = _.range(highlightEndIndex, highlightStartIndex);
+            container = highlighted.parent().data('eqObject');
+             if (!(container.parent instanceof eqEd.EmptyContainerWrapper)) {
+                var deleteWrappers;
+                if (highlightStartIndex < highlightEndIndex) {
+                    deleteWrappers = _.range(highlightStartIndex, highlightEndIndex);
+                } else {
+                    deleteWrappers = _.range(highlightEndIndex, highlightStartIndex);
+                }
+                eqEd.Container.prototype.removeWrappers.apply(container, deleteWrappers);
+                container.updateAll();
+                highlightStartIndex = (highlightStartIndex < highlightEndIndex) ? highlightStartIndex : highlightEndIndex;
+                updateHighlightFormatting(container, highlightStartIndex);
+                addCursorAtIndex(container, highlightStartIndex);
+                addBlink();
             }
-            eqEd.Container.prototype.removeWrappers.apply(container, deleteWrappers);
-            container.updateAll();
-            highlightStartIndex = (highlightStartIndex < highlightEndIndex) ? highlightStartIndex : highlightEndIndex;
-            updateHighlightFormatting(container, highlightStartIndex);
-            addCursorAtIndex(container, highlightStartIndex);
-            addBlink();
+        }
+        if (container.wrappers.length === 0) {
+            removeCursor();
+            $('.activeContainer').removeClass('activeContainer');
+            if (container.parent === null) {
+                container.addWrappers([0, new eqEd.TopLevelEmptyContainerWrapper(container.symbolSizeConfig)]);
+                container.updateAll();
+                addCursorAtIndex(container, 0);
+                container.domObj.value.addClass('activeContainer');
+                addBlink();
+            } else {
+                container.addWrappers([0, new eqEd.SquareEmptyContainerWrapper(container.symbolSizeConfig)]);
+                container.updateAll();
+                addCursorAtIndex(container.wrappers[0].childContainers[0], 0);
+                container.wrappers[0].childContainers[0].domObj.value.addClass('activeContainer');
+                addBlink();
+            }
+            
         }
     });
 };
