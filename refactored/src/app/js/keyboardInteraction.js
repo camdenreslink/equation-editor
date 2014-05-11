@@ -207,7 +207,7 @@ var setupKeyboardEvents = function(symbolSizeConfig) {
             }
         } else if (highlighted.length > 0) {
             container = highlighted.parent().data('eqObject');
-             if (!(container.parent instanceof eqEd.EmptyContainerWrapper)) {
+            if (!(container.parent instanceof eqEd.EmptyContainerWrapper)) {
                 var deleteWrappers;
                 if (highlightStartIndex < highlightEndIndex) {
                     deleteWrappers = _.range(highlightStartIndex, highlightEndIndex);
@@ -270,6 +270,11 @@ var setupKeyboardEvents = function(symbolSizeConfig) {
                     }
                 }
             }
+        } else if (highlighted.length > 0) {
+            container = highlighted.parent().data('eqObject');
+            addCursorAtIndex(container, highlightStartIndex);
+            updateHighlightFormatting(container, highlightStartIndex);
+            $('.highlighted').removeClass('highlighted');
         }
     });
 
@@ -307,6 +312,11 @@ var setupKeyboardEvents = function(symbolSizeConfig) {
                     }
                 }
             }
+        } else if (highlighted.length > 0) {
+            container = highlighted.parent().data('eqObject');
+            addCursorAtIndex(container, highlightEndIndex);
+            updateHighlightFormatting(container, highlightEndIndex);
+            $('.highlighted').removeClass('highlighted');
         }
     });
 };
