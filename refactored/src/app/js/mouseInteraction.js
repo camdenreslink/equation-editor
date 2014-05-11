@@ -43,6 +43,7 @@ var calculateIndex = function(offsetLeft) {
 
 // side effect: populates toggleLines array, and highlightStartIndex.
 var addCursor = function(container, characterClickPos) {
+    removeCursor();
     var cursor;
     if (container instanceof eqEd.SquareEmptyContainer) {
         cursor = $('<div class="cursor squareCursor"></div>');
@@ -82,6 +83,7 @@ var addCursor = function(container, characterClickPos) {
 
 // side effect: populates toggleLines array, and highlightStartIndex.
 var addCursorAtIndex = function(container, index) {
+    removeCursor();
     var cursor;
     highlightStartIndex = index;
     if (container instanceof eqEd.SquareEmptyContainer) {
