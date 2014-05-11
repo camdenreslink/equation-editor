@@ -272,8 +272,9 @@ var setupKeyboardEvents = function(symbolSizeConfig) {
             }
         } else if (highlighted.length > 0) {
             container = highlighted.parent().data('eqObject');
-            addCursorAtIndex(container, highlightStartIndex);
-            updateHighlightFormatting(container, highlightStartIndex);
+            var cursorIndex = (highlightStartIndex < highlightEndIndex) ? highlightStartIndex : highlightEndIndex;
+            addCursorAtIndex(container, cursorIndex);
+            updateHighlightFormatting(container, cursorIndex);
             $('.highlighted').removeClass('highlighted');
         }
     });
@@ -314,8 +315,9 @@ var setupKeyboardEvents = function(symbolSizeConfig) {
             }
         } else if (highlighted.length > 0) {
             container = highlighted.parent().data('eqObject');
-            addCursorAtIndex(container, highlightEndIndex);
-            updateHighlightFormatting(container, highlightEndIndex);
+            var cursorIndex = (highlightStartIndex > highlightEndIndex) ? highlightStartIndex : highlightEndIndex;
+            addCursorAtIndex(container, cursorIndex);
+            updateHighlightFormatting(container, cursorIndex);
             $('.highlighted').removeClass('highlighted');
         }
     });

@@ -27,9 +27,8 @@ var insertWrapper = function(wrapper) {
         } else {
             deleteWrappers = _.range(highlightEndIndex, highlightStartIndex);
         }
-
         if (wrapper.childContainers.length > 0) {
-            container.addWrappers([highlightStartIndex, wrapper]);
+            container.addWrappers([deleteWrappers[0], wrapper]);
             removeCursor();
             removeHighlight();
             var copiedWrappers = [];
