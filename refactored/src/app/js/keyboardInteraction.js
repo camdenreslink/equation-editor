@@ -92,13 +92,11 @@ var setupKeyboardEvents = function(symbolSizeConfig) {
     Mousetrap.bind(MathJax_MathItalic, function(e, character) {
         var symbolWrapper = new eqEd.SymbolWrapper(character, "MathJax_MathItalic", symbolSizeConfig) 
         insertWrapper(symbolWrapper);
-        addBlink();
     });
 
     Mousetrap.bind(MathJax_Main, function(e, character) {
         var symbolWrapper = new eqEd.SymbolWrapper(character, "MathJax_Main", symbolSizeConfig) 
         insertWrapper(symbolWrapper);
-        addBlink();
     });
 
     Mousetrap.bind(operatorCharacters, function(e, character) { 
@@ -149,12 +147,10 @@ var setupKeyboardEvents = function(symbolSizeConfig) {
                         updateHighlightFormatting(container, endIndex);
                         removeCursor();
                     } else {
-                        removeCursor();
                         highlightStartIndex = highlightStartIndex - 1;
                         container.removeWrappers(highlightStartIndex);
                         container.updateAll();
                         addCursorAtIndex(container, highlightStartIndex);
-                        addBlink();
                     }
                 }
             }
@@ -172,24 +168,17 @@ var setupKeyboardEvents = function(symbolSizeConfig) {
                 highlightStartIndex = (highlightStartIndex < highlightEndIndex) ? highlightStartIndex : highlightEndIndex;
                 updateHighlightFormatting(container, highlightStartIndex);
                 addCursorAtIndex(container, highlightStartIndex);
-                addBlink();
             }
         }
         if (container.wrappers.length === 0) {
-            removeCursor();
-            $('.activeContainer').removeClass('activeContainer');
             if (container.parent === null) {
                 container.addWrappers([0, new eqEd.TopLevelEmptyContainerWrapper(container.symbolSizeConfig)]);
                 container.updateAll();
                 addCursorAtIndex(container, 0);
-                container.domObj.value.addClass('activeContainer');
-                addBlink();
             } else {
                 container.addWrappers([0, new eqEd.SquareEmptyContainerWrapper(container.symbolSizeConfig)]);
                 container.updateAll();
                 addCursorAtIndex(container.wrappers[0].childContainers[0], 0);
-                container.wrappers[0].childContainers[0].domObj.value.addClass('activeContainer');
-                addBlink();
             }
             
         }
@@ -209,11 +198,9 @@ var setupKeyboardEvents = function(symbolSizeConfig) {
                         updateHighlightFormatting(container, endIndex);
                         removeCursor();
                     } else {
-                        removeCursor();
                         container.removeWrappers(highlightStartIndex);
                         container.updateAll();
                         addCursorAtIndex(container, highlightStartIndex);
-                        addBlink();
                     }
                     
                 }
@@ -232,26 +219,94 @@ var setupKeyboardEvents = function(symbolSizeConfig) {
                 highlightStartIndex = (highlightStartIndex < highlightEndIndex) ? highlightStartIndex : highlightEndIndex;
                 updateHighlightFormatting(container, highlightStartIndex);
                 addCursorAtIndex(container, highlightStartIndex);
-                addBlink();
             }
         }
         if (container.wrappers.length === 0) {
-            removeCursor();
-            $('.activeContainer').removeClass('activeContainer');
             if (container.parent === null) {
                 container.addWrappers([0, new eqEd.TopLevelEmptyContainerWrapper(container.symbolSizeConfig)]);
                 container.updateAll();
                 addCursorAtIndex(container, 0);
-                container.domObj.value.addClass('activeContainer');
-                addBlink();
             } else {
                 container.addWrappers([0, new eqEd.SquareEmptyContainerWrapper(container.symbolSizeConfig)]);
                 container.updateAll();
                 addCursorAtIndex(container.wrappers[0].childContainers[0], 0);
-                container.wrappers[0].childContainers[0].domObj.value.addClass('activeContainer');
-                addBlink();
             }
             
+        }
+    });
+
+    Mousetrap.bind('left', function(e) {
+        var cursor = $('.cursor');
+        var highlighted = $('.highlighted');
+        var container = null;
+        if (cursor.length > 0) {
+            container = cursor.parent().data('eqObject');
+            if (!(container.parent instanceof eqEd.TopLevelEmptyContainerWrapper)) {
+                if (highlightStartIndex !== 0 && !(container instanceof eqEd.SquareEmptyContainer)) {
+                    if (container.wrappers[highlightStartIndex - 1].childContainers.length > 0) {
+                        if (container.wrappers[highlightStartIndex - 1].childContainers[container.wrappers[highlightStartIndex - 1].childContainers.length - 1].wrappers[0] instanceof eqEd.EmptyContainerWrapper) {
+                            addCursorAtIndex(container.wrappers[highlightStartIndex - 1].childContainers[container.wrappers[highlightStartIndex - 1].childContainers.length - 1].wrappers[0].childContainers[0], 0);
+                        } else {
+                            // The following line is ridiculous...try to refactor to make easier to understand.
+                            addCursorAtIndex(container.wrappers[highlightStartIndex - 1].childContainers[container.wrappers[highlightStartIndex - 1].childContainers.length - 1], container.wrappers[highlightStartIndex - 1].childContainers[container.wrappers[highlightStartIndex - 1].childContainers.length - 1].wrappers.length);
+                        }
+                    } else {
+                        addCursorAtIndex(container, highlightStartIndex - 1);
+                    }   
+                } else {
+                    if (container instanceof eqEd.SquareEmptyContainer) {
+                        container = container.parent.parent;
+                    }
+                    if (container.domObj.value.prev('.container').length > 0) {
+                        container = container.domObj.value.prev('.container').first().data('eqObject');
+                        if (container.wrappers[0] instanceof eqEd.SquareEmptyContainerWrapper) {
+                            container = container.wrappers[0].childContainers[0];
+                        }
+                        addCursorAtIndex(container, container.wrappers.length);
+                    } else {
+                        if (container.parent !== null) {
+                            addCursorAtIndex(container.parent.parent, container.parent.index);
+                        }
+                    }
+                }
+            }
+        }
+    });
+
+    Mousetrap.bind('right', function(e) {
+        var cursor = $('.cursor');
+        var highlighted = $('.highlighted');
+        var container = null;
+        if (cursor.length > 0) {
+            container = cursor.parent().data('eqObject');
+            if (!(container.parent instanceof eqEd.TopLevelEmptyContainerWrapper)) {
+                if (highlightStartIndex !== container.wrappers.length && !(container instanceof eqEd.SquareEmptyContainer)) {
+                    if (container.wrappers[highlightStartIndex].childContainers.length > 0) {
+                        if (container.wrappers[highlightStartIndex].childContainers[0].wrappers[0] instanceof eqEd.EmptyContainerWrapper) {
+                            addCursorAtIndex(container.wrappers[highlightStartIndex].childContainers[0].wrappers[0].childContainers[0], 0);
+                        } else {
+                            addCursorAtIndex(container.wrappers[highlightStartIndex].childContainers[0], 0);
+                        }
+                    } else {
+                        addCursorAtIndex(container, highlightStartIndex + 1);
+                    }   
+                } else {
+                    if (container instanceof eqEd.SquareEmptyContainer) {
+                        container = container.parent.parent;
+                    }
+                    if (container.domObj.value.next('.container').length > 0) {
+                        container = container.domObj.value.next('.container').first().data('eqObject');
+                        if (container.wrappers[0] instanceof eqEd.SquareEmptyContainerWrapper) {
+                            container = container.wrappers[0].childContainers[0];
+                        }
+                        addCursorAtIndex(container, 0);
+                    } else {
+                        if (container.parent !== null) {
+                            addCursorAtIndex(container.parent.parent, container.parent.index + 1);
+                        }
+                    }
+                }
+            }
         }
     });
 };

@@ -19,8 +19,6 @@ var insertWrapper = function(wrapper) {
         } else {
             addCursorAtIndex(container, (++highlightStartIndex));
         }
-        $('.activeContainer').removeClass('activeContainer');
-        container.domObj.value.addClass('activeContainer');
     } else if (highlighted.length > 0) {
         var container = highlighted.parent().data('eqObject');
         var deleteWrappers;
@@ -41,11 +39,6 @@ var insertWrapper = function(wrapper) {
                 copiedWrappers.push([i, deleteWrapper.clone()]);
             }
             eqEd.Container.prototype.removeWrappers.apply(container, _.map(deleteWrappers, function(num){ return num + 1; }));
-            /*
-            for (var i = 0; i < copiedWrappers.length; i++) {
-                insertWrapper(copiedWrappers[i]);
-            }
-            */
             eqEd.Container.prototype.addWrappers.apply(wrapper.childContainers[0], copiedWrappers);
             container.updateAll();
             addCursorAtIndex(wrapper.childContainers[0], copiedWrappers.length);

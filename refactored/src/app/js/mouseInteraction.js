@@ -44,6 +44,8 @@ var calculateIndex = function(offsetLeft) {
 // side effect: populates toggleLines array, and highlightStartIndex.
 var addCursor = function(container, characterClickPos) {
     removeCursor();
+    $('.activeContainer').removeClass('activeContainer');
+    container.domObj.value.addClass('activeContainer');
     var cursor;
     if (container instanceof eqEd.SquareEmptyContainer) {
         cursor = $('<div class="cursor squareCursor"></div>');
@@ -79,11 +81,14 @@ var addCursor = function(container, characterClickPos) {
         cursor.css('left', cursorLeft);
     }
     container.domObj.value.append(cursor);
+    addBlink();
 };
 
 // side effect: populates toggleLines array, and highlightStartIndex.
 var addCursorAtIndex = function(container, index) {
     removeCursor();
+    $('.activeContainer').removeClass('activeContainer');
+    container.domObj.value.addClass('activeContainer');
     var cursor;
     highlightStartIndex = index;
     if (container instanceof eqEd.SquareEmptyContainer) {
@@ -93,7 +98,7 @@ var addCursorAtIndex = function(container, index) {
         var cursorLeft = -1;
         var cursorLeftSet = false;
         var toggleLinesEmpty = (toggleLines.length === 0);
-        if (!container.domObj.value.children().first().hasClass('topLevelEmptyContainerWrapper')) {
+        if (!(container.wrappers[0] instanceof eqEd.TopLevelEmptyContainerWrapper)) {
             for (var i = 0; i < container.wrappers.length; i++) {
                 var wrapper = container.wrappers[i];
                 if (index === i) {
@@ -106,8 +111,6 @@ var addCursorAtIndex = function(container, index) {
                 }
                 cumulative += 0.5 * wrapper.width;
             }
-        } else {
-            container.domObj.value.children().first().addClass('activeContainer');
         }
         if (!cursorLeftSet) {
             cursorLeft += cumulative;
@@ -117,6 +120,7 @@ var addCursorAtIndex = function(container, index) {
         cursor.css('left', cursorLeft);
     }
     container.domObj.value.append(cursor);
+    addBlink();
 };
 
 var addHighlight = function(container) {
