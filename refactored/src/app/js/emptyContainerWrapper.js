@@ -1,5 +1,6 @@
 eqEd.EmptyContainerWrapper = function(symbolSizeConfig) {
     eqEd.Wrapper.call(this, symbolSizeConfig); // call super constructor.
+    this.className = "eqEd.EmptyContainerWrapper";
 };
 (function() {
     // subclass extends superclass

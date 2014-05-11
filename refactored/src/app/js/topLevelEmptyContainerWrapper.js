@@ -1,5 +1,6 @@
 eqEd.TopLevelEmptyContainerWrapper = function(symbolSizeConfig) {
     eqEd.EmptyContainerWrapper.call(this, symbolSizeConfig); // call super constructor.
+    this.className = "eqEd.EmptyContainerWrapper";
 
     this.topLevelEmptyContainerMessage = new eqEd.TopLevelEmptyContainerMessage(symbolSizeConfig);
     this.topLevelEmptyContainerMessage.parent = this;

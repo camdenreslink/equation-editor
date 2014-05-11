@@ -1,5 +1,7 @@
 eqEd.TopLevelEmptyContainerMessage = function(symbolSizeConfig) {
     eqEd.Equation.call(this, symbolSizeConfig); // call super constructor.
+    this.className = "eqEd.TopLevelEmptyContainerMessage";
+    
     this.message = "Enter&nbsp;Your&nbsp;Equation&nbsp;Here";
     this.fontSize = "fontSizeMessage";
     this.domObj = this.buildDomObj();

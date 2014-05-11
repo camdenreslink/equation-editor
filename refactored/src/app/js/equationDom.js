@@ -1,4 +1,5 @@
 eqEd.EquationDom = function(binding, html) {
+    this.className = "eqEd.EquationDom";
     this.binding = binding;
     this.html = html;
     this.value = $(html);

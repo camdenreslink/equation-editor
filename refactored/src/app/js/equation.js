@@ -3,6 +3,7 @@
 // should be set that will be common to all objects in
 // the editor.
 eqEd.Equation = function(symbolSizeConfig) {
+    this.className = "eqEd.Equation";
     // SymbolSizeConfig gives some info about fontHeights.
     // Allows all calculations to happen with plain javascript
     // objects without accessing the DOM.

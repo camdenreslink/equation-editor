@@ -1,5 +1,6 @@
 eqEd.ContainerDom = function(binding, html) {
   eqEd.EquationDom.call(this, binding, html); // call super constructor.
+  this.className = "eqEd.ContainerDom";
 }
 // subclass extends superclass
 eqEd.ContainerDom.prototype = Object.create(eqEd.EquationDom.prototype);

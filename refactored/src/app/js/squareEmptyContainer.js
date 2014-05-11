@@ -1,5 +1,6 @@
 eqEd.SquareEmptyContainer = function(symbolSizeConfig) {
     eqEd.Container.call(this, symbolSizeConfig);
+    this.className = "eqEd.SquareEmptyContainer";
     this.borderWidth = 4;
     this.fontSize = "fontSizeNormal";
     this.domObj = this.buildDomObj();

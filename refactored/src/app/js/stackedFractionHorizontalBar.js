@@ -1,5 +1,6 @@
 eqEd.StackedFractionHorizontalBar = function(symbolSizeConfig) {
     eqEd.Equation.call(this, symbolSizeConfig); // call super constructor.
+    this.className = "eqEd.StackedFractionHorizontalBar";
 
     this.domObj = this.buildDomObj();
     this.exceedsMaxNumDenomWidth = 0.25;

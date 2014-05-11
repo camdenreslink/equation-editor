@@ -1,5 +1,6 @@
 eqEd.StackedFractionDenominatorContainer = function(symbolSizeConfig) {
     eqEd.Container.call(this, symbolSizeConfig);
+    this.className = "eqEd.StackedFractionDenominatorContainer";
     this.domObj = this.buildDomObj();
     var squareEmptyContainerWrapper = new eqEd.SquareEmptyContainerWrapper(symbolSizeConfig);
     this.addWrappers([0, squareEmptyContainerWrapper]);

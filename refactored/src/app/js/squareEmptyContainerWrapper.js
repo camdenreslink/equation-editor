@@ -1,5 +1,6 @@
 eqEd.SquareEmptyContainerWrapper = function(symbolSizeConfig) {
     eqEd.EmptyContainerWrapper.call(this, symbolSizeConfig); // call super constructor.
+    this.className = "eqEd.SquareEmptyContainerWrapper";
 
     this.squareEmptyContainer = new eqEd.SquareEmptyContainer(symbolSizeConfig);
     this.squareEmptyContainer.parent = this;

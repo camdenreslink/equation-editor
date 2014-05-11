@@ -1,5 +1,7 @@
 eqEd.Wrapper = function(symbolSizeConfig) {
     eqEd.Equation.call(this, symbolSizeConfig); // call super constructor.
+    this.className = "eqEd.Wrapper";
+    
     this.topAlign = 0;
     this.bottomAlign = 0;
     this.index = null;

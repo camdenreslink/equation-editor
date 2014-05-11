@@ -1,5 +1,7 @@
 eqEd.Symbol = function(character, fontStyle, symbolSizeConfig) {
     eqEd.Equation.call(this, symbolSizeConfig); // call super constructor.
+    this.className = "eqEd.Symbol";
+    
     this.character = character;
     this.fontStyle = fontStyle;
     this.domObj = this.buildDomObj();

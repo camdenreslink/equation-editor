@@ -1,5 +1,6 @@
 eqEd.StackedFractionWrapper = function(symbolSizeConfig) {
     eqEd.Wrapper.call(this, symbolSizeConfig); // call super constructor.
+    this.className = "eqEd.StackedFractionWrapper";
 
     this.stackedFractionNumeratorContainer = new eqEd.StackedFractionNumeratorContainer(symbolSizeConfig);
     this.stackedFractionDenominatorContainer = new eqEd.StackedFractionDenominatorContainer(symbolSizeConfig);

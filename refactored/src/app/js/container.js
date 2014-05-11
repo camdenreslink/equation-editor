@@ -5,7 +5,8 @@
 // defines a new scope).
 eqEd.Container = function(symbolSizeConfig) {
   eqEd.Equation.call(this, symbolSizeConfig); // call super constructor.
-
+  this.className = "eqEd.Container";
+  
   // The wrappers property defines the wrapper objects
   // that are within this container object. Wrapper
   // objects will be formatted in the order that they

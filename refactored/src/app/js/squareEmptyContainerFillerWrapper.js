@@ -1,5 +1,6 @@
 eqEd.SquareEmptyContainerFillerWrapper = function(symbolSizeConfig) {
     eqEd.Wrapper.call(this, symbolSizeConfig); // call super constructor.
+    this.className = "eqEd.SquareEmptyContainerFillerWrapper";
 
     this.domObj = this.buildDomObj();
 
