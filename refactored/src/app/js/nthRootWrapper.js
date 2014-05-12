@@ -1,0 +1,3 @@
+eqEd.NthRootWrapper = function(symbolSizeConfig) {
+	
+}

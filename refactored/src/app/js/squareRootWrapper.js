@@ -1,0 +1,3 @@
+eqEd.SquareRootWrapper = function(symbolSizeConfig) {
+	
+}

@@ -1,0 +1,3 @@
+eqEd.SuperscriptAndSubscriptWrapper = function(symbolSizeConfig) {
+	
+}

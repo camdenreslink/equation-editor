@@ -40,7 +40,8 @@ eqEd.SuperscriptWrapper = function(symbolSizeConfig) {
         	var fontHeight = this.symbolSizeConfig.height[this.parent.fontSize];
         	var baseWrapper = null;
         	var base = null;
-        	var baseWrapperOverlap = 0;
+        	var baseWrapperOverlap = 0.75;
+        	var superscriptContainerBottomAlign = this.superscriptContainer.wrappers[this.superscriptContainer.maxBottomAlignIndex].bottomAlign;
         	if (this.index !== 0) {
         		baseWrapper = this.parent.wrappers[this.index - 1];
         		if (baseWrapper instanceof eqEd.SuperscriptWrapper || baseWrapper instanceof eqEd.SuperscriptAndSubscriptWrapper) {
@@ -48,7 +49,7 @@ eqEd.SuperscriptWrapper = function(symbolSizeConfig) {
         			fontHeight = this.symbolSizeConfig.height[base.fontSize];
         		} else {
         			if (baseWrapper instanceof eqEd.SquareRootWrapper) {
-	                    baseWrapperOverlap = (this.superscriptContainer.bottomAlign / baseWrapper.height);
+	                    baseWrapperOverlap = (superscriptContainerBottomAlign / baseWrapper.height);
 	                    if (baseWrapperOverlap <= this.maxBaseWrapperOverlap) {
 	                        baseWrapperOverlap = baseWrapperOverlap;
 	                    } else {
@@ -56,7 +57,7 @@ eqEd.SuperscriptWrapper = function(symbolSizeConfig) {
 	                    }
 	                }
 	                if (baseWrapper instanceof eqEd.NthRootWrapper) {
-	                    var baseWrapperOverlap = (this.superscriptContainer.bottomAlign / baseWrapper.nthRootDiagonal.height);
+	                    var baseWrapperOverlap = (superscriptContainerBottomAlign / baseWrapper.nthRootDiagonal.height);
 	                    if (baseWrapperOverlap <= this.maxBaseWrapperOverlap) {
 	                        baseWrapperOverlap = baseWrapperOverlap;
 	                    } else {
@@ -77,16 +78,18 @@ eqEd.SuperscriptWrapper = function(symbolSizeConfig) {
         	}
         	var topAlign = 0;
         	if (baseWrapper instanceof eqEd.NthRootWrapper) {
-	            if (this.superscriptContainer.adjustTop*fontHeight + this.superscriptContainer.bottomAlign > baseWrapper.nthRootDiagonal.height*baseWrapperOverlap) {
-	                topAlign = this.superscriptContainer.height - (baseWrapper.nthRootDiagonal.height*baseWrapperOverlap - (base.topAlign - (base.height - baseWrapper.nthRootDiagonal.height)));
+	            if (this.superscriptContainer.offsetTop * fontHeight + superscriptContainerBottomAlign > baseWrapper.nthRootDiagonal.height * baseWrapperOverlap) {
+	                topAlign = this.superscriptContainer.height - (baseWrapper.nthRootDiagonal.height * baseWrapperOverlap - (base.topAlign - (base.height - baseWrapper.nthRootDiagonal.height)));
 	            } else {
-	                topAlign = (baseWrapper.topAlign - (base.height - baseWrapper.nthRootDiagonal.height)) + this.superscriptContainer.height - this.superscriptContainer.bottomAlign;
+	                topAlign = (baseWrapper.topAlign - (base.height - baseWrapper.nthRootDiagonal.height)) + this.superscriptContainer.height - superscriptContainerBottomAlign - this.superscriptContainer.offsetTop * fontHeight;
 	            }
 	        } else {
-	            if (this.superscriptContainer.adjustTop * fontHeight + this.superscriptContainer.bottomAlign > base.height * baseWrapperOverlap) {
+	            if (this.superscriptContainer.offsetTop * fontHeight + superscriptContainerBottomAlign > base.height * baseWrapperOverlap) {
+	                console.log("yo1");
 	                topAlign = this.superscriptContainer.height - (base.height * baseWrapperOverlap - baseWrapper.topAlign);
 	            } else {
-	                topAlign = baseWrapper.topAlign + this.superscriptContainer.height - this.superscriptContainer.bottomAlign;
+	            	console.log("yo2");
+	                topAlign = baseWrapper.topAlign + this.superscriptContainer.height - superscriptContainerBottomAlign - this.superscriptContainer.offsetTop * fontHeight;
 	            }
 	        }
             return topAlign;
