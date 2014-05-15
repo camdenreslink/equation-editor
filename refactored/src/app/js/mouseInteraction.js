@@ -87,6 +87,8 @@ var addCursor = function(container, characterClickPos) {
 // side effect: populates toggleLines array, and highlightStartIndex.
 var addCursorAtIndex = function(container, index) {
     removeCursor();
+    removeHighlight();
+    addHighlight(container);
     $('.activeContainer').removeClass('activeContainer');
     container.domObj.value.addClass('activeContainer');
     var cursor;
@@ -197,7 +199,6 @@ var onMouseDown = function(self, e) {
         e.preventDefault();
         e.stopPropagation();
         clearOnMouseDown();
-        $('.activeContainer').removeClass('activeContainer');
         $(self).addClass('activeContainer');
         var container = $(self).data("eqObject");
         // addCursor call populates toggleLines array, and highlightStartIndex.

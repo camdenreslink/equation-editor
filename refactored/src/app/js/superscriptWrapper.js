@@ -41,7 +41,10 @@ eqEd.SuperscriptWrapper = function(symbolSizeConfig) {
         	var baseWrapper = null;
         	var base = null;
         	var baseWrapperOverlap = 0.75;
-        	var superscriptContainerBottomAlign = this.superscriptContainer.wrappers[this.superscriptContainer.maxBottomAlignIndex].bottomAlign;
+        	var superscriptContainerBottomAlign = 0;
+        	if (this.superscriptContainer.wrappers.length !== 0) {
+        		superscriptContainerBottomAlign = this.superscriptContainer.wrappers[this.superscriptContainer.maxBottomAlignIndex].bottomAlign;
+        	}
         	if (this.index !== 0) {
         		baseWrapper = this.parent.wrappers[this.index - 1];
         		if (baseWrapper instanceof eqEd.SuperscriptWrapper || baseWrapper instanceof eqEd.SuperscriptAndSubscriptWrapper) {
@@ -85,10 +88,8 @@ eqEd.SuperscriptWrapper = function(symbolSizeConfig) {
 	            }
 	        } else {
 	            if (this.superscriptContainer.offsetTop * fontHeight + superscriptContainerBottomAlign > base.height * baseWrapperOverlap) {
-	                console.log("yo1");
 	                topAlign = this.superscriptContainer.height - (base.height * baseWrapperOverlap - baseWrapper.topAlign);
 	            } else {
-	            	console.log("yo2");
 	                topAlign = baseWrapper.topAlign + this.superscriptContainer.height - superscriptContainerBottomAlign - this.superscriptContainer.offsetTop * fontHeight;
 	            }
 	        }
