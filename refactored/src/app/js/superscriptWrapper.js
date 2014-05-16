@@ -76,6 +76,7 @@ eqEd.SuperscriptWrapper = function(symbolSizeConfig) {
         		baseWrapper = new eqEd.SymbolWrapper('a', 'MathJax_MathItalic', this.symbolSizeConfig);
         		baseWrapper.parent = this.parent;
         		baseWrapper.index = 0;
+                // Can't just call baseWrapper.update(), because it creates a circular reference
                 for (var i = 0; i < baseWrapper.properties.length; i++) {
                     var prop = baseWrapper.properties[i];
                     if (prop.propName !== "top" && prop.propName !== "left") {
@@ -123,7 +124,13 @@ eqEd.SuperscriptWrapper = function(symbolSizeConfig) {
         		baseWrapper = new eqEd.SymbolWrapper('a', 'MathJax_MathItalic', this.symbolSizeConfig);
         		baseWrapper.parent = this.parent;
         		baseWrapper.index = 0;
-        		baseWrapper.update();
+        		// Can't just call baseWrapper.update(), because it creates a circular reference
+                for (var i = 0; i < baseWrapper.properties.length; i++) {
+                    var prop = baseWrapper.properties[i];
+                    if (prop.propName !== "top" && prop.propName !== "left") {
+                        prop.compute();
+                    }
+                }
         	}
             return baseWrapper.bottomAlign;
         },

@@ -19,7 +19,7 @@ function Property(ctx, propName, initialValue, methods) {
     });
     this.compute = function() {
       if (!self.isAlreadyComputed) {
-        console.log(this.ctx.className + ", " + this.propName);
+        //console.log(this.ctx.className + ", " + this.propName);
         var oldValue = self.value;
         // ** NOTE: Do not reference the property being computed
         // in the compute method using "this" (e.g. this.prop1).
