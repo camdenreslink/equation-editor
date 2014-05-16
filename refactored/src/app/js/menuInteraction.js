@@ -12,4 +12,11 @@ var setupMenuEvents = function(symbolSizeConfig) {
         var superscriptWrapper = new eqEd.SuperscriptWrapper(symbolSizeConfig);
         insertWrapper(superscriptWrapper);
     });
+
+    $(document).on('mousedown', '#subscriptButton', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var subscriptWrapper = new eqEd.SubscriptWrapper(symbolSizeConfig);
+        insertWrapper(subscriptWrapper);
+    });
 };

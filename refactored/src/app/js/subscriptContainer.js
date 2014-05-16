@@ -1,11 +1,11 @@
-eqEd.SuperscriptContainer = function(symbolSizeConfig) {
+eqEd.SubscriptContainer = function(symbolSizeConfig) {
 	eqEd.Container.call(this, symbolSizeConfig);
-	this.className = "eqEd.SuperscriptContainer";
+	this.className = "eqEd.SubscriptContainer";
 
 	this.domObj = this.buildDomObj();
     var squareEmptyContainerWrapper = new eqEd.SquareEmptyContainerWrapper(symbolSizeConfig);
     this.addWrappers([0, squareEmptyContainerWrapper]);
-    this.offsetTop = 0.2;
+    this.offsetTop = 0.75;
 
     // Set up the left calculation
     var left = 0;
@@ -35,8 +35,17 @@ eqEd.SuperscriptContainer = function(symbolSizeConfig) {
             top = value;
         },
         compute: function() {
-        	// remember compute hooks get called.
-            return 0;
+        	var baseWrapper = null;
+            if (this.parent.index !== 0) {
+                baseWrapper = this.parent.parent.wrappers[this.parent.index - 1];
+            } else {
+                baseWrapper = new eqEd.SymbolWrapper('a', 'MathJax_MathItalic', this.symbolSizeConfig);
+                baseWrapper.parent = this.parent.parent;
+                baseWrapper.index = null;
+                baseWrapper.update();
+            }
+            var fontHeight = this.symbolSizeConfig.height[this.fontSize];
+            return this.parent.topAlign + baseWrapper.bottomAlign - this.offsetTop * fontHeight;
         },
         updateDom: function() {
             this.domObj.updateTop(this.top);
@@ -86,10 +95,10 @@ eqEd.SuperscriptContainer = function(symbolSizeConfig) {
 
 (function() {
     // subclass extends superclass
-    eqEd.SuperscriptContainer.prototype = Object.create(eqEd.Container.prototype);
-    eqEd.SuperscriptContainer.prototype.constructor = eqEd.SuperscriptContainer;
-    eqEd.SuperscriptContainer.prototype.buildDomObj = function() {
+    eqEd.SubscriptContainer.prototype = Object.create(eqEd.Container.prototype);
+    eqEd.SubscriptContainer.prototype.constructor = eqEd.SubscriptContainer;
+    eqEd.SubscriptContainer.prototype.buildDomObj = function() {
         return new eqEd.ContainerDom(this,
-            '<div class="container superscriptContainer"></div>');
+            '<div class="container subscriptContainer"></div>');
     };
 })();
