@@ -75,8 +75,13 @@ eqEd.SuperscriptWrapper = function(symbolSizeConfig) {
         		// preceeding it.
         		baseWrapper = new eqEd.SymbolWrapper('a', 'MathJax_MathItalic', this.symbolSizeConfig);
         		baseWrapper.parent = this.parent;
-        		baseWrapper.index = null;
-        		baseWrapper.update();
+        		baseWrapper.index = 0;
+                for (var i = 0; i < baseWrapper.properties.length; i++) {
+                    var prop = baseWrapper.properties[i];
+                    if (prop.propName !== "top" && prop.propName !== "left") {
+                        prop.compute();
+                    }
+                }
         		base = baseWrapper;
         	}
         	var topAlign = 0;
@@ -117,7 +122,7 @@ eqEd.SuperscriptWrapper = function(symbolSizeConfig) {
         		// preceeding it.
         		baseWrapper = new eqEd.SymbolWrapper('a', 'MathJax_MathItalic', this.symbolSizeConfig);
         		baseWrapper.parent = this.parent;
-        		baseWrapper.index = null;
+        		baseWrapper.index = 0;
         		baseWrapper.update();
         	}
             return baseWrapper.bottomAlign;

@@ -19,4 +19,11 @@ var setupMenuEvents = function(symbolSizeConfig) {
         var subscriptWrapper = new eqEd.SubscriptWrapper(symbolSizeConfig);
         insertWrapper(subscriptWrapper);
     });
+
+    $(document).on('mousedown', '#superscriptAndSubscriptButton', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var superscriptAndSubscriptWrapper = new eqEd.SuperscriptAndSubscriptWrapper(symbolSizeConfig);
+        insertWrapper(superscriptAndSubscriptWrapper);
+    });
 };

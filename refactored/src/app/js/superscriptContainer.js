@@ -61,10 +61,7 @@ eqEd.SuperscriptContainer = function(symbolSizeConfig) {
 	            // The superscript wrapper is the first entry in the container.
         		// We want to format it, as if there is a symbol immediately
         		// preceeding it.
-        		baseWrapper = new eqEd.SymbolWrapper('a', 'MathJax_MathItalic', this.symbolSizeConfig);
-        		baseWrapper.parent = this.parent.parent;
-        		baseWrapper.index = null;
-        		baseWrapper.update();
+        		baseWrapper = null;
 	        }
 	        if (this.parent.parent.fontSize === "fontSizeSmaller" || this.parent.parent.fontSize === "fontSizeSmallest") {
 	            fontSize = "fontSizeSmallest";

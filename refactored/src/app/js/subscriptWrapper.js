@@ -44,7 +44,7 @@ eqEd.SubscriptWrapper = function(symbolSizeConfig) {
         		// preceeding it.
         		baseWrapper = new eqEd.SymbolWrapper('a', 'MathJax_MathItalic', this.symbolSizeConfig);
         		baseWrapper.parent = this.parent;
-        		baseWrapper.index = null;
+        		baseWrapper.index = 0;
         		baseWrapper.update();
         	}
             return baseWrapper.topAlign;
@@ -77,7 +77,7 @@ eqEd.SubscriptWrapper = function(symbolSizeConfig) {
         		// preceeding it.
         		baseWrapper = new eqEd.SymbolWrapper('a', 'MathJax_MathItalic', this.symbolSizeConfig);
         		baseWrapper.parent = this.parent;
-        		baseWrapper.index = null;
+        		baseWrapper.index = 0;
         		baseWrapper.update();
                 base = baseWrapper;
         	}
