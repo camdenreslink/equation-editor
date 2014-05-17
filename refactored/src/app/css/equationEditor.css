@@ -105,19 +105,11 @@ div.squareCursor {
     fill: #FFFFFF;
 }
 
-.highlight .highlightVersion {
+.highlighted .highlightVersion {
     visibility: visible;
 }
 
-.highlight .nonHighlightVersion {
-    visibility: hidden;
-}
-
-.nonHighlightVersion {
-    visibility: visible;
-}
-
-.highlightVersion {
+.highlighted .nonHighlightVersion {
     visibility: hidden;
 }
 
@@ -162,4 +154,17 @@ div.activeContainer {
 
 .bracketWrapper {
     overflow: hidden;
+}
+
+.nonHighlightVersion {
+    visibility: visible;
+}
+
+.highlightVersion {
+    visibility: hidden;
+}
+
+.eqImg {
+    width: 100%;
+    height: 100%;
 }

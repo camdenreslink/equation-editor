@@ -2,7 +2,6 @@ $(window).load(function () {
     var symbolSizeConfig = null;
     var fontsLoaded = false;
     var imagesLoaded = false;
-
     var setupInitialContainer = function() {
         var container = new eqEd.Container(symbolSizeConfig);
         container.fontSize = "fontSizeNormal";
