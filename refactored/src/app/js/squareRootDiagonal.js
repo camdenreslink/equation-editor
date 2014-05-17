@@ -3,7 +3,7 @@ eqEd.SquareRootDiagonal = function(symbolSizeConfig) {
     this.className = "eqEd.SquareRootDiagonal";
 
     this.domObj = this.buildDomObj();
-    this.adjustTop = 0.01;
+    this.adjustLeft = -0.035;
 
     // Set up the width calculation
     var width = 0;
@@ -34,13 +34,13 @@ eqEd.SquareRootDiagonal = function(symbolSizeConfig) {
         },
         compute: function() {
             var fontHeight = this.symbolSizeConfig.height[this.parent.parent.fontSize];
-            var height = this.parent.radicandContainer.height;
+            var heightVal = this.parent.radicandContainer.height;
             if (this.parent.radicandContainer.isMaxTopAlignRootWrapper) {
-                height += (this.parent.radicandContainer.padTopMaxChildAlignTopIsRoot + this.parent.radicandContainer.padBottomMaxChildAlignTopIsRoot) * fontHeight;
+                heightVal += (this.parent.radicandContainer.padTopMaxChildAlignTopIsRoot + this.parent.radicandContainer.padBottomMaxChildAlignTopIsRoot) * fontHeight;
             } else {
-                height += (this.parent.radicandContainer.padTopMaxChildAlignTopIsNotRoot + this.parent.radicandContainer.padBottomMaxChildAlignTopIsNotRoot) * fontHeight;
+                heightVal += (this.parent.radicandContainer.padTopMaxChildAlignTopIsNotRoot + this.parent.radicandContainer.padBottomMaxChildAlignTopIsNotRoot) * fontHeight;
             }
-            return height;
+            return heightVal;
         },
         updateDom: function() {
             this.domObj.updateHeight(this.height);

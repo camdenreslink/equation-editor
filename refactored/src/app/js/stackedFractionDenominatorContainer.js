@@ -51,15 +51,17 @@ eqEd.StackedFractionDenominatorContainer = function(symbolSizeConfig) {
             fontSize = value;
         },
         compute: function() {
+            var fontSizeVal = "";
             if (this.parent.parent.fontSize === "fontSizeSmaller" || this.parent.parent.fontSize === "fontSizeSmallest") {
-                return "fontSizeSmallest";
+                fontSizeVal = "fontSizeSmallest";
             } else {
                 if (this.parent.parent.parent instanceof eqEd.StackedFractionWrapper) {
-                    return "fontSizeSmaller";
+                    fontSizeVal = "fontSizeSmaller";
                 } else {
-                    return "fontSizeNormal";
+                    fontSizeVal = "fontSizeNormal";
                 }
             }
+            return fontSizeVal;
         },
         updateDom: function() {
             this.domObj.updateFontSize(this.fontSize);

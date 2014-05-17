@@ -53,17 +53,17 @@ eqEd.StackedFractionNumeratorContainer = function(symbolSizeConfig) {
             fontSize = value;
         },
         compute: function() {
-            var fontSize = "";
+            var fontSizeVal = "";
             if (this.parent.parent.fontSize === "fontSizeSmaller" || this.parent.parent.fontSize === "fontSizeSmallest") {
-                fontSize = "fontSizeSmallest";
+                fontSizeVal = "fontSizeSmallest";
             } else {
                 if (this.parent.parent.parent instanceof eqEd.StackedFractionWrapper) {
-                    fontSize = "fontSizeSmaller";
+                    fontSizeVal = "fontSizeSmaller";
                 } else {
-                    fontSize = "fontSizeNormal";
+                    fontSizeVal = "fontSizeNormal";
                 }
             }
-            return fontSize;
+            return fontSizeVal;
         },
         updateDom: function() {
             this.domObj.updateFontSize(this.fontSize);

@@ -51,13 +51,17 @@ eqEd.SquareRootWrapper = function(symbolSizeConfig) {
         },
         compute: function() {
         	var fontHeight = this.symbolSizeConfig.height[this.parent.fontSize];
-            var topAlign = this.radicandContainer.topAlign;
-            if (this.radicandContainer.isMaxTopAlignRootWrapper) {
-                topAlign += this.radicandContainer.padTopMaxChildAlignTopIsRoot * fontHeight;
-            } else {
-                topAlign += this.radicandContainer.padTopMaxChildAlignTopIsNotRoot * fontHeight;
+            var topAlignVal = 0;
+            if (this.radicandContainer.wrappers.length > 0) {
+                topAlignVal += this.radicandContainer.wrappers[this.radicandContainer.maxTopAlignIndex].topAlign;
             }
-            return topAlign;
+            if (this.radicandContainer.isMaxTopAlignRootWrapper) {
+                topAlignVal += this.radicandContainer.padTopMaxChildAlignTopIsRoot * fontHeight;
+            } else {
+                topAlignVal += this.radicandContainer.padTopMaxChildAlignTopIsNotRoot * fontHeight;
+            }
+            
+            return topAlignVal;
         },
         updateDom: function() {}
     }));
@@ -73,16 +77,19 @@ eqEd.SquareRootWrapper = function(symbolSizeConfig) {
         },
         compute: function() {
         	var fontHeight = this.symbolSizeConfig.height[this.parent.fontSize];
-            var bottomAlign = this.radicandContainer.bottomAlign;
+            var bottomAlignVal = 0;
+            if (this.radicandContainer.wrappers.length > 0) {
+                bottomAlignVal += this.radicandContainer.wrappers[this.radicandContainer.maxBottomAlignIndex].bottomAlign;
+            }
             if (this.radicandContainer.isMaxTopAlignRootWrapper) {
-                bottomAlign += this.radicandContainer.padBottomMaxChildAlignTopIsRoot * fontHeight;
+                bottomAlignVal += this.radicandContainer.padBottomMaxChildAlignTopIsRoot * fontHeight;
             } else {
-                bottomAlign += this.radicandContainer.padBottomMaxChildAlignTopIsNotRoot * fontHeight;
+                bottomAlignVal += this.radicandContainer.padBottomMaxChildAlignTopIsNotRoot * fontHeight;
             }
             if (this.parent instanceof eqEd.StackedFractionNumeratorContainer) {
-                bottomAlign += this.padBottomWhenParentIsFraction * fontHeight;
+                bottomAlignVal += this.padBottomWhenParentIsFraction * fontHeight;
             }
-            return bottomAlign;
+            return bottomAlignVal;
         },
         updateDom: function() {}
     }));
@@ -90,13 +97,13 @@ eqEd.SquareRootWrapper = function(symbolSizeConfig) {
 
 (function() {
     // subclass extends superclass
-    eqEd.SubscriptWrapper.prototype = Object.create(eqEd.Wrapper.prototype);
-    eqEd.SubscriptWrapper.prototype.constructor = eqEd.SubscriptWrapper;
-    eqEd.SubscriptWrapper.prototype.buildDomObj = function() {
+    eqEd.SquareRootWrapper.prototype = Object.create(eqEd.Wrapper.prototype);
+    eqEd.SquareRootWrapper.prototype.constructor = eqEd.SquareRootWrapper;
+    eqEd.SquareRootWrapper.prototype.buildDomObj = function() {
         return new eqEd.WrapperDom(this,
             '<div class="wrapper squareRootWrapper"></div>')
     };
-    eqEd.SubscriptWrapper.prototype.clone = function() {
+    eqEd.SquareRootWrapper.prototype.clone = function() {
         var copy = new this.constructor(this.symbolSizeConfig);
 
         copy.domObj = copy.buildDomObj();    

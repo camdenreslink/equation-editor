@@ -62,7 +62,7 @@ eqEd.SubscriptContainer = function(symbolSizeConfig) {
             fontSize = value;
         },
         compute: function() {
-        	var fontSize = "";
+        	var fontSizeVal = "";
            	var baseWrapper = null;
 	        if (this.parent.index !== 0) {
 	            baseWrapper = this.parent.parent.wrappers[this.parent.index - 1];
@@ -73,16 +73,16 @@ eqEd.SubscriptContainer = function(symbolSizeConfig) {
         		baseWrapper = null;
 	        }
 	        if (this.parent.parent.fontSize === "fontSizeSmaller" || this.parent.parent.fontSize === "fontSizeSmallest") {
-	            fontSize = "fontSizeSmallest";
+	            fontSizeVal = "fontSizeSmallest";
 	        } else {
 	            if (baseWrapper instanceof eqEd.SuperscriptWrapper
 	             || baseWrapper instanceof eqEd.SuperscriptAndSubscriptWrapper) {
-	                fontSize = "fontSizeSmallest";
+	                fontSizeVal = "fontSizeSmallest";
 	            } else {
-	                fontSize = "fontSizeSmaller";
+	                fontSizeVal = "fontSizeSmaller";
 	            }
 	        }
-	        return fontSize;
+	        return fontSizeVal;
         },
         updateDom: function() {
             this.domObj.updateFontSize(this.fontSize);
