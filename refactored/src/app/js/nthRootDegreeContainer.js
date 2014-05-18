@@ -7,7 +7,7 @@ eqEd.NthRootDegreeContainer = function(symbolSizeConfig) {
     this.addWrappers([0, squareEmptyContainerWrapper]);
     this.offsetRadicalBottom = -0.1;
     this.offsetRadicalRight = 0.3;
-    this.diagonalHeightAdjustment = 0.05;
+    this.diagonalHeightAdjustment = 0.048; // Was 0.05, but didn't format quite right.
     
     // Set up the isLeftFlushToWrapper calculation
     var isLeftFlushToWrapper = false;
