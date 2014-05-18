@@ -175,10 +175,10 @@ var updateHighlightFormatting = function(container, endIndex) {
             width = 0;
         }
         highlight.css({
-            left: Math.ceil(left),
-            top: Math.ceil(top),
-            height: Math.ceil(height),
-            width: Math.ceil(width)
+            left: left,
+            top: top,
+            height: height,
+            width: width
         });
     }
 }
