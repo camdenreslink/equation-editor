@@ -40,4 +40,24 @@ var setupMenuEvents = function(symbolSizeConfig) {
         var nthRootButton = new eqEd.NthRootWrapper(symbolSizeConfig);
         insertWrapper(nthRootButton);
     });
+
+    $(document).on('mousedown', '#lessThanOrEqualToButton', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var operatorWrapper = new eqEd.OperatorWrapper('&#x2264;', "MathJax_Main", symbolSizeConfig);
+        insertWrapper(operatorWrapper);
+    });
+
+    $(document).on('mousedown', '#greaterThanOrEqualToButton', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var operatorWrapper = new eqEd.OperatorWrapper('&#x2265;', "MathJax_Main", symbolSizeConfig);
+        insertWrapper(operatorWrapper);
+    });
+    $(document).on('mousedown', '#approxEqualToButton', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var operatorWrapper = new eqEd.OperatorWrapper('&#x2248;', "MathJax_Main", symbolSizeConfig);
+        insertWrapper(operatorWrapper);
+    });
 };

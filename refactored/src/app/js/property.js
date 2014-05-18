@@ -29,14 +29,12 @@ function Property(ctx, propName, initialValue, methods) {
         if (typeof Property.postComputeHooks[self.propName] !== "undefined") {
           self.value = Property.postComputeHooks[self.propName].call(ctx, self.value);
         }
+        if (typeof Property.postComputeHooks["all"] !== "undefined") {
+          self.value = Property.postComputeHooks["all"].call(ctx, self.value, self.propName);
+        }
+        ctx[propName] = self.value;
         self.isAlreadyComputed = true;
         Property.alreadyComputed.push(self);
-        var isNumeric = !isNaN(self.value) && !(self.value === true || self.value === false);
-        if (isNumeric) {
-          ctx[propName] = Math.ceil(self.value);
-        } else {
-          ctx[propName] = self.value;
-        }
         self.updateDom(oldValue);
       }
     };

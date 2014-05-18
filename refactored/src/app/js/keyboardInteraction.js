@@ -79,6 +79,15 @@ var setupKeyboardEvents = function(symbolSizeConfig) {
         '<',
         '>'
     ];
+    var operatorCharactersMap = {
+        '-': '&#x2212;',
+        '/': '&#x00f7;',
+        '*': '&#x22c5;',
+        '=': '=',
+        '+': '+',
+        '<': '&#60;',
+        '>': '&#62;'
+    }
     var bracketCharacters = [
         '(',
         ')',
@@ -90,17 +99,18 @@ var setupKeyboardEvents = function(symbolSizeConfig) {
     ];
 
     Mousetrap.bind(MathJax_MathItalic, function(e, character) {
-        var symbolWrapper = new eqEd.SymbolWrapper(character, "MathJax_MathItalic", symbolSizeConfig) 
+        var symbolWrapper = new eqEd.SymbolWrapper(character, "MathJax_MathItalic", symbolSizeConfig);
         insertWrapper(symbolWrapper);
     });
 
     Mousetrap.bind(MathJax_Main, function(e, character) {
-        var symbolWrapper = new eqEd.SymbolWrapper(character, "MathJax_Main", symbolSizeConfig) 
+        var symbolWrapper = new eqEd.SymbolWrapper(character, "MathJax_Main", symbolSizeConfig);
         insertWrapper(symbolWrapper);
     });
 
     Mousetrap.bind(operatorCharacters, function(e, character) { 
-
+        var operatorWrapper = new eqEd.OperatorWrapper(operatorCharactersMap[character], "MathJax_Main", symbolSizeConfig);
+        insertWrapper(operatorWrapper);
     });
 
     Mousetrap.bind(bracketCharacters, function(e, character) { 
