@@ -33,4 +33,11 @@ var setupMenuEvents = function(symbolSizeConfig) {
         var squareRootWrapper = new eqEd.SquareRootWrapper(symbolSizeConfig);
         insertWrapper(squareRootWrapper);
     });
+
+    $(document).on('mousedown', '#nthRootButton', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var nthRootButton = new eqEd.NthRootWrapper(symbolSizeConfig);
+        insertWrapper(nthRootButton);
+    });
 };
