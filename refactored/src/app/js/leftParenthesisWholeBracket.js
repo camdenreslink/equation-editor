@@ -1,6 +1,22 @@
-eqEd.WholeBracket = function(symbolSizeConfig) {
-    eqEd.Equation.call(this, symbolSizeConfig); // call super constructor.
-    this.className = "eqEd.WholeBracket";
+eqEd.LeftParenthesisWholeBracket = function(fontStyle, symbolSizeConfig) {
+    eqEd.WholeBracket.call(this, symbolSizeConfig); // call super constructor.
+    this.className = "eqEd.LeftParenthesisWholeBracket";
+    
+    this.character = "(";
+    this.fontStyle = fontStyle;
+    this.domObj = this.buildDomObj();
+    this.adjustLeft = 0.001;
+    this.adjustTop = 0;
+    if (this.fontStyle === "MathJax_Main") {
+        this.adjustTop = -0.0625;
+    } else if (this.fontStyle === "MathJax_Size3") {
+        this.adjustTop = 0.7;
+    } else if (this.fontStyle === "MathJax_Size4") {
+        this.adjustTop = 0.995;
+    }
+    if (IEVersion >= 9) {
+        this.adjustTop += (-0.02 + 0.3);
+    }
     
     // Set up the width calculation
     var width = 0;
@@ -77,10 +93,6 @@ eqEd.WholeBracket = function(symbolSizeConfig) {
 };
 (function() {
     // subclass extends superclass
-    eqEd.WholeBracket.prototype = Object.create(eqEd.Equation.prototype);
-    eqEd.WholeBracket.prototype.constructor = eqEd.WholeBracket;
-    eqEd.WholeBracket.prototype.buildDomObj = function() {
-        return new eqEd.EquationDom(this,
-            '<div class="wholeBracket ' + this.fontStyle + '">' + this.character + '</div>');
-    };
+    eqEd.LeftParenthesisWholeBracket.prototype = Object.create(eqEd.WholeBracket.prototype);
+    eqEd.LeftParenthesisWholeBracket.prototype.constructor = eqEd.LeftParenthesisWholeBracket;
 })();

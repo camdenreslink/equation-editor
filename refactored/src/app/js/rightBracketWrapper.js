@@ -2,14 +2,14 @@ eqEd.RightBracketWrapper = function(symbolSizeConfig) {
 	eqEd.BracketWrapper.call(this, symbolSizeConfig); // call super constructor.
 	this.className = "eqEd.RightBracketWrapper";
 
-    // Set up the height calculation
-    var height = 0;
-    this.properties.push(new Property(this, "height", height, {
+    // Set up the desiredHeight calculation
+    var desiredHeight = 0;
+    this.properties.push(new Property(this, "desiredHeight", desiredHeight, {
         get: function() {
-            return height;
+            return desiredHeight;
         },
         set: function(value) {
-            height = value;
+            desiredHeight = value;
         },
         compute: function() {
             var sameBracketTypeCounter = 0;
@@ -28,8 +28,14 @@ eqEd.RightBracketWrapper = function(symbolSizeConfig) {
                 maxTopAlign = (wrapper.topAlign > maxTopAlign) ? wrapper.topAlign : maxTopAlign;
                 maxBottomAlign = (wrapper.bottomAlign > maxBottomAlign) ? wrapper.bottomAlign : maxBottomAlign;
             }
-            var heightVal = (maxTopAlign > maxBottomAlign) ? 2 * maxTopAlign  : 2 * maxBottomAlign;
-            return heightVal;
+            var desiredHeight = 0;
+            if (matchingBracketIndex !== null) {
+                desiredHeight = (maxTopAlign > maxBottomAlign) ? 2 * maxTopAlign  : 2 * maxBottomAlign;
+            } else {
+                var fontHeight = this.symbolSizeConfig.height[this.parent.fontSize];
+                desiredHeight = fontHeight;
+            }
+            return desiredHeight;
         },
         updateDom: function() {
             this.domObj.updateHeight(this.height);

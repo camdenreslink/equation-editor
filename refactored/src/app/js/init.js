@@ -99,6 +99,10 @@ var inializePropertyHooks = function(symbolSizeConfig) {
       value = 0;
     }
     var fontHeight = this.getFontHeight();
+    if (this instanceof eqEd.LeftParenthesisBracketWrapper) {
+      console.log((this.padTop + this.padBottom) * fontHeight)
+    }
+    
     return value + (this.padTop + this.padBottom) * fontHeight;
   };
   Property.postComputeHooks['left'] = function(value) {
@@ -114,7 +118,7 @@ var inializePropertyHooks = function(symbolSizeConfig) {
     // value.
     var additionalLeft = 0;
     if (this instanceof eqEd.Wrapper) {
-      additionalLeft = this.adjustLeft;
+      additionalLeft = this.adjustLeft * fontHeight;
     } else {
       additionalLeft = this.parent.padLeft * parentFontHeight + this.adjustLeft * fontHeight;
     }
@@ -124,7 +128,8 @@ var inializePropertyHooks = function(symbolSizeConfig) {
     if (typeof value === "undefined" || value === null) {
       value = 0;
     }
-    return value + this.parent.padTop + this.adjustTop;
+    var fontHeight = this.getFontHeight();
+    return value + (this.parent.padTop + this.adjustTop) * fontHeight;
   };
   Property.postComputeHooks['topAlign'] = function(value) {
     if (typeof value === "undefined" || value === null) {
@@ -141,10 +146,12 @@ var inializePropertyHooks = function(symbolSizeConfig) {
     return value + this.padBottom * fontHeight;
   };
   Property.postComputeHooks['all'] = function(value, propName) {
+    /*
     var isNumeric = !isNaN(value) && !(value === true || value === false);
     if (isNumeric && propName !== "padLeft" && propName !== "padRight" && propName !== "heightRatio") {
       value = Math.ceil(value);
     }
+    */
     return value;
   };
 
