@@ -97,6 +97,15 @@ var setupKeyboardEvents = function(symbolSizeConfig) {
         '}',
         '|'
     ];
+    var bracketCharactersConstructorMap = {
+        '(': eqEd.LeftParenthesisBracketWrapper,
+        ')': eqEd.RightParenthesisBracketWrapper,
+        '[': null,
+        ']': null,
+        '{': null,
+        '}': null,
+        '|': null
+    }
 
     Mousetrap.bind(MathJax_MathItalic, function(e, character) {
         var symbolWrapper = new eqEd.SymbolWrapper(character, "MathJax_MathItalic", symbolSizeConfig);
@@ -114,7 +123,8 @@ var setupKeyboardEvents = function(symbolSizeConfig) {
     });
 
     Mousetrap.bind(bracketCharacters, function(e, character) { 
-
+        var bracketWrapper = new bracketCharactersConstructorMap[character](symbolSizeConfig);
+        insertWrapper(bracketWrapper);
     });
 
     // copy

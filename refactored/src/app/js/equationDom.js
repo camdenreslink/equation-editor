@@ -37,6 +37,11 @@ eqEd.EquationDom.prototype.clone = function() {
 eqEd.EquationDom.prototype.append = function(domObject) {
 	this.value.append(domObject.value);
 }
+
+eqEd.EquationDom.prototype.empty = function() {
+    this.value.empty();
+}
+
 eqEd.EquationDom.prototype.updateFontSize = function(fontSize) {
     this.value.removeClass('fontSizeNormal');
     this.value.removeClass('fontSizeSmaller');

@@ -1,0 +1,36 @@
+eqEd.LeftParenthesisBottomBracket = function(symbolSizeConfig) {
+    eqEd.BottomBracket.call(this, symbolSizeConfig); // call super constructor.
+    this.className = "eqEd.LeftParenthesisBottomBracket";
+    
+    this.character = "&#9117;";
+    this.fontStyle = "MathJax_Size4";
+    this.domObj = this.buildDomObj();
+    this.adjustLeft = 0.001;
+    this.adjustTop = 0;
+    if (IEVersion >= 9) {
+        this.adjustTop += (-0.02 + 0.3);
+    }
+
+    // Set up the top calculation
+    var top = 0;
+    this.properties.push(new Property(this, "top", top, {
+        get: function() {
+            return top;
+        },
+        set: function(value) {
+            top = value;
+        },
+        compute: function() {
+            var fontHeight = this.symbolSizeConfig.height[this.parent.parent.fontSize];
+            return (2.5 + (0.45 * (this.parent.middleBrackets.length - 1))) * fontHeight
+        },
+        updateDom: function() {
+            this.domObj.updateTop(this.top);
+        }
+    }));
+};
+(function() {
+    // subclass extends superclass
+    eqEd.LeftParenthesisBottomBracket.prototype = Object.create(eqEd.BottomBracket.prototype);
+    eqEd.LeftParenthesisBottomBracket.prototype.constructor = eqEd.LeftParenthesisBottomBracket;
+})();

@@ -142,7 +142,7 @@ var inializePropertyHooks = function(symbolSizeConfig) {
   };
   Property.postComputeHooks['all'] = function(value, propName) {
     var isNumeric = !isNaN(value) && !(value === true || value === false);
-    if (isNumeric && propName !== "padLeft" && propName !== "padRight") {
+    if (isNumeric && propName !== "padLeft" && propName !== "padRight" && propName !== "heightRatio") {
       value = Math.ceil(value);
     }
     return value;
