@@ -33,8 +33,8 @@ eqEd.LeftParenthesisBracketWrapper = function(symbolSizeConfig) {
                 widthVal = 0.733333 * fontHeight;
             } else if (this.heightRatio > 2.4 && this.heightRatio <= 3) {
                 widthVal = 0.777777 * fontHeight;
-            } else if (this.heightRatio > 3 && this.heightRatio <= 3.5) {
-                widthVal = 0.877 * fontHeight;
+            } else if (this.heightRatio > 3 && this.heightRatio <= 3.33) {
+                widthVal = 0.88888 * fontHeight;
             } else {
                 widthVal = 0.877 * fontHeight;
             }
@@ -64,8 +64,8 @@ eqEd.LeftParenthesisBracketWrapper = function(symbolSizeConfig) {
                 topAlignVal = 1.2 * fontHeight;
             } else if (this.heightRatio > 2.4 && this.heightRatio <= 3) {
                 topAlignVal = 1.5 * fontHeight;
-            } else if (this.heightRatio > 3 && this.heightRatio <= 3.5) {
-                topAlignVal = 1.75 * fontHeight;
+            } else if (this.heightRatio > 3 && this.heightRatio <= 3.33) {
+                topAlignVal = 1.665 * fontHeight;
             } else {
                 topAlignVal = (0.5 * (numberOfMiddleBrackets * 0.45 + 3.7)) * fontHeight;
             }
@@ -93,8 +93,8 @@ eqEd.LeftParenthesisBracketWrapper = function(symbolSizeConfig) {
                 bottomAlignVal = 1.2 * fontHeight;
             } else if (this.heightRatio > 2.4 && this.heightRatio <= 3) {
                 bottomAlignVal = 1.5 * fontHeight;
-            } else if (this.heightRatio > 3 && this.heightRatio <= 3.5) {
-                bottomAlignVal = 1.75 * fontHeight;
+            } else if (this.heightRatio > 3 && this.heightRatio <= 3.33) {
+                bottomAlignVal = 1.665 * fontHeight;
             } else {
                 bottomAlignVal = (0.5 * (numberOfMiddleBrackets * 0.45 + 3.7)) * fontHeight;
             }
@@ -128,17 +128,17 @@ eqEd.LeftParenthesisBracketWrapper = function(symbolSizeConfig) {
             this.wholeBracket.parent = this;
             this.domObj.append(this.wholeBracket.domObj);
             this.childNoncontainers = [this.wholeBracket];
-        } else if (this.heightRatio > 1.5 && this.heightRatio <= 2.42) {
+        } else if (this.heightRatio > 1.5 && this.heightRatio <= 2.4) {
             this.wholeBracket = new eqEd.LeftParenthesisWholeBracket("MathJax_Size3", this.symbolSizeConfig);
             this.wholeBracket.parent = this;
             this.domObj.append(this.wholeBracket.domObj);
             this.childNoncontainers = [this.wholeBracket];
-        } else if (this.heightRatio > 2.42 && this.heightRatio <= 3.02) {
+        } else if (this.heightRatio > 2.4 && this.heightRatio <= 3) {
             this.wholeBracket = new eqEd.LeftParenthesisWholeBracket("MathJax_Size4", this.symbolSizeConfig);
             this.wholeBracket.parent = this;
             this.domObj.append(this.wholeBracket.domObj);
             this.childNoncontainers = [this.wholeBracket];
-        } else if (this.heightRatio > 3.02 && this.heightRatio <= 3.5) {
+        } else if (this.heightRatio > 3 && this.heightRatio <= 3.33) {
             this.topBracket = new eqEd.LeftParenthesisTopBracket(this.symbolSizeConfig);
             this.bottomBracket = new eqEd.LeftParenthesisBottomBracket(this.symbolSizeConfig);
             this.topBracket.parent = this;

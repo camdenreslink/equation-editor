@@ -22,7 +22,13 @@ eqEd.RightParenthesisBottomBracket = function(symbolSizeConfig) {
         },
         compute: function() {
             var fontHeight = this.symbolSizeConfig.height[this.parent.parent.fontSize];
-            return (2.5 + (0.45 * (this.parent.middleBrackets.length - 1))) * fontHeight
+            var topVal = 0;
+            if (this.parent.middleBrackets.length === 0) {
+                topVal = 1.939 * fontHeight;
+            } else {
+                topVal = (2.5 + (0.45 * (this.parent.middleBrackets.length - 1))) * fontHeight;
+            }
+            return topVal;
         },
         updateDom: function() {
             this.domObj.updateTop(this.top);
