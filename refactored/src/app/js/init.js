@@ -99,10 +99,6 @@ var inializePropertyHooks = function(symbolSizeConfig) {
       value = 0;
     }
     var fontHeight = this.getFontHeight();
-    if (this instanceof eqEd.LeftParenthesisBracketWrapper) {
-      console.log((this.padTop + this.padBottom) * fontHeight)
-    }
-    
     return value + (this.padTop + this.padBottom) * fontHeight;
   };
   Property.postComputeHooks['left'] = function(value) {
