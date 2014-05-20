@@ -15,6 +15,9 @@ eqEd.RightParenthesisBracketWrapper = function(symbolSizeConfig) {
 
     this.childNoncontainers = [this.wholeBracket];
 
+    this.padTop = 0.075;
+    this.padBottom = 0.075;
+
     // Set up the width calculation
     var width = 0;
     this.properties.push(new Property(this, "width", width, {
@@ -122,7 +125,6 @@ eqEd.RightParenthesisBracketWrapper = function(symbolSizeConfig) {
         this.middleBrackets = [];
         this.bottomBracket = null;
         this.childNoncontainers = [];
-        console.log(this.heightRatio);
         if (this.heightRatio <= 1.5) {
             this.wholeBracket = new eqEd.RightParenthesisWholeBracket("MathJax_Main", this.symbolSizeConfig);
             this.wholeBracket.parent = this;
