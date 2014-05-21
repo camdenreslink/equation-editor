@@ -83,4 +83,8 @@ eqEd.TopBracket = function(symbolSizeConfig) {
         return new eqEd.EquationDom(this,
             '<div class="topBracket ' + this.fontStyle + '">' + this.character + '</div>');
     };
+    eqEd.TopBracket.prototype.clone = function() {
+        var copy = new this.constructor(this.symbolSizeConfig);
+        return copy;
+    };
 })();

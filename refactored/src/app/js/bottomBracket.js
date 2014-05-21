@@ -64,4 +64,8 @@ eqEd.BottomBracket = function(symbolSizeConfig) {
         return new eqEd.EquationDom(this,
             '<div class="bottomBracket ' + this.fontStyle + '">' + this.character + '</div>');
     };
+    eqEd.BottomBracket.prototype.clone = function() {
+        var copy = new this.constructor(this.symbolSizeConfig);
+        return copy;
+    };
 })();

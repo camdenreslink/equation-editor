@@ -83,4 +83,8 @@ eqEd.WholeBracket = function(symbolSizeConfig) {
         return new eqEd.EquationDom(this,
             '<div class="wholeBracket ' + this.fontStyle + '">' + this.character + '</div>');
     };
+    eqEd.WholeBracket.prototype.clone = function() {
+        var copy = new this.constructor(this.fontStyle, this.symbolSizeConfig);
+        return copy;
+    };
 })();

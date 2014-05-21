@@ -25,7 +25,6 @@ eqEd.LeftBracketWrapper = function(symbolSizeConfig) {
                 } else if (wrapper instanceof this.matchingBracketCtor 
                             && sameBracketTypeCounter === 0) {
                     matchingBracketIndex = i;
-                    console.log('broken');
                     break;
                 } else if (wrapper instanceof this.matchingBracketCtor) {
                     sameBracketTypeCounter--;

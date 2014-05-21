@@ -66,4 +66,8 @@ eqEd.MiddleBracket = function(index, symbolSizeConfig) {
         return new eqEd.EquationDom(this,
             '<div class="middleBracket ' + this.fontStyle + '">' + this.character + '</div>');
     };
+    eqEd.MiddleBracket.prototype.clone = function() {
+        var copy = new this.constructor(this.index, this.symbolSizeConfig);
+        return copy;
+    };
 })();

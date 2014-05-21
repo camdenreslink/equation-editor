@@ -108,9 +108,6 @@ eqEd.LeftParenthesisBracketWrapper = function(symbolSizeConfig) {
     // subclass extends superclass
     eqEd.LeftParenthesisBracketWrapper.prototype = Object.create(eqEd.LeftBracketWrapper.prototype);
     eqEd.LeftParenthesisBracketWrapper.prototype.constructor = eqEd.LeftParenthesisBracketWrapper;
-    eqEd.LeftParenthesisBracketWrapper.prototype.clone = function() {
-    	return new this.constructor(this.symbol.character, this.symbol.fontStyle, this.symbolSizeConfig);
-    };
     eqEd.LeftParenthesisBracketWrapper.prototype.buildDomObj = function() {
         return new eqEd.WrapperDom(this,
             '<div class="wrapper bracketWrapper leftBracketWrapper leftParenthesisBracketWrapper"></div>')
