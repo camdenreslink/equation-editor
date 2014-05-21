@@ -7,7 +7,7 @@ eqEd.RightCurlyTopBracket = function(symbolSizeConfig) {
     this.domObj = this.buildDomObj();
     this.adjustTop = 0.15;
     if (ChromeVersion > 0) {
-        this.adjustLeft += -0.03;
+        this.adjustLeft += -0.025;
     }
 
 };
