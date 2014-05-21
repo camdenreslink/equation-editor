@@ -102,8 +102,8 @@ var setupKeyboardEvents = function(symbolSizeConfig) {
         ')': eqEd.RightParenthesisBracketWrapper,
         '[': eqEd.LeftSquareBracketWrapper,
         ']': eqEd.RightSquareBracketWrapper,
-        '{': null,
-        '}': null,
+        '{': eqEd.LeftCurlyBracketWrapper,
+        '}': eqEd.RightCurlyBracketWrapper,
         '|': null
     }
 
