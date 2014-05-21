@@ -5,11 +5,11 @@ eqEd.RightCurlyTopBracket = function(symbolSizeConfig) {
     this.character = "&#9131;";
     this.fontStyle = "MathJax_Size4";
     this.domObj = this.buildDomObj();
-    this.adjustLeft = 0.001;
-    this.adjustTop = 0.4;
-    if (IEVersion >= 9) {
-        this.adjustTop += (-0.02 + 0.3);
+    this.adjustTop = 0.15;
+    if (ChromeVersion > 0) {
+        this.adjustLeft += -0.03;
     }
+
 };
 (function() {
     // subclass extends superclass

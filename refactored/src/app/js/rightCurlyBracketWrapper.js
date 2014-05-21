@@ -15,8 +15,12 @@ eqEd.RightCurlyBracketWrapper = function(symbolSizeConfig) {
 
     this.childNoncontainers = [this.wholeBracket];
 
-    this.padTop = 0;
-    this.padBottom = 0;
+    this.padTop = 0.075;
+    this.padBottom = 0.075;
+
+    if (IEVersion >= 9) {
+        this.adjustTop += 0.28;
+    }
 
     // Set up the width calculation
     var width = 0;
@@ -39,7 +43,7 @@ eqEd.RightCurlyBracketWrapper = function(symbolSizeConfig) {
             } else if (this.heightRatio > 3 && this.heightRatio <= 3.33) {
                 widthVal = 0.666666 * fontHeight;
             } else {
-                widthVal = 0.666666 * fontHeight;
+                widthVal = 0.888888 * fontHeight;
             }
             return widthVal;
         },
@@ -69,10 +73,14 @@ eqEd.RightCurlyBracketWrapper = function(symbolSizeConfig) {
             } else if (this.heightRatio > 3 && this.heightRatio <= 3.33) {
                 topAlignVal = 1.665 * fontHeight;
             } else {
+                /*
                 var center = 0.15 + ((this.middleBrackets.length - 1) / 2) * 0.231 + 1.1;
                 var bottom = center + 0.5 + ((this.middleBrackets.length - 1) / 2) * 0.231;
                 var height = bottom + 1.65;
-                topAlignVal = 0.5 * height * fontHeight;
+                */
+                var bottomBracketTop = this.bottomBracket.top / fontHeight;
+                topAlignVal = 0.5 * (bottomBracketTop + 1.652778 - this.padTop) * fontHeight;
+                //topAlignVal = 0.5 * height * fontHeight;
             }
             return topAlignVal;
         },
@@ -89,23 +97,8 @@ eqEd.RightCurlyBracketWrapper = function(symbolSizeConfig) {
             bottomAlign = value;
         },
         compute: function() {
-            var bottomAlignVal = 0;
             var fontHeight = this.symbolSizeConfig.height[this.parent.fontSize];
-            if (this.heightRatio <= 1.5) {
-                bottomAlignVal = 0.5 * fontHeight;
-            } else if (this.heightRatio > 1.5 && this.heightRatio <= 2.4) {
-                bottomAlignVal = 1.2 * fontHeight;
-            } else if (this.heightRatio > 2.4 && this.heightRatio <= 3) {
-                bottomAlignVal = 1.5 * fontHeight;
-            } else if (this.heightRatio > 3 && this.heightRatio <= 3.33) {
-                bottomAlignVal = 1.665 * fontHeight;
-            } else {
-                var center = 0.15 + ((this.middleBrackets.length - 1) / 2) * 0.231 + 1.1;
-                var bottom = center + 0.5 + ((this.middleBrackets.length - 1) / 2) * 0.231;
-                var height = bottom + 1.65;
-                bottomAlignVal = 0.5 * height * fontHeight;
-            }
-            return bottomAlignVal;
+            return this.topAlign - this.padBottom * fontHeight;
         },
         updateDom: function() {}
     }));
@@ -142,7 +135,7 @@ eqEd.RightCurlyBracketWrapper = function(symbolSizeConfig) {
             this.domObj.append(this.wholeBracket.domObj);
             this.childNoncontainers = [this.wholeBracket];
         } else {
-            var numberOfMiddleBrackets = Math.ceil((this.heightRatio - 3.4) / 0.231);
+            var numberOfMiddleBrackets = Math.round((this.heightRatio - 3.4) / 0.231);
             numberOfMiddleBrackets = (numberOfMiddleBrackets % 2 !== 0) ? (numberOfMiddleBrackets + 1) : numberOfMiddleBrackets;
             this.topBracket = new eqEd.RightCurlyTopBracket(this.symbolSizeConfig);
             this.bottomBracket = new eqEd.RightCurlyBottomBracket(this.symbolSizeConfig);
@@ -150,17 +143,17 @@ eqEd.RightCurlyBracketWrapper = function(symbolSizeConfig) {
             this.bottomBracket.parent = this;
             this.domObj.append(this.topBracket.domObj);
             this.domObj.append(this.bottomBracket.domObj);
-            for (var i = 0; i < Math.ceil(0.5 * numberOfMiddleBrackets); i++) {
+            for (var i = 0; i < Math.round(0.5 * numberOfMiddleBrackets); i++) {
                 var middleBracket = new eqEd.RightCurlyMiddleBracket(i, "middleVert", this.symbolSizeConfig);
                 middleBracket.parent = this;
                 this.domObj.append(middleBracket.domObj);
                 this.middleBrackets.push(middleBracket);
             }
-            var middleCurly = new eqEd.RightCurlyMiddleBracket(Math.ceil(0.5 * numberOfMiddleBrackets), "middleCurly", this.symbolSizeConfig);
+            var middleCurly = new eqEd.RightCurlyMiddleBracket(Math.round(0.5 * numberOfMiddleBrackets), "middleCurly", this.symbolSizeConfig);
             middleCurly.parent = this;
             this.domObj.append(middleCurly.domObj);
             this.middleBrackets.push(middleCurly);
-            for (var i = (Math.ceil(0.5 * numberOfMiddleBrackets) + 1); i < (numberOfMiddleBrackets + 1); i++) {
+            for (var i = (Math.round(0.5 * numberOfMiddleBrackets) + 1); i < (numberOfMiddleBrackets + 1); i++) {
                 var middleBracket = new eqEd.RightCurlyMiddleBracket(i, "middleVert", this.symbolSizeConfig);
                 middleBracket.parent = this;
                 this.domObj.append(middleBracket.domObj);

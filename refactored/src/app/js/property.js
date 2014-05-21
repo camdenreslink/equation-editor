@@ -40,7 +40,7 @@ function Property(ctx, propName, initialValue, methods) {
     };
     this.updateDom = function(oldValue) {
       var isNumeric = !isNaN(self.value);
-      var isString = toString.call(self.value) === '[object String]';
+      var isString = Object.prototype.toString.call(self.value) === '[object String]';
       if (isNumeric) {
         if (Math.abs(oldValue - self.value) >= 0.001) {
           methods.updateDom.call(ctx);

@@ -22,6 +22,17 @@ var getInternetExplorerVersion = function()
   return rv;
 }
 
+var getChromeVersion = function() {
+  if (window.navigator.appVersion.match(/Chrome\/(.*?) /) === null) {
+    return -1;
+  } else {
+    return parseInt(window.navigator.appVersion.match(/Chrome\/(\d+)\./)[1], 10);
+  }
+}
+
+//var ChromeVersion = parseInt(window.navigator.appVersion.match(/Chrome\/(\d+)\./)[1], 10);
+var ChromeVersion = getChromeVersion();
+console.log(ChromeVersion);
 var IEVersion = getInternetExplorerVersion();
 
 // clearHighlighted() will clear all highlighted items on the page.

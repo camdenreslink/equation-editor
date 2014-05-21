@@ -5,12 +5,7 @@ eqEd.RightCurlyBottomBracket = function(symbolSizeConfig) {
     this.character = "&#9133;";
     this.fontStyle = "MathJax_Size4";
     this.domObj = this.buildDomObj();
-    this.adjustLeft = 0.001;
-    this.adjustTop = 0;
-    if (IEVersion >= 9) {
-        this.adjustTop += (-0.02 + 0.3);
-    }
-
+    
     // Set up the top calculation
     var top = 0;
     this.properties.push(new Property(this, "top", top, {
@@ -22,13 +17,9 @@ eqEd.RightCurlyBottomBracket = function(symbolSizeConfig) {
         },
         compute: function() {
             var fontHeight = this.symbolSizeConfig.height[this.parent.parent.fontSize];
-            var topVal = 0;
-            if (this.parent.middleBrackets.length === 0) {
-                topVal = 1.939 * fontHeight;
-            } else {
-                topVal = (2.5 + (0.45 * (this.parent.middleBrackets.length - 1))) * fontHeight;
-            }
-            return topVal;
+            var length = this.parent.middleBrackets.length;
+            var centerIndex = Math.floor(length / 2);
+            return this.parent.middleBrackets[centerIndex].top + ((length - 1 - centerIndex) * 0.231 + 0.5) * fontHeight;
         },
         updateDom: function() {
             this.domObj.updateTop(this.top);
