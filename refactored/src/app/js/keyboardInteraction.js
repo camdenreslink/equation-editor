@@ -110,21 +110,25 @@ var setupKeyboardEvents = function(symbolSizeConfig) {
     Mousetrap.bind(MathJax_MathItalic, function(e, character) {
         var symbolWrapper = new eqEd.SymbolWrapper(character, "MathJax_MathItalic", symbolSizeConfig);
         insertWrapper(symbolWrapper);
+        return false;
     });
 
     Mousetrap.bind(MathJax_Main, function(e, character) {
         var symbolWrapper = new eqEd.SymbolWrapper(character, "MathJax_Main", symbolSizeConfig);
         insertWrapper(symbolWrapper);
+        return false;
     });
 
     Mousetrap.bind(operatorCharacters, function(e, character) { 
         var operatorWrapper = new eqEd.OperatorWrapper(operatorCharactersMap[character], "MathJax_Main", symbolSizeConfig);
         insertWrapper(operatorWrapper);
+        return false;
     });
 
     Mousetrap.bind(bracketCharacters, function(e, character) { 
         var bracketWrapper = new bracketCharactersConstructorMap[character](symbolSizeConfig);
         insertWrapper(bracketWrapper);
+        return false;
     });
 
     // copy
@@ -202,6 +206,7 @@ var setupKeyboardEvents = function(symbolSizeConfig) {
             }
             
         }
+        return false;
     });
 
     Mousetrap.bind('del', function(e) {
@@ -253,6 +258,7 @@ var setupKeyboardEvents = function(symbolSizeConfig) {
             }
             
         }
+        return false;
     });
 
     Mousetrap.bind('left', function(e) {
@@ -297,6 +303,7 @@ var setupKeyboardEvents = function(symbolSizeConfig) {
             updateHighlightFormatting(container, cursorIndex);
             $('.highlighted').removeClass('highlighted');
         }
+        return false;
     });
 
     Mousetrap.bind('right', function(e) {
@@ -340,5 +347,6 @@ var setupKeyboardEvents = function(symbolSizeConfig) {
             updateHighlightFormatting(container, cursorIndex);
             $('.highlighted').removeClass('highlighted');
         }
+        return false;
     });
 };

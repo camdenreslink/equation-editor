@@ -23,6 +23,7 @@ var clearOnMouseDown = function() {
     removeHighlight();
     clearHighlighted();
     $('.activeContainer').removeClass('activeContainer');
+    $('.hoverContainer').removeClass('hoverContainer');
 };
 
 var calculateIndex = function(offsetLeft) {
@@ -212,6 +213,10 @@ $(document).on('mousedown', '.container', function(e) {
     onMouseDown(this, e);
 });
 
+$(document).on('mousemove', function(e) {
+    $('.hoverContainer').removeClass('hoverContainer');
+});
+
 $(document).on('mousemove', '.container', function(e) {
     if (mouseDown) {
         clearHighlighted();
@@ -231,10 +236,22 @@ $(document).on('mousemove', '.container', function(e) {
                 removeCursor();
             }
         }
+    } else {
+        var container = $(this).data("eqObject");
+        $('.hoverContainer').removeClass('hoverContainer');
+        if (!($(this).hasClass('activeContainer')) &&
+            !(container.wrappers[0] instanceof eqEd.EmptyContainerWrapper) &&
+            !($('.highlighted').length > 0)) {
+            $(this).addClass('hoverContainer');
+        }
+        e.preventDefault();
+        e.stopPropagation();
     }
 })
 
 $(document).on('mouseenter', '.container', function (e) {
+    e.preventDefault();
+    e.stopPropagation();
     if (mouseDown) {
         clearHighlighted();
         if (highlightStartIndex === null) {
@@ -242,5 +259,45 @@ $(document).on('mouseenter', '.container', function (e) {
         } else {
             $(this).trigger("mousemove");
         }
+    } else {
+        /*
+        var container = $(this).data("eqObject");
+        $('.hoverContainer').removeClass('hoverContainer');
+        if (!($(this).hasClass('activeContainer')) &&
+            !(container.wrappers[0] instanceof eqEd.EmptyContainerWrapper) &&
+            !($('.highlighted').length > 0)) {
+            $(this).addClass('hoverContainer');
+            /*
+            var topVal = parseInt($(this).css('top'), 10);
+            var leftVal = parseInt($(this).css('left'), 10);
+            $(this).css({
+                border: '2px solid #828282',
+                top: (topVal + 2) + 'px',
+                left: (leftVal + 2) + 'px'
+            });
+        }
+        */
+    }
+});
+
+$(document).on('mouseleave', '.container', function (e) {
+    e.preventDefault();
+     e.stopPropagation();
+    if (!mouseDown) {
+        /*
+        var container = $(this).data("eqObject");
+        $('.hoverContainer').removeClass('hoverContainer');
+        var eqObject = container.parent;
+        if (eqObject !== null) {
+            while (!(eqObject instanceof eqEd.Container)) {
+                eqObject = eqObject.parent;
+            }
+            if (!(eqObject.domObj.value.hasClass('activeContainer')) &&
+                !(eqObject.wrappers[0] instanceof eqEd.EmptyContainerWrapper) &&
+                !($('.highlighted').length > 0)) {
+                eqObject.domObj.value.addClass('hoverContainer');
+            }
+        }
+        */
     }
 });

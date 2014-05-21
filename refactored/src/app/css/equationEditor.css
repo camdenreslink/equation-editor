@@ -3,6 +3,14 @@
     line-height: 1;
 }
 
+.activeContainer .hoverContainer {
+    background: #B5B5B5;
+}
+
+.hoverContainer {
+    background: #E8E8E8;
+}
+
 .equation div,
 .equation span,
 .equation svg,
@@ -119,7 +127,7 @@ div.squareCursor {
 }
 
 div.activeContainer {
-    background: #DEDEDE;
+    background: #CFCFCF;
 }
 
 .squareEmptyContainer {
@@ -130,6 +138,10 @@ div.activeContainer {
 .wrapper {
     overflow: visible;
     z-index: 3;
+}
+
+.activeContainer .topLevelEmptyContainerWrapper {
+    background: #CFCFCF;
 }
 
 .topLevelEmptyContainerWrapper {

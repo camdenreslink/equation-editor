@@ -38,7 +38,7 @@ eqEd.TopLevelEmptyContainerWrapper = function(symbolSizeConfig) {
         },
         compute: function() {
             var fontHeight = this.getFontHeight();
-            return 0.5 * fontHeight;
+            return (0.5 + this.parent.padTop) * fontHeight;
         },
         updateDom: function() {}
     }));
@@ -54,7 +54,7 @@ eqEd.TopLevelEmptyContainerWrapper = function(symbolSizeConfig) {
         },
         compute: function() {
             var fontHeight = this.getFontHeight();
-            return 0.5 * fontHeight;
+            return (0.5 + this.parent.padBottom) * fontHeight;
         },
         updateDom: function() {}
     }));

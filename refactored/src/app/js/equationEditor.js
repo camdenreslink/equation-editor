@@ -5,6 +5,8 @@ $(window).load(function () {
     var setupInitialContainer = function() {
         ///*
         var container = new eqEd.Container(symbolSizeConfig);
+        container.padTop = 0.2;
+        container.padBottom = 0.2;
         container.fontSize = "fontSizeNormal";
         container.domObj = container.buildDomObj();
         container.domObj.updateFontSize(container.fontSize);

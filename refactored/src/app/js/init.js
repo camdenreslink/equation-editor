@@ -32,7 +32,6 @@ var getChromeVersion = function() {
 
 //var ChromeVersion = parseInt(window.navigator.appVersion.match(/Chrome\/(\d+)\./)[1], 10);
 var ChromeVersion = getChromeVersion();
-console.log(ChromeVersion);
 var IEVersion = getInternetExplorerVersion();
 
 // clearHighlighted() will clear all highlighted items on the page.
@@ -110,6 +109,11 @@ var inializePropertyHooks = function(symbolSizeConfig) {
       value = 0;
     }
     var fontHeight = this.getFontHeight();
+    if (this instanceof eqEd.Container) {
+      if (this.wrappers[0] instanceof eqEd.TopLevelEmptyContainerWrapper) {
+        return value;
+      }
+    }
     return value + (this.padTop + this.padBottom) * fontHeight;
   };
   Property.postComputeHooks['left'] = function(value) {
@@ -136,6 +140,9 @@ var inializePropertyHooks = function(symbolSizeConfig) {
       value = 0;
     }
     var fontHeight = this.getFontHeight();
+    if (this instanceof eqEd.TopLevelEmptyContainerWrapper) {
+      return value;
+    }
     return value + (this.parent.padTop + this.adjustTop) * fontHeight;
   };
   Property.postComputeHooks['topAlign'] = function(value) {
