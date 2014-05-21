@@ -100,8 +100,8 @@ var setupKeyboardEvents = function(symbolSizeConfig) {
     var bracketCharactersConstructorMap = {
         '(': eqEd.LeftParenthesisBracketWrapper,
         ')': eqEd.RightParenthesisBracketWrapper,
-        '[': null,
-        ']': null,
+        '[': eqEd.LeftSquareBracketWrapper,
+        ']': eqEd.RightSquareBracketWrapper,
         '{': null,
         '}': null,
         '|': null
