@@ -43,6 +43,11 @@ eqEd.Equation = function(symbolSizeConfig) {
     // bar in a fraction), will be the wrapper that 
     // contains it.
     this.parent = null;
+    // This is an array for children of an equation
+    // object. Some objects, like containers, and wrappers
+    // have their own unique children arrays. This is a default
+    // children array for non-wrappers/containers.
+    this.children = [];
 };
 
 (function() {
@@ -67,6 +72,9 @@ eqEd.Equation = function(symbolSizeConfig) {
         Property.isComputing = true;
         for (var i = 0; i < this.properties.length; i++) {
             this.properties[i].compute();
+        }
+        for (var i = 0; i < this.children.length; i++) {
+            this.children[i].update();
         }
     };
     // updateAll allows formatting the entire equation
