@@ -60,4 +60,40 @@ var setupMenuEvents = function(symbolSizeConfig) {
         var operatorWrapper = new eqEd.OperatorWrapper('&#x2248;', "MathJax_Main", symbolSizeConfig);
         insertWrapper(operatorWrapper);
     });
+    $(document).on('mousedown', '#leftAngleBracketButton', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var leftAngleBracketWrapper = new eqEd.LeftAngleBracketWrapper(symbolSizeConfig);
+        insertWrapper(leftAngleBracketWrapper);
+    });
+    $(document).on('mousedown', '#rightAngleBracketButton', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var rightAngleBracketWrapper = new eqEd.RightAngleBracketWrapper(symbolSizeConfig);
+        insertWrapper(rightAngleBracketWrapper);
+    });
+    $(document).on('mousedown', '#leftFloorBracketButton', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var leftFloorBracketWrapper = new eqEd.LeftFloorBracketWrapper(symbolSizeConfig);
+        insertWrapper(leftFloorBracketWrapper);
+    });
+    $(document).on('mousedown', '#rightFloorBracketButton', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var rightFloorBracketWrapper = new eqEd.RightFloorBracketWrapper(symbolSizeConfig);
+        insertWrapper(rightFloorBracketWrapper);
+    });
+    $(document).on('mousedown', '#leftCeilBracketButton', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var leftCeilBracketWrapper = new eqEd.LeftCeilBracketWrapper(symbolSizeConfig);
+        insertWrapper(leftCeilBracketWrapper);
+    });
+    $(document).on('mousedown', '#rightCeilBracketButton', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var rightCeilBracketWrapper = new eqEd.RightCeilBracketWrapper(symbolSizeConfig);
+        insertWrapper(rightCeilBracketWrapper);
+    });
 };

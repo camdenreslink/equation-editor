@@ -2,6 +2,10 @@ eqEd.BracketWrapper = function(symbolSizeConfig) {
 	eqEd.Wrapper.call(this, symbolSizeConfig); // call super constructor.
 	this.className = "eqEd.BracketWrapper";
 
+    if (IEVersion >= 9) {
+        this.adjustTop += 0.28;
+    }
+
     // Set up the heightRatio calculation
     var heightRatio = 0;
     this.properties.push(new Property(this, "heightRatio", heightRatio, {

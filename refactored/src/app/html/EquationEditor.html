@@ -85,6 +85,26 @@
   <script src="../js/rightCurlyTopBracket.js"></script>
   <script src="../js/rightCurlyMiddleBracket.js"></script>
   <script src="../js/rightCurlyBottomBracket.js"></script>
+  <script src="../js/leftAngleBracketWrapper.js"></script>
+  <script src="../js/leftAngleWholeBracket.js"></script>
+  <script src="../js/rightAngleBracketWrapper.js"></script>
+  <script src="../js/rightAngleWholeBracket.js"></script>
+  <script src="../js/leftFloorBracketWrapper.js"></script>
+  <script src="../js/leftFloorWholeBracket.js"></script>
+  <script src="../js/leftFloorMiddleBracket.js"></script>
+  <script src="../js/leftFloorBottomBracket.js"></script>
+  <script src="../js/rightFloorBracketWrapper.js"></script>
+  <script src="../js/rightFloorWholeBracket.js"></script>
+  <script src="../js/rightFloorMiddleBracket.js"></script>
+  <script src="../js/rightFloorBottomBracket.js"></script>
+  <script src="../js/leftCeilBracketWrapper.js"></script>
+  <script src="../js/leftCeilWholeBracket.js"></script>
+  <script src="../js/leftCeilTopBracket.js"></script>
+  <script src="../js/leftCeilMiddleBracket.js"></script>
+  <script src="../js/rightCeilBracketWrapper.js"></script>
+  <script src="../js/rightCeilWholeBracket.js"></script>
+  <script src="../js/rightCeilTopBracket.js"></script>
+  <script src="../js/rightCeilMiddleBracket.js"></script>
   <script src="../js/blinkingCursor.js"></script>
   <script src="../js/mouseInteraction.js"></script>
   <script src="../js/addWrapperUtil.js"></script>
@@ -102,6 +122,104 @@
     <button id="lessThanOrEqualToButton">LessThanOrEqualTo</button>
     <button id="greaterThanOrEqualToButton">GreaterThanOrEqualTo</button>
     <button id="approxEqualToButton">ApproxEqualTo</button>
+    <button id="leftAngleBracketButton">LeftAngleBracket</button>
+    <button id="rightAngleBracketButton">RightAngleBracket</button>
+    <button id="leftFloorBracketButton">LeftFloorBracket</button>
+    <button id="rightFloorBracketButton">RightFloorBracket</button>
+    <button id="leftCeilBracketButton">LeftCeilBracket</button>
+    <button id="rightCeilBracketButton">RightCeilBracket</button>
     <div class="testEquation equation"></div>
+
+    <div style="background: #DEDEDE; line-height: 1; display: inline-block; position: relative; font-size: 45px; height: 1em; width: 0.444444em">
+      <div class="MathJax_Main" style="position: absolute; top: -0.0625em; left: 0em">&#8970;</div>
+    </div>
+    <br>
+    <div style="background: #DEDEDE; line-height: 1; display: inline-block; position: relative; font-size: 45px; height: 2.4em; width: 0.577777em">
+      <div class="MathJax_Size3" style="position: absolute; top: 0.7em; left: 0em">&#8970;</div>
+    </div>
+    <br>
+    <div style="background: #DEDEDE; line-height: 1; display: inline-block; position: relative; font-size: 45px; height: 3em; width: 0.644444em">
+      <div class="MathJax_Size4" style="position: absolute; top: 0.995em; left: 0em">&#8970;</div>
+    </div>
+    <br>
+    <div style="background: #DEDEDE; line-height: 1; display: inline-block; position: relative; font-size: 45px; height: 3.33em; width: 0.66666em">
+      <div class="MathJax_Size4" style="position: absolute; top: -0.15em; left: 0em">&#9122;</div>
+      <div class="MathJax_Size4" style="position: absolute; top: 0.15em; left: 0em">&#9122;</div>
+      <div class="MathJax_Size4" style="position: absolute; top: 0.6em; left: 0em">&#9122;</div>
+      <div class="MathJax_Size4" style="position: absolute; top: 1.05em; left: 0em">&#9122;</div>
+      <div class="MathJax_Size4" style="position: absolute; top: 1.5em; left: 0em">&#9122;</div>
+      <div class="MathJax_Size4" style="position: absolute; top: 1.95em; left: 0em">&#9122;</div>
+      <div class="MathJax_Size4" style="position: absolute; top: 2.4em; left: 0em">&#9122;</div>
+      <div class="MathJax_Size4" style="position: absolute; top: 2.7em; left: 0em">&#9122;</div>
+      <!--<div class="MathJax_Size4" style="position: absolute; top: 1.939em; left: 0em">&#9123;</div>-->
+    </div>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <div style="background: #DEDEDE; line-height: 1; display: inline-block; position: relative; font-size: 45px; height: 3.72em; width: 0.66666em">
+      <div class="MathJax_Size4" style="position: absolute; top: -0.15em; left: 0em">&#9122;</div>
+      <div class="MathJax_Size4" style="position: absolute; top: 0.15em; left: 0em">&#9122;</div>
+      <div class="MathJax_Size4" style="position: absolute; top: 0.6em; left: 0em">&#9122;</div>
+      <div class="MathJax_Size4" style="position: absolute; top: 1.05em; left: 0em">&#9122;</div>
+      <div class="MathJax_Size4" style="position: absolute; top: 1.404em; left: 0em">&#9122;</div>
+      <!--<div class="MathJax_Size4" style="position: absolute; top: 2.325em; left: 0em">&#9123;</div>-->
+    </div>
+    <br>
+    <div style="background: #DEDEDE; line-height: 1; display: inline-block; position: relative; font-size: 45px; height: 3.9em; width: 0.66666em">
+      <div class="MathJax_Size4" style="position: absolute; top: -0.15em; left: 0em">&#9122;</div>
+      <div class="MathJax_Size4" style="position: absolute; top: 0.15em; left: 0em">&#9122;</div>
+      <div class="MathJax_Size4" style="position: absolute; top: 0.6em; left: 0em">&#9122;</div>
+      <div class="MathJax_Size4" style="position: absolute; top: 1.05em; left: 0em">&#9122;</div>
+      <div class="MathJax_Size4" style="position: absolute; top: 1.5em; left: 0em">&#9122;</div>
+      <div class="MathJax_Size4" style="position: absolute; top: 1.95em; left: 0em">&#9122;</div>
+      <div class="MathJax_Size4" style="position: absolute; top: 2.4em; left: 0em">&#9122;</div>
+      <div class="MathJax_Size4" style="position: absolute; top: 2.85em; left: 0em">&#9122;</div>
+      <div class="MathJax_Size4" style="position: absolute; top: 3.15em; left: 0em">&#9122;</div>
+      <!--<div class="MathJax_Size4" style="position: absolute; top: 2.5em; left: 0em">&#9123;</div>-->
+    </div>
+    <br>
+    <div style="background: #DEDEDE; line-height: 1; display: inline-block; position: relative; font-size: 45px; height: 4.35em; width: 0.66666em">
+      <div class="MathJax_Size4" style="position: absolute; top: -0.15em; left: 0em">&#9122;</div>
+      <div class="MathJax_Size4" style="position: absolute; top: 0.15em; left: 0em">&#9122;</div>
+      <div class="MathJax_Size4" style="position: absolute; top: 0.6em; left: 0em">&#9122;</div>
+      <div class="MathJax_Size4" style="position: absolute; top: 1.05em; left: 0em">&#9122;</div>
+      <div class="MathJax_Size4" style="position: absolute; top: 1.5em; left: 0em">&#9122;</div>
+      <div class="MathJax_Size4" style="position: absolute; top: 1.95em; left: 0em">&#9122;</div>
+      <div class="MathJax_Size4" style="position: absolute; top: 2.4em; left: 0em">&#9122;</div>
+      <div class="MathJax_Size4" style="position: absolute; top: 2.85em; left: 0em">&#9122;</div>
+      <div class="MathJax_Size4" style="position: absolute; top: 3.3em; left: 0em">&#9122;</div>
+      <div class="MathJax_Size4" style="position: absolute; top: 3.60em; left: 0em">&#9122;</div>
+      <div class="MathJax_Size4" style="position: absolute; top: 2.95em; left: 0em">&#9123;</div>
+    </div>
+    <br>
+    <div style="background: #DEDEDE; line-height: 1; display: inline-block; position: relative; font-size: 45px; height: 1.95em; width: 0.66666em">
+      <div class="MathJax_Size4" style="position: absolute; top: 0.4em; left: 0em">&#9121;</div>
+      <div class="MathJax_Size4" style="position: absolute; top: -0.15em; left: 0em">&#9122;</div>
+      <div class="MathJax_Size4" style="position: absolute; top: 0.3em; left: 0em">&#9122;</div>
+      <div class="MathJax_Size4" style="position: absolute; top: 0.75em; left: 0em">&#9122;</div>
+      <div class="MathJax_Size4" style="position: absolute; top: 1.2em; left: 0em">&#9122;</div>
+      <div class="MathJax_Size4" style="position: absolute; top: 0.55em; left: 0em">&#9123;</div>
+    </div>
+    <br>
+    <!--
+      Height = last middle bracket top + 0.75
+
+      Bottom bracket top = last middle bracket top - 0.65
+
+      Top bracket top = 0.4
+
+      height = 0.45 * #brackets + 0.6
+
+      # brackets = (height - 0.6) / 0.45
+    -->
+    <div style="background: #DEDEDE; line-height: 1; display: inline-block; position: relative; font-size: 45px; height: 1.95em; width: 0.66666em">
+      <div class="MathJax_Size4" style="position: absolute; top: -0.15em; left: 0em">&#9122;</div>
+      <div class="MathJax_Size4" style="position: absolute; top: 0.3em; left: 0em">&#9122;</div>
+      <div class="MathJax_Size4" style="position: absolute; top: 0.75em; left: 0em">&#9122;</div>
+      <div class="MathJax_Size4" style="position: absolute; top: 1.2em; left: 0em">&#9122;</div>
+    </div>
+
 </body>
 </html>

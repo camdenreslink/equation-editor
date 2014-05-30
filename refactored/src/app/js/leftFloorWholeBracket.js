@@ -1,8 +1,8 @@
-eqEd.LeftSquareWholeBracket = function(fontStyle, symbolSizeConfig) {
+eqEd.LeftFloorWholeBracket = function(fontStyle, symbolSizeConfig) {
     eqEd.WholeBracket.call(this, symbolSizeConfig); // call super constructor.
-    this.className = "eqEd.LeftSquareWholeBracket";
+    this.className = "eqEd.LeftFloorWholeBracket";
     
-    this.character = "[";
+    this.character = "&#8970;";
     this.fontStyle = fontStyle;
     this.domObj = this.buildDomObj();
     this.adjustLeft = 0.001;
@@ -90,6 +90,6 @@ eqEd.LeftSquareWholeBracket = function(fontStyle, symbolSizeConfig) {
 };
 (function() {
     // subclass extends superclass
-    eqEd.LeftSquareWholeBracket.prototype = Object.create(eqEd.WholeBracket.prototype);
-    eqEd.LeftSquareWholeBracket.prototype.constructor = eqEd.LeftSquareWholeBracket;
+    eqEd.LeftFloorWholeBracket.prototype = Object.create(eqEd.WholeBracket.prototype);
+    eqEd.LeftFloorWholeBracket.prototype.constructor = eqEd.LeftFloorWholeBracket;
 })();

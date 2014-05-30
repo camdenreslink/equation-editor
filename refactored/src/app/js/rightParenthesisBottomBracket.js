@@ -7,9 +7,6 @@ eqEd.RightParenthesisBottomBracket = function(symbolSizeConfig) {
     this.domObj = this.buildDomObj();
     this.adjustLeft = 0.001;
     this.adjustTop = 0;
-    if (IEVersion >= 9) {
-        this.adjustTop += (-0.02 + 0.3);
-    }
 
     // Set up the top calculation
     var top = 0;

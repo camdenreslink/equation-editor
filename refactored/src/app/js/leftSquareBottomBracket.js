@@ -7,9 +7,6 @@ eqEd.LeftSquareBottomBracket = function(symbolSizeConfig) {
     this.domObj = this.buildDomObj();
     this.adjustLeft = 0.001;
     this.adjustTop = 0;
-    if (IEVersion >= 9) {
-        this.adjustTop += (-0.02 + 0.3);
-    }
 
     // Set up the top calculation
     var top = 0;
@@ -22,12 +19,7 @@ eqEd.LeftSquareBottomBracket = function(symbolSizeConfig) {
         },
         compute: function() {
             var fontHeight = this.symbolSizeConfig.height[this.parent.parent.fontSize];
-            var topVal = 0;
-            if (this.parent.middleBrackets.length === 0) {
-                topVal = 1.939 * fontHeight;
-            } else {
-                topVal = (2.5 + (0.45 * (this.parent.middleBrackets.length - 1))) * fontHeight;
-            }
+            var topVal = this.parent.middleBrackets[this.parent.middleBrackets.length - 1].top - 0.65 * fontHeight;
             return topVal;
         },
         updateDom: function() {

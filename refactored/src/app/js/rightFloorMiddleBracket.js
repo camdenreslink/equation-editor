@@ -1,8 +1,8 @@
-eqEd.RightSquareBottomBracket = function(symbolSizeConfig) {
-    eqEd.BottomBracket.call(this, symbolSizeConfig); // call super constructor.
-    this.className = "eqEd.RightSquareBottomBracket";
+eqEd.RightFloorMiddleBracket = function(index, symbolSizeConfig) {
+    eqEd.MiddleBracket.call(this, index, symbolSizeConfig); // call super constructor.
+    this.className = "eqEd.RightFloorMiddleBracket";
     
-    this.character = "&#9126;";
+    this.character = "&#9125;";
     this.fontStyle = "MathJax_Size4";
     this.domObj = this.buildDomObj();
     this.adjustLeft = 0.001;
@@ -19,8 +19,7 @@ eqEd.RightSquareBottomBracket = function(symbolSizeConfig) {
         },
         compute: function() {
             var fontHeight = this.symbolSizeConfig.height[this.parent.parent.fontSize];
-            var topVal = this.parent.middleBrackets[this.parent.middleBrackets.length - 1].top - 0.65 * fontHeight;
-            return topVal;
+            return (0.45 * this.index - 0.15) * fontHeight;
         },
         updateDom: function() {
             this.domObj.updateTop(this.top);
@@ -29,6 +28,6 @@ eqEd.RightSquareBottomBracket = function(symbolSizeConfig) {
 };
 (function() {
     // subclass extends superclass
-    eqEd.RightSquareBottomBracket.prototype = Object.create(eqEd.BottomBracket.prototype);
-    eqEd.RightSquareBottomBracket.prototype.constructor = eqEd.RightSquareBottomBracket;
+    eqEd.RightFloorMiddleBracket.prototype = Object.create(eqEd.MiddleBracket.prototype);
+    eqEd.RightFloorMiddleBracket.prototype.constructor = eqEd.RightFloorMiddleBracket;
 })();

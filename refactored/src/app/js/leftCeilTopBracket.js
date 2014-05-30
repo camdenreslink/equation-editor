@@ -1,6 +1,6 @@
-eqEd.LeftSquareTopBracket = function(symbolSizeConfig) {
+eqEd.LeftCeilTopBracket = function(symbolSizeConfig) {
     eqEd.TopBracket.call(this, symbolSizeConfig); // call super constructor.
-    this.className = "eqEd.LeftSquareTopBracket";
+    this.className = "eqEd.LeftCeilTopBracket";
     
     this.character = "&#9121;";
     this.fontStyle = "MathJax_Size4";
@@ -10,6 +10,6 @@ eqEd.LeftSquareTopBracket = function(symbolSizeConfig) {
 };
 (function() {
     // subclass extends superclass
-    eqEd.LeftSquareTopBracket.prototype = Object.create(eqEd.TopBracket.prototype);
-    eqEd.LeftSquareTopBracket.prototype.constructor = eqEd.LeftSquareTopBracket;
+    eqEd.LeftCeilTopBracket.prototype = Object.create(eqEd.TopBracket.prototype);
+    eqEd.LeftCeilTopBracket.prototype.constructor = eqEd.LeftCeilTopBracket;
 })();

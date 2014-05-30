@@ -14,9 +14,6 @@ eqEd.RightSquareWholeBracket = function(fontStyle, symbolSizeConfig) {
     } else if (this.fontStyle === "MathJax_Size4") {
         this.adjustTop = 0.995;
     }
-    if (IEVersion >= 9) {
-        this.adjustTop += (-0.02 + 0.3);
-    }
     
     // Set up the width calculation
     var width = 0;

@@ -18,10 +18,6 @@ eqEd.RightCurlyBracketWrapper = function(symbolSizeConfig) {
     this.padTop = 0.075;
     this.padBottom = 0.075;
 
-    if (IEVersion >= 9) {
-        this.adjustTop += 0.28;
-    }
-
     // Set up the width calculation
     var width = 0;
     this.properties.push(new Property(this, "width", width, {

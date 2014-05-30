@@ -1,6 +1,6 @@
-eqEd.RightSquareBottomBracket = function(symbolSizeConfig) {
+eqEd.RightFloorBottomBracket = function(symbolSizeConfig) {
     eqEd.BottomBracket.call(this, symbolSizeConfig); // call super constructor.
-    this.className = "eqEd.RightSquareBottomBracket";
+    this.className = "eqEd.RightFloorBottomBracket";
     
     this.character = "&#9126;";
     this.fontStyle = "MathJax_Size4";
@@ -29,6 +29,6 @@ eqEd.RightSquareBottomBracket = function(symbolSizeConfig) {
 };
 (function() {
     // subclass extends superclass
-    eqEd.RightSquareBottomBracket.prototype = Object.create(eqEd.BottomBracket.prototype);
-    eqEd.RightSquareBottomBracket.prototype.constructor = eqEd.RightSquareBottomBracket;
+    eqEd.RightFloorBottomBracket.prototype = Object.create(eqEd.BottomBracket.prototype);
+    eqEd.RightFloorBottomBracket.prototype.constructor = eqEd.RightFloorBottomBracket;
 })();
