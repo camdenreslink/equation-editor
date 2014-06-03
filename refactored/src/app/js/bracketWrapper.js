@@ -1,28 +1,69 @@
-eqEd.BracketWrapper = function(symbolSizeConfig) {
+eqEd.BracketWrapper = function(symbolSizeConfig, bracketType) {
 	eqEd.Wrapper.call(this, symbolSizeConfig); // call super constructor.
 	this.className = "eqEd.BracketWrapper";
 
-    if (IEVersion >= 9) {
-        this.adjustTop += 0.28;
-    }
+    var bracketCtors = {
+        "leftParenthesisBracket": eqEd.LeftParenthesisBracket,
+        "rightParenthesisBracket": eqEd.RightParenthesisBracket,
+        "leftSquareBracket": eqEd.LeftSquareBracket,
+        "rightSquareBracket": eqEd.RightSquareBracket,
+        "leftCurlyBracket": eqEd.LeftCurlyBracket,
+        "rightCurlyBracket": eqEd.RightCurlyBracket,
+        "leftAngleBracket": eqEd.LeftAngleBracket,
+        "rightAngleBracket": eqEd.RightAngleBracket,
+        "leftFloorBracket": eqEd.LeftFloorBracket,
+        "rightFloorBracket": eqEd.RightFloorBracket,
+        "leftCeilBracket": eqEd.LeftCeilBracket,
+        "rightCeilBracket": eqEd.RightCeilBracket
+    };
 
-    // Set up the heightRatio calculation
-    var heightRatio = 0;
-    this.properties.push(new Property(this, "heightRatio", heightRatio, {
+    this.bracket = new bracketCtors[bracketType];
+
+    // Set up the width calculation
+    var width = 0;
+    this.properties.push(new Property(this, "width", width, {
         get: function() {
-            return heightRatio;
+            return width;
         },
         set: function(value) {
-            heightRatio = value;
+            width = value;
         },
         compute: function() {
-            var fontHeight = this.symbolSizeConfig.height[this.parent.fontSize];
-            return this.desiredHeight / fontHeight;
+            return this.bracket.width;
         },
         updateDom: function() {
-        	// Not only a DOM update, but this is a convenient callback.
-        	this.updateBracketStructure();
+            this.domObj.updateWidth(this.width);
         }
+    }));
+
+    // Set up the topAlign calculation
+    var topAlign = 0;
+    this.properties.push(new Property(this, "topAlign", topAlign, {
+        get: function() {
+            return topAlign;
+        },
+        set: function(value) {
+            topAlign = value;
+        },
+        compute: function() {
+            return 0.5 * this.bracket.height;
+        },
+        updateDom: function() {}
+    }));
+
+    // Set up the bottomAlign calculation
+    var bottomAlign = 0;
+    this.properties.push(new Property(this, "bottomAlign", bottomAlign, {
+        get: function() {
+            return bottomAlign;
+        },
+        set: function(value) {
+            bottomAlign = value;
+        },
+        compute: function() {
+            return 0.5 * this.bracket.height;
+        },
+        updateDom: function() {}
     }));
 };
 (function() {

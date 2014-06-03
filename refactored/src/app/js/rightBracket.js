@@ -1,6 +1,6 @@
-eqEd.RightBracketWrapper = function(symbolSizeConfig) {
-	eqEd.BracketWrapper.call(this, symbolSizeConfig); // call super constructor.
-	this.className = "eqEd.RightBracketWrapper";
+eqEd.RightBracket = function(symbolSizeConfig) {
+	eqEd.Bracket.call(this, symbolSizeConfig); // call super constructor.
+	this.className = "eqEd.RightBracket";
 
     // Set up the desiredHeight calculation
     var desiredHeight = 0;
@@ -48,6 +48,6 @@ eqEd.RightBracketWrapper = function(symbolSizeConfig) {
 };
 (function() {
     // subclass extends superclass
-    eqEd.RightBracketWrapper.prototype = Object.create(eqEd.BracketWrapper.prototype);
-    eqEd.RightBracketWrapper.prototype.constructor = eqEd.RightBracketWrapper;
+    eqEd.RightBracket.prototype = Object.create(eqEd.Bracket.prototype);
+    eqEd.RightBracket.prototype.constructor = eqEd.RightBracket;
 })();
