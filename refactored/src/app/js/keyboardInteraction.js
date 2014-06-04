@@ -97,13 +97,13 @@ var setupKeyboardEvents = function(symbolSizeConfig) {
         '}',
         '|'
     ];
-    var bracketCharactersConstructorMap = {
-        '(': eqEd.LeftParenthesisBracketWrapper,
-        ')': eqEd.RightParenthesisBracketWrapper,
-        '[': eqEd.LeftSquareBracketWrapper,
-        ']': eqEd.RightSquareBracketWrapper,
-        '{': eqEd.LeftCurlyBracketWrapper,
-        '}': eqEd.RightCurlyBracketWrapper,
+    var bracketCharactersMap = {
+        '(': "leftParenthesisBracket",
+        ')': "rightParenthesisBracket",
+        '[': "leftSquareBracket",
+        ']': "rightSquareBracket",
+        '{': "leftCurlyBracket",
+        '}': "rightCurlyBracket",
         '|': null
     }
 
@@ -126,7 +126,7 @@ var setupKeyboardEvents = function(symbolSizeConfig) {
     });
 
     Mousetrap.bind(bracketCharacters, function(e, character) { 
-        var bracketWrapper = new bracketCharactersConstructorMap[character](symbolSizeConfig);
+        var bracketWrapper = new eqEd.BracketWrapper(bracketCharactersMap[character], symbolSizeConfig);
         insertWrapper(bracketWrapper);
         return false;
     });

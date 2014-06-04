@@ -13,10 +13,7 @@ eqEd.LeftAngleBracket = function(symbolSizeConfig) {
     this.domObj = this.buildDomObj();
     this.domObj.append(this.wholeBracket.domObj);
 
-    this.childNoncontainers = [this.wholeBracket];
-
-    this.padTop = 0.075;
-    this.padBottom = 0.075;
+    this.children = [this.wholeBracket];
 
 	// Set up the width calculation
     var width = 0;
@@ -29,7 +26,7 @@ eqEd.LeftAngleBracket = function(symbolSizeConfig) {
         },
         compute: function() {
             var widthVal = 0;
-            var fontHeight = this.symbolSizeConfig.height[this.parent.fontSize];
+            var fontHeight = this.symbolSizeConfig.height[this.parent.parent.fontSize];
             if (this.heightRatio <= 1.5) {
                 widthVal = 0.377777 * fontHeight;
             } else if (this.heightRatio > 1.5 && this.heightRatio <= 2.4) {
@@ -44,52 +41,30 @@ eqEd.LeftAngleBracket = function(symbolSizeConfig) {
         }
     }));
 
-    // Set up the topAlign calculation
-    var topAlign = 0;
-    this.properties.push(new Property(this, "topAlign", topAlign, {
+    // Set up the height calculation
+    var height = 0;
+    this.properties.push(new Property(this, "height", height, {
         get: function() {
-            return topAlign;
+            return height;
         },
         set: function(value) {
-            topAlign = value;
+            height = value;
         },
         compute: function() {
-            var topAlignVal = 0;
-            var fontHeight = this.symbolSizeConfig.height[this.parent.fontSize];
+            var heightVal = 0;
+            var fontHeight = this.symbolSizeConfig.height[this.parent.parent.fontSize];
             if (this.heightRatio <= 1.5) {
-                topAlignVal = 0.5 * fontHeight;
+                heightVal = fontHeight;
             } else if (this.heightRatio > 1.5 && this.heightRatio <= 2.4) {
-                topAlignVal = 1.2 * fontHeight;
+                heightVal = 2.4 * fontHeight;
             } else {
-                topAlignVal = 1.5 * fontHeight;
+                heightVal = 3 * fontHeight;
             }
-            return topAlignVal;
+            return heightVal;
         },
-        updateDom: function() {}
-    }));
-
-    // Set up the bottomAlign calculation
-    var bottomAlign = 0;
-    this.properties.push(new Property(this, "bottomAlign", bottomAlign, {
-        get: function() {
-            return bottomAlign;
-        },
-        set: function(value) {
-            bottomAlign = value;
-        },
-        compute: function() {
-            var bottomAlignVal = 0;
-            var fontHeight = this.symbolSizeConfig.height[this.parent.fontSize];
-            if (this.heightRatio <= 1.5) {
-                bottomAlignVal = 0.5 * fontHeight;
-            } else if (this.heightRatio > 1.5 && this.heightRatio <= 2.4) {
-                bottomAlignVal = 1.2 * fontHeight;
-            } else {
-                bottomAlignVal = 1.5 * fontHeight;
-            }
-            return bottomAlignVal;
-        },
-        updateDom: function() {}
+        updateDom: function() {
+            this.domObj.updateHeight(this.height);
+        }
     }));
 };
 (function() {
@@ -107,22 +82,22 @@ eqEd.LeftAngleBracket = function(symbolSizeConfig) {
         this.topBracket = null;
         this.middleBrackets = [];
         this.bottomBracket = null;
-        this.childNoncontainers = [];
+        this.children = [];
         if (this.heightRatio <= 1.5) {
             this.wholeBracket = new eqEd.LeftAngleWholeBracket("MathJax_Main", this.symbolSizeConfig);
             this.wholeBracket.parent = this;
             this.domObj.append(this.wholeBracket.domObj);
-            this.childNoncontainers = [this.wholeBracket];
+            this.children = [this.wholeBracket];
         } else if (this.heightRatio > 1.5 && this.heightRatio <= 2.4) {
             this.wholeBracket = new eqEd.LeftAngleWholeBracket("MathJax_Size3", this.symbolSizeConfig);
             this.wholeBracket.parent = this;
             this.domObj.append(this.wholeBracket.domObj);
-            this.childNoncontainers = [this.wholeBracket];
+            this.children = [this.wholeBracket];
         } else {
             this.wholeBracket = new eqEd.LeftAngleWholeBracket("MathJax_Size4", this.symbolSizeConfig);
             this.wholeBracket.parent = this;
             this.domObj.append(this.wholeBracket.domObj);
-            this.childNoncontainers = [this.wholeBracket];
+            this.children = [this.wholeBracket];
         }
     }
 })();

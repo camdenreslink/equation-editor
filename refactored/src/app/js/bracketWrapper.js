@@ -1,7 +1,8 @@
-eqEd.BracketWrapper = function(symbolSizeConfig, bracketType) {
+eqEd.BracketWrapper = function(bracketType, symbolSizeConfig) {
 	eqEd.Wrapper.call(this, symbolSizeConfig); // call super constructor.
 	this.className = "eqEd.BracketWrapper";
 
+    this.bracketType = bracketType;
     var bracketCtors = {
         "leftParenthesisBracket": eqEd.LeftParenthesisBracket,
         "rightParenthesisBracket": eqEd.RightParenthesisBracket,
@@ -17,7 +18,11 @@ eqEd.BracketWrapper = function(symbolSizeConfig, bracketType) {
         "rightCeilBracket": eqEd.RightCeilBracket
     };
 
+    this.domObj = this.buildDomObj();
+    
     this.bracket = new bracketCtors[bracketType];
+    this.bracket.parent = this;
+    this.domObj.append(this.bracket.domObj);
 
     // Set up the width calculation
     var width = 0;
@@ -70,40 +75,12 @@ eqEd.BracketWrapper = function(symbolSizeConfig, bracketType) {
     // subclass extends superclass
     eqEd.BracketWrapper.prototype = Object.create(eqEd.Wrapper.prototype);
     eqEd.BracketWrapper.prototype.constructor = eqEd.BracketWrapper;
+    eqEd.BracketWrapper.prototype.buildDomObj = function() {
+        return new eqEd.EquationDom(this,
+            '<div class="wrappper bracketWrapper ' + this.bracketType + '"></div>')
+    };
     eqEd.BracketWrapper.prototype.clone = function() {
-        var copy = new this.constructor(this.symbolSizeConfig);
-        copy.domObj = copy.buildDomObj();
-        if (this.wholeBracket !== null) {
-            copy.wholeBracket = this.wholeBracket.clone();
-            copy.wholeBracket.parent = copy;
-            copy.domObj.append(copy.wholeBracket.domObj);
-        } else {
-            copy.wholeBracket = null;
-        }
-        if (this.topBracket !== null) {
-            copy.topBracket = this.topBracket.clone();
-            copy.topBracket.parent = copy;
-            copy.domObj.append(copy.topBracket.domObj);
-        } else {
-            copy.topBracket = null;
-        }
-        copy.middleBrackets = [];
-        for (var i = 0; i < this.middleBrackets.length; i++) {
-            var middleBracket = this.middleBrackets[i].clone();
-            middleBracket.parent = copy;
-            copy.domObj.append(middleBracket.domObj);
-            copy.middleBrackets.push(middleBracket);
-        }
-        if (this.bottomBracket !== null) {
-            copy.bottomBracket = this.bottomBracket.clone();
-            copy.bottomBracket.parent = copy;
-            copy.domObj.append(copy.bottomBracket.domObj);
-        } else {
-            copy.bottomBracket = null;
-        }
-
-        this.childNoncontainers = [this.wholeBracket];
-
+        var copy = new this.constructor(this.bracketType, this.symbolSizeConfig);
         return copy;
     };
 })();

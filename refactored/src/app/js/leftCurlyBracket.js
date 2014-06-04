@@ -13,10 +13,7 @@ eqEd.LeftCurlyBracket = function(symbolSizeConfig) {
     this.domObj = this.buildDomObj();
     this.domObj.append(this.wholeBracket.domObj);
 
-    this.childNoncontainers = [this.wholeBracket];
-
-    this.padTop = 0.075;
-    this.padBottom = 0.075;
+    this.children = [this.wholeBracket];
 
 	// Set up the width calculation
     var width = 0;
@@ -29,7 +26,7 @@ eqEd.LeftCurlyBracket = function(symbolSizeConfig) {
         },
         compute: function() {
             var widthVal = 0;
-            var fontHeight = this.symbolSizeConfig.height[this.parent.fontSize];
+            var fontHeight = this.symbolSizeConfig.height[this.parent.parent.fontSize];
             if (this.heightRatio <= 1.5) {
                 widthVal = 0.511111 * fontHeight;
             } else if (this.heightRatio > 1.5 && this.heightRatio <= 2.4) {
@@ -48,55 +45,35 @@ eqEd.LeftCurlyBracket = function(symbolSizeConfig) {
         }
     }));
 
-    // Set up the topAlign calculation
-    var topAlign = 0;
-    this.properties.push(new Property(this, "topAlign", topAlign, {
+    // Set up the height calculation
+    var height = 0;
+    this.properties.push(new Property(this, "height", height, {
         get: function() {
-            return topAlign;
+            return height;
         },
         set: function(value) {
-            topAlign = value;
+            height = value;
         },
         compute: function() {
-            var topAlignVal = 0;
-            var fontHeight = this.symbolSizeConfig.height[this.parent.fontSize];
+            var heightVal = 0;
+            var fontHeight = this.symbolSizeConfig.height[this.parent.parent.fontSize];
             if (this.heightRatio <= 1.5) {
-                topAlignVal = 0.5 * fontHeight;
+                heightVal = fontHeight;
             } else if (this.heightRatio > 1.5 && this.heightRatio <= 2.4) {
-                topAlignVal = 1.2 * fontHeight;
+                heightVal = 2.4 * fontHeight;
             } else if (this.heightRatio > 2.4 && this.heightRatio <= 3) {
-                topAlignVal = 1.5 * fontHeight;
+                heightVal = 3 * fontHeight;
             } else if (this.heightRatio > 3 && this.heightRatio <= 3.33) {
-                topAlignVal = 1.665 * fontHeight;
+                heightVal = 3.33 * fontHeight;
             } else {
-                /*
-                var center = 0.15 + ((this.middleBrackets.length - 1) / 2) * 0.231 + 1.1;
-                var bottom = center + 0.5 + ((this.middleBrackets.length - 1) / 2) * 0.231;
-                var height = bottom + 1.65;
-                */
                 var bottomBracketTop = this.bottomBracket.top / fontHeight;
-                topAlignVal = 0.5 * (bottomBracketTop + 1.652778 - this.padTop) * fontHeight;
-                //topAlignVal = 0.5 * height * fontHeight;
+                heightVal = (bottomBracketTop + 1.652778 - this.padTop) * fontHeight;
             }
-            return topAlignVal;
+            return heightVal;
         },
-        updateDom: function() {}
-    }));
-
-    // Set up the bottomAlign calculation
-    var bottomAlign = 0;
-    this.properties.push(new Property(this, "bottomAlign", bottomAlign, {
-        get: function() {
-            return bottomAlign;
-        },
-        set: function(value) {
-            bottomAlign = value;
-        },
-        compute: function() {
-            var fontHeight = this.symbolSizeConfig.height[this.parent.fontSize];
-            return this.topAlign - this.padBottom * fontHeight;
-        },
-        updateDom: function() {}
+        updateDom: function() {
+            this.domObj.updateHeight(this.height);
+        }
     }));
 };
 (function() {
@@ -114,22 +91,22 @@ eqEd.LeftCurlyBracket = function(symbolSizeConfig) {
         this.topBracket = null;
         this.middleBrackets = [];
         this.bottomBracket = null;
-        this.childNoncontainers = [];
+        this.children = [];
         if (this.heightRatio <= 1.5) {
             this.wholeBracket = new eqEd.LeftCurlyWholeBracket("MathJax_Main", this.symbolSizeConfig);
             this.wholeBracket.parent = this;
             this.domObj.append(this.wholeBracket.domObj);
-            this.childNoncontainers = [this.wholeBracket];
+            this.children = [this.wholeBracket];
         } else if (this.heightRatio > 1.5 && this.heightRatio <= 2.4) {
             this.wholeBracket = new eqEd.LeftCurlyWholeBracket("MathJax_Size3", this.symbolSizeConfig);
             this.wholeBracket.parent = this;
             this.domObj.append(this.wholeBracket.domObj);
-            this.childNoncontainers = [this.wholeBracket];
+            this.children = [this.wholeBracket];
         } else if (this.heightRatio > 2.4 && this.heightRatio <= 3) {
             this.wholeBracket = new eqEd.LeftCurlyWholeBracket("MathJax_Size4", this.symbolSizeConfig);
             this.wholeBracket.parent = this;
             this.domObj.append(this.wholeBracket.domObj);
-            this.childNoncontainers = [this.wholeBracket];
+            this.children = [this.wholeBracket];
         } else {
             var numberOfMiddleBrackets = Math.round((this.heightRatio - 3.4) / 0.231);
             numberOfMiddleBrackets = (numberOfMiddleBrackets % 2 !== 0) ? (numberOfMiddleBrackets + 1) : numberOfMiddleBrackets;
@@ -155,7 +132,7 @@ eqEd.LeftCurlyBracket = function(symbolSizeConfig) {
                 this.domObj.append(middleBracket.domObj);
                 this.middleBrackets.push(middleBracket);
             }
-            this.childNoncontainers = [this.topBracket].concat(this.middleBrackets).concat([this.bottomBracket]);
+            this.children = [this.topBracket].concat(this.middleBrackets).concat([this.bottomBracket]);
         }
     }
 })();

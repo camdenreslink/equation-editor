@@ -12,32 +12,37 @@ eqEd.RightBracket = function(symbolSizeConfig) {
             desiredHeight = value;
         },
         compute: function() {
-            var sameBracketTypeCounter = 0;
-            var matchingBracketIndex = null;
-            var maxTopAlign = 0;
-            var maxBottomAlign = 0;
-            for (var i = (this.index - 1); i >= 0; i--) {
-                var wrapper = this.parent.wrappers[i];
-                if (wrapper instanceof this.constructor) {
-                    sameBracketTypeCounter++;
-                } else if (wrapper instanceof this.matchingBracketCtor 
-                            && sameBracketTypeCounter === 0) {
-                    matchingBracketIndex = i;
-                    break;
-                } else if (wrapper instanceof this.matchingBracketCtor) {
-                    sameBracketTypeCounter--;
-                } 
-                if (!(wrapper instanceof eqEd.BracketWrapper)) {
-                    maxTopAlign = (wrapper.topAlign > maxTopAlign) ? wrapper.topAlign : maxTopAlign;
-                    maxBottomAlign = (wrapper.bottomAlign > maxBottomAlign) ? wrapper.bottomAlign : maxBottomAlign;
-                }
-            }
             var desiredHeight = 0;
-            if (matchingBracketIndex !== null && !(maxTopAlign === 0 && maxBottomAlign === 0)) {
-                desiredHeight = (maxTopAlign > maxBottomAlign) ? 2 * maxTopAlign  : 2 * maxBottomAlign;
-            } else {
-                var fontHeight = this.symbolSizeConfig.height[this.parent.fontSize];
-                desiredHeight = fontHeight;
+            if (this.parent instanceof eqEd.BracketWrapper) {
+                var sameBracketTypeCounter = 0;
+                var matchingBracketIndex = null;
+                var maxTopAlign = 0;
+                var maxBottomAlign = 0;
+                for (var i = (this.parent.index - 1); i >= 0; i--) {
+                    var wrapper = this.parent.parent.wrappers[i];
+                    if (wrapper instanceof eqEd.BracketWrapper) {
+                        if (wrapper.bracket instanceof this.constructor) {
+                            sameBracketTypeCounter++;
+                        } else if (wrapper.bracket instanceof this.matchingBracketCtor 
+                                    && sameBracketTypeCounter === 0) {
+                            matchingBracketIndex = i;
+                            break;
+                        } else if (wrapper.bracket instanceof this.matchingBracketCtor) {
+                            sameBracketTypeCounter--;
+                        }
+                    } else {
+                        maxTopAlign = (wrapper.topAlign > maxTopAlign) ? wrapper.topAlign : maxTopAlign;
+                        maxBottomAlign = (wrapper.bottomAlign > maxBottomAlign) ? wrapper.bottomAlign : maxBottomAlign;
+                    }
+                }
+                if (matchingBracketIndex !== null && !(maxTopAlign === 0 && maxBottomAlign === 0)) {
+                    desiredHeight = (maxTopAlign > maxBottomAlign) ? 2 * maxTopAlign  : 2 * maxBottomAlign;
+                } else {
+                    var fontHeight = this.symbolSizeConfig.height[this.parent.parent.fontSize];
+                    desiredHeight = fontHeight;
+                }
+            } else if (this.parent instanceof eqEd.BracketPairWrapper) {
+                desiredHeightVal = 0;
             }
             return desiredHeight;
         },
