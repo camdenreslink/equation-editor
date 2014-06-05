@@ -12,7 +12,7 @@ eqEd.RightBracket = function(symbolSizeConfig) {
             desiredHeight = value;
         },
         compute: function() {
-            var desiredHeight = 0;
+            var desiredHeightVal = 0;
             if (this.parent instanceof eqEd.BracketWrapper) {
                 var sameBracketTypeCounter = 0;
                 var matchingBracketIndex = null;
@@ -36,19 +36,21 @@ eqEd.RightBracket = function(symbolSizeConfig) {
                     }
                 }
                 if (matchingBracketIndex !== null && !(maxTopAlign === 0 && maxBottomAlign === 0)) {
-                    desiredHeight = (maxTopAlign > maxBottomAlign) ? 2 * maxTopAlign  : 2 * maxBottomAlign;
+                    desiredHeightVal = (maxTopAlign > maxBottomAlign) ? 2 * maxTopAlign : 2 * maxBottomAlign;
                 } else {
                     var fontHeight = this.symbolSizeConfig.height[this.parent.parent.fontSize];
-                    desiredHeight = fontHeight;
+                    desiredHeightVal = fontHeight;
                 }
             } else if (this.parent instanceof eqEd.BracketPairWrapper) {
-                desiredHeightVal = 0;
+                if (this.parent.bracketContainer.wrappers.length > 0) { 
+                    var maxTopAlign = this.parent.bracketContainer.wrappers[this.parent.bracketContainer.maxTopAlignIndex].topAlign;
+                    var maxBottomAlign = this.parent.bracketContainer.wrappers[this.parent.bracketContainer.maxBottomAlignIndex].bottomAlign;
+                    desiredHeightVal = (maxTopAlign > maxBottomAlign) ? 2 * maxTopAlign : 2 * maxBottomAlign;
+                }
             }
-            return desiredHeight;
+            return desiredHeightVal;
         },
-        updateDom: function() {
-            this.domObj.updateHeight(this.height);
-        }
+        updateDom: function() {}
     }));
 };
 (function() {

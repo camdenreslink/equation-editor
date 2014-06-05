@@ -53,8 +53,11 @@ eqEd.Bracket = function(symbolSizeConfig) {
             left = value;
         },
         compute: function() {
-            // remember compute hooks get called.
-            return 0;
+            var leftVal = 0;
+            if (this.parent instanceof eqEd.BracketPairWrapper && this instanceof eqEd.RightBracket) {
+                leftVal = this.parent.leftBracket.width + this.parent.bracketContainer.width;
+            }
+            return leftVal;
         },
         updateDom: function() {
             this.domObj.updateLeft(this.left);

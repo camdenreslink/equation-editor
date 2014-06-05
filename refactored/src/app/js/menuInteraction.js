@@ -96,4 +96,40 @@ var setupMenuEvents = function(symbolSizeConfig) {
         var rightCeilBracketWrapper = new eqEd.BracketWrapper("rightCeilBracket", symbolSizeConfig);
         insertWrapper(rightCeilBracketWrapper);
     });
+    $(document).on('mousedown', '#parenthesesBracketPairButton', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var parenthesesBracketPair = new eqEd.BracketPairWrapper("parenthesisBracket", symbolSizeConfig);
+        insertWrapper(parenthesesBracketPair);
+    });
+    $(document).on('mousedown', '#squareBracketPairButton', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var squareBracketPair = new eqEd.BracketPairWrapper("squareBracket", symbolSizeConfig);
+        insertWrapper(squareBracketPair);
+    });
+
+    $(document).on('mousedown', '#curlyBracketPairButton', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var curlyBracketPair = new eqEd.BracketPairWrapper("curlyBracket", symbolSizeConfig);
+        insertWrapper(curlyBracketPair);
+    });
+    $(document).on('mousedown', '#angleBracketPairButton', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var angleBracketPair = new eqEd.BracketPairWrapper("angleBracket", symbolSizeConfig);
+        insertWrapper(angleBracketPair);
+    });$(document).on('mousedown', '#floorBracketPairButton', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var floorBracketPair = new eqEd.BracketPairWrapper("floorBracket", symbolSizeConfig);
+        insertWrapper(floorBracketPair);
+    });
+    $(document).on('mousedown', '#ceilBracketPairButton', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var ceilBracketPair = new eqEd.BracketPairWrapper("ceilBracket", symbolSizeConfig);
+        insertWrapper(ceilBracketPair);
+    });
 };

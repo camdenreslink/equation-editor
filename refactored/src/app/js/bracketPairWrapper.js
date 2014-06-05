@@ -1,17 +1,48 @@
-eqEd.BracketPairWrapper = function(symbolSizeConfig) {
+eqEd.BracketPairWrapper = function(bracketType, symbolSizeConfig) {
     eqEd.Wrapper.call(this, symbolSizeConfig); // call super constructor.
     this.className = "eqEd.BracketPairWrapper";
 
-    // Brackets themselves will be created in specific BracketPair classes that
-    // inherit from this superclass.
-    this.leftBracketPair = null;
+    this.bracketType = bracketType;
+    var bracketCtors = {
+        "parenthesisBracket": {
+            'left': eqEd.LeftParenthesisBracket,
+            'right': eqEd.RightParenthesisBracket
+        },
+        "squareBracket": {
+            'left': eqEd.LeftSquareBracket,
+            'right': eqEd.RightSquareBracket
+        },
+        "curlyBracket": {
+            'left': eqEd.LeftCurlyBracket,
+            'right': eqEd.RightCurlyBracket
+        },
+        "angleBracket": {
+            'left': eqEd.LeftAngleBracket,
+            'right': eqEd.RightAngleBracket
+        },
+        "floorBracket": {
+            'left': eqEd.LeftFloorBracket,
+            'right': eqEd.RightFloorBracket
+        },
+        "ceilBracket": {
+            'left': eqEd.LeftCeilBracket,
+            'right': eqEd.RightCeilBracket
+        }
+    };
+
+    this.leftBracket = new bracketCtors[bracketType]['left'](symbolSizeConfig);
     this.bracketContainer = new eqEd.BracketContainer(symbolSizeConfig);
-    this.rightBracketPair = null;
+    this.rightBracket = new bracketCtors[bracketType]['right'](symbolSizeConfig);
+    this.leftBracket.parent = this;
     this.bracketContainer.parent = this;
+    this.rightBracket.parent = this;
     this.domObj = this.buildDomObj();
+    this.domObj.append(this.leftBracket.domObj);
     this.domObj.append(this.bracketContainer.domObj);
+    this.domObj.append(this.rightBracket.domObj);
     
     this.childContainers = [this.bracketContainer];
+    this.childNoncontainers = [this.leftBracket, this.rightBracket];
 
     // Set up the width calculation
     var width = 0;
@@ -23,7 +54,7 @@ eqEd.BracketPairWrapper = function(symbolSizeConfig) {
             width = value;
         },
         compute: function() {
-            return this.leftBracketPair.width + this.bracketContainer.width + this.rightBracketPair.width;
+            return this.leftBracket.width + this.bracketContainer.width + this.rightBracket.width;
         },
         updateDom: function() {
             this.domObj.updateWidth(this.width);
@@ -40,7 +71,7 @@ eqEd.BracketPairWrapper = function(symbolSizeConfig) {
             topAlign = value;
         },
         compute: function() {
-            return this.bracketContainer.wrappers[this.bracketContainer.maxTopAlignIndex];
+            return 0.5 * this.leftBracket.height;
         },
         updateDom: function() {}
     }));
@@ -55,7 +86,7 @@ eqEd.BracketPairWrapper = function(symbolSizeConfig) {
             bottomAlign = value;
         },
         compute: function() {
-            return this.bracketContainer.wrappers[this.bracketContainer.maxBottomAlignIndex];
+            return 0.5 * this.leftBracket.height;
         },
         updateDom: function() {}
     }));
@@ -64,21 +95,25 @@ eqEd.BracketPairWrapper = function(symbolSizeConfig) {
     // subclass extends superclass
     eqEd.BracketPairWrapper.prototype = Object.create(eqEd.Wrapper.prototype);
     eqEd.BracketPairWrapper.prototype.constructor = eqEd.BracketPairWrapper;
+    eqEd.BracketPairWrapper.prototype.buildDomObj = function() {
+        return new eqEd.WrapperDom(this,
+            '<div class="wrappper bracketPairWrapper ' + this.bracketType + '"></div>')
+    };
     eqEd.BracketPairWrapper.prototype.clone = function() {
         var copy = new this.constructor(this.symbolSizeConfig);
 
-        copy.leftBracketPair = this.leftBracketPair.clone();
+        copy.leftBracket = this.leftBracket.clone();
         copy.bracketContainer = this.bracketContainer.clone();
-        copy.rightBracketPair = this.rightBracketPair.clone();
-        copy.leftBracketPair.parent = copy;
+        copy.rightBracket = this.rightBracket.clone();
+        copy.leftBracket.parent = copy;
         copy.bracketContainer.parent = copy;
-        copy.rightBracketPair.parent = copy;
+        copy.rightBracket.parent = copy;
         copy.domObj = copy.buildDomObj();
-        copy.domObj.append(copy.leftBracketPair.domObj);
+        copy.domObj.append(copy.leftBracket.domObj);
         copy.domObj.append(copy.bracketContainer.domObj);
-        copy.domObj.append(copy.rightBracketPair.domObj);
+        copy.domObj.append(copy.rightBracket.domObj);
         
-        copy.childNoncontainers = [copy.leftBracketPair, copy.rightBracketPair];
+        copy.childNoncontainers = [copy.leftBracket, copy.rightBracket];
         this.childContainers = [this.bracketContainer];
 
         return copy;

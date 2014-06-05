@@ -78,7 +78,7 @@ eqEd.BracketWrapper = function(bracketType, symbolSizeConfig) {
     eqEd.BracketWrapper.prototype = Object.create(eqEd.Wrapper.prototype);
     eqEd.BracketWrapper.prototype.constructor = eqEd.BracketWrapper;
     eqEd.BracketWrapper.prototype.buildDomObj = function() {
-        return new eqEd.EquationDom(this,
+        return new eqEd.WrapperDom(this,
             '<div class="wrappper bracketWrapper ' + this.bracketType + '"></div>')
     };
     eqEd.BracketWrapper.prototype.clone = function() {
