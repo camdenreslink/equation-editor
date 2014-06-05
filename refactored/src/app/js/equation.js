@@ -75,6 +75,7 @@ eqEd.Equation = function(symbolSizeConfig) {
         }
         for (var i = 0; i < this.children.length; i++) {
             this.children[i].update();
+            //console.log(this.className);
         }
     };
     // updateAll allows formatting the entire equation

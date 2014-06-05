@@ -1,6 +1,7 @@
 .equation {
     position: relative;
     line-height: 1;
+    overflow: visible;
 }
 
 .activeContainer .hoverContainer {
@@ -18,7 +19,6 @@
     position: absolute;
     top: 0em;
     left: 0em;
-    overflow: visible;
     /* Try to prevent highlighting */
     -webkit-touch-callout: none;
     -webkit-user-select: none;
@@ -136,7 +136,6 @@ div.activeContainer {
 }
 
 .wrapper {
-    overflow: visible;
     z-index: 3;
 }
 
@@ -162,10 +161,6 @@ div.activeContainer {
 
 .nthRootRadical {
     z-index: 7;
-}
-
-.bracketWrapper {
-    overflow: hidden;
 }
 
 .nonHighlightVersion {

@@ -63,37 +63,37 @@ var setupMenuEvents = function(symbolSizeConfig) {
     $(document).on('mousedown', '#leftAngleBracketButton', function (e) {
         e.preventDefault();
         e.stopPropagation();
-        var leftAngleBracketWrapper = new eqEd.LeftAngleBracketWrapper(symbolSizeConfig);
+        var leftAngleBracketWrapper = new eqEd.BracketWrapper("leftAngleBracket", symbolSizeConfig);
         insertWrapper(leftAngleBracketWrapper);
     });
     $(document).on('mousedown', '#rightAngleBracketButton', function (e) {
         e.preventDefault();
         e.stopPropagation();
-        var rightAngleBracketWrapper = new eqEd.RightAngleBracketWrapper(symbolSizeConfig);
+        var rightAngleBracketWrapper = new eqEd.BracketWrapper("rightAngleBracket", symbolSizeConfig);
         insertWrapper(rightAngleBracketWrapper);
     });
     $(document).on('mousedown', '#leftFloorBracketButton', function (e) {
         e.preventDefault();
         e.stopPropagation();
-        var leftFloorBracketWrapper = new eqEd.LeftFloorBracketWrapper(symbolSizeConfig);
+        var leftFloorBracketWrapper = new eqEd.BracketWrapper("leftFloorBracket", symbolSizeConfig);
         insertWrapper(leftFloorBracketWrapper);
     });
     $(document).on('mousedown', '#rightFloorBracketButton', function (e) {
         e.preventDefault();
         e.stopPropagation();
-        var rightFloorBracketWrapper = new eqEd.RightFloorBracketWrapper(symbolSizeConfig);
+        var rightFloorBracketWrapper = new eqEd.BracketWrapper("rightFloorBracket", symbolSizeConfig);
         insertWrapper(rightFloorBracketWrapper);
     });
     $(document).on('mousedown', '#leftCeilBracketButton', function (e) {
         e.preventDefault();
         e.stopPropagation();
-        var leftCeilBracketWrapper = new eqEd.LeftCeilBracketWrapper(symbolSizeConfig);
+        var leftCeilBracketWrapper = new eqEd.BracketWrapper("leftCeilBracket", symbolSizeConfig);
         insertWrapper(leftCeilBracketWrapper);
     });
     $(document).on('mousedown', '#rightCeilBracketButton', function (e) {
         e.preventDefault();
         e.stopPropagation();
-        var rightCeilBracketWrapper = new eqEd.RightCeilBracketWrapper(symbolSizeConfig);
+        var rightCeilBracketWrapper = new eqEd.BracketWrapper("rightCeilBracket", symbolSizeConfig);
         insertWrapper(rightCeilBracketWrapper);
     });
 };

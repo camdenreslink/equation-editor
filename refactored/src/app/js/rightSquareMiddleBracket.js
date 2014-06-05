@@ -18,7 +18,7 @@ eqEd.RightSquareMiddleBracket = function(index, symbolSizeConfig) {
             top = value;
         },
         compute: function() {
-            var fontHeight = this.symbolSizeConfig.height[this.parent.parent.fontSize];
+            var fontHeight = this.symbolSizeConfig.height[this.parent.parent.parent.fontSize];
             return (0.45 * this.index - 0.15) * fontHeight;
         },
         updateDom: function() {

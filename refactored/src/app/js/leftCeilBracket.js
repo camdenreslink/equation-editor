@@ -1,5 +1,5 @@
 eqEd.LeftCeilBracket = function(symbolSizeConfig) {
-	eqEd.LeftBracketWrapper.call(this, symbolSizeConfig); // call super constructor.
+	eqEd.LeftBracket.call(this, symbolSizeConfig); // call super constructor.
 	this.className = "eqEd.LeftCeilBracket";
 
     this.matchingBracketCtor = eqEd.RightCeilBracket;

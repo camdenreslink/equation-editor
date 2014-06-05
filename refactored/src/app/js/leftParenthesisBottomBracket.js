@@ -18,7 +18,7 @@ eqEd.LeftParenthesisBottomBracket = function(symbolSizeConfig) {
             top = value;
         },
         compute: function() {
-            var fontHeight = this.symbolSizeConfig.height[this.parent.parent.fontSize];
+            var fontHeight = this.symbolSizeConfig.height[this.parent.parent.parent.fontSize];
             var topVal = 0;
             if (this.parent.middleBrackets.length === 0) {
                 topVal = 1.939 * fontHeight;

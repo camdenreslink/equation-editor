@@ -21,7 +21,7 @@ eqEd.RightCurlyMiddleBracket = function(index, characterType, symbolSizeConfig) 
             top = value;
         },
         compute: function() {
-            var fontHeight = this.symbolSizeConfig.height[this.parent.parent.fontSize];
+            var fontHeight = this.symbolSizeConfig.height[this.parent.parent.parent.fontSize];
             var topVal = 0;
             var numSegs = this.parent.middleBrackets.length - 1;
             var adjustTopFactor = 0.231;

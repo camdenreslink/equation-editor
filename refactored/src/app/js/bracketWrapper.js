@@ -19,10 +19,12 @@ eqEd.BracketWrapper = function(bracketType, symbolSizeConfig) {
     };
 
     this.domObj = this.buildDomObj();
-    
-    this.bracket = new bracketCtors[bracketType];
+
+    this.bracket = new bracketCtors[bracketType](symbolSizeConfig);
     this.bracket.parent = this;
     this.domObj.append(this.bracket.domObj);
+
+    this.childNoncontainers = [this.bracket];
 
     // Set up the width calculation
     var width = 0;
