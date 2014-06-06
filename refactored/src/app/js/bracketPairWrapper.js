@@ -52,6 +52,9 @@ eqEd.BracketPairWrapper = function(bracketType, symbolSizeConfig) {
     this.childContainers = [this.bracketContainer];
     this.childNoncontainers = [this.leftBracket, this.rightBracket];
 
+    this.padTop = 0.05;
+    this.padBottom = 0.05;
+
     // Set up the width calculation
     var width = 0;
     this.properties.push(new Property(this, "width", width, {

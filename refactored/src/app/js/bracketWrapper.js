@@ -26,6 +26,9 @@ eqEd.BracketWrapper = function(bracketType, symbolSizeConfig) {
 
     this.childNoncontainers = [this.bracket];
 
+    this.padTop = 0.1;
+    this.padBottom = 0.1;
+
     // Set up the width calculation
     var width = 0;
     this.properties.push(new Property(this, "width", width, {

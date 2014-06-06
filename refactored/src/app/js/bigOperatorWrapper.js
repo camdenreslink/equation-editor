@@ -39,6 +39,9 @@ eqEd.BigOperatorWrapper = function(hasUpperLimit, hasLowerLimit, bigOperatorType
     this.childNoncontainers = [this.symbol];
     this.childContainers.push(this.operandContainer);
 
+    this.padLeft = 0.1;
+    this.padRight = 0.05;
+
 
     // Set up the width calculation
     var width = 0;
@@ -122,21 +125,27 @@ eqEd.BigOperatorWrapper = function(hasUpperLimit, hasLowerLimit, bigOperatorType
     eqEd.BigOperatorWrapper.prototype.clone = function() {
         var copy = new this.constructor(this.hasUpperLimit, this.hasLowerLimit, this.bigOperatorType, this.symbolSizeConfig);
 
-        copy.upperLimitContainer = this.upperLimitContainer.clone();
-        copy.lowerLimitContainer = this.lowerLimitContainer.clone();
-        copy.operandContainer = this.operandContainer.clone();
-        copy.symbol = this.operandContainer.clone();
-        copy.upperLimitContainer.parent = copy;
-        copy.lowerLimitContainer.parent = copy;
-        copy.operandContainer.parent = copy;
-        copy.symbol.parent = copy;
+        copy.childContainers = [];
         copy.domObj = copy.buildDomObj();
-        copy.domObj.append(copy.upperLimitContainer.domObj);
-        copy.domObj.append(copy.lowerLimitContainer.domObj);
+
+        if (copy.hasUpperLimit) {
+            copy.upperLimitContainer = this.upperLimitContainer.clone();
+            copy.upperLimitContainer.parent = copy;
+            copy.domObj.append(copy.upperLimitContainer.domObj);
+            copy.childContainers.push(copy.upperLimitContainer);
+        }
+        if (copy.hasLowerLimit) {
+            copy.lowerLimitContainer = this.lowerLimitContainer.clone();
+            copy.lowerLimitContainer.parent = copy;
+            copy.domObj.append(copy.lowerLimitContainer.domObj);
+            copy.childContainers.push(copy.lowerLimitContainer);
+        }
+        copy.operandContainer = this.operandContainer.clone();
+        
+        copy.operandContainer.parent = copy;
+
         copy.domObj.append(copy.operandContainer.domObj);
-        copy.domObj.append(copy.symbol.domObj);        
-        copy.childNoncontainers = [copy.symbol];
-        copy.childContainers = [copy.upperLimitContainer, copy.lowerLimitContainer, copy.operandContainer];
+        copy.childContainers.push(copy.operandContainer);
 
         return copy;
     }
