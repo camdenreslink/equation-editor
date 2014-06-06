@@ -27,6 +27,14 @@ eqEd.BracketPairWrapper = function(bracketType, symbolSizeConfig) {
         "ceilBracket": {
             'left': eqEd.LeftCeilBracket,
             'right': eqEd.RightCeilBracket
+        },
+        "absValBracket": {
+            'left': eqEd.LeftAbsValBracket,
+            'right': eqEd.RightAbsValBracket
+        },
+        "normBracket": {
+            'left': eqEd.LeftNormBracket,
+            'right': eqEd.RightNormBracket
         }
     };
 
@@ -71,7 +79,17 @@ eqEd.BracketPairWrapper = function(bracketType, symbolSizeConfig) {
             topAlign = value;
         },
         compute: function() {
-            return 0.5 * this.leftBracket.height;
+            var topAlignVal = 0;
+            if (this.bracketContainer.wrappers.length > 0) {
+                var containerTopAlign = this.bracketContainer.wrappers[this.bracketContainer.maxTopAlignIndex].topAlign;
+                var bracketTopAlign = 0.5 * this.leftBracket.height;
+                if (bracketTopAlign < containerTopAlign) {
+                    topAlignVal = containerTopAlign;
+                } else {
+                    topAlignVal = bracketTopAlign;
+                }
+            }
+            return topAlignVal;
         },
         updateDom: function() {}
     }));
@@ -86,7 +104,17 @@ eqEd.BracketPairWrapper = function(bracketType, symbolSizeConfig) {
             bottomAlign = value;
         },
         compute: function() {
-            return 0.5 * this.leftBracket.height;
+            var bottomAlignVal = 0;
+            if (this.bracketContainer.wrappers.length > 0) {
+                var containerBottomAlign = this.bracketContainer.wrappers[this.bracketContainer.maxBottomAlignIndex].bottomAlign;
+                var bracketBottomAlign = 0.5 * this.leftBracket.height;
+                if (bracketBottomAlign < containerBottomAlign) {
+                    bottomAlignVal = containerBottomAlign;
+                } else {
+                    bottomAlignVal = bracketBottomAlign;
+                }
+            }
+            return bottomAlignVal;
         },
         updateDom: function() {}
     }));

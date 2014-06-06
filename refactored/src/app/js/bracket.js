@@ -35,8 +35,17 @@ eqEd.Bracket = function(symbolSizeConfig) {
             top = value;
         },
         compute: function() {
-            // remember compute hooks get called.
-            return 0;
+            var topVal = 0;
+            if (this.parent instanceof eqEd.BracketPairWrapper) {
+                if (this.parent.bracketContainer.wrappers.length > 0) {
+                    var containerTopAlign = this.parent.bracketContainer.wrappers[this.parent.bracketContainer.maxTopAlignIndex].topAlign;
+                    var bracketTopAlign = 0.5 * this.height;
+                    if (bracketTopAlign < containerTopAlign) {
+                        topVal = containerTopAlign - bracketTopAlign;
+                    }
+                }
+            }
+            return topVal;
         },
         updateDom: function() {
             this.domObj.updateTop(this.top);

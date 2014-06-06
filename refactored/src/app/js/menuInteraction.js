@@ -132,4 +132,16 @@ var setupMenuEvents = function(symbolSizeConfig) {
         var ceilBracketPair = new eqEd.BracketPairWrapper("ceilBracket", symbolSizeConfig);
         insertWrapper(ceilBracketPair);
     });
+    $(document).on('mousedown', '#absValBracketPairButton', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var absValBracketPair = new eqEd.BracketPairWrapper("absValBracket", symbolSizeConfig);
+        insertWrapper(absValBracketPair);
+    });
+    $(document).on('mousedown', '#normBracketPairButton', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var normBracketPair = new eqEd.BracketPairWrapper("normBracket", symbolSizeConfig);
+        insertWrapper(normBracketPair);
+    });
 };

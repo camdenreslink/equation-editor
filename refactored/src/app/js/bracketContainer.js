@@ -35,8 +35,15 @@ eqEd.BracketContainer = function(symbolSizeConfig) {
         compute: function() {
             var topVal = 0;
             if (this.wrappers.length > 0) {
+                /*
                 var maxTopAlign = this.wrappers[this.maxTopAlignIndex].topAlign;
                 topVal = 0.5 * this.parent.leftBracket.height - maxTopAlign;
+                */
+                var containerTopAlign = this.wrappers[this.maxTopAlignIndex].topAlign;
+                var bracketTopAlign = 0.5 * this.parent.leftBracket.height;
+                if (bracketTopAlign > containerTopAlign) {
+                    topVal = bracketTopAlign - containerTopAlign;
+                }
             }
             return topVal;
         },
