@@ -5,7 +5,6 @@ eqEd.LeftCeilWholeBracket = function(fontStyle, symbolSizeConfig) {
     this.character = "&#8968;";
     this.fontStyle = fontStyle;
     this.domObj = this.buildDomObj();
-    this.adjustLeft = 0.001;
     this.adjustTop = 0;
     if (this.fontStyle === "MathJax_Main") {
         this.adjustTop = -0.0625;

@@ -5,8 +5,6 @@ eqEd.RightSquareBottomBracket = function(symbolSizeConfig) {
     this.character = "&#9126;";
     this.fontStyle = "MathJax_Size4";
     this.domObj = this.buildDomObj();
-    this.adjustLeft = 0.001;
-    this.adjustTop = 0;
 
     // Set up the top calculation
     var top = 0;

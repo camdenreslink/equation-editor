@@ -5,7 +5,6 @@ eqEd.LeftParenthesisTopBracket = function(symbolSizeConfig) {
     this.character = "&#9115;";
     this.fontStyle = "MathJax_Size4";
     this.domObj = this.buildDomObj();
-    this.adjustLeft = 0.001;
     this.adjustTop = 0.4;
 };
 (function() {

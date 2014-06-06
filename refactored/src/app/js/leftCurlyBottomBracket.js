@@ -6,10 +6,6 @@ eqEd.LeftCurlyBottomBracket = function(symbolSizeConfig) {
     this.fontStyle = "MathJax_Size4";
     this.domObj = this.buildDomObj();
 
-    if (ChromeVersion > 0) {
-        this.adjustLeft += -0.025;
-    }
-
     // Set up the top calculation
     var top = 0;
     this.properties.push(new Property(this, "top", top, {

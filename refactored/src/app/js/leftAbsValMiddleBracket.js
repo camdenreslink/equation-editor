@@ -2,11 +2,9 @@ eqEd.LeftAbsValMiddleBracket = function(index, symbolSizeConfig) {
     eqEd.MiddleBracket.call(this, index, symbolSizeConfig); // call super constructor.
     this.className = "eqEd.LeftAbsValMiddleBracket";
     
-    this.character = "&#9122;";
-    this.fontStyle = "MathJax_Size4";
+    this.character = "|";
+    this.fontStyle = "MathJax_Main";
     this.domObj = this.buildDomObj();
-    this.adjustLeft = 0.001;
-    this.adjustTop = 0;
 
     // Set up the top calculation
     var top = 0;
@@ -19,7 +17,7 @@ eqEd.LeftAbsValMiddleBracket = function(index, symbolSizeConfig) {
         },
         compute: function() {
             var fontHeight = this.symbolSizeConfig.height[this.parent.parent.parent.fontSize];
-            return (0.45 * this.index - 0.15) * fontHeight;
+            return (0.5 * this.index - 0.06) * fontHeight;
         },
         updateDom: function() {
             this.domObj.updateTop(this.top);

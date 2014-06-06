@@ -43,7 +43,6 @@ eqEd.LeftBracket = function(symbolSizeConfig) {
                 }
             } else if (this.parent instanceof eqEd.BracketPairWrapper) {
                 if (this.parent.bracketContainer.wrappers.length > 0) {
-                    console.log("what?"); 
                     var maxTopAlign = this.parent.bracketContainer.wrappers[this.parent.bracketContainer.maxTopAlignIndex].topAlign;
                     var maxBottomAlign = this.parent.bracketContainer.wrappers[this.parent.bracketContainer.maxBottomAlignIndex].bottomAlign;
                     desiredHeightVal = (maxTopAlign > maxBottomAlign) ? 2 * maxTopAlign : 2 * maxBottomAlign;
