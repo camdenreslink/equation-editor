@@ -128,7 +128,7 @@ eqEd.BracketPairWrapper = function(bracketType, symbolSizeConfig) {
             '<div class="wrappper bracketPairWrapper ' + this.bracketType + '"></div>')
     };
     eqEd.BracketPairWrapper.prototype.clone = function() {
-        var copy = new this.constructor(this.symbolSizeConfig);
+        var copy = new this.constructor(this.bracketType, this.symbolSizeConfig);
 
         copy.leftBracket = this.leftBracket.clone();
         copy.bracketContainer = this.bracketContainer.clone();
@@ -142,7 +142,7 @@ eqEd.BracketPairWrapper = function(bracketType, symbolSizeConfig) {
         copy.domObj.append(copy.rightBracket.domObj);
         
         copy.childNoncontainers = [copy.leftBracket, copy.rightBracket];
-        this.childContainers = [this.bracketContainer];
+        copy.childContainers = [copy.bracketContainer];
 
         return copy;
     }
