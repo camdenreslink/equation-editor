@@ -8,7 +8,7 @@ eqEd.SuperscriptWrapper = function(symbolSizeConfig) {
     this.domObj.append(this.superscriptContainer.domObj);
     this.childContainers = [this.superscriptContainer];
     this.maxBaseWrapperOverlap = 0.9;
-    this.padLeft = 0.05;
+    //this.padLeft = 0.05;
 
     // Set up the width calculation
     var width = 0;
