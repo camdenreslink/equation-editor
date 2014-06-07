@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="39.999485"
+   height="56.000526"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.48.4 r9939"
+   sodipodi:docname="bigSqCup.svg">
+  <defs
+     id="defs4" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="1.979899"
+     inkscape:cx="89.942881"
+     inkscape:cy="68.742566"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     showguides="true"
+     inkscape:guide-bbox="true"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0"
+     inkscape:window-width="1366"
+     inkscape:window-height="705"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-285.05712,-397.21982)">
+    <g
+       style="font-size:40px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:MathJax_Size2;-inkscape-font-specification:MathJax_Size2"
+       id="text2985">
+      <path
+         d="m 285.09712,398.7798 c -5e-4,0.12053 -0.004,1.44841 -0.0104,3.98365 -0.006,2.53531 -0.0128,5.79501 -0.0193,9.77913 -0.006,3.98417 -0.01,8.20979 -0.0104,12.67688 4.9e-4,4.46711 0.004,8.69273 0.0104,12.67687 0.006,3.98414 0.0128,7.24385 0.0193,9.77914 0.006,2.53526 0.01,3.86314 0.0104,3.98365 0.20666,0.72664 0.71332,1.2333 1.51998,1.51998 l 18.31976,0.04 c 6.62322,8.1e-4 11.36649,-8.5e-4 14.22982,-0.005 2.86326,-0.004 4.30657,-0.0159 4.32994,-0.035 0.36829,-0.0858 0.69162,-0.26418 0.96999,-0.53499 0.27829,-0.27085 0.46162,-0.59918 0.54999,-0.98499 4.6e-4,-0.12051 0.004,-1.44839 0.0104,-3.98365 0.006,-2.53529 0.0128,-5.795 0.0193,-9.77914 0.006,-3.98414 0.01,-8.20976 0.0104,-12.67687 -5.3e-4,-4.46709 -0.004,-8.69271 -0.0104,-12.67688 -0.006,-3.98412 -0.0129,-7.24382 -0.0193,-9.77913 -0.006,-2.53524 -0.01,-3.86312 -0.0104,-3.98365 -0.11004,-0.44996 -0.34003,-0.81995 -0.68999,-1.10999 -0.35003,-0.28996 -0.76003,-0.43995 -1.22998,-0.44999 -0.47004,0.01 -0.88003,0.16004 -1.22999,0.44999 -0.35003,0.29004 -0.58003,0.66003 -0.68999,1.10999 -0.0192,-0.008 -0.0309,1.96834 -0.035,5.92992 -0.004,3.96165 -0.006,10.43822 -0.005,19.42975 l 0,25.15968 -32.15958,0 0,-25.15968 c 8.3e-4,-8.99153 -8.4e-4,-15.46811 -0.005,-19.42975 -0.004,-3.96158 -0.0158,-5.93822 -0.035,-5.92992 -0.11167,-0.46746 -0.34834,-0.84245 -0.70999,-1.12499 -0.36167,-0.28246 -0.77833,-0.42745 -1.24999,-0.43499 -0.50333,0.015 -0.91665,0.17503 -1.23998,0.47999 -0.32333,0.30504 -0.53666,0.66503 -0.63999,1.07999 z"
+         style=""
+         id="path2990" />
+    </g>
+  </g>
+</svg>

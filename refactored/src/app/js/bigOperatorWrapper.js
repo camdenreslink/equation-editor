@@ -6,10 +6,16 @@ eqEd.BigOperatorWrapper = function(hasUpperLimit, hasLowerLimit, bigOperatorType
     this.hasLowerLimit = hasLowerLimit;
     this.bigOperatorType = bigOperatorType;
 
-    var bigOperatorSymbolCtors = {
+    this.bigOperatorSymbolCtors = {
         'sum': eqEd.SumBigOperatorSymbol,
         'bigCap': eqEd.BigCapBigOperatorSymbol,
-        'bigCup': eqEd.BigCupBigOperatorSymbol
+        'bigCup': eqEd.BigCupBigOperatorSymbol,
+        'bigSqCap': eqEd.BigSqCapBigOperatorSymbol,
+        'bigSqCup': eqEd.BigSqCupBigOperatorSymbol,
+        'prod': eqEd.ProdBigOperatorSymbol,
+        'coProd': eqEd.CoProdBigOperatorSymbol,
+        'bigVee': eqEd.BigVeeBigOperatorSymbol,
+        'bigWedge': eqEd.BigWedgeBigOperatorSymbol
     }
 
     this.domObj = this.buildDomObj();
@@ -29,7 +35,7 @@ eqEd.BigOperatorWrapper = function(hasUpperLimit, hasLowerLimit, bigOperatorType
     }
     
     this.operandContainer = new eqEd.BigOperatorOperandContainer(symbolSizeConfig);
-    this.symbol = new bigOperatorSymbolCtors[this.bigOperatorType](symbolSizeConfig);
+    this.symbol = new this.bigOperatorSymbolCtors[this.bigOperatorType](symbolSizeConfig);
 
     this.operandContainer.parent = this;
     this.symbol.parent = this;
@@ -141,10 +147,15 @@ eqEd.BigOperatorWrapper = function(hasUpperLimit, hasLowerLimit, bigOperatorType
             copy.childContainers.push(copy.lowerLimitContainer);
         }
         copy.operandContainer = this.operandContainer.clone();
-        
+        copy.symbol = new copy.bigOperatorSymbolCtors[copy.bigOperatorType](copy.symbolSizeConfig);
+
         copy.operandContainer.parent = copy;
+        copy.symbol.parent = copy;
 
         copy.domObj.append(copy.operandContainer.domObj);
+        copy.domObj.append(copy.symbol.domObj);
+
+        copy.childNoncontainers = [copy.symbol];
         copy.childContainers.push(copy.operandContainer);
 
         return copy;

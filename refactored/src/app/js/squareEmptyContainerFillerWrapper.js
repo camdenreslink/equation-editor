@@ -18,6 +18,7 @@ eqEd.SquareEmptyContainerFillerWrapper = function(symbolSizeConfig) {
         },
         compute: function() {
             var fontHeight = this.symbolSizeConfig.height[this.parent.fontSize];
+            console.log(fontHeight);
             return this.sideLength * fontHeight;
         },
         updateDom: function() {
