@@ -21,24 +21,6 @@ eqEd.SumBigOperatorSymbol = function(symbolSizeConfig) {
             this.domObj.updateWidth(this.width);
         }
     }));
-
-    // Set up the height calculation
-    var height = 0;
-    this.properties.push(new Property(this, "height", height, {
-        get: function() {
-            return height;
-        },
-        set: function(value) {
-            height = value;
-        },
-        compute: function() {
-            var fontHeight = this.symbolSizeConfig.height[this.parent.parent.fontSize];
-            return 1.2 * fontHeight;
-        },
-        updateDom: function() {
-            this.domObj.updateHeight(this.height);
-        }
-    }));
 };
 (function() {
     // subclass extends superclass

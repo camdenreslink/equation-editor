@@ -40,20 +40,32 @@ eqEd.BigOperatorSymbol = function(symbolSizeConfig) {
             top = value;
         },
         compute: function() {
-            var topVal = 0;
-            var topValAdjust = this.parent.topAlign;
-            if (this.parent.hasUpperLimit) {
-                topVal += this.parent.upperLimitContainer.height;
-                topValAdjust -= this.parent.upperLimitContainer.height;
-            }
-            topValAdjust -= 0.5 * this.height;
-            return topVal + topValAdjust;
+            var fontHeight = this.symbolSizeConfig.height[this.parent.parent.fontSize];
+            var topVal = this.parent.topAlign - 0.5 * this.height;
+            return topVal;
         },
         updateDom: function() {
             this.domObj.updateTop(this.top);
         }
     }));
 
+    // Set up the height calculation
+    var height = 0;
+    this.properties.push(new Property(this, "height", height, {
+        get: function() {
+            return height;
+        },
+        set: function(value) {
+            height = value;
+        },
+        compute: function() {
+            var fontHeight = this.symbolSizeConfig.height[this.parent.parent.fontSize];
+            return 1.5 * fontHeight;
+        },
+        updateDom: function() {
+            this.domObj.updateHeight(this.height);
+        }
+    }));
 };
 (function() {
     // subclass extends superclass

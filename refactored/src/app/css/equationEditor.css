@@ -42,11 +42,11 @@
 }
 
 .fontSizeSmaller {
-    font-size: 32px; /* fontSizeNormal * 0.707 */
+    font-size: 35px; /* fontSizeNormal * 0.707 */
 }
 
 .fontSizeSmallest {
-    font-size: 28px; /* fontSizeNormal * 0.5 */
+    font-size: 30px; /* fontSizeNormal * 0.5 */
 }
 
 .fontSizeMessage {

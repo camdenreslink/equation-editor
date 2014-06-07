@@ -39,8 +39,8 @@ eqEd.SymbolSizeConfiguration = function() {
     // NOTE: Might want to add automatic process in the future.
     this.height = {
         "fontSizeMessage": 20,
-        "fontSizeSmallest": 28, 
-        "fontSizeSmaller": 32, 
+        "fontSizeSmallest": 30, 
+        "fontSizeSmaller": 35, 
         "fontSizeNormal": 45
     };
     // Eventual format will be this.width[character][fontStyle][fontSize]

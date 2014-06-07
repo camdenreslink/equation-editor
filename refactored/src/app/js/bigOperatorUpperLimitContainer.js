@@ -42,7 +42,8 @@ eqEd.BigOperatorUpperLimitContainer = function(symbolSizeConfig) {
             top = value;
         },
         compute: function() {
-            return this.parent.topAlign - (this.height + 0.5 * this.parent.symbol.height);
+            var fontHeight = this.symbolSizeConfig.height[this.parent.parent.fontSize];
+            return this.parent.topAlign - (this.height + 0.5 * this.parent.symbol.height + this.parent.upperLimitGap * fontHeight);
         },
         updateDom: function() {
             this.domObj.updateTop(this.top);
@@ -59,7 +60,13 @@ eqEd.BigOperatorUpperLimitContainer = function(symbolSizeConfig) {
             fontSize = value;
         },
         compute: function() {
-            return "fontSizeSmallest";
+            var fontSizeVal = "";
+            if (this.parent.parent.fontSize === "fontSizeSmaller" || this.parent.parent.fontSize === "fontSizeSmallest") {
+                fontSizeVal = "fontSizeSmallest";
+            } else {
+                fontSizeVal = "fontSizeSmaller";
+            }
+            return fontSizeVal;
         },
         updateDom: function() {
             this.domObj.updateFontSize(this.fontSize);

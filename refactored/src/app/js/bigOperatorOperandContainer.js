@@ -15,6 +15,7 @@ eqEd.BigOperatorOperandContainer = function(symbolSizeConfig) {
             left = value;
         },
         compute: function() {
+            var fontHeight = this.symbolSizeConfig.height[this.parent.parent.fontSize];
             var maxWidthList = [];
             if (this.parent.hasUpperLimit) {
                 maxWidthList.push(this.parent.upperLimitContainer.width);
@@ -24,7 +25,7 @@ eqEd.BigOperatorOperandContainer = function(symbolSizeConfig) {
             }
             maxWidthList.push(this.parent.symbol.width);
             var maxWidth = maxWidthList.max();
-            return maxWidth;
+            return maxWidth + this.parent.operandGap * fontHeight;
         },
         updateDom: function() {
             this.domObj.updateLeft(this.left);

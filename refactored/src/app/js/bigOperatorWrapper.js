@@ -6,6 +6,10 @@ eqEd.BigOperatorWrapper = function(hasUpperLimit, hasLowerLimit, bigOperatorType
     this.hasLowerLimit = hasLowerLimit;
     this.bigOperatorType = bigOperatorType;
 
+    this.upperLimitGap = 0.1;
+    this.lowerLimitGap = 0.2;
+    this.operandGap = 0.15;
+
     this.bigOperatorSymbolCtors = {
         'sum': eqEd.SumBigOperatorSymbol,
         'bigCap': eqEd.BigCapBigOperatorSymbol,
@@ -59,7 +63,8 @@ eqEd.BigOperatorWrapper = function(hasUpperLimit, hasLowerLimit, bigOperatorType
             width = value;
         },
         compute: function() {
-            return this.operandContainer.left + this.operandContainer.width;
+            var fontHeight = this.symbolSizeConfig.height[this.parent.fontSize];
+            return this.operandContainer.left + this.operandContainer.width + this.operandGap * fontHeight;
         },
         updateDom: function() {
             this.domObj.updateWidth(this.width);
@@ -79,7 +84,8 @@ eqEd.BigOperatorWrapper = function(hasUpperLimit, hasLowerLimit, bigOperatorType
             var topAlignVal = 0;
             if (this.operandContainer.wrappers.length > 0) {
                 if (this.hasUpperLimit) {
-                    var leftPartTopAlign = 0.5 * this.symbol.height + this.upperLimitContainer.height;
+                    var fontHeight = this.symbolSizeConfig.height[this.parent.fontSize];
+                    var leftPartTopAlign = 0.5 * this.symbol.height + this.upperLimitContainer.height + this.upperLimitGap * fontHeight;
                     var rightPartTopAlign = this.operandContainer.wrappers[this.operandContainer.maxTopAlignIndex].topAlign;
                     topAlignVal = (leftPartTopAlign > rightPartTopAlign) ? leftPartTopAlign : rightPartTopAlign;
                 } else {
@@ -106,7 +112,8 @@ eqEd.BigOperatorWrapper = function(hasUpperLimit, hasLowerLimit, bigOperatorType
             var bottomAlignVal = 0;
             if (this.operandContainer.wrappers.length > 0) {
                 if (this.hasLowerLimit) {
-                    var leftPartBottomAlign = 0.5 * this.symbol.height + this.lowerLimitContainer.height;
+                    var fontHeight = this.symbolSizeConfig.height[this.parent.fontSize];
+                    var leftPartBottomAlign = 0.5 * this.symbol.height + this.lowerLimitContainer.height + this.lowerLimitGap * fontHeight;
                     var rightPartBottomAlign = this.operandContainer.wrappers[this.operandContainer.maxBottomAlignIndex].bottomAlign;
                     bottomAlignVal = (leftPartBottomAlign > rightPartBottomAlign) ? leftPartBottomAlign : rightPartBottomAlign;
                 } else {
