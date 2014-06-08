@@ -1,7 +1,8 @@
-eqEd.BigOperatorWrapper = function(hasUpperLimit, hasLowerLimit, bigOperatorType, symbolSizeConfig) {
+eqEd.BigOperatorWrapper = function(isInline, hasUpperLimit, hasLowerLimit, bigOperatorType, symbolSizeConfig) {
     eqEd.Wrapper.call(this, symbolSizeConfig); // call super constructor.
     this.className = "eqEd.BigOperatorWrapper";
 
+    this.isInline = isInline;
     this.hasUpperLimit = hasUpperLimit;
     this.hasLowerLimit = hasLowerLimit;
     this.bigOperatorType = bigOperatorType;
@@ -9,6 +10,11 @@ eqEd.BigOperatorWrapper = function(hasUpperLimit, hasLowerLimit, bigOperatorType
     this.upperLimitGap = 0.1;
     this.lowerLimitGap = 0.2;
     this.operandGap = 0.15;
+
+    this.inlineUpperLimitOverlap = 0.4;
+    this.inlineLowerLimitOverlap = 0.4;
+    this.inlineLimitGap = 0.1;
+    this.inlineOperandGap = 0.15;
 
     this.bigOperatorSymbolCtors = {
         'sum': eqEd.SumBigOperatorSymbol,
@@ -49,7 +55,7 @@ eqEd.BigOperatorWrapper = function(hasUpperLimit, hasLowerLimit, bigOperatorType
     this.childNoncontainers = [this.symbol];
     this.childContainers.push(this.operandContainer);
 
-    this.padLeft = 0.1;
+    this.padLeft = 0.05;
     this.padRight = 0.05;
 
 
@@ -64,7 +70,30 @@ eqEd.BigOperatorWrapper = function(hasUpperLimit, hasLowerLimit, bigOperatorType
         },
         compute: function() {
             var fontHeight = this.symbolSizeConfig.height[this.parent.fontSize];
-            return this.operandContainer.left + this.operandContainer.width + this.operandGap * fontHeight;
+            var widthVal = 0;
+            if (this.isInline) {
+                var maxWidthList = [];
+                if (this.hasUpperLimit) {
+                    maxWidthList.push(this.upperLimitContainer.width);
+                }
+                if (this.hasLowerLimit) {
+                    maxWidthList.push(this.lowerLimitContainer.width);
+                }
+                var limitWidth = (maxWidthList.length > 0) ? maxWidthList.max() : 0;
+                widthVal = this.symbol.width + this.inlineLimitGap * fontHeight + limitWidth + this.inlineOperandGap * fontHeight + this.operandContainer.width;
+            } else {
+                var maxWidthList = [];
+                if (this.hasUpperLimit) {
+                    maxWidthList.push(this.upperLimitContainer.width);
+                }
+                if (this.hasLowerLimit) {
+                    maxWidthList.push(this.lowerLimitContainer.width);
+                }
+                maxWidthList.push(this.symbol.width);
+                var maxWidth = maxWidthList.max();
+                widthVal = maxWidth + this.operandContainer.width + this.operandGap * fontHeight;
+            }
+            return widthVal;
         },
         updateDom: function() {
             this.domObj.updateWidth(this.width);
@@ -82,18 +111,29 @@ eqEd.BigOperatorWrapper = function(hasUpperLimit, hasLowerLimit, bigOperatorType
         },
         compute: function() {
             var topAlignVal = 0;
-            if (this.operandContainer.wrappers.length > 0) {
+            var leftPartTopAlign = 0;
+            var rightPartTopAlign = this.operandContainer.wrappers[this.operandContainer.maxTopAlignIndex].topAlign;
+            if (this.isInline) {
                 if (this.hasUpperLimit) {
-                    var fontHeight = this.symbolSizeConfig.height[this.parent.fontSize];
-                    var leftPartTopAlign = 0.5 * this.symbol.height + this.upperLimitContainer.height + this.upperLimitGap * fontHeight;
-                    var rightPartTopAlign = this.operandContainer.wrappers[this.operandContainer.maxTopAlignIndex].topAlign;
-                    topAlignVal = (leftPartTopAlign > rightPartTopAlign) ? leftPartTopAlign : rightPartTopAlign;
+                    if (this.upperLimitContainer.height > this.symbol.height * this.inlineUpperLimitOverlap) {
+                        leftPartTopAlign = 0.1 * this.symbol.height + this.upperLimitContainer.height;
+                    } else {
+                        leftPartTopAlign = 0.5 * this.symbol.height;
+                    }
                 } else {
-                    var leftPartTopAlign = 0.5 * this.symbol.height;
-                    var rightPartTopAlign = this.operandContainer.wrappers[this.operandContainer.maxTopAlignIndex].topAlign;
-                    topAlignVal = (leftPartTopAlign > rightPartTopAlign) ? leftPartTopAlign : rightPartTopAlign;
+                    leftPartTopAlign = 0.5 * this.symbol.height;
+                }
+            } else {
+                if (this.operandContainer.wrappers.length > 0) {
+                    if (this.hasUpperLimit) {
+                        var fontHeight = this.symbolSizeConfig.height[this.parent.fontSize];
+                        leftPartTopAlign = 0.5 * this.symbol.height + this.upperLimitContainer.height + this.upperLimitGap * fontHeight;
+                    } else {
+                        leftPartTopAlign = 0.5 * this.symbol.height;
+                    }
                 }
             }
+            topAlignVal = (leftPartTopAlign > rightPartTopAlign) ? leftPartTopAlign : rightPartTopAlign;
             return topAlignVal;
         },
         updateDom: function() {}
@@ -110,18 +150,29 @@ eqEd.BigOperatorWrapper = function(hasUpperLimit, hasLowerLimit, bigOperatorType
         },
         compute: function() {
             var bottomAlignVal = 0;
-            if (this.operandContainer.wrappers.length > 0) {
+            var leftPartBottomAlign = 0;
+            var rightPartBottomAlign = this.operandContainer.wrappers[this.operandContainer.maxBottomAlignIndex].bottomAlign;
+            if (this.isInline) {
                 if (this.hasLowerLimit) {
-                    var fontHeight = this.symbolSizeConfig.height[this.parent.fontSize];
-                    var leftPartBottomAlign = 0.5 * this.symbol.height + this.lowerLimitContainer.height + this.lowerLimitGap * fontHeight;
-                    var rightPartBottomAlign = this.operandContainer.wrappers[this.operandContainer.maxBottomAlignIndex].bottomAlign;
-                    bottomAlignVal = (leftPartBottomAlign > rightPartBottomAlign) ? leftPartBottomAlign : rightPartBottomAlign;
+                    if (this.lowerLimitContainer.height > this.symbol.height * this.inlineLowerLimitOverlap) {
+                        leftPartBottomAlign = 0.1 * this.symbol.height + this.lowerLimitContainer.height;
+                    } else {
+                        leftPartBottomAlign = 0.5 * this.symbol.height;
+                    }
                 } else {
-                    var leftPartBottomAlign = 0.5 * this.symbol.height;
-                    var rightPartBottomAlign = this.operandContainer.wrappers[this.operandContainer.maxBottomAlignIndex].bottomAlign;
-                    bottomAlignVal = (leftPartBottomAlign > rightPartBottomAlign) ? leftPartBottomAlign : rightPartBottomAlign;
+                    leftPartBottomAlign = 0.5 * this.symbol.height;
+                }
+            } else {
+                if (this.operandContainer.wrappers.length > 0) {
+                    if (this.hasLowerLimit) {
+                        var fontHeight = this.symbolSizeConfig.height[this.parent.fontSize];
+                        leftPartBottomAlign = 0.5 * this.symbol.height + this.lowerLimitContainer.height + this.lowerLimitGap * fontHeight;
+                    } else {
+                        leftPartBottomAlign = 0.5 * this.symbol.height;
+                    }
                 }
             }
+            bottomAlignVal = (leftPartBottomAlign > rightPartBottomAlign) ? leftPartBottomAlign : rightPartBottomAlign;
             return bottomAlignVal;
         },
         updateDom: function() {}

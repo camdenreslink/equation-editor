@@ -15,16 +15,23 @@ eqEd.BigOperatorLowerLimitContainer = function(symbolSizeConfig) {
             left = value;
         },
         compute: function() {
-            var maxWidthList = [];
-            if (this.parent.hasUpperLimit) {
-                maxWidthList.push(this.parent.upperLimitContainer.width);
+            var fontHeight = this.symbolSizeConfig.height[this.parent.parent.fontSize];
+            var leftVal = 0;
+            if (this.parent.isInline) {
+                leftVal = this.parent.symbol.width + this.parent.inlineLimitGap * fontHeight;
+            } else {
+                var maxWidthList = [];
+                if (this.parent.hasUpperLimit) {
+                    maxWidthList.push(this.parent.upperLimitContainer.width);
+                }
+                if (this.parent.hasLowerLimit) {
+                    maxWidthList.push(this.parent.lowerLimitContainer.width);
+                }
+                maxWidthList.push(this.parent.symbol.width);
+                var maxWidth = maxWidthList.max();
+                leftVal = 0.5 * (maxWidth - this.width);
             }
-            if (this.parent.hasLowerLimit) {
-                maxWidthList.push(this.parent.lowerLimitContainer.width);
-            }
-            maxWidthList.push(this.parent.symbol.width);
-            var maxWidth = maxWidthList.max();
-            return 0.5 * (maxWidth - this.width);
+            return leftVal;
         },
         updateDom: function() {
             this.domObj.updateLeft(this.left);
@@ -42,7 +49,18 @@ eqEd.BigOperatorLowerLimitContainer = function(symbolSizeConfig) {
         },
         compute: function() {
             var fontHeight = this.symbolSizeConfig.height[this.parent.parent.fontSize];
-            var topVal = this.parent.topAlign + this.parent.symbol.height * 0.5 + this.parent.lowerLimitGap * fontHeight;
+            var topVal = 0;
+            if (this.parent.isInline) {
+                var additionalTopAlign = 0;
+                if (this.height > this.parent.symbol.height * this.parent.inlineLowerLimitOverlap) {
+                    additionalTopAlign = 0.1 * this.parent.symbol.height;
+                } else {
+                    additionalTopAlign = 0.5 * this.parent.symbol.height - this.height;
+                }
+                topVal = (this.parent.topAlign - this.parent.padTop * fontHeight) + additionalTopAlign;
+            } else {
+                topVal = (this.parent.topAlign - this.parent.padTop * fontHeight) + this.parent.symbol.height * 0.5 + this.parent.lowerLimitGap * fontHeight;
+            }
             return topVal;
         },
         updateDom: function() {

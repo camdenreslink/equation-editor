@@ -5,49 +5,42 @@ var setupMenuEvents = function(symbolSizeConfig) {
         var stackedFractionWrapper = new eqEd.StackedFractionWrapper(symbolSizeConfig);
         insertWrapper(stackedFractionWrapper);
     });
-
     $(document).on('mousedown', '#superscriptButton', function (e) {
         e.preventDefault();
         e.stopPropagation();
         var superscriptWrapper = new eqEd.SuperscriptWrapper(symbolSizeConfig);
         insertWrapper(superscriptWrapper);
     });
-
     $(document).on('mousedown', '#subscriptButton', function (e) {
         e.preventDefault();
         e.stopPropagation();
         var subscriptWrapper = new eqEd.SubscriptWrapper(symbolSizeConfig);
         insertWrapper(subscriptWrapper);
     });
-
     $(document).on('mousedown', '#superscriptAndSubscriptButton', function (e) {
         e.preventDefault();
         e.stopPropagation();
         var superscriptAndSubscriptWrapper = new eqEd.SuperscriptAndSubscriptWrapper(symbolSizeConfig);
         insertWrapper(superscriptAndSubscriptWrapper);
     });
-
     $(document).on('mousedown', '#squareRootButton', function (e) {
         e.preventDefault();
         e.stopPropagation();
         var squareRootWrapper = new eqEd.SquareRootWrapper(symbolSizeConfig);
         insertWrapper(squareRootWrapper);
     });
-
     $(document).on('mousedown', '#nthRootButton', function (e) {
         e.preventDefault();
         e.stopPropagation();
         var nthRootButton = new eqEd.NthRootWrapper(symbolSizeConfig);
         insertWrapper(nthRootButton);
     });
-
     $(document).on('mousedown', '#lessThanOrEqualToButton', function (e) {
         e.preventDefault();
         e.stopPropagation();
         var operatorWrapper = new eqEd.OperatorWrapper('&#x2264;', "MathJax_Main", symbolSizeConfig);
         insertWrapper(operatorWrapper);
     });
-
     $(document).on('mousedown', '#greaterThanOrEqualToButton', function (e) {
         e.preventDefault();
         e.stopPropagation();
@@ -108,7 +101,6 @@ var setupMenuEvents = function(symbolSizeConfig) {
         var squareBracketPair = new eqEd.BracketPairWrapper("squareBracket", symbolSizeConfig);
         insertWrapper(squareBracketPair);
     });
-
     $(document).on('mousedown', '#curlyBracketPairButton', function (e) {
         e.preventDefault();
         e.stopPropagation();
@@ -147,170 +139,271 @@ var setupMenuEvents = function(symbolSizeConfig) {
     $(document).on('mousedown', '#sumBigOperatorButton', function (e) {
         e.preventDefault();
         e.stopPropagation();
-        var bigOperator = new eqEd.BigOperatorWrapper(true, true, 'sum', symbolSizeConfig);
+        var bigOperator = new eqEd.BigOperatorWrapper(false, true, true, 'sum', symbolSizeConfig);
         insertWrapper(bigOperator);
     });
     $(document).on('mousedown', '#sumBigOperatorNoUpperButton', function (e) {
         e.preventDefault();
         e.stopPropagation();
-        var bigOperator = new eqEd.BigOperatorWrapper(false, true, 'sum', symbolSizeConfig);
+        var bigOperator = new eqEd.BigOperatorWrapper(false, false, true, 'sum', symbolSizeConfig);
         insertWrapper(bigOperator);
     });
     $(document).on('mousedown', '#sumBigOperatorNoUpperNoLowerButton', function (e) {
         e.preventDefault();
         e.stopPropagation();
-        var bigOperator = new eqEd.BigOperatorWrapper(false, false, 'sum', symbolSizeConfig);
+        var bigOperator = new eqEd.BigOperatorWrapper(false, false, false, 'sum', symbolSizeConfig);
         insertWrapper(bigOperator);
     });
     $(document).on('mousedown', '#bigCapBigOperatorButton', function (e) {
         e.preventDefault();
         e.stopPropagation();
-        var bigOperator = new eqEd.BigOperatorWrapper(true, true, 'bigCap', symbolSizeConfig);
+        var bigOperator = new eqEd.BigOperatorWrapper(false, true, true, 'bigCap', symbolSizeConfig);
         insertWrapper(bigOperator);
     });
     $(document).on('mousedown', '#bigCapBigOperatorNoUpperButton', function (e) {
         e.preventDefault();
         e.stopPropagation();
-        var bigOperator = new eqEd.BigOperatorWrapper(false, true, 'bigCap', symbolSizeConfig);
+        var bigOperator = new eqEd.BigOperatorWrapper(false, false, true, 'bigCap', symbolSizeConfig);
         insertWrapper(bigOperator);
     });
     $(document).on('mousedown', '#bigCapBigOperatorNoUpperNoLowerButton', function (e) {
         e.preventDefault();
         e.stopPropagation();
-        var bigOperator = new eqEd.BigOperatorWrapper(false, false, 'bigCap', symbolSizeConfig);
+        var bigOperator = new eqEd.BigOperatorWrapper(false, false, false, 'bigCap', symbolSizeConfig);
         insertWrapper(bigOperator);
     });
     $(document).on('mousedown', '#bigCupBigOperatorButton', function (e) {
         e.preventDefault();
         e.stopPropagation();
-        var bigOperator = new eqEd.BigOperatorWrapper(true, true, 'bigCup', symbolSizeConfig);
+        var bigOperator = new eqEd.BigOperatorWrapper(false, true, true, 'bigCup', symbolSizeConfig);
         insertWrapper(bigOperator);
     });
     $(document).on('mousedown', '#bigCupBigOperatorNoUpperButton', function (e) {
         e.preventDefault();
         e.stopPropagation();
-        var bigOperator = new eqEd.BigOperatorWrapper(false, true, 'bigCup', symbolSizeConfig);
+        var bigOperator = new eqEd.BigOperatorWrapper(false, false, true, 'bigCup', symbolSizeConfig);
         insertWrapper(bigOperator);
     });
     $(document).on('mousedown', '#bigCupBigOperatorNoUpperNoLowerButton', function (e) {
         e.preventDefault();
         e.stopPropagation();
-        var bigOperator = new eqEd.BigOperatorWrapper(false, false, 'bigCup', symbolSizeConfig);
+        var bigOperator = new eqEd.BigOperatorWrapper(false, false, false, 'bigCup', symbolSizeConfig);
         insertWrapper(bigOperator);
     });
-
-
-
     $(document).on('mousedown', '#bigSqCapBigOperatorButton', function (e) {
         e.preventDefault();
         e.stopPropagation();
-        var bigOperator = new eqEd.BigOperatorWrapper(true, true, 'bigSqCap', symbolSizeConfig);
+        var bigOperator = new eqEd.BigOperatorWrapper(false, true, true, 'bigSqCap', symbolSizeConfig);
         insertWrapper(bigOperator);
     });
     $(document).on('mousedown', '#bigSqCapBigOperatorNoUpperButton', function (e) {
         e.preventDefault();
         e.stopPropagation();
-        var bigOperator = new eqEd.BigOperatorWrapper(false, true, 'bigSqCap', symbolSizeConfig);
+        var bigOperator = new eqEd.BigOperatorWrapper(false, false, true, 'bigSqCap', symbolSizeConfig);
         insertWrapper(bigOperator);
     });
     $(document).on('mousedown', '#bigSqCapBigOperatorNoUpperNoLowerButton', function (e) {
         e.preventDefault();
         e.stopPropagation();
-        var bigOperator = new eqEd.BigOperatorWrapper(false, false, 'bigSqCap', symbolSizeConfig);
+        var bigOperator = new eqEd.BigOperatorWrapper(false, false, false, 'bigSqCap', symbolSizeConfig);
         insertWrapper(bigOperator);
     });
     $(document).on('mousedown', '#bigSqCupBigOperatorButton', function (e) {
         e.preventDefault();
         e.stopPropagation();
-        var bigOperator = new eqEd.BigOperatorWrapper(true, true, 'bigSqCup', symbolSizeConfig);
+        var bigOperator = new eqEd.BigOperatorWrapper(false, true, true, 'bigSqCup', symbolSizeConfig);
         insertWrapper(bigOperator);
     });
     $(document).on('mousedown', '#bigSqCupBigOperatorNoUpperButton', function (e) {
         e.preventDefault();
         e.stopPropagation();
-        var bigOperator = new eqEd.BigOperatorWrapper(false, true, 'bigSqCup', symbolSizeConfig);
+        var bigOperator = new eqEd.BigOperatorWrapper(false, false, true, 'bigSqCup', symbolSizeConfig);
         insertWrapper(bigOperator);
     });
     $(document).on('mousedown', '#bigSqCupBigOperatorNoUpperNoLowerButton', function (e) {
         e.preventDefault();
         e.stopPropagation();
-        var bigOperator = new eqEd.BigOperatorWrapper(false, false, 'bigSqCup', symbolSizeConfig);
+        var bigOperator = new eqEd.BigOperatorWrapper(false, false, false, 'bigSqCup', symbolSizeConfig);
         insertWrapper(bigOperator);
     });
-
     $(document).on('mousedown', '#prodBigOperatorButton', function (e) {
         e.preventDefault();
         e.stopPropagation();
-        var bigOperator = new eqEd.BigOperatorWrapper(true, true, 'prod', symbolSizeConfig);
+        var bigOperator = new eqEd.BigOperatorWrapper(false, true, true, 'prod', symbolSizeConfig);
         insertWrapper(bigOperator);
     });
     $(document).on('mousedown', '#prodBigOperatorNoUpperButton', function (e) {
         e.preventDefault();
         e.stopPropagation();
-        var bigOperator = new eqEd.BigOperatorWrapper(false, true, 'prod', symbolSizeConfig);
+        var bigOperator = new eqEd.BigOperatorWrapper(false, false, true, 'prod', symbolSizeConfig);
         insertWrapper(bigOperator);
     });
     $(document).on('mousedown', '#prodBigOperatorNoUpperNoLowerButton', function (e) {
         e.preventDefault();
         e.stopPropagation();
-        var bigOperator = new eqEd.BigOperatorWrapper(false, false, 'prod', symbolSizeConfig);
+        var bigOperator = new eqEd.BigOperatorWrapper(false, false, false, 'prod', symbolSizeConfig);
         insertWrapper(bigOperator);
     });
-
     $(document).on('mousedown', '#coProdBigOperatorButton', function (e) {
         e.preventDefault();
         e.stopPropagation();
-        var bigOperator = new eqEd.BigOperatorWrapper(true, true, 'coProd', symbolSizeConfig);
+        var bigOperator = new eqEd.BigOperatorWrapper(false, true, true, 'coProd', symbolSizeConfig);
         insertWrapper(bigOperator);
     });
     $(document).on('mousedown', '#coProdBigOperatorNoUpperButton', function (e) {
         e.preventDefault();
         e.stopPropagation();
-        var bigOperator = new eqEd.BigOperatorWrapper(false, true, 'coProd', symbolSizeConfig);
+        var bigOperator = new eqEd.BigOperatorWrapper(false, false, true, 'coProd', symbolSizeConfig);
         insertWrapper(bigOperator);
     });
     $(document).on('mousedown', '#coProdBigOperatorNoUpperNoLowerButton', function (e) {
         e.preventDefault();
         e.stopPropagation();
-        var bigOperator = new eqEd.BigOperatorWrapper(false, false, 'coProd', symbolSizeConfig);
+        var bigOperator = new eqEd.BigOperatorWrapper(false, false, false, 'coProd', symbolSizeConfig);
         insertWrapper(bigOperator);
     });
-
     $(document).on('mousedown', '#bigVeeBigOperatorButton', function (e) {
         e.preventDefault();
         e.stopPropagation();
-        var bigOperator = new eqEd.BigOperatorWrapper(true, true, 'bigVee', symbolSizeConfig);
+        var bigOperator = new eqEd.BigOperatorWrapper(false, true, true, 'bigVee', symbolSizeConfig);
         insertWrapper(bigOperator);
     });
     $(document).on('mousedown', '#bigVeeBigOperatorNoUpperButton', function (e) {
         e.preventDefault();
         e.stopPropagation();
-        var bigOperator = new eqEd.BigOperatorWrapper(false, true, 'bigVee', symbolSizeConfig);
+        var bigOperator = new eqEd.BigOperatorWrapper(false, false, true, 'bigVee', symbolSizeConfig);
         insertWrapper(bigOperator);
     });
     $(document).on('mousedown', '#bigVeeBigOperatorNoUpperNoLowerButton', function (e) {
         e.preventDefault();
         e.stopPropagation();
-        var bigOperator = new eqEd.BigOperatorWrapper(false, false, 'bigVee', symbolSizeConfig);
+        var bigOperator = new eqEd.BigOperatorWrapper(false, false, false, 'bigVee', symbolSizeConfig);
         insertWrapper(bigOperator);
     });
-
     $(document).on('mousedown', '#bigWedgeBigOperatorButton', function (e) {
         e.preventDefault();
         e.stopPropagation();
-        var bigOperator = new eqEd.BigOperatorWrapper(true, true, 'bigWedge', symbolSizeConfig);
+        var bigOperator = new eqEd.BigOperatorWrapper(false, true, true, 'bigWedge', symbolSizeConfig);
         insertWrapper(bigOperator);
     });
     $(document).on('mousedown', '#bigWedgeBigOperatorNoUpperButton', function (e) {
         e.preventDefault();
         e.stopPropagation();
-        var bigOperator = new eqEd.BigOperatorWrapper(false, true, 'bigWedge', symbolSizeConfig);
+        var bigOperator = new eqEd.BigOperatorWrapper(false, false, true, 'bigWedge', symbolSizeConfig);
         insertWrapper(bigOperator);
     });
     $(document).on('mousedown', '#bigWedgeBigOperatorNoUpperNoLowerButton', function (e) {
         e.preventDefault();
         e.stopPropagation();
-        var bigOperator = new eqEd.BigOperatorWrapper(false, false, 'bigWedge', symbolSizeConfig);
+        var bigOperator = new eqEd.BigOperatorWrapper(false, false, false, 'bigWedge', symbolSizeConfig);
+        insertWrapper(bigOperator);
+    });
+    $(document).on('mousedown', '#inlineSumBigOperatorButton', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var bigOperator = new eqEd.BigOperatorWrapper(true, true, true, 'sum', symbolSizeConfig);
+        insertWrapper(bigOperator);
+    });
+    $(document).on('mousedown', '#inlineSumBigOperatorNoUpperButton', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var bigOperator = new eqEd.BigOperatorWrapper(true, false, true, 'sum', symbolSizeConfig);
+        insertWrapper(bigOperator);
+    });
+    $(document).on('mousedown', '#inlineBigCapBigOperatorButton', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var bigOperator = new eqEd.BigOperatorWrapper(true, true, true, 'bigCap', symbolSizeConfig);
+        insertWrapper(bigOperator);
+    });
+    $(document).on('mousedown', '#inlineBigCapBigOperatorNoUpperButton', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var bigOperator = new eqEd.BigOperatorWrapper(true, false, true, 'bigCap', symbolSizeConfig);
+        insertWrapper(bigOperator);
+    });
+    $(document).on('mousedown', '#inlineBigCupBigOperatorButton', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var bigOperator = new eqEd.BigOperatorWrapper(true, true, true, 'bigCup', symbolSizeConfig);
+        insertWrapper(bigOperator);
+    });
+    $(document).on('mousedown', '#inlineBigCupBigOperatorNoUpperButton', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var bigOperator = new eqEd.BigOperatorWrapper(true, false, true, 'bigCup', symbolSizeConfig);
+        insertWrapper(bigOperator);
+    });
+    $(document).on('mousedown', '#inlineBigSqCapBigOperatorButton', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var bigOperator = new eqEd.BigOperatorWrapper(true, true, true, 'bigSqCap', symbolSizeConfig);
+        insertWrapper(bigOperator);
+    });
+    $(document).on('mousedown', '#inlineBigSqCapBigOperatorNoUpperButton', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var bigOperator = new eqEd.BigOperatorWrapper(true, false, true, 'bigSqCap', symbolSizeConfig);
+        insertWrapper(bigOperator);
+    });
+    $(document).on('mousedown', '#inlineBigSqCupBigOperatorButton', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var bigOperator = new eqEd.BigOperatorWrapper(true, true, true, 'bigSqCup', symbolSizeConfig);
+        insertWrapper(bigOperator);
+    });
+    $(document).on('mousedown', '#inlineBigSqCupBigOperatorNoUpperButton', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var bigOperator = new eqEd.BigOperatorWrapper(true, false, true, 'bigSqCup', symbolSizeConfig);
+        insertWrapper(bigOperator);
+    });
+    $(document).on('mousedown', '#inlineProdBigOperatorButton', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var bigOperator = new eqEd.BigOperatorWrapper(true, true, true, 'prod', symbolSizeConfig);
+        insertWrapper(bigOperator);
+    });
+    $(document).on('mousedown', '#inlineProdBigOperatorNoUpperButton', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var bigOperator = new eqEd.BigOperatorWrapper(true, false, true, 'prod', symbolSizeConfig);
+        insertWrapper(bigOperator);
+    });
+    $(document).on('mousedown', '#inlineCoProdBigOperatorButton', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var bigOperator = new eqEd.BigOperatorWrapper(true, true, true, 'coProd', symbolSizeConfig);
+        insertWrapper(bigOperator);
+    });
+    $(document).on('mousedown', '#inlineCoProdBigOperatorNoUpperButton', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var bigOperator = new eqEd.BigOperatorWrapper(true, false, true, 'coProd', symbolSizeConfig);
+        insertWrapper(bigOperator);
+    });
+    $(document).on('mousedown', '#inlineBigVeeBigOperatorButton', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var bigOperator = new eqEd.BigOperatorWrapper(true, true, true, 'bigVee', symbolSizeConfig);
+        insertWrapper(bigOperator);
+    });
+    $(document).on('mousedown', '#inlineBigVeeBigOperatorNoUpperButton', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var bigOperator = new eqEd.BigOperatorWrapper(true, false, true, 'bigVee', symbolSizeConfig);
+        insertWrapper(bigOperator);
+    });
+    $(document).on('mousedown', '#inlineBigWedgeBigOperatorButton', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var bigOperator = new eqEd.BigOperatorWrapper(true, true, true, 'bigWedge', symbolSizeConfig);
+        insertWrapper(bigOperator);
+    });
+    $(document).on('mousedown', '#inlineBigWedgeBigOperatorNoUpperButton', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var bigOperator = new eqEd.BigOperatorWrapper(true, false, true, 'bigWedge', symbolSizeConfig);
         insertWrapper(bigOperator);
     });
 };

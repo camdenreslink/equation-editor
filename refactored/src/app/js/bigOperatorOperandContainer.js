@@ -16,16 +16,31 @@ eqEd.BigOperatorOperandContainer = function(symbolSizeConfig) {
         },
         compute: function() {
             var fontHeight = this.symbolSizeConfig.height[this.parent.parent.fontSize];
-            var maxWidthList = [];
-            if (this.parent.hasUpperLimit) {
-                maxWidthList.push(this.parent.upperLimitContainer.width);
+            var leftVal = 0;
+            if (this.parent.isInline) {
+                var maxWidthList = [];
+                if (this.parent.hasUpperLimit) {
+                    maxWidthList.push(this.parent.upperLimitContainer.width);
+                }
+                if (this.parent.hasLowerLimit) {
+                    maxWidthList.push(this.parent.lowerLimitContainer.width);
+                }
+                var limitWidth = (maxWidthList.length > 0) ? maxWidthList.max() : 0;
+                leftVal = this.parent.symbol.width + this.parent.inlineLimitGap * fontHeight + limitWidth + this.parent.inlineOperandGap * fontHeight;
+            } else {
+                var maxWidthList = [];
+                if (this.parent.hasUpperLimit) {
+                    maxWidthList.push(this.parent.upperLimitContainer.width);
+                }
+                if (this.parent.hasLowerLimit) {
+                    maxWidthList.push(this.parent.lowerLimitContainer.width);
+                }
+                maxWidthList.push(this.parent.symbol.width);
+                var maxWidth = maxWidthList.max();
+                leftVal = maxWidth + this.parent.operandGap * fontHeight;
             }
-            if (this.parent.hasLowerLimit) {
-                maxWidthList.push(this.parent.lowerLimitContainer.width);
-            }
-            maxWidthList.push(this.parent.symbol.width);
-            var maxWidth = maxWidthList.max();
-            return maxWidth + this.parent.operandGap * fontHeight;
+            
+            return leftVal;
         },
         updateDom: function() {
             this.domObj.updateLeft(this.left);

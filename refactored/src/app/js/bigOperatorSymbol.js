@@ -14,16 +14,22 @@ eqEd.BigOperatorSymbol = function(symbolSizeConfig) {
             left = value;
         },
         compute: function() {
-            var maxWidthList = [];
-            if (this.parent.hasUpperLimit) {
-                maxWidthList.push(this.parent.upperLimitContainer.width);
+            var leftVal = 0;
+            if (this.parent.isInline) {
+                leftVal = 0;
+            } else {
+                var maxWidthList = [];
+                if (this.parent.hasUpperLimit) {
+                    maxWidthList.push(this.parent.upperLimitContainer.width);
+                }
+                if (this.parent.hasLowerLimit) {
+                    maxWidthList.push(this.parent.lowerLimitContainer.width);
+                }
+                maxWidthList.push(this.parent.symbol.width);
+                var maxWidth = maxWidthList.max();
+                leftVal = 0.5 * (maxWidth - this.width);
             }
-            if (this.parent.hasLowerLimit) {
-                maxWidthList.push(this.parent.lowerLimitContainer.width);
-            }
-            maxWidthList.push(this.parent.symbol.width);
-            var maxWidth = maxWidthList.max();
-            return 0.5 * (maxWidth - this.width);
+            return leftVal;
         },
         updateDom: function() {
             this.domObj.updateLeft(this.left);
