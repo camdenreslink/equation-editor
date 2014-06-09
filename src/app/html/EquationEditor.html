@@ -7,7 +7,6 @@
   <link href="../css/equationEditor.css" rel="stylesheet" type="text/css" charset="utf-8" />
   <script src="../../lib/jquery-2.0.0.js"></script>
   <script src="../../lib/underscore-1.6.0.js"></script>
-  <script src="../../lib/modernizr-svg-2.8.0.js"></script>
   <script src="../../lib/mousetrap-1.4.6.js"></script>
   <script src="http://ajax.googleapis.com/ajax/libs/webfont/1.4.7/webfont.js"></script>
   <script src="../js/property.js"></script>
@@ -120,7 +119,6 @@
   <script src="../js/rightNormMiddleBracket.js"></script>
   <script src="../js/bracketPairWrapper.js"></script>
   <script src="../js/bracketContainer.js"></script>
-
   <script src="../js/bigOperatorWrapper.js"></script>
   <script src="../js/bigOperatorUpperLimitContainer.js"></script>
   <script src="../js/bigOperatorLowerLimitContainer.js"></script>
@@ -136,7 +134,15 @@
   <script src="../js/coProdBigOperatorSymbol.js"></script>
   <script src="../js/bigVeeBigOperatorSymbol.js"></script>
   <script src="../js/bigWedgeBigOperatorSymbol.js"></script>
-
+  <script src="../js/integralWrapper.js"></script>
+  <script src="../js/integralSymbol.js"></script>
+  <script src="../js/doubleIntegralSymbol.js"></script>
+  <script src="../js/tripleIntegralSymbol.js"></script>
+  <script src="../js/contourIntegralSymbol.js"></script>
+  <script src="../js/contourDoubleIntegralSymbol.js"></script>
+  <script src="../js/contourTripleIntegralSymbol.js"></script>
+  <script src="../js/integralUpperLimitContainer.js"></script>
+  <script src="../js/integralLowerLimitContainer.js"></script>
   <script src="../js/blinkingCursor.js"></script>
   <script src="../js/mouseInteraction.js"></script>
   <script src="../js/addWrapperUtil.js"></script>
@@ -213,6 +219,36 @@
     <button id="inlineBigVeeBigOperatorNoUpperButton">InlineBigVeeBigOperatorNoUpper</button>
     <button id="inlineBigWedgeBigOperatorButton">InlineBigWedgeBigOperator</button>
     <button id="inlineBigWedgeBigOperatorNoUpperButton">InlineBigWedgeBigOperatorNoUpper</button>
+    <button id="integralButton">Integral</button>
+    <button id="integralNoUpperButton">IntegralNoUpper</button>
+    <button id="integralNoUpperNoLowerButton">IntegralNoUpperNoLower</button>
+    <button id="doubleIntegralButton">DoubleIntegral</button>
+    <button id="doubleIntegralNoUpperButton">DoubleIntegralNoUpper</button>
+    <button id="doubleIntegralNoUpperNoLowerButton">DoubleIntegralNoUpperNoLower</button>
+    <button id="tripleIntegralButton">TripleIntegral</button>
+    <button id="tripleIntegralNoUpperButton">TripleIntegralNoUpper</button>
+    <button id="tripleIntegralNoUpperNoLowerButton">TripleIntegralNoUpperNoLower</button>
+    <button id="contourIntegralButton">ContourIntegral</button>
+    <button id="contourIntegralNoUpperButton">ContourIntegralNoUpper</button>
+    <button id="contourIntegralNoUpperNoLowerButton">ContourIntegralNoUpperNoLower</button>
+    <button id="contourDoubleIntegralButton">ContourDoubleIntegral</button>
+    <button id="contourDoubleIntegralNoUpperButton">ContourDoubleIntegralNoUpper</button>
+    <button id="contourDoubleIntegralNoUpperNoLowerButton">ContourDoubleIntegralNoUpperNoLower</button>
+    <button id="contourTripleIntegralButton">ContourTripleIntegral</button>
+    <button id="contourTripleIntegralNoUpperButton">ContourTripleIntegralNoUpper</button>
+    <button id="contourTripleIntegralNoUpperNoLowerButton">ContourTripleIntegralNoUpperNoLower</button>
+    <button id="inlineIntegralButton">InlineIntegral</button>
+    <button id="inlineIntegralNoUpperButton">InlineIntegralNoUpper</button>
+    <button id="inlineDoubleIntegralButton">InlineDoubleIntegral</button>
+    <button id="inlineDoubleIntegralNoUpperButton">InlineDoubleIntegralNoUpper</button>
+    <button id="inlineTripleIntegralButton">InlineTripleIntegral</button>
+    <button id="inlineTripleIntegralNoUpperButton">InlineTripleIntegralNoUpper</button>
+    <button id="inlineContourIntegralButton">InlineContourIntegral</button>
+    <button id="inlineContourIntegralNoUpperButton">InlineContourIntegralNoUpper</button>
+    <button id="inlineContourDoubleIntegralButton">InlineContourDoubleIntegral</button>
+    <button id="inlineContourDoubleIntegralNoUpperButton">InlineContourDoubleIntegralNoUpper</button>
+    <button id="inlineContourTripleIntegralButton">InlineContourTripleIntegral</button>
+    <button id="inlineContourTripleIntegralNoUpperButton">InlineContourTripleIntegralNoUpper</button>
 
     <div class="testEquation equation"></div>
 </body>

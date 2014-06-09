@@ -28,6 +28,7 @@ $(window).load(function () {
         }
     }
 
+    // preload fonts, using webfont.js
     var loadFonts = function(fontList, cssPath, callback) {
         WebFont.load({
             custom: {
@@ -41,6 +42,9 @@ $(window).load(function () {
         });
     };
 
+    // preload images
+    // arrayOfImages is an array of the paths to images you want to preload
+    // ex) ['../../Images/radical.png', '../../Images/radicalHighlight.png', '../../Images/radicalDiagonalLine.png']
     var loadImages = function(arrayOfImages, callback) {
         $(arrayOfImages).each(function () {
             $('<img />').attr('src',this).appendTo('body').css('display','none');
@@ -50,5 +54,5 @@ $(window).load(function () {
     };
 
     loadFonts(['MathJax_Main', 'MathJax_Math:i4', 'MathJax_Size1', 'MathJax_Size2', 'MathJax_Size3', 'MathJax_Size4'], '../../Fonts/TeX/font.css', setup);
-    loadImages(['../../Images/radical.png', '../../Images/radicalHighlight.png', '../../Images/radicalDiagonalLine.png', '../../Images/radicalDiagonalLineHighlight.png', '../../Images/sumOperator.png', '../../Images/sumOperatorHighlight.png'], setup);
+    loadImages([], setup);
 });

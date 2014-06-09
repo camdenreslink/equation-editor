@@ -1,6 +1,6 @@
-eqEd.BigOperatorUpperLimitContainer = function(symbolSizeConfig) {
+eqEd.IntegralUpperLimitContainer = function(symbolSizeConfig) {
     eqEd.Container.call(this, symbolSizeConfig);
-    this.className = "eqEd.BigOperatorUpperLimitContainer";
+    this.className = "eqEd.IntegralUpperLimitContainer";
     this.domObj = this.buildDomObj();
     var squareEmptyContainerWrapper = new eqEd.SquareEmptyContainerWrapper(symbolSizeConfig);
     this.addWrappers([0, squareEmptyContainerWrapper]);
@@ -54,7 +54,7 @@ eqEd.BigOperatorUpperLimitContainer = function(symbolSizeConfig) {
             if (this.parent.isInline) {
                 var leftPartTopAlign = 0;
                 if (this.height > this.parent.symbol.height * this.parent.inlineUpperLimitOverlap) {
-                    leftPartTopAlign = (0.5 - this.parent.inlineLowerLimitOverlap) * this.parent.symbol.height + this.height;
+                    leftPartTopAlign = (0.5 - this.parent.inlineUpperLimitOverlap) * this.parent.symbol.height + this.height;
                 } else {
                     leftPartTopAlign = 0.5 * this.parent.symbol.height;
                 }
@@ -95,10 +95,10 @@ eqEd.BigOperatorUpperLimitContainer = function(symbolSizeConfig) {
 };
 (function() {
     // subclass extends superclass
-    eqEd.BigOperatorUpperLimitContainer.prototype = Object.create(eqEd.Container.prototype);
-    eqEd.BigOperatorUpperLimitContainer.prototype.constructor = eqEd.BigOperatorUpperLimitContainer;
-    eqEd.BigOperatorUpperLimitContainer.prototype.buildDomObj = function() {
+    eqEd.IntegralUpperLimitContainer.prototype = Object.create(eqEd.Container.prototype);
+    eqEd.IntegralUpperLimitContainer.prototype.constructor = eqEd.IntegralUpperLimitContainer;
+    eqEd.IntegralUpperLimitContainer.prototype.buildDomObj = function() {
         return new eqEd.ContainerDom(this,
-            '<div class="container bigOperatorUpperLimitContainer"></div>');
+            '<div class="container integralUpperLimitContainer"></div>');
     };
 })();

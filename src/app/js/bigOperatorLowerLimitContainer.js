@@ -53,7 +53,7 @@ eqEd.BigOperatorLowerLimitContainer = function(symbolSizeConfig) {
             if (this.parent.isInline) {
                 var additionalTopAlign = 0;
                 if (this.height > this.parent.symbol.height * this.parent.inlineLowerLimitOverlap) {
-                    additionalTopAlign = 0.1 * this.parent.symbol.height;
+                    additionalTopAlign = (0.5 - this.parent.inlineLowerLimitOverlap) * this.parent.symbol.height;
                 } else {
                     additionalTopAlign = 0.5 * this.parent.symbol.height - this.height;
                 }

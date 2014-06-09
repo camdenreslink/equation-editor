@@ -406,4 +406,216 @@ var setupMenuEvents = function(symbolSizeConfig) {
         var bigOperator = new eqEd.BigOperatorWrapper(true, false, true, 'bigWedge', symbolSizeConfig);
         insertWrapper(bigOperator);
     });
+
+    ////////////////////////////////////////////////////////////////
+
+    $(document).on('mousedown', '#integralButton', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var integralWrapper = new eqEd.IntegralWrapper(false, true, true, 'single', symbolSizeConfig);
+        insertWrapper(integralWrapper);
+    });
+
+    $(document).on('mousedown', '#integralNoUpperButton', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var integralWrapper = new eqEd.IntegralWrapper(false, false, true, 'single', symbolSizeConfig);
+        insertWrapper(integralWrapper);
+    });
+
+    $(document).on('mousedown', '#integralNoUpperNoLowerButton', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var integralWrapper = new eqEd.IntegralWrapper(false, false, false, 'single', symbolSizeConfig);
+        insertWrapper(integralWrapper);
+    });
+
+    $(document).on('mousedown', '#doubleIntegralButton', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var integralWrapper = new eqEd.IntegralWrapper(false, true, true, 'double', symbolSizeConfig);
+        insertWrapper(integralWrapper);
+    });
+
+    $(document).on('mousedown', '#doubleIntegralNoUpperButton', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var integralWrapper = new eqEd.IntegralWrapper(false, false, true, 'double', symbolSizeConfig);
+        insertWrapper(integralWrapper);
+    });
+
+    $(document).on('mousedown', '#doubleIntegralNoUpperNoLowerButton', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var integralWrapper = new eqEd.IntegralWrapper(false, false, false, 'double', symbolSizeConfig);
+        insertWrapper(integralWrapper);
+    });
+
+    $(document).on('mousedown', '#tripleIntegralButton', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var integralWrapper = new eqEd.IntegralWrapper(false, true, true, 'triple', symbolSizeConfig);
+        insertWrapper(integralWrapper);
+    });
+
+    $(document).on('mousedown', '#tripleIntegralNoUpperButton', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var integralWrapper = new eqEd.IntegralWrapper(false, false, true, 'triple', symbolSizeConfig);
+        insertWrapper(integralWrapper);
+    });
+
+    $(document).on('mousedown', '#tripleIntegralNoUpperNoLowerButton', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var integralWrapper = new eqEd.IntegralWrapper(false, false, false, 'triple', symbolSizeConfig);
+        insertWrapper(integralWrapper);
+    });
+
+    $(document).on('mousedown', '#contourIntegralButton', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var integralWrapper = new eqEd.IntegralWrapper(false, true, true, 'singleContour', symbolSizeConfig);
+        insertWrapper(integralWrapper);
+    });
+
+    $(document).on('mousedown', '#contourIntegralNoUpperButton', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var integralWrapper = new eqEd.IntegralWrapper(false, false, true, 'singleContour', symbolSizeConfig);
+        insertWrapper(integralWrapper);
+    });
+
+    $(document).on('mousedown', '#contourIntegralNoUpperNoLowerButton', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var integralWrapper = new eqEd.IntegralWrapper(false, false, false, 'singleContour', symbolSizeConfig);
+        insertWrapper(integralWrapper);
+    });
+
+    $(document).on('mousedown', '#contourDoubleIntegralButton', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var integralWrapper = new eqEd.IntegralWrapper(false, true, true, 'doubleContour', symbolSizeConfig);
+        insertWrapper(integralWrapper);
+    });
+
+    $(document).on('mousedown', '#contourDoubleIntegralNoUpperButton', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var integralWrapper = new eqEd.IntegralWrapper(false, false, true, 'doubleContour', symbolSizeConfig);
+        insertWrapper(integralWrapper);
+    });
+
+    $(document).on('mousedown', '#contourDoubleIntegralNoUpperNoLowerButton', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var integralWrapper = new eqEd.IntegralWrapper(false, false, false, 'doubleContour', symbolSizeConfig);
+        insertWrapper(integralWrapper);
+    });
+
+    $(document).on('mousedown', '#contourTripleIntegralButton', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var integralWrapper = new eqEd.IntegralWrapper(false, true, true, 'tripleContour', symbolSizeConfig);
+        insertWrapper(integralWrapper);
+    });
+
+    $(document).on('mousedown', '#contourTripleIntegralNoUpperButton', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var integralWrapper = new eqEd.IntegralWrapper(false, false, true, 'tripleContour', symbolSizeConfig);
+        insertWrapper(integralWrapper);
+    });
+
+    $(document).on('mousedown', '#contourTripleIntegralNoUpperNoLowerButton', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var integralWrapper = new eqEd.IntegralWrapper(false, false, false, 'tripleContour', symbolSizeConfig);
+        insertWrapper(integralWrapper);
+    });
+
+    $(document).on('mousedown', '#inlineIntegralButton', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var integralWrapper = new eqEd.IntegralWrapper(true, true, true, 'single', symbolSizeConfig);
+        insertWrapper(integralWrapper);
+    });
+
+    $(document).on('mousedown', '#inlineIntegralNoUpperButton', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var integralWrapper = new eqEd.IntegralWrapper(true, false, true, 'single', symbolSizeConfig);
+        insertWrapper(integralWrapper);
+    });
+
+    $(document).on('mousedown', '#inlineDoubleIntegralButton', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var integralWrapper = new eqEd.IntegralWrapper(true, true, true, 'double', symbolSizeConfig);
+        insertWrapper(integralWrapper);
+    });
+
+    $(document).on('mousedown', '#inlineDoubleIntegralNoUpperButton', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var integralWrapper = new eqEd.IntegralWrapper(true, false, true, 'double', symbolSizeConfig);
+        insertWrapper(integralWrapper);
+    });
+
+    $(document).on('mousedown', '#inlineTripleIntegralButton', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var integralWrapper = new eqEd.IntegralWrapper(true, true, true, 'triple', symbolSizeConfig);
+        insertWrapper(integralWrapper);
+    });
+
+    $(document).on('mousedown', '#inlineTripleIntegralNoUpperButton', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var integralWrapper = new eqEd.IntegralWrapper(true, false, true, 'triple', symbolSizeConfig);
+        insertWrapper(integralWrapper);
+    });
+
+    $(document).on('mousedown', '#inlineContourIntegralButton', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var integralWrapper = new eqEd.IntegralWrapper(true, true, true, 'singleContour', symbolSizeConfig);
+        insertWrapper(integralWrapper);
+    });
+
+    $(document).on('mousedown', '#inlineContourIntegralNoUpperButton', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var integralWrapper = new eqEd.IntegralWrapper(true, false, true, 'singleContour', symbolSizeConfig);
+        insertWrapper(integralWrapper);
+    });
+
+    $(document).on('mousedown', '#inlineContourDoubleIntegralButton', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var integralWrapper = new eqEd.IntegralWrapper(true, true, true, 'doubleContour', symbolSizeConfig);
+        insertWrapper(integralWrapper);
+    });
+
+    $(document).on('mousedown', '#inlineContourDoubleIntegralNoUpperButton', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var integralWrapper = new eqEd.IntegralWrapper(true, false, true, 'doubleContour', symbolSizeConfig);
+        insertWrapper(integralWrapper);
+    });
+
+    $(document).on('mousedown', '#inlineContourTripleIntegralButton', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var integralWrapper = new eqEd.IntegralWrapper(true, true, true, 'tripleContour', symbolSizeConfig);
+        insertWrapper(integralWrapper);
+    });
+
+    $(document).on('mousedown', '#inlineContourTripleIntegralNoUpperButton', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var integralWrapper = new eqEd.IntegralWrapper(true, false, true, 'tripleContour', symbolSizeConfig);
+        insertWrapper(integralWrapper);
+    });
 };

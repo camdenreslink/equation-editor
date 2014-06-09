@@ -62,6 +62,14 @@
     font-family: 'MathJax_Main';
 }
 
+.MathJax_Size1 {
+    font-family: 'MathJax_Size1';
+}
+
+.MathJax_Size2 {
+    font-family: 'MathJax_Size2';
+}
+
 .MathJax_Size3 {
     font-family: 'MathJax_Size3';
 }
@@ -111,14 +119,6 @@ div.squareCursor {
 
 .highlighted path {
     fill: #FFFFFF;
-}
-
-.highlighted .highlightVersion {
-    visibility: visible;
-}
-
-.highlighted .nonHighlightVersion {
-    visibility: hidden;
 }
 
 .container {

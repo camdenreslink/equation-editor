@@ -1,10 +1,12 @@
-eqEd.BigOperatorUpperLimitContainer = function(symbolSizeConfig) {
+eqEd.IntegralLowerLimitContainer = function(symbolSizeConfig) {
     eqEd.Container.call(this, symbolSizeConfig);
-    this.className = "eqEd.BigOperatorUpperLimitContainer";
+    this.className = "eqEd.IntegralLowerLimitContainer";
     this.domObj = this.buildDomObj();
     var squareEmptyContainerWrapper = new eqEd.SquareEmptyContainerWrapper(symbolSizeConfig);
     this.addWrappers([0, squareEmptyContainerWrapper]);
     
+    this.inlineLeftOverlap = 0.55;
+
     // Set up the left calculation
     var left = 0;
     this.properties.push(new Property(this, "left", left, {
@@ -18,7 +20,7 @@ eqEd.BigOperatorUpperLimitContainer = function(symbolSizeConfig) {
             var fontHeight = this.symbolSizeConfig.height[this.parent.parent.fontSize];
             var leftVal = 0;
             if (this.parent.isInline) {
-                leftVal = this.parent.symbol.width + this.parent.inlineLimitGap * fontHeight;
+                leftVal = this.parent.symbol.width + (this.parent.inlineLimitGap - this.inlineLeftOverlap) * fontHeight;
             } else {
                 var maxWidthList = [];
                 if (this.parent.hasUpperLimit) {
@@ -31,7 +33,6 @@ eqEd.BigOperatorUpperLimitContainer = function(symbolSizeConfig) {
                 var maxWidth = maxWidthList.max();
                 leftVal = 0.5 * (maxWidth - this.width);
             }
-            
             return leftVal;
         },
         updateDom: function() {
@@ -52,16 +53,15 @@ eqEd.BigOperatorUpperLimitContainer = function(symbolSizeConfig) {
             var fontHeight = this.symbolSizeConfig.height[this.parent.parent.fontSize];
             var topVal = 0;
             if (this.parent.isInline) {
-                var leftPartTopAlign = 0;
-                if (this.height > this.parent.symbol.height * this.parent.inlineUpperLimitOverlap) {
-                    leftPartTopAlign = (0.5 - this.parent.inlineLowerLimitOverlap) * this.parent.symbol.height + this.height;
+                var additionalTopAlign = 0;
+                if (this.height > this.parent.symbol.height * this.parent.inlineLowerLimitOverlap) {
+                    additionalTopAlign = (0.5 - this.parent.inlineLowerLimitOverlap) * this.parent.symbol.height;
                 } else {
-                    leftPartTopAlign = 0.5 * this.parent.symbol.height;
+                    additionalTopAlign = 0.5 * this.parent.symbol.height - this.height;
                 }
-                topVal = (this.parent.topAlign - this.parent.padTop * fontHeight) - leftPartTopAlign;
+                topVal = (this.parent.topAlign - this.parent.padTop * fontHeight) + additionalTopAlign;
             } else {
-                var leftPartTopAlign = this.height + 0.5 * this.parent.symbol.height + this.parent.upperLimitGap * fontHeight;
-                topVal = (this.parent.topAlign - this.parent.padTop * fontHeight) - leftPartTopAlign;
+                topVal = (this.parent.topAlign - this.parent.padTop * fontHeight) + this.parent.symbol.height * 0.5 + this.parent.lowerLimitGap * fontHeight;
             }
             return topVal;
         },
@@ -95,10 +95,10 @@ eqEd.BigOperatorUpperLimitContainer = function(symbolSizeConfig) {
 };
 (function() {
     // subclass extends superclass
-    eqEd.BigOperatorUpperLimitContainer.prototype = Object.create(eqEd.Container.prototype);
-    eqEd.BigOperatorUpperLimitContainer.prototype.constructor = eqEd.BigOperatorUpperLimitContainer;
-    eqEd.BigOperatorUpperLimitContainer.prototype.buildDomObj = function() {
+    eqEd.IntegralLowerLimitContainer.prototype = Object.create(eqEd.Container.prototype);
+    eqEd.IntegralLowerLimitContainer.prototype.constructor = eqEd.IntegralLowerLimitContainer;
+    eqEd.IntegralLowerLimitContainer.prototype.buildDomObj = function() {
         return new eqEd.ContainerDom(this,
-            '<div class="container bigOperatorUpperLimitContainer"></div>');
+            '<div class="container integralLowerLimitContainer"></div>');
     };
 })();
