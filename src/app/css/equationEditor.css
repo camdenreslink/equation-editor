@@ -121,6 +121,10 @@ div.squareCursor {
     fill: #FFFFFF;
 }
 
+.highlighted rect {
+    stroke: #FFFFFF !important;
+}
+
 .container {
     cursor: text;
     z-index: 3;
