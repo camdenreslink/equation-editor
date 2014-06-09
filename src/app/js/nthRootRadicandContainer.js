@@ -85,7 +85,11 @@ eqEd.NthRootRadicandContainer = function(symbolSizeConfig) {
             fontSize = value;
         },
         compute: function() {
-	        return this.parent.parent.fontSize;
+            var actualParentContainer = this.parent.parent;
+            while (actualParentContainer instanceof eqEd.BracketContainer) {
+                actualParentContainer = actualParentContainer.parent.parent;
+            }
+	        return actualParentContainer.fontSize;
         },
         updateDom: function() {
             this.domObj.updateFontSize(this.fontSize);

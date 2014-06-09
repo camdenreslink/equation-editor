@@ -81,7 +81,11 @@ eqEd.BigOperatorUpperLimitContainer = function(symbolSizeConfig) {
         },
         compute: function() {
             var fontSizeVal = "";
-            if (this.parent.parent.fontSize === "fontSizeSmaller" || this.parent.parent.fontSize === "fontSizeSmallest") {
+            var actualParentContainer = this.parent.parent;
+            while (actualParentContainer instanceof eqEd.BracketContainer) {
+                actualParentContainer = actualParentContainer.parent.parent;
+            }
+            if (actualParentContainer.fontSize === "fontSizeSmaller" || actualParentContainer.fontSize === "fontSizeSmallest") {
                 fontSizeVal = "fontSizeSmallest";
             } else {
                 fontSizeVal = "fontSizeSmaller";

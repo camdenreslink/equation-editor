@@ -5,6 +5,9 @@ eqEd.StackedFractionNumeratorContainer = function(symbolSizeConfig) {
     this.domObj = this.buildDomObj();
     var squareEmptyContainerWrapper = new eqEd.SquareEmptyContainerWrapper(symbolSizeConfig);
     this.addWrappers([0, squareEmptyContainerWrapper]);
+
+    this.padBottom = 0.1;
+    this.padTop = 0.05;
     
     // Set up the left calculation
     var left = 0;
@@ -54,10 +57,14 @@ eqEd.StackedFractionNumeratorContainer = function(symbolSizeConfig) {
         },
         compute: function() {
             var fontSizeVal = "";
-            if (this.parent.parent.fontSize === "fontSizeSmaller" || this.parent.parent.fontSize === "fontSizeSmallest") {
+            var actualParentContainer = this.parent.parent;
+            while (actualParentContainer instanceof eqEd.BracketContainer) {
+                actualParentContainer = actualParentContainer.parent.parent;
+            }
+            if (actualParentContainer.fontSize === "fontSizeSmaller" || actualParentContainer.fontSize === "fontSizeSmallest") {
                 fontSizeVal = "fontSizeSmallest";
             } else {
-                if (this.parent.parent.parent instanceof eqEd.StackedFractionWrapper) {
+                if (actualParentContainer.parent instanceof eqEd.StackedFractionWrapper) {
                     fontSizeVal = "fontSizeSmaller";
                 } else {
                     fontSizeVal = "fontSizeNormal";

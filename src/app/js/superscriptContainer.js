@@ -63,7 +63,13 @@ eqEd.SuperscriptContainer = function(symbolSizeConfig) {
         		// preceeding it.
         		baseWrapper = null;
 	        }
-	        if (this.parent.parent.fontSize === "fontSizeSmaller" || this.parent.parent.fontSize === "fontSizeSmallest") {
+
+            var actualParentContainer = this.parent.parent;
+            while (actualParentContainer instanceof eqEd.BracketContainer) {
+                actualParentContainer = actualParentContainer.parent.parent;
+            }
+            
+	        if (actualParentContainer.fontSize === "fontSizeSmaller" || actualParentContainer.fontSize === "fontSizeSmallest") {
 	            fontSizeVal = "fontSizeSmallest";
 	        } else {
 	            if (baseWrapper instanceof eqEd.SuperscriptWrapper

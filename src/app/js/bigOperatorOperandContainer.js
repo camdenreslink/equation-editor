@@ -78,7 +78,12 @@ eqEd.BigOperatorOperandContainer = function(symbolSizeConfig) {
             fontSize = value;
         },
         compute: function() {
-            var fontSizeVal = this.parent.parent.fontSize;
+            var fontSizeVal = "";
+            var actualParentContainer = this.parent.parent;
+            while (actualParentContainer instanceof eqEd.BracketContainer) {
+                actualParentContainer = actualParentContainer.parent.parent;
+            }
+            fontSizeVal = actualParentContainer.fontSize;
             return fontSizeVal;
         },
         updateDom: function() {
