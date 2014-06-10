@@ -618,4 +618,18 @@ var setupMenuEvents = function(symbolSizeConfig) {
         var integralWrapper = new eqEd.IntegralWrapper(true, false, true, 'tripleContour', symbolSizeConfig);
         insertWrapper(integralWrapper);
     });
+
+    $(document).on('mousedown', '#differentialButton', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var differentialWrapper = new eqEd.DifferentialWrapper(false, symbolSizeConfig);
+        insertWrapper(differentialWrapper);
+    });
+
+    $(document).on('mousedown', '#partialDifferentialButton', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var differentialWrapper = new eqEd.DifferentialWrapper(true, symbolSizeConfig);
+        insertWrapper(differentialWrapper);
+    });
 };

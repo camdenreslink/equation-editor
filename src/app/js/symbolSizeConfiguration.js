@@ -6,7 +6,7 @@ eqEd.SymbolSizeConfiguration = function() {
                  '9', '&#x2212;', '&#x00f7;', '&#x22c5;', '&#x2248;', '*',
                  '-', '=', '+', '/', '<', '>', '&#60;', '&#62;', '&#x2264;', 
                  '&#x2265;', '&#x221e;', '%', '!', '$', '.', '(', ')', '[', 
-                 ']', '{', '}'];
+                 ']', '{', '}', '&#8706;'];
     // Lists all characters which need to be rendered in an italic font. 
     this.MathJax_MathItalic = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 
                  'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 
