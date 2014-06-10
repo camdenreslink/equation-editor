@@ -619,17 +619,10 @@ var setupMenuEvents = function(symbolSizeConfig) {
         insertWrapper(integralWrapper);
     });
 
-    $(document).on('mousedown', '#differentialButton', function (e) {
-        e.preventDefault();
-        e.stopPropagation();
-        var differentialWrapper = new eqEd.DifferentialWrapper(false, symbolSizeConfig);
-        insertWrapper(differentialWrapper);
-    });
-
     $(document).on('mousedown', '#partialDifferentialButton', function (e) {
         e.preventDefault();
         e.stopPropagation();
-        var differentialWrapper = new eqEd.DifferentialWrapper(true, symbolSizeConfig);
+        var differentialWrapper = new eqEd.SymbolWrapper('&#8706;', "MathJax_Main", symbolSizeConfig);
         insertWrapper(differentialWrapper);
     });
 };
