@@ -32,20 +32,20 @@ eqEd.BigOperatorWrapper = function(isInline, hasUpperLimit, hasLowerLimit, bigOp
     this.childContainers = [];
 
     if (this.hasUpperLimit) {
-        this.upperLimitContainer = new eqEd.BigOperatorUpperLimitContainer(symbolSizeConfig);
+        this.upperLimitContainer = new eqEd.BigOperatorUpperLimitContainer(this.symbolSizeConfig);
         this.upperLimitContainer.parent = this;
         this.domObj.append(this.upperLimitContainer.domObj);
         this.childContainers.push(this.upperLimitContainer);
     }
     if (this.hasLowerLimit) {
-        this.lowerLimitContainer = new eqEd.BigOperatorLowerLimitContainer(symbolSizeConfig);
+        this.lowerLimitContainer = new eqEd.BigOperatorLowerLimitContainer(this.symbolSizeConfig);
         this.lowerLimitContainer.parent = this;
         this.domObj.append(this.lowerLimitContainer.domObj);
         this.childContainers.push(this.lowerLimitContainer)
     }
     
-    this.operandContainer = new eqEd.BigOperatorOperandContainer(symbolSizeConfig);
-    this.symbol = new this.bigOperatorSymbolCtors[this.bigOperatorType](symbolSizeConfig);
+    this.operandContainer = new eqEd.BigOperatorOperandContainer(this.symbolSizeConfig);
+    this.symbol = new this.bigOperatorSymbolCtors[this.bigOperatorType](this.symbolSizeConfig);
 
     this.operandContainer.parent = this;
     this.symbol.parent = this;
@@ -187,7 +187,7 @@ eqEd.BigOperatorWrapper = function(isInline, hasUpperLimit, hasLowerLimit, bigOp
             '<div class="wrapper bigOperatorWrapper"></div>')
     }
     eqEd.BigOperatorWrapper.prototype.clone = function() {
-        var copy = new this.constructor(this.hasUpperLimit, this.hasLowerLimit, this.bigOperatorType, this.symbolSizeConfig);
+        var copy = new this.constructor(this.isInline, this.hasUpperLimit, this.hasLowerLimit, this.bigOperatorType, this.symbolSizeConfig);
 
         copy.childContainers = [];
         copy.domObj = copy.buildDomObj();

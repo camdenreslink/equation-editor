@@ -167,7 +167,7 @@ eqEd.IntegralWrapper = function(isInline, hasUpperLimit, hasLowerLimit, integral
             '<div class="wrapper integralWrapper"></div>')
     }
     eqEd.IntegralWrapper.prototype.clone = function() {
-        var copy = new this.constructor(this.hasUpperLimit, this.hasLowerLimit, this.integralType, this.symbolSizeConfig);
+        var copy = new this.constructor(this.isInline, this.hasUpperLimit, this.hasLowerLimit, this.integralType, this.symbolSizeConfig);
 
         copy.childContainers = [];
         copy.domObj = copy.buildDomObj();
@@ -185,7 +185,7 @@ eqEd.IntegralWrapper = function(isInline, hasUpperLimit, hasLowerLimit, integral
             copy.childContainers.push(copy.lowerLimitContainer);
         }
 
-        copy.symbol = new copy.bigOperatorSymbolCtors[copy.bigOperatorType](copy.symbolSizeConfig);
+        copy.symbol = new copy.integralSymbolCtors[copy.integralType](copy.symbolSizeConfig);
         copy.symbol.parent = copy;
         copy.domObj.append(copy.symbol.domObj);
         copy.childNoncontainers = [copy.symbol];
