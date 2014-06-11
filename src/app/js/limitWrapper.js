@@ -2,9 +2,9 @@ eqEd.LimitWrapper = function(symbolSizeConfig) {
     eqEd.Wrapper.call(this, symbolSizeConfig); // call super constructor.
     this.className = "eqEd.LimitWrapper";
 
-    this.leftLimitContainerGap = 0.05;
-    this.rightLimitContainerGap = 0.05;
-    this.belowLimitGap = 0;
+    this.leftLimitContainerGap = 0;
+    this.rightLimitContainerGap = 0;
+    this.belowLimitGap = -0.18;
 
     this.limitWord = new eqEd.LimitWord(symbolSizeConfig);
     this.limitLeftContainer = new eqEd.LimitLeftContainer(symbolSizeConfig);
@@ -23,7 +23,7 @@ eqEd.LimitWrapper = function(symbolSizeConfig) {
     this.childNoncontainers = [this.symbol, this.limitWord];
     this.childContainers = [this.limitLeftContainer, this.limitRightContainer];
 
-    this.padLeft = 0.05;
+    this.padLeft = 0;
     this.padRight = 0.05;
 
     // Set up the bottomHalfWidth calculation
@@ -57,6 +57,8 @@ eqEd.LimitWrapper = function(symbolSizeConfig) {
             var widthVal = 0;
             var topWidth = this.limitWord.width;
             widthVal = (topWidth > this.bottomHalfWidth) ? topWidth : this.bottomHalfWidth;
+            console.log("width: " + widthVal);
+            console.log("bottomHalfWidth: " +  this.bottomHalfWidth);
             return widthVal;
         },
         updateDom: function() {
@@ -91,8 +93,8 @@ eqEd.LimitWrapper = function(symbolSizeConfig) {
         compute: function() {
             var fontHeight = this.symbolSizeConfig.height[this.parent.fontSize];
             var bottomAlignVal = 0;
-            var maxContainerHeight = (this.limitLeftContainer.height > this.limitRightContainer) ? this.limitLeftContainer.height : this.limitRightContainer.height;
-            return 0.5 * this.limitWord.height + this.belowLimitGap * fontHeight + maxContainerHeight;
+            var maxBottomHalfHeight = [this.symbol.height, this.limitLeftContainer.height, this.limitRightContainer.height].max();
+            return 0.5 * this.limitWord.height + this.belowLimitGap * fontHeight + maxBottomHalfHeight;
         },
         updateDom: function() {}
     }));
@@ -107,10 +109,10 @@ eqEd.LimitWrapper = function(symbolSizeConfig) {
     }
     eqEd.LimitWrapper.prototype.clone = function() {
         var copy = new this.constructor(this.symbolSizeConfig);
-        copy.limitWord = new eqEd.LimitWord(symbolSizeConfig);
+        copy.limitWord = new eqEd.LimitWord(this.symbolSizeConfig);
         copy.limitLeftContainer = this.limitLeftContainer.clone();
         copy.limitRightContainer = this.limitRightContainer.clone();
-        copy.symbol = new eqEd.LimitSymbol(symbolSizeConfig);
+        copy.symbol = new eqEd.LimitSymbol(this.symbolSizeConfig);
         copy.limitWord.parent = copy;
         copy.limitLeftContainer.parent = copy;
         copy.limitRightContainer.parent = copy;

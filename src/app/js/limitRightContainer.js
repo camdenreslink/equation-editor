@@ -16,7 +16,7 @@ eqEd.LimitRightContainer = function(symbolSizeConfig) {
         },
         compute: function() {
             var fontHeight = this.symbolSizeConfig.height[this.parent.parent.fontSize];
-            var leftOffset = 0.5 * (this.parent.width - this.parent.bottomHalfWidth);
+            var leftOffset = 0.5 * ((this.parent.width - (this.parent.padLeft + this.parent.padRight) * fontHeight) - this.parent.bottomHalfWidth);
             return leftOffset + this.parent.limitLeftContainer.width + this.parent.leftLimitContainerGap * fontHeight + this.parent.symbol.width + this.parent.rightLimitContainerGap * fontHeight;
         },
         updateDom: function() {
@@ -35,8 +35,12 @@ eqEd.LimitRightContainer = function(symbolSizeConfig) {
         },
         compute: function() {
             var fontHeight = this.symbolSizeConfig.height[this.parent.parent.fontSize];
-            var bottomHalfMaxTopAlign = [this.wrappers[this.maxTopAlignIndex].topAlign, 0.5 * this.parent.symbol.height, this.parent.limitLeftContainer.wrappers[this.parent.limitLeftContainer.maxTopAlignIndex].topAlign].max();
-            var topOffset = 0.5 * (bottomHalfMaxTopAlign - this.wrappers[this.maxTopAlignIndex].topAlign);
+            var bottomHalfMaxTopAlign = 0;
+            var topOffset = 0;
+            if (this.wrappers.length > 0 && this.parent.limitLeftContainer.wrappers.length > 0) {
+                bottomHalfMaxTopAlign = [this.wrappers[this.maxTopAlignIndex].topAlign, 0.5 * this.parent.symbol.height, this.parent.limitLeftContainer.wrappers[this.parent.limitLeftContainer.maxTopAlignIndex].topAlign].max();
+                topOffset = bottomHalfMaxTopAlign - this.wrappers[this.maxTopAlignIndex].topAlign;
+            }
             return this.parent.limitWord.height + this.parent.belowLimitGap * fontHeight + topOffset;
         },
         updateDom: function() {

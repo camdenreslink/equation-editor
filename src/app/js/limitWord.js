@@ -12,7 +12,8 @@ eqEd.LimitWord = function(symbolSizeConfig) {
             left = value;
         },
         compute: function() {
-            var leftOffset = 0.5 * (this.parent.width - this.width);
+            var fontHeight = this.symbolSizeConfig.height[this.parent.parent.fontSize];
+            var leftOffset = 0.5 * ((this.parent.width - (this.parent.padLeft + this.parent.padRight) * fontHeight) - this.width);
             return leftOffset;
         },
         updateDom: function() {
