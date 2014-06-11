@@ -96,10 +96,12 @@ eqEd.SymbolWrapper = function(character, fontStyle, symbolSizeConfig) {
                 && this.parent.wrappers[this.index + 1] instanceof eqEd.SuperscriptWrapper) {
                 padRightVal += 0.05;
             }
+            /*
             // Prevents characters from overlapping the end of the container
             if (this.index === this.parent.wrappers.length - 1) {
                 padRightVal += 0.075;
             }
+            */
             return padRightVal;
         },
         updateDom: function() {}

@@ -1,12 +1,17 @@
 eqEd.SymbolSizeConfiguration = function() {
     this.fontSizes = ["fontSizeSmallest", "fontSizeSmaller", "fontSizeNormal"];
-    this.fontStyles = ["MathJax_MathItalic", "MathJax_Main", "MathJax_Size3", "MathJax_Size4"];
+    this.fontStyles = ["MathJax_MathItalic", "MathJax_Main", "MathJax_Size1", "MathJax_Size2","MathJax_Size3", "MathJax_Size4"];
     // Lists all characters which need to be rendered in a normal font.
     this.MathJax_Main = ['0', '1', '2', '3', '4', '5', '6', '7', '8', 
                  '9', '&#x2212;', '&#x00f7;', '&#x22c5;', '&#x2248;', '*',
                  '-', '=', '+', '/', '<', '>', '&#60;', '&#62;', '&#x2264;', 
                  '&#x2265;', '&#x221e;', '%', '!', '$', '.', '(', ')', '[', 
-                 ']', '{', '}', '&#8706;'];
+                 ']', '{', '}', '&#8706;', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 
+                 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 
+                 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'A',
+                 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J',
+                 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S',
+                 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', '&#8594;'];
     // Lists all characters which need to be rendered in an italic font. 
     this.MathJax_MathItalic = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 
                  'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 
@@ -24,6 +29,8 @@ eqEd.SymbolSizeConfiguration = function() {
                  '&mu;', '&nu;', '&xi;', '&omicron;', '&pi;', '&rho;', 
                  '&sigma;', '&tau;', '&upsilon;', '&phi;', '&chi;', 
                  '&psi;', '&omega;', '&#x03C2;', '&#x2202;'];
+    this.MathJax_Size1 = [];
+    this.MathJax_Size2 = [];
     this.MathJax_Size3 = ['(', ')', '{', '}', '[', ']'];
     this.MathJax_Size4 = ['(', ')', '{', '}', '[', ']', '&#9115;',
                           '&#9116;', '&#9117;', '&#9118;', '&#9119;',

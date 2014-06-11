@@ -67,6 +67,8 @@ eqEd.OperatorWrapper = function(operatorSymbol, fontStyle, symbolSizeConfig) {
             var padLeftVal = 0.15;
             if (this.isComparison) {
                 padLeftVal = 0.2;
+            } else if (this.isUnary && this.index === 0) {
+                padLeftVal = 0;
             }
             return padLeftVal;
         },
