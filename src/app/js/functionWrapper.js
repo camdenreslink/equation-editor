@@ -22,7 +22,8 @@ eqEd.FunctionWrapper = function(functionCharacters, fontStyle, symbolSizeConfig)
         compute: function() {
             var padRightVal = 0.175;
             if (this.index !== this.parent.wrappers.length - 1) { 
-                if (this.parent.wrappers[this.index + 1] instanceof eqEd.SuperscriptWrapper) {
+                if (this.parent.wrappers[this.index + 1] instanceof eqEd.SuperscriptWrapper
+                    || this.parent.wrappers[this.index + 1] instanceof eqEd.SubscriptWrapper) {
                     padRightVal = 0;
                 } else if (this.parent.wrappers[this.index + 1] instanceof eqEd.BracketWrapper
                     || this.parent.wrappers[this.index + 1] instanceof eqEd.BracketPairWrapper) {

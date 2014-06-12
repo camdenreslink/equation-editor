@@ -767,4 +767,18 @@ var setupMenuEvents = function(symbolSizeConfig) {
         var limitWrapper = new eqEd.LimitWrapper(symbolSizeConfig);
         insertWrapper(limitWrapper);
     });
+
+    $(document).on('mousedown', '#maxLowerButton', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var functionWrapper = new eqEd.FunctionLowerWrapper('max', "MathJax_Main", symbolSizeConfig);
+        insertWrapper(functionWrapper);
+    });
+
+    $(document).on('mousedown', '#minLowerButton', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var functionWrapper = new eqEd.FunctionLowerWrapper('min', "MathJax_Main", symbolSizeConfig);
+        insertWrapper(functionWrapper);
+    });
 };

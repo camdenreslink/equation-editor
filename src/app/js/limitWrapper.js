@@ -1,6 +1,16 @@
 eqEd.LimitWrapper = function(symbolSizeConfig) {
-    eqEd.Wrapper.call(this, symbolSizeConfig); // call super constructor.
+    eqEd.FunctionWrapper.call(this, 'lim', 'MathJax_Main', symbolSizeConfig); // call super constructor.
     this.className = "eqEd.LimitWrapper";
+
+    // topAlign, bottomAlign, width has already been added to 
+    // properties in superclass needs removed to be overriden
+    for(var i = 0; i < this.properties.length; i++) {
+        if (this.properties[i].propName === "topAlign"
+            || this.properties[i].propName === "bottomAlign"
+            || this.properties[i].propName === "width") {
+            this.properties.splice(i, 1);
+        }
+    }
 
     this.leftLimitContainerGap = 0;
     this.rightLimitContainerGap = 0;
@@ -57,8 +67,6 @@ eqEd.LimitWrapper = function(symbolSizeConfig) {
             var widthVal = 0;
             var topWidth = this.limitWord.width;
             widthVal = (topWidth > this.bottomHalfWidth) ? topWidth : this.bottomHalfWidth;
-            console.log("width: " + widthVal);
-            console.log("bottomHalfWidth: " +  this.bottomHalfWidth);
             return widthVal;
         },
         updateDom: function() {
@@ -94,14 +102,15 @@ eqEd.LimitWrapper = function(symbolSizeConfig) {
             var fontHeight = this.symbolSizeConfig.height[this.parent.fontSize];
             var bottomAlignVal = 0;
             var maxBottomHalfHeight = [this.symbol.height, this.limitLeftContainer.height, this.limitRightContainer.height].max();
-            return 0.5 * this.limitWord.height + this.belowLimitGap * fontHeight + maxBottomHalfHeight;
+            bottomAlignVal = 0.5 * this.limitWord.height + this.belowLimitGap * fontHeight + maxBottomHalfHeight;
+            return bottomAlignVal;
         },
         updateDom: function() {}
     }));
 };
 (function() {
     // subclass extends superclass
-    eqEd.LimitWrapper.prototype = Object.create(eqEd.Wrapper.prototype);
+    eqEd.LimitWrapper.prototype = Object.create(eqEd.FunctionWrapper.prototype);
     eqEd.LimitWrapper.prototype.constructor = eqEd.LimitWrapper;
     eqEd.LimitWrapper.prototype.buildDomObj = function() {
         return new eqEd.WrapperDom(this,

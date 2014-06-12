@@ -8,6 +8,31 @@ eqEd.SubscriptWrapper = function(symbolSizeConfig) {
     this.domObj.append(this.subscriptContainer.domObj);
     this.childContainers = [this.subscriptContainer];
 
+    // Set up the padRight calculation
+    var padRight = 0;
+    this.properties.push(new Property(this, "padRight", padRight, {
+        get: function() {
+            return padRight;
+        },
+        set: function(value) {
+            padRight = value;
+        },
+        compute: function() {
+            var padRightVal = 0;
+            if (this.index !== 0 
+                && this.parent.wrappers[this.index - 1] instanceof eqEd.FunctionWrapper) {
+                if (this.parent.wrappers[this.index + 1] instanceof eqEd.BracketWrapper
+                    || this.parent.wrappers[this.index + 1] instanceof eqEd.BracketPairWrapper) {
+                    padRightVal = 0.05;
+                } else {
+                    padRightVal = 0.175;
+                }
+            }
+            return padRightVal;
+        },
+        updateDom: function() {}
+    }));
+
     // Set up the width calculation
     var width = 0;
     this.properties.push(new Property(this, "width", width, {

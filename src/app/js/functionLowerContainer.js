@@ -1,6 +1,6 @@
-eqEd.LimitLeftContainer = function(symbolSizeConfig) {
+eqEd.FunctionLowerContainer = function(symbolSizeConfig) {
     eqEd.Container.call(this, symbolSizeConfig);
-    this.className = "eqEd.LimitLeftContainer";
+    this.className = "eqEd.FunctionLowerContainer";
     this.domObj = this.buildDomObj();
     var squareEmptyContainerWrapper = new eqEd.SquareEmptyContainerWrapper(symbolSizeConfig);
     this.addWrappers([0, squareEmptyContainerWrapper]);
@@ -16,7 +16,7 @@ eqEd.LimitLeftContainer = function(symbolSizeConfig) {
         },
         compute: function() {
             var fontHeight = this.symbolSizeConfig.height[this.parent.parent.fontSize];
-            var leftOffset = 0.5 * ((this.parent.width - (this.parent.padLeft + this.parent.padRight) * fontHeight) - this.parent.bottomHalfWidth);
+            var leftOffset = 0.5 * ((this.parent.width - (this.parent.padLeft + this.parent.padRight) * fontHeight) - this.width);
             return leftOffset;
         },
         updateDom: function() {
@@ -35,13 +35,7 @@ eqEd.LimitLeftContainer = function(symbolSizeConfig) {
         },
         compute: function() {
             var fontHeight = this.symbolSizeConfig.height[this.parent.parent.fontSize];
-            var bottomHalfMaxTopAlign = 0;
-            var topOffset = 0;
-            if (this.wrappers.length > 0 && this.parent.limitRightContainer.wrappers.length > 0) {
-                bottomHalfMaxTopAlign = [this.wrappers[this.maxTopAlignIndex].topAlign, 0.5 * this.parent.symbol.height, this.parent.limitRightContainer.wrappers[this.parent.limitRightContainer.maxTopAlignIndex].topAlign].max();
-                topOffset = bottomHalfMaxTopAlign - this.wrappers[this.maxTopAlignIndex].topAlign;
-            }
-            return this.parent.limitWord.height + this.parent.belowLimitGap * fontHeight + topOffset;
+            return this.parent.functionWord.height + this.parent.belowFunctionGap * fontHeight;
         },
         updateDom: function() {
             this.domObj.updateTop(this.top);
@@ -77,10 +71,10 @@ eqEd.LimitLeftContainer = function(symbolSizeConfig) {
 };
 (function() {
     // subclass extends superclass
-    eqEd.LimitLeftContainer.prototype = Object.create(eqEd.Container.prototype);
-    eqEd.LimitLeftContainer.prototype.constructor = eqEd.LimitLeftContainer;
-    eqEd.LimitLeftContainer.prototype.buildDomObj = function() {
+    eqEd.FunctionLowerContainer.prototype = Object.create(eqEd.Container.prototype);
+    eqEd.FunctionLowerContainer.prototype.constructor = eqEd.FunctionLowerContainer;
+    eqEd.FunctionLowerContainer.prototype.buildDomObj = function() {
         return new eqEd.ContainerDom(this,
-            '<div class="container limitLeftContainer"></div>');
+            '<div class="container functionLowerContainer"></div>');
     };
 })();
