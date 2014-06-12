@@ -5,8 +5,8 @@ eqEd.StackedFractionDenominatorContainer = function(symbolSizeConfig) {
     var squareEmptyContainerWrapper = new eqEd.SquareEmptyContainerWrapper(symbolSizeConfig);
     this.addWrappers([0, squareEmptyContainerWrapper]);
     
-    this.padBottom = 0.05;
-    this.padTop = 0.1;
+    this.padBottom = 0.025;
+    this.padTop = 0.025;
 
     // Set up the left calculation
     var left = 0;

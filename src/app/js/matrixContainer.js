@@ -1,13 +1,12 @@
-eqEd.StackedFractionNumeratorContainer = function(symbolSizeConfig) {
+eqEd.MatrixContainer = function(row, col, symbolSizeConfig) {
     eqEd.Container.call(this, symbolSizeConfig);
-    this.className = "eqEd.StackedFractionNumeratorContainer";
-    
+    this.className = "eqEd.MatrixContainer";
+    this.row = row;
+    this.col = col;
+
     this.domObj = this.buildDomObj();
     var squareEmptyContainerWrapper = new eqEd.SquareEmptyContainerWrapper(symbolSizeConfig);
     this.addWrappers([0, squareEmptyContainerWrapper]);
-
-    this.padBottom = 0.025;
-    this.padTop = 0.025;
     
     // Set up the left calculation
     var left = 0;
@@ -20,8 +19,19 @@ eqEd.StackedFractionNumeratorContainer = function(symbolSizeConfig) {
         },
         compute: function() {
             var fontHeight = this.symbolSizeConfig.height[this.parent.parent.fontSize];
-            var maxNumDenomWidth = (this.width > this.parent.stackedFractionDenominatorContainer.width) ? this.width : this.parent.stackedFractionDenominatorContainer.width;
-            return 0.5 * (maxNumDenomWidth - this.width) + 0.5 * this.parent.stackedFractionHorizontalBar.exceedsMaxNumDenomWidth * fontHeight;
+            var leftVal = 0;
+            for (var i = 0; i < this.col; i++) {
+                leftVal += this.parent.colWidths[i];
+            }
+            if (this.parent.horAlign === 'left') {
+                leftVal += 0;
+            } else if (this.parent.horAlign === 'center') {
+                leftVal += 0.5 * (this.parent.colWidths[this.col] - this.width);
+            } else if (this.parent.horAlign === 'right') {
+                leftVal += this.parent.colWidths[this.col] - this.width;
+            }
+            leftVal += this.col * this.parent.horGap * fontHeight;
+            return leftVal;
         },
         updateDom: function() {
             this.domObj.updateLeft(this.left);
@@ -38,8 +48,16 @@ eqEd.StackedFractionNumeratorContainer = function(symbolSizeConfig) {
             top = value;
         },
         compute: function() {
-            // remember compute hooks get called.
-            return 0;
+            var fontHeight = this.symbolSizeConfig.height[this.parent.parent.fontSize];
+            var topVal = 0;
+            for (var i = 0; i < this.row; i++) {
+                topVal += this.parent.rowTopAligns[i] + this.parent.rowBottomAligns[i];
+            }
+            if (this.wrappers.length > 0) {
+                topVal += this.parent.rowTopAligns[this.row] - this.wrappers[this.maxTopAlignIndex].topAlign;
+            }
+            topVal += this.row * this.parent.vertGap * fontHeight;
+            return topVal;
         },
         updateDom: function() {
             this.domObj.updateTop(this.top);
@@ -64,11 +82,7 @@ eqEd.StackedFractionNumeratorContainer = function(symbolSizeConfig) {
             if (actualParentContainer.fontSize === "fontSizeSmaller" || actualParentContainer.fontSize === "fontSizeSmallest") {
                 fontSizeVal = "fontSizeSmallest";
             } else {
-                if (actualParentContainer.parent instanceof eqEd.StackedFractionWrapper) {
-                    fontSizeVal = "fontSizeSmaller";
-                } else {
-                    fontSizeVal = "fontSizeNormal";
-                }
+                fontSizeVal = "fontSizeNormal";
             }
             return fontSizeVal;
         },
@@ -79,10 +93,19 @@ eqEd.StackedFractionNumeratorContainer = function(symbolSizeConfig) {
 };
 (function() {
     // subclass extends superclass
-    eqEd.StackedFractionNumeratorContainer.prototype = Object.create(eqEd.Container.prototype);
-    eqEd.StackedFractionNumeratorContainer.prototype.constructor = eqEd.StackedFractionNumeratorContainer;
-    eqEd.StackedFractionNumeratorContainer.prototype.buildDomObj = function() {
+    eqEd.MatrixContainer.prototype = Object.create(eqEd.Container.prototype);
+    eqEd.MatrixContainer.prototype.constructor = eqEd.MatrixContainer;
+    eqEd.MatrixContainer.prototype.clone = function() {
+      var copy = new this.constructor(this.row, this.col, this.symbolSizeConfig);
+      var indexAndWrapperList = [];
+      for (var i = 0; i < this.wrappers.length; i++) {
+        indexAndWrapperList.push([i, this.wrappers[i].clone()]);
+      }
+      eqEd.Container.prototype.addWrappers.apply(copy, indexAndWrapperList);
+      return copy;
+    }
+    eqEd.MatrixContainer.prototype.buildDomObj = function() {
         return new eqEd.ContainerDom(this,
-            '<div class="container stackedFractionNumeratorContainer"></div>');
+            '<div class="container matrixContainer"></div>');
     };
 })();

@@ -160,12 +160,10 @@ var inializePropertyHooks = function(symbolSizeConfig) {
     return value + this.padBottom * fontHeight;
   };
   Property.postComputeHooks['all'] = function(value, propName) {
-    
-    var isNumeric = !isNaN(value) && !(value === true || value === false);
+    var isNumeric = !isNaN(value) && !(value === true || value === false) && Object.prototype.toString.call(value) !== '[object Array]';
     if (isNumeric && propName !== "padLeft" && propName !== "padRight" && propName !== "heightRatio") {
       value = Math.ceil(value);
     }
-    
     return value;
   };
 

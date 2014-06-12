@@ -788,4 +788,13 @@ var setupMenuEvents = function(symbolSizeConfig) {
         var functionWrapper = new eqEd.LogLowerWrapper(symbolSizeConfig);
         insertWrapper(functionWrapper);
     });
+
+    $(document).on('mousedown', '#matrixButton', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var rows = parseInt($('#rows').val());
+        var cols = parseInt($('#cols').val());
+        var matrixWrapper = new eqEd.MatrixWrapper(rows, cols, 'center', symbolSizeConfig);
+        insertWrapper(matrixWrapper);
+    });
 };
