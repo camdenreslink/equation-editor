@@ -19,7 +19,7 @@ eqEd.SuperscriptWrapper = function(symbolSizeConfig) {
             padRight = value;
         },
         compute: function() {
-            var padRightVal = 0;
+            var padRightVal = 0.05;
             if (this.index !== 0 
                 && this.parent.wrappers[this.index - 1] instanceof eqEd.FunctionWrapper) {
                 if (this.parent.wrappers[this.index + 1] instanceof eqEd.BracketWrapper

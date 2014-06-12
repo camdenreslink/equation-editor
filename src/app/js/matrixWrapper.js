@@ -8,8 +8,13 @@ eqEd.MatrixWrapper = function(numRows, numCols, horAlign, symbolSizeConfig) {
     this.horGap = 1;
     this.vertGap = 0.25;
 
-    this.padLeft = 0.25;
-    this.padRight = 0.25;
+    if (this.numRows === 2 && this.numCols === 1) {
+        this.padLeft = 0;
+        this.padRight = 0;
+    } else {
+        this.padLeft = 0.25;
+        this.padRight = 0.25;
+    }
 
     this.domObj = this.buildDomObj();
 
