@@ -781,4 +781,11 @@ var setupMenuEvents = function(symbolSizeConfig) {
         var functionWrapper = new eqEd.FunctionLowerWrapper('min', "MathJax_Main", symbolSizeConfig);
         insertWrapper(functionWrapper);
     });
+
+    $(document).on('mousedown', '#logLowerButton', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var functionWrapper = new eqEd.LogLowerWrapper(symbolSizeConfig);
+        insertWrapper(functionWrapper);
+    });
 };

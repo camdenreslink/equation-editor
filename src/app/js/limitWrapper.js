@@ -33,9 +33,6 @@ eqEd.LimitWrapper = function(symbolSizeConfig) {
     this.childNoncontainers = [this.symbol, this.limitWord];
     this.childContainers = [this.limitLeftContainer, this.limitRightContainer];
 
-    this.padLeft = 0;
-    this.padRight = 0.05;
-
     // Set up the bottomHalfWidth calculation
     var bottomHalfWidth = 0;
     this.properties.push(new Property(this, "bottomHalfWidth", bottomHalfWidth, {
