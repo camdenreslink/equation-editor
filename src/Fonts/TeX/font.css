@@ -7,6 +7,15 @@
 }
 
 @font-face {
+    font-family: 'MathJax_Main';
+    src: url('eot/MathJax_Main-Italic.eot'); /* IE9 Compat Modes */
+    src: url('eot/MathJax_Main-Italic.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+         url('woff/MathJax_Main-Italic.woff') format('woff'), /* Modern Browsers */
+         url('svg/MathJax_Main-Italic.svg#MathJax_Main') format('svg');
+    font-style: italic;
+}
+
+@font-face {
     font-family: 'MathJax_Math';
     src: url('eot/MathJax_Math-Italic.eot'); /* IE9 Compat Modes */
     src: url('eot/MathJax_Math-Italic.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */

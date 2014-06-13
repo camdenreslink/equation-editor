@@ -159,6 +159,9 @@
   <script src="../js/limitSymbol.js"></script>
   <script src="../js/matrixWrapper.js"></script>
   <script src="../js/matrixContainer.js"></script>
+  <script src="../js/accentWrapper.js"></script>
+  <script src="../js/accentSymbol.js"></script>
+  <script src="../js/accentContainer.js"></script>
   <script src="../js/blinkingCursor.js"></script>
   <script src="../js/mouseInteraction.js"></script>
   <script src="../js/addWrapperUtil.js"></script>
@@ -289,9 +292,66 @@
     <button id="maxLowerButton">MaxLower</button>
     <button id="minLowerButton">MinLower</button>
     <button id="logLowerButton">LogLower</button>
-    <input type="text" id="rows" /><input type="text" id="cols" />
+    rows: <input type="text" id="rows" /> cols: <input type="text" id="cols" />
     <button id="matrixButton">Matrix</button>
 
+    <button id="dotAccentButton">DotAccent</button>
+    <button id="hatAccentButton">HatAccent</button>
     <div class="testEquation equation"></div>
+<!--
+    <div class="fontSizeNormal" style="position: relative">
+      <div class="symbol MathJax_MathItalic" style="position: absolute; top: 0.111111em; left: 0em;">o</div>
+      <div class="symbol MathJax_Main" style="position: absolute; top: 0em; left: 0.062em;">^</div>
+    </div>
+    <br>
+    <br>
+    <br>
+    <br>
+    <div class="fontSizeNormal" style="position: relative">
+      <div class="symbol MathJax_MathItalic" style="position: absolute; top: 0.111111em; left: 0em;">x</div>
+      <div class="symbol MathJax_Main" style="position: absolute; top: 0em; left: 0.062em;">^</div>
+    </div>
+    <br>
+    <br>
+    <br>
+    <br>
+    <div class="fontSizeNormal" style="position: relative">
+      <div class="symbol MathJax_MathItalic" style="position: absolute; top: 0.111111em; left: 0em;">y</div>
+      <div class="symbol MathJax_Main" style="position: absolute; top: 0em; left: 0.062em;">^</div>
+    </div>
+    <br>
+    <br>
+    <br>
+    <br>
+    <div class="fontSizeNormal" style="position: relative">
+      <div class="symbol MathJax_MathItalic" style="position: absolute; top: 0.111111em; left: 0em;">o</div>
+      <div class="symbol MathJax_Main" style="position: absolute; top: 0em; left: 0.062em;">&#729;</div>
+    </div>
+    <br>
+    <br>
+    <br>
+    <br>
+      -->
+    <div class="fontSizeNormal" style="position: relative">
+      <div class="symbol MathJax_MathItalic" style="position: absolute; top: 0.111111em; left: 0em;">x</div>
+      <div class="symbol MathJax_Main" style="position: absolute; top: 0em; left: 0.062em;">&#729;</div>
+    </div>
+    <br>
+    <br>
+    <br>
+    <br>
+    <div class="fontSizeNormal" style="position: relative">
+      <div class="symbol MathJax_MathItalic" style="position: absolute; top: 0.111111em; left: 0em;">y</div>
+      <div class="symbol MathJax_Main" style="position: absolute; top: 0em; left: 0.062em;">&#729;</div>
+    </div>
+    <br>
+    <br>
+    <br>
+    <br>
+    <div class="fontSizeNormal" style="position: relative">
+      <div class="symbol MathJax_MathItalic" style="position: absolute; top: 0.111111em; left: 0em;">z</div>
+      <div class="symbol MathJax_Main" style="position: absolute; top: 0em; left: 0.062em;">&#729;</div>
+    </div>
+
 </body>
 </html>

@@ -42,6 +42,10 @@ eqEd.EquationDom.prototype.empty = function() {
     this.value.empty();
 }
 
+eqEd.EquationDom.prototype.addClass = function(className) {
+    this.value.addClass(className);
+}
+
 eqEd.EquationDom.prototype.updateFontSize = function(fontSize) {
     this.value.removeClass('fontSizeNormal');
     this.value.removeClass('fontSizeSmaller');

@@ -62,6 +62,11 @@
     font-family: 'MathJax_Main';
 }
 
+.MathJax_MainItalic {
+    font-family: 'MathJax_Main';
+    font-style: italic;
+}
+
 .MathJax_Size1 {
     font-family: 'MathJax_Size1';
 }
@@ -165,6 +170,18 @@ div.activeContainer {
 
 .nthRootRadical {
     z-index: 7;
+}
+
+.accentSymbol {
+    z-index: 7;
+}
+
+.dotAccent {
+    clip: rect(0.125em, 0.33em, 0.28em, 0.15em);
+}
+
+.hatAccent {
+    clip: rect(0.11em, 0.4em, 0.29em, 0.1em);
 }
 
 .nonHighlightVersion {

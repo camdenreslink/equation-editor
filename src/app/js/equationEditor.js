@@ -53,6 +53,6 @@ $(window).load(function () {
         callback();
     };
 
-    loadFonts(['MathJax_Main', 'MathJax_Math:i4', 'MathJax_Size1', 'MathJax_Size2', 'MathJax_Size3', 'MathJax_Size4'], '../../Fonts/TeX/font.css', setup);
+    loadFonts(['MathJax_Main', 'MathJax_Main:i4', 'MathJax_Math:i4', 'MathJax_Size1', 'MathJax_Size2', 'MathJax_Size3', 'MathJax_Size4'], '../../Fonts/TeX/font.css', setup);
     loadImages([], setup);
 });

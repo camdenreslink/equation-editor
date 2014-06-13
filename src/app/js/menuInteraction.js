@@ -797,4 +797,18 @@ var setupMenuEvents = function(symbolSizeConfig) {
         var matrixWrapper = new eqEd.MatrixWrapper(rows, cols, 'center', symbolSizeConfig);
         insertWrapper(matrixWrapper);
     });
+
+    $(document).on('mousedown', '#dotAccentButton', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var accentWrapper = new eqEd.AccentWrapper('&#729;', 'MathJax_Main', symbolSizeConfig);
+        insertWrapper(accentWrapper);
+    });
+
+    $(document).on('mousedown', '#hatAccentButton', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var accentWrapper = new eqEd.AccentWrapper('^', 'MathJax_Main', symbolSizeConfig);
+        insertWrapper(accentWrapper);
+    });
 };
