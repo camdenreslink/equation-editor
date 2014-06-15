@@ -30,7 +30,6 @@ eqEd.Symbol = function(character, fontStyle, symbolSizeConfig) {
             // This doesn't really belong here, but it is a convenient callback
             if (this.parent !== null 
                 && this.parent.parent !== null) {
-                console.log(this.parent.parent.className);
             }
             if (this.parent !== null 
                 && this.parent.parent instanceof eqEd.AccentContainer) {
@@ -56,7 +55,6 @@ eqEd.Symbol = function(character, fontStyle, symbolSizeConfig) {
                 &&this.parent.parent.parent instanceof eqEd.AccentContainer) {
                 if (this.character === 'i') {
                     this.character = '&#305;';
-                    console.log('yooooo');
                     this.domObj = this.buildDomObj();
                 } else if (this.character === 'j') {
                     this.character = '&#567;';

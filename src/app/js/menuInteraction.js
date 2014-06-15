@@ -811,4 +811,12 @@ var setupMenuEvents = function(symbolSizeConfig) {
         var accentWrapper = new eqEd.AccentWrapper('^', 'MathJax_Main', symbolSizeConfig);
         insertWrapper(accentWrapper);
     });
+
+    $(document).on('mousedown', '#greekButton', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        console.log('&#' + $('#greek').val().charCodeAt(0) + ';');
+        var symbolWrapper = new eqEd.SymbolWrapper('&#' + $('#greek').val().charCodeAt(0) + ';', "MathJax_MathItalic", symbolSizeConfig);
+        insertWrapper(symbolWrapper);
+    });
 };

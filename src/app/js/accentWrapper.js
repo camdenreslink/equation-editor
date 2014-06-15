@@ -31,7 +31,7 @@ eqEd.AccentWrapper = function(character, fontStyle, symbolSizeConfig) {
                 if (this.accentContainer.wrappers[0] instanceof eqEd.SquareEmptyContainerWrapper) {
                     accentGapVal = 0.25;
                 } else {
-                    accentGapVal = 0.1;//-0.04;
+                    accentGapVal = -0.04;
                 }
             }
             return accentGapVal;
@@ -69,7 +69,11 @@ eqEd.AccentWrapper = function(character, fontStyle, symbolSizeConfig) {
             var fontHeight = this.symbolSizeConfig.height[this.parent.fontSize];
             var topAlignVal = 0;
             if (this.accentContainer.wrappers.length > 0) {
-                topAlignVal = this.accentContainer.wrappers[this.accentContainer.maxTopAlignIndex].topAlign + this.accentGap * fontHeight;
+                if (this.accentGap > 0) {
+                    topAlignVal = this.accentContainer.wrappers[this.accentContainer.maxTopAlignIndex].topAlign + this.accentGap * fontHeight;
+                } else {
+                    topAlignVal = this.accentContainer.wrappers[this.accentContainer.maxTopAlignIndex].topAlign;
+                }
             }
             return topAlignVal;
         },
