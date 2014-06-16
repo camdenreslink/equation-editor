@@ -83,6 +83,10 @@
     font-family: 'MathJax_Size4';
 }
 
+.MathJax_AMS {
+    font-family: 'MathJax_AMS';
+}
+
 div.cursor {
     background-color: #000000;
     /* The cursor should always be on top */
@@ -196,4 +200,8 @@ div.activeContainer {
 .eqImg {
     width: 100%;
     height: 100%;
+}
+
+.accentWrapper {
+    background-color: #690063;
 }

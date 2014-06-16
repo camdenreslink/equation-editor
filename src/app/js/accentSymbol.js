@@ -17,7 +17,7 @@ eqEd.AccentSymbol = function(character, fontStyle, symbolSizeConfig) {
         this.domObj.addClass('hatAccent');
     }
 
-    this.adjustLeft = 0.05;
+    //this.adjustLeft = 0.05;
 
     // Set up the left calculation
     var left = 0;
@@ -30,7 +30,7 @@ eqEd.AccentSymbol = function(character, fontStyle, symbolSizeConfig) {
         },
         compute: function() {
             var leftOffset = 0.5 * (this.parent.width - this.width);
-            return leftOffset;
+            return 0;
         },
         updateDom: function() {
             this.domObj.updateLeft(this.left);
@@ -47,7 +47,13 @@ eqEd.AccentSymbol = function(character, fontStyle, symbolSizeConfig) {
             top = value;
         },
         compute: function() {
-            // remember compute hooks get called.
+            var fontHeight = this.symbolSizeConfig.height[this.parent.parent.fontSize];
+            var topVal = 0
+            if (this.parent.accentGap <= 0) {
+                topVal = this.parent.accentGap * fontHeight;
+            } else {
+                topVal = 0;
+            }
             return 0;
         },
         updateDom: function() {

@@ -34,7 +34,13 @@ eqEd.AccentContainer = function(symbolSizeConfig) {
         },
         compute: function() {
             var fontHeight = this.symbolSizeConfig.height[this.parent.parent.fontSize];
-            return this.parent.accentGap * fontHeight;
+            var topVal = 0
+            if (this.parent.accentGap > 0) {
+                topVal = this.parent.accentGap * fontHeight;
+            } else {
+                topVal = 0;
+            }
+            return topVal;
         },
         updateDom: function() {
             this.domObj.updateTop(this.top);

@@ -815,8 +815,9 @@ var setupMenuEvents = function(symbolSizeConfig) {
     $(document).on('mousedown', '#greekButton', function (e) {
         e.preventDefault();
         e.stopPropagation();
-        console.log('&#' + $('#greek').val().charCodeAt(0) + ';');
-        var symbolWrapper = new eqEd.SymbolWrapper('&#' + $('#greek').val().charCodeAt(0) + ';', "MathJax_MathItalic", symbolSizeConfig);
+        var value = $('#greek').val().charCodeAt(0);
+        console.log('&#' + value + ';');
+        var symbolWrapper = new eqEd.SymbolWrapper('&#' + value + ';', "MathJax_MathItalic", symbolSizeConfig);
         insertWrapper(symbolWrapper);
     });
 };

@@ -55,3 +55,11 @@
          url('woff/MathJax_Size4-Regular.woff') format('woff'), /* Modern Browsers */
          url('svg/MathJax_Size4-Regular.svg#MathJax_Size4') format('svg');
 }
+
+@font-face {
+    font-family: 'MathJax_AMS';
+    src: url('eot/MathJax_AMS-Regular.eot'); /* IE9 Compat Modes */
+    src: url('eot/MathJax_AMS-Regular.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+         url('woff/MathJax_AMS-Regular.woff') format('woff'), /* Modern Browsers */
+         url('svg/MathJax_AMS-Regular.svg#MathJax_AMS') format('svg');
+}
