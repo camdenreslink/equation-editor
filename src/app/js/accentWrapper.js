@@ -29,7 +29,7 @@ eqEd.AccentWrapper = function(character, fontStyle, symbolSizeConfig) {
             var accentGapVal = 0.25;
             if (this.accentContainerCharacter !== "") {
                 if (this.symbolSizeConfig.shortCharacters.contains(this.accentContainerCharacter)) {
-                    accentGapVal = -0.04;
+                    accentGapVal = -0.02;
                 } else if (this.symbolSizeConfig.mediumCharacters.contains(this.accentContainerCharacter)) {
                     accentGapVal = 0.135;
                 } else if (this.symbolSizeConfig.tallCharacters.contains(this.accentContainerCharacter)) {

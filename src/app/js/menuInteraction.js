@@ -816,7 +816,6 @@ var setupMenuEvents = function(symbolSizeConfig) {
         e.preventDefault();
         e.stopPropagation();
         var value = $('#greek').val().charCodeAt(0);
-        console.log('&#' + value + ';');
         var symbolWrapper = new eqEd.SymbolWrapper('&#' + value + ';', "MathJax_MathItalic", symbolSizeConfig);
         insertWrapper(symbolWrapper);
     });
