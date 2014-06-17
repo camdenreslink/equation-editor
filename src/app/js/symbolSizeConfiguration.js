@@ -41,7 +41,7 @@ eqEd.SymbolSizeConfiguration = function() {
     // This will be the union of the characters in each font style.
     // Can be used to see if a character is allowed to be part of an equation.
     this.character = [];
-    this.shortCharacters = ['a', 'c', 'e', 'f', 'g', '&#305;', 'i', '&#567;', 'j', 'm',
+    this.shortCharacters = ['a', 'c', 'e', 'g', '&#305;', 'i', '&#567;', 'j', 'm',
                             'n', 'o', 'p', 'q', 'r', 's', 'u', 'v', 'w', 'x', 'y', 'z',
                             '&#945;', '&#947;', '&#949;', '&#1013;', '&#951;', '&#953;',
                             '&#954;', '&#956;', '&#957;', '&#960;', '&#982;', '&#961;',

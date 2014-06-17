@@ -15,7 +15,8 @@ eqEd.AccentContainer = function(symbolSizeConfig) {
             left = value;
         },
         compute: function() {
-            // remember compute hooks get called.
+            var fontHeight = this.symbolSizeConfig.height[this.parent.parent.fontSize];
+            var leftOffset = 0.5 * (this.parent.width - (this.parent.padLeft + this.parent.padRight) * fontHeight - this.width);
             return 0;
         },
         updateDom: function() {
@@ -35,10 +36,8 @@ eqEd.AccentContainer = function(symbolSizeConfig) {
         compute: function() {
             var fontHeight = this.symbolSizeConfig.height[this.parent.parent.fontSize];
             var topVal = 0
-            if (this.parent.accentGap > 0) {
+            if (this.parent.accentGap >= 0) {
                 topVal = this.parent.accentGap * fontHeight;
-            } else {
-                topVal = 0;
             }
             return topVal;
         },

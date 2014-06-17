@@ -26,18 +26,46 @@ eqEd.AccentWrapper = function(character, fontStyle, symbolSizeConfig) {
             accentGap = value;
         },
         compute: function() {
-            var accentGapVal = 0;
-            if (this.accentContainer.wrappers.length > 0) {
-                if (this.accentContainer.wrappers[0] instanceof eqEd.SquareEmptyContainerWrapper) {
-                    accentGapVal = 0.25;
-                } else {
+            var accentGapVal = 0.25;
+            if (this.accentContainerCharacter !== "") {
+                if (this.symbolSizeConfig.shortCharacters.contains(this.accentContainerCharacter)) {
                     accentGapVal = -0.04;
+                } else if (this.symbolSizeConfig.mediumCharacters.contains(this.accentContainerCharacter)) {
+                    accentGapVal = 0.135;
+                } else if (this.symbolSizeConfig.tallCharacters.contains(this.accentContainerCharacter)) {
+                    accentGapVal = 0.22;
                 }
             }
             return accentGapVal;
         },
         updateDom: function() {}
     }));
+
+    var accentContainerCharacter = ""
+    // Set up the accentContainerCharacter calculation
+    var accentContainerCharacter = 0;
+    this.properties.push(new Property(this, "accentContainerCharacter", accentContainerCharacter, {
+        get: function() {
+            return accentContainerCharacter;
+        },
+        set: function(value) {
+            accentContainerCharacter = value;
+        },
+        compute: function() {
+            var accentContainerCharacterVal = "";
+            if (this.accentContainer.wrappers.length > 0) {
+                if (this.accentContainer.wrappers.length === 1) {
+                    if (this.accentContainer.wrappers[0] instanceof eqEd.SymbolWrapper) {
+                        accentContainerCharacterVal = this.accentContainer.wrappers[0].symbol.character;
+                    }
+                }
+            }
+            console.log(accentContainerCharacterVal);
+            return accentContainerCharacterVal;
+        },
+        updateDom: function() {}
+    }));
+
 
     // Set up the width calculation
     var width = 0;
@@ -49,7 +77,12 @@ eqEd.AccentWrapper = function(character, fontStyle, symbolSizeConfig) {
             width = value;
         },
         compute: function() {
-            return this.accentContainer.width;
+            var fontHeight = this.symbolSizeConfig.height[this.parent.fontSize];
+            var widthVal = 0;
+            var symbolWidth = this.accentSymbol.width;
+            var containerWidth = this.accentContainer.width;
+            widthVal = (symbolWidth >= containerWidth) ? symbolWidth : containerWidth;
+            return widthVal;
         },
         updateDom: function() {
             this.domObj.updateWidth(this.width);
@@ -69,10 +102,9 @@ eqEd.AccentWrapper = function(character, fontStyle, symbolSizeConfig) {
             var fontHeight = this.symbolSizeConfig.height[this.parent.fontSize];
             var topAlignVal = 0;
             if (this.accentContainer.wrappers.length > 0) {
-                if (this.accentGap > 0) {
-                    topAlignVal = this.accentContainer.wrappers[this.accentContainer.maxTopAlignIndex].topAlign + this.accentGap * fontHeight;
-                } else {
-                    topAlignVal = this.accentContainer.wrappers[this.accentContainer.maxTopAlignIndex].topAlign;
+                topAlignVal = this.accentContainer.wrappers[this.accentContainer.maxTopAlignIndex].topAlign;
+                if (this.accentGap >= 0) {
+                    topAlignVal += this.accentGap * fontHeight;
                 }
             }
             return topAlignVal;

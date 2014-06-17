@@ -185,7 +185,7 @@ div.activeContainer {
 }
 
 .hatAccent {
-    background-color: #abcdef;
+    /*background-color: #abcdef;*/
     clip: rect(0.11em, 0.4em, 0.29em, 0.1em);
 }
 
@@ -203,5 +203,5 @@ div.activeContainer {
 }
 
 .accentWrapper {
-    background-color: #690063;
+    /*background-color: #690063;*/
 }
