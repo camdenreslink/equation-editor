@@ -181,12 +181,12 @@ div.activeContainer {
 }
 
 .dotAccent {
-    clip: rect(0.125em, 0.33em, 0.28em, 0.15em);
+    clip: rect(0.075em, 0.33em, 0.28em, 0.15em);
 }
 
 .hatAccent {
     /*background-color: #abcdef;*/
-    clip: rect(0.11em, 0.4em, 0.29em, 0.1em);
+    clip: rect(0.05em, 0.4em, 0.29em, 0.1em);
 }
 
 .nonHighlightVersion {

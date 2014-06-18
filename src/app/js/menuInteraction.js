@@ -53,6 +53,12 @@ var setupMenuEvents = function(symbolSizeConfig) {
         var operatorWrapper = new eqEd.OperatorWrapper('&#x2248;', "MathJax_Main", symbolSizeConfig);
         insertWrapper(operatorWrapper);
     });
+    $(document).on('mousedown', '#belongsToButton', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var operatorWrapper = new eqEd.OperatorWrapper('&#8712;', "MathJax_Main", symbolSizeConfig);
+        insertWrapper(operatorWrapper);
+    });
     $(document).on('mousedown', '#leftAngleBracketButton', function (e) {
         e.preventDefault();
         e.stopPropagation();
@@ -815,8 +821,18 @@ var setupMenuEvents = function(symbolSizeConfig) {
     $(document).on('mousedown', '#greekButton', function (e) {
         e.preventDefault();
         e.stopPropagation();
-        var value = $('#greek').val().charCodeAt(0);
-        var symbolWrapper = new eqEd.SymbolWrapper('&#' + value + ';', "MathJax_MathItalic", symbolSizeConfig);
+        var value = '&#' + $('#greek').val().charCodeAt(0) + ';';
+        var upperCaseGreek = [
+            '&#915;', '&#916;', '&#920;', '&#923;', '&#926;',
+            '&#928;', '&#931;', '&#933;', '&#934;', '&#936;',
+            '&#937;'
+        ];
+        var symbolWrapper = null;
+        if (upperCaseGreek.contains(value)) {
+            symbolWrapper = new eqEd.SymbolWrapper(value, "MathJax_Main", symbolSizeConfig);
+        } else {
+            symbolWrapper = new eqEd.SymbolWrapper(value, "MathJax_MathItalic", symbolSizeConfig);
+        }
         insertWrapper(symbolWrapper);
     });
 };

@@ -30,7 +30,7 @@ eqEd.SymbolWrapper = function(character, fontStyle, symbolSizeConfig) {
                     for (var i = 0; i < this.index; i++) {
                         var wrapper = this.parent.wrappers[i];
                         if (wrapper instanceof eqEd.IntegralWrapper) {
-                            integralCount++;
+                            integralCount += wrapper.numIntegrals;
                         } else if (wrapper instanceof eqEd.SymbolWrapper 
                                     && wrapper.symbol.character === 'd'
                                     && this.parent.wrappers[i + 1] instanceof eqEd.SymbolWrapper
@@ -61,7 +61,7 @@ eqEd.SymbolWrapper = function(character, fontStyle, symbolSizeConfig) {
             var padLeftVal = 0;
             // Special padding logic for differentials after integrals.
             if (this.isDifferential) {
-                padLeftVal = 0.2;
+                padLeftVal = 0.15;
             }
             if (this.index === 0) {
                 //padLeftVal += 0.1;
