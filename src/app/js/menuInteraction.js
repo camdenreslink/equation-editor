@@ -818,6 +818,13 @@ var setupMenuEvents = function(symbolSizeConfig) {
         insertWrapper(accentWrapper);
     });
 
+    $(document).on('mousedown', '#vectorAccentButton', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var accentWrapper = new eqEd.AccentWrapper('&#8407;', 'MathJax_Main', symbolSizeConfig);
+        insertWrapper(accentWrapper);
+    });
+
     $(document).on('mousedown', '#greekButton', function (e) {
         e.preventDefault();
         e.stopPropagation();

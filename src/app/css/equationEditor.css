@@ -177,16 +177,24 @@ div.activeContainer {
 }
 
 .accentSymbol {
-    z-index: 7;
+    z-index: 8;
 }
 
 .dotAccent {
     clip: rect(0.075em, 0.33em, 0.28em, 0.15em);
 }
 
+.dotAccentIE {
+    
+}
+
 .hatAccent {
-    /*background-color: #abcdef;*/
+    background-color: #abcdef;
     clip: rect(0.05em, 0.4em, 0.29em, 0.1em);
+}
+
+.hatAccentIE {
+
 }
 
 .nonHighlightVersion {
@@ -200,8 +208,4 @@ div.activeContainer {
 .eqImg {
     width: 100%;
     height: 100%;
-}
-
-.accentWrapper {
-    /*background-color: #690063;*/
 }

@@ -36,6 +36,7 @@ eqEd.AccentWrapper = function(character, fontStyle, symbolSizeConfig) {
                     accentGapVal = 0.22;
                 }
             }
+            console.log(accentGap)
             return accentGapVal;
         },
         updateDom: function() {}
@@ -77,12 +78,8 @@ eqEd.AccentWrapper = function(character, fontStyle, symbolSizeConfig) {
             width = value;
         },
         compute: function() {
-            var fontHeight = this.symbolSizeConfig.height[this.parent.fontSize];
-            var widthVal = 0;
-            var symbolWidth = this.accentSymbol.width;
             var containerWidth = this.accentContainer.width;
-            widthVal = (symbolWidth >= containerWidth) ? symbolWidth : containerWidth;
-            return widthVal;
+            return containerWidth;
         },
         updateDom: function() {
             this.domObj.updateWidth(this.width);

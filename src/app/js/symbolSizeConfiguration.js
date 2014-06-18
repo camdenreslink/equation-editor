@@ -14,7 +14,7 @@ eqEd.SymbolSizeConfiguration = function() {
                  'T', 'U', 'V', 'W', 'X', 'Y', 'Z', '&#8594;', '^',
                  '&#729;', '&#915;', '&#916;', '&#920;', '&#923;', '&#926;',
                   '&#928;', '&#931;', '&#933;', '&#934;', '&#936;',
-                  '&#937;', '&#8712;'];
+                  '&#937;', '&#8712;', '&#8407;'];
     this.MathJax_MainItalic = ['&#305;', '&#567;'];
     // Lists all characters which need to be rendered in an italic font. 
     this.MathJax_MathItalic = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 
