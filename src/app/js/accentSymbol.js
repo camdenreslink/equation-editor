@@ -487,9 +487,17 @@ eqEd.AccentSymbol = function(character, fontStyle, symbolSizeConfig) {
 
     this.domObj.addClass('accentSymbol');
     if (this.character === '&#729;') {
-        this.domObj.addClass('dotAccent');
+        if (IEVersion >= 9) {
+            this.domObj.addClass('dotAccentIE');
+        } else {
+            this.domObj.addClass('dotAccent');
+        }
     } else if (this.character === '^') {
-        this.domObj.addClass('hatAccent');
+        if (IEVersion >= 9) {
+            this.domObj.addClass('hatAccentIE');
+        } else {
+            this.domObj.addClass('hatAccent');
+        }
     } else if (this.character === '&#8407;') {
         this.domObj.addClass('vectorAccent');
     }

@@ -185,7 +185,8 @@ div.activeContainer {
 }
 
 .dotAccentIE {
-    
+    background-color: #abcdef;
+    clip: rect(-0.5em, 0.85em, 0em, 0.1em);
 }
 
 .hatAccent {
@@ -194,7 +195,8 @@ div.activeContainer {
 }
 
 .hatAccentIE {
-
+    background-color: #abcdef;
+    clip: rect(-0.5em, 0.85em, 0em, 0.1em);
 }
 
 .nonHighlightVersion {
