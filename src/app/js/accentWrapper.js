@@ -58,6 +58,8 @@ eqEd.AccentWrapper = function(character, fontStyle, symbolSizeConfig) {
                 if (this.accentContainer.wrappers.length === 1) {
                     if (this.accentContainer.wrappers[0] instanceof eqEd.SymbolWrapper) {
                         accentContainerCharacterVal = this.accentContainer.wrappers[0].symbol.character;
+                    } else if (this.accentContainer.wrappers[0] instanceof eqEd.SquareEmptyContainerWrapper) {
+                        accentContainerCharacterVal = "squareEmptyContainerWrapper";
                     }
                 }
             }

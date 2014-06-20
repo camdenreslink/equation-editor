@@ -13,15 +13,20 @@ eqEd.AccentSymbol = function(character, fontStyle, symbolSizeConfig) {
     }
 
     var adjustLeftByChar = {
+        'squareEmptyContainerWrapper': {
+            '&#729;': 0,
+            '^': 0,
+            '&#8407;': 0.25
+        },
         'a': {
             '&#729;': 0,
             '^': 0,
-            '&#8407;': 0
+            '&#8407;': 0.25
         },
         'c': {
             '&#729;': 0.06,
             '^': 0.06,
-            '&#8407;': 0
+            '&#8407;': 0.3
         }, 
         'e': {
             '&#729;': 0.06,
@@ -512,14 +517,9 @@ eqEd.AccentSymbol = function(character, fontStyle, symbolSizeConfig) {
             adjustLeft = value;
         },
         compute: function() {
-            var fontHeight = this.symbolSizeConfig.height[this.parent.parent.fontSize];
             var adjustLeftVal = 0;
             if (typeof adjustLeftByChar[this.parent.accentContainerCharacter] !== "undefined") {
                 adjustLeftVal = adjustLeftByChar[this.parent.accentContainerCharacter][this.character];
-            }
-            if (this.character === '&#8407;') {
-                adjustLeftVal = this.parent.accentContainer.width/fontHeight;
-                adjustLeftVal = 0;
             }
             return adjustLeftVal;
         },
