@@ -16,7 +16,6 @@ eqEd.Symbol = function(character, fontStyle, symbolSizeConfig) {
             this.adjustTop = 0.025;
         }
     }
-    
     // Set up the width calculation
     var width = 0;
     this.properties.push(new Property(this, "width", width, {
