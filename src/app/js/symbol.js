@@ -26,26 +26,6 @@ eqEd.Symbol = function(character, fontStyle, symbolSizeConfig) {
             width = value;
         },
         compute: function() {
-            // This doesn't really belong here, but it is a convenient callback
-            if (this.parent !== null 
-                && this.parent.parent !== null) {
-            }
-            if (this.parent !== null 
-                && this.parent.parent instanceof eqEd.AccentContainer) {
-                if (this.character === 'i') {
-                    this.character = '&#305;';
-                    this.fontStyle = 'MathJax_MainItalic';
-                    this.domObj = this.buildDomObj();
-                    this.parent.domObj.empty();
-                    this.parent.domObj.append(this.domObj);
-                } else if (this.character === 'j') {
-                    this.character = '&#567;';
-                    this.fontStyle = 'MathJax_MainItalic';
-                    this.domObj = this.buildDomObj();
-                    this.parent.domObj.empty();
-                    this.parent.domObj.append(this.domObj);
-                }
-            }
             return this.symbolSizeConfig.width[this.character][this.fontStyle][this.parent.parent.fontSize];
         },
         updateDom: function() {

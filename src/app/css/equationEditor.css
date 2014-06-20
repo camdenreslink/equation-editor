@@ -196,6 +196,14 @@ div.activeContainer {
     clip: rect(-0.5em, 0.85em, 0em, 0.1em);
 }
 
+.barAccent {
+    clip: rect(0.21em, 0.45em, 0.28em, 0.05em);
+}
+
+.barAccentIE {
+    clip: rect(-0.1em, 0.45em, 0em, 0.05em);
+}
+
 .nonHighlightVersion {
     visibility: visible;
 }

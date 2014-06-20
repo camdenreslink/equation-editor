@@ -28,6 +28,7 @@ eqEd.AccentWrapper = function(character, fontStyle, symbolSizeConfig) {
         compute: function() {
             var accentGapVal = 0.25;
             if (this.accentContainerCharacter !== "") {
+                console.log(this.accentContainerCharacter);
                 if (this.symbolSizeConfig.shortCharacters.contains(this.accentContainerCharacter)) {
                     accentGapVal = -0.02;
                 } else if (this.symbolSizeConfig.mediumCharacters.contains(this.accentContainerCharacter)) {
@@ -36,7 +37,6 @@ eqEd.AccentWrapper = function(character, fontStyle, symbolSizeConfig) {
                     accentGapVal = 0.22;
                 }
             }
-            console.log(accentGap)
             return accentGapVal;
         },
         updateDom: function() {}
@@ -57,10 +57,29 @@ eqEd.AccentWrapper = function(character, fontStyle, symbolSizeConfig) {
             if (this.accentContainer.wrappers.length > 0) {
                 if (this.accentContainer.wrappers.length === 1) {
                     if (this.accentContainer.wrappers[0] instanceof eqEd.SymbolWrapper) {
+                        // replace i/j with imath/jmath if hat accent.
+                        if (this.accentSymbol.character === '^') {
+                            var symbol = this.accentContainer.wrappers[0].symbol;
+                            if (symbol.character === 'i') {
+                                symbol.character = '&#305;';
+                                symbol.fontStyle = 'MathJax_MainItalic';
+                                symbol.domObj = symbol.buildDomObj();
+                                symbol.parent.domObj.empty();
+                                symbol.parent.domObj.append(symbol.domObj);
+                            } else if (symbol.character === 'j') {
+                                symbol.character = '&#567;';
+                                symbol.fontStyle = 'MathJax_MainItalic';
+                                symbol.domObj = symbol.buildDomObj();
+                                symbol.parent.domObj.empty();
+                                symbol.parent.domObj.append(symbol.domObj);
+                            }
+                        }
                         accentContainerCharacterVal = this.accentContainer.wrappers[0].symbol.character;
                     } else if (this.accentContainer.wrappers[0] instanceof eqEd.SquareEmptyContainerWrapper) {
                         accentContainerCharacterVal = "squareEmptyContainerWrapper";
                     }
+                } else {
+                    accentContainerCharacterVal = "multipleWrappers";
                 }
             }
             console.log(accentContainerCharacterVal);

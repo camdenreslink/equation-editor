@@ -14,7 +14,7 @@ eqEd.SymbolSizeConfiguration = function() {
                  'T', 'U', 'V', 'W', 'X', 'Y', 'Z', '&#8594;', '^',
                  '&#729;', '&#915;', '&#916;', '&#920;', '&#923;', '&#926;',
                   '&#928;', '&#931;', '&#933;', '&#934;', '&#936;',
-                  '&#937;', '&#8712;', '&#8407;'];
+                  '&#937;', '&#8712;', '&#8407;', '&#175;'];
     this.MathJax_MainItalic = ['&#305;', '&#567;'];
     // Lists all characters which need to be rendered in an italic font. 
     this.MathJax_MathItalic = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 
@@ -43,13 +43,13 @@ eqEd.SymbolSizeConfiguration = function() {
     // This will be the union of the characters in each font style.
     // Can be used to see if a character is allowed to be part of an equation.
     this.character = [];
-    this.shortCharacters = ['a', 'c', 'e', 'g', '&#305;', 'i', '&#567;', 'j', 'm',
+    this.shortCharacters = ['a', 'c', 'e', 'g', '&#305;', '&#567;', 'm',
                             'n', 'o', 'p', 'q', 'r', 's', 'u', 'v', 'w', 'x', 'y', 'z',
                             '&#945;', '&#947;', '&#949;', '&#1013;', '&#951;', '&#953;',
                             '&#954;', '&#956;', '&#957;', '&#960;', '&#982;', '&#961;',
                             '&#1009;', '&#963;', '&#962;','&#964;', '&#965;', '&#966;', 
                             '&#967;', '&#969;'];
-    this.mediumCharacters = ['t'];
+    this.mediumCharacters = ['i', 'j','t'];
     this.tallCharacters = ['b', 'd', 'f', 'h', 'k', 'l', 'A', 'B', 'C', 'D', 'E', 'F',
                            'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R',
                            'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', '&#946;', '&#948;',
