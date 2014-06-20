@@ -147,12 +147,6 @@ var inializePropertyHooks = function(symbolSizeConfig) {
     if (this instanceof eqEd.TopLevelEmptyContainerWrapper) {
       return value;
     }
-    if (this instanceof eqEd.AccentSymbol) {
-      console.log(value)
-      console.log(this.parent.padTop)
-      console.log(this.adjustTop)
-      console.log(fontHeight)
-    }
     return value + (this.parent.padTop + this.adjustTop) * fontHeight;
   };
   Property.postComputeHooks['topAlign'] = function(value) {
