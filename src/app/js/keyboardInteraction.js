@@ -131,6 +131,20 @@ var setupKeyboardEvents = function(symbolSizeConfig) {
         return false;
     });
 
+    // superscript shortcut
+    Mousetrap.bind('^', function(e) { 
+        var superscriptWrapper = new eqEd.SuperscriptWrapper(symbolSizeConfig);
+        insertWrapper(superscriptWrapper);
+        return false;
+    });
+
+    // subscript shortcut
+    Mousetrap.bind('_', function(e) { 
+        var subscriptWrapper = new eqEd.SubscriptWrapper(symbolSizeConfig);
+        insertWrapper(subscriptWrapper);
+        return false;
+    });
+
     // copy
     Mousetrap.bind('ctrl+c', function(e) {
 
