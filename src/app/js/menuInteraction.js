@@ -832,21 +832,283 @@ var setupMenuEvents = function(symbolSizeConfig) {
         insertWrapper(accentWrapper);
     });
 
-    $(document).on('mousedown', '#greekButton', function (e) {
+        $(document).on('mousedown', '#gammaUpperButton', function (e) {
         e.preventDefault();
         e.stopPropagation();
-        var value = '&#' + $('#greek').val().charCodeAt(0) + ';';
-        var upperCaseGreek = [
-            '&#915;', '&#916;', '&#920;', '&#923;', '&#926;',
-            '&#928;', '&#931;', '&#933;', '&#934;', '&#936;',
-            '&#937;'
-        ];
-        var symbolWrapper = null;
-        if (upperCaseGreek.contains(value)) {
-            symbolWrapper = new eqEd.SymbolWrapper(value, "MathJax_Main", symbolSizeConfig);
-        } else {
-            symbolWrapper = new eqEd.SymbolWrapper(value, "MathJax_MathItalic", symbolSizeConfig);
-        }
+        var symbolWrapper = new eqEd.SymbolWrapper('&#915;', "MathJax_Main", symbolSizeConfig);
+        insertWrapper(symbolWrapper);
+    });
+
+    $(document).on('mousedown', '#deltaUpperButton', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var symbolWrapper = new eqEd.SymbolWrapper('&#916;', "MathJax_Main", symbolSizeConfig);
+        insertWrapper(symbolWrapper);
+    });
+
+    $(document).on('mousedown', '#thetaUpperButton', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var symbolWrapper = new eqEd.SymbolWrapper('&#920;', "MathJax_Main", symbolSizeConfig);
+        insertWrapper(symbolWrapper);
+    });
+
+    $(document).on('mousedown', '#lambdaUpperButton', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var symbolWrapper = new eqEd.SymbolWrapper('&#923;', "MathJax_Main", symbolSizeConfig);
+        insertWrapper(symbolWrapper);
+    });
+
+    $(document).on('mousedown', '#xiUpperButton', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var symbolWrapper = new eqEd.SymbolWrapper('&#926;', "MathJax_Main", symbolSizeConfig);
+        insertWrapper(symbolWrapper);
+    });
+
+    $(document).on('mousedown', '#piUpperButton', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var symbolWrapper = new eqEd.SymbolWrapper('&#928;', "MathJax_Main", symbolSizeConfig);
+        insertWrapper(symbolWrapper);
+    });
+
+    $(document).on('mousedown', '#sigmaUpperButton', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var symbolWrapper = new eqEd.SymbolWrapper('&#931;', "MathJax_Main", symbolSizeConfig);
+        insertWrapper(symbolWrapper);
+    });
+
+    $(document).on('mousedown', '#upsilonUpperButton', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var symbolWrapper = new eqEd.SymbolWrapper('&#933;', "MathJax_Main", symbolSizeConfig);
+        insertWrapper(symbolWrapper);
+    });
+
+    $(document).on('mousedown', '#phiUpperButton', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var symbolWrapper = new eqEd.SymbolWrapper('&#934;', "MathJax_Main", symbolSizeConfig);
+        insertWrapper(symbolWrapper);
+    });
+
+    $(document).on('mousedown', '#psiUpperButton', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var symbolWrapper = new eqEd.SymbolWrapper('&#936;', "MathJax_Main", symbolSizeConfig);
+        insertWrapper(symbolWrapper);
+    });
+
+    $(document).on('mousedown', '#omegaUpperButton', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var symbolWrapper = new eqEd.SymbolWrapper('&#937;', "MathJax_Main", symbolSizeConfig);
+        insertWrapper(symbolWrapper);
+    });
+
+    $(document).on('mousedown', '#alphaButton', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var symbolWrapper = new eqEd.SymbolWrapper('&#945;', "MathJax_MathItalic", symbolSizeConfig);
+        insertWrapper(symbolWrapper);
+    });
+
+    $(document).on('mousedown', '#betaButton', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var symbolWrapper = new eqEd.SymbolWrapper('&#946;', "MathJax_MathItalic", symbolSizeConfig);
+        insertWrapper(symbolWrapper);
+    });
+
+    $(document).on('mousedown', '#gammaButton', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var symbolWrapper = new eqEd.SymbolWrapper('&#947;', "MathJax_MathItalic", symbolSizeConfig);
+        insertWrapper(symbolWrapper);
+    });
+
+    $(document).on('mousedown', '#deltaButton', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var symbolWrapper = new eqEd.SymbolWrapper('&#948;', "MathJax_MathItalic", symbolSizeConfig);
+        insertWrapper(symbolWrapper);
+    });
+
+    $(document).on('mousedown', '#varEpsilonButton', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var symbolWrapper = new eqEd.SymbolWrapper('&#949;', "MathJax_MathItalic", symbolSizeConfig);
+        insertWrapper(symbolWrapper);
+    });
+
+    $(document).on('mousedown', '#epsilonButton', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var symbolWrapper = new eqEd.SymbolWrapper('&#1013;', "MathJax_MathItalic", symbolSizeConfig);
+        insertWrapper(symbolWrapper);
+    });
+
+    $(document).on('mousedown', '#zetaButton', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var symbolWrapper = new eqEd.SymbolWrapper('&#950;', "MathJax_MathItalic", symbolSizeConfig);
+        insertWrapper(symbolWrapper);
+    });
+
+    $(document).on('mousedown', '#etaButton', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var symbolWrapper = new eqEd.SymbolWrapper('&#951;', "MathJax_MathItalic", symbolSizeConfig);
+        insertWrapper(symbolWrapper);
+    });
+
+    $(document).on('mousedown', '#thetaButton', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var symbolWrapper = new eqEd.SymbolWrapper('&#952;', "MathJax_MathItalic", symbolSizeConfig);
+        insertWrapper(symbolWrapper);
+    });
+
+    $(document).on('mousedown', '#varThetaButton', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var symbolWrapper = new eqEd.SymbolWrapper('&#977;', "MathJax_MathItalic", symbolSizeConfig);
+        insertWrapper(symbolWrapper);
+    });
+
+    $(document).on('mousedown', '#iotaButton', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var symbolWrapper = new eqEd.SymbolWrapper('&#953;', "MathJax_MathItalic", symbolSizeConfig);
+        insertWrapper(symbolWrapper);
+    });
+
+    $(document).on('mousedown', '#kappaButton', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var symbolWrapper = new eqEd.SymbolWrapper('&#954;', "MathJax_MathItalic", symbolSizeConfig);
+        insertWrapper(symbolWrapper);
+    });
+
+    $(document).on('mousedown', '#lambdaButton', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var symbolWrapper = new eqEd.SymbolWrapper('&#955;', "MathJax_MathItalic", symbolSizeConfig);
+        insertWrapper(symbolWrapper);
+    });
+
+    $(document).on('mousedown', '#muButton', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var symbolWrapper = new eqEd.SymbolWrapper('&#956;', "MathJax_MathItalic", symbolSizeConfig);
+        insertWrapper(symbolWrapper);
+    });
+
+    $(document).on('mousedown', '#nuButton', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var symbolWrapper = new eqEd.SymbolWrapper('&#957;', "MathJax_MathItalic", symbolSizeConfig);
+        insertWrapper(symbolWrapper);
+    });
+
+    $(document).on('mousedown', '#xiButton', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var symbolWrapper = new eqEd.SymbolWrapper('&#958;', "MathJax_MathItalic", symbolSizeConfig);
+        insertWrapper(symbolWrapper);
+    });
+
+    $(document).on('mousedown', '#piButton', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var symbolWrapper = new eqEd.SymbolWrapper('&#960;', "MathJax_MathItalic", symbolSizeConfig);
+        insertWrapper(symbolWrapper);
+    });
+
+    $(document).on('mousedown', '#varPiButton', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var symbolWrapper = new eqEd.SymbolWrapper('&#982;', "MathJax_MathItalic", symbolSizeConfig);
+        insertWrapper(symbolWrapper);
+    });
+
+    $(document).on('mousedown', '#rhoButton', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var symbolWrapper = new eqEd.SymbolWrapper('&#961;', "MathJax_MathItalic", symbolSizeConfig);
+        insertWrapper(symbolWrapper);
+    });
+
+    $(document).on('mousedown', '#varRhoButton', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var symbolWrapper = new eqEd.SymbolWrapper('&#1009;', "MathJax_MathItalic", symbolSizeConfig);
+        insertWrapper(symbolWrapper);
+    });
+
+    $(document).on('mousedown', '#sigmaButton', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var symbolWrapper = new eqEd.SymbolWrapper('&#963;', "MathJax_MathItalic", symbolSizeConfig);
+        insertWrapper(symbolWrapper);
+    });
+
+    $(document).on('mousedown', '#varSigmaButton', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var symbolWrapper = new eqEd.SymbolWrapper('&#962;', "MathJax_MathItalic", symbolSizeConfig);
+        insertWrapper(symbolWrapper);
+    });
+
+    $(document).on('mousedown', '#tauButton', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var symbolWrapper = new eqEd.SymbolWrapper('&#964;', "MathJax_MathItalic", symbolSizeConfig);
+        insertWrapper(symbolWrapper);
+    });
+
+    $(document).on('mousedown', '#upsilonButton', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var symbolWrapper = new eqEd.SymbolWrapper('&#965;', "MathJax_MathItalic", symbolSizeConfig);
+        insertWrapper(symbolWrapper);
+    });
+
+    $(document).on('mousedown', '#varPhiButton', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var symbolWrapper = new eqEd.SymbolWrapper('&#966;', "MathJax_MathItalic", symbolSizeConfig);
+        insertWrapper(symbolWrapper);
+    });
+
+    $(document).on('mousedown', '#phiButton', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var symbolWrapper = new eqEd.SymbolWrapper('&#981;', "MathJax_MathItalic", symbolSizeConfig);
+        insertWrapper(symbolWrapper);
+    });
+
+    $(document).on('mousedown', '#chiButton', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var symbolWrapper = new eqEd.SymbolWrapper('&#967;', "MathJax_MathItalic", symbolSizeConfig);
+        insertWrapper(symbolWrapper);
+    });
+
+    $(document).on('mousedown', '#psiButton', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var symbolWrapper = new eqEd.SymbolWrapper('&#968;', "MathJax_MathItalic", symbolSizeConfig);
+        insertWrapper(symbolWrapper);
+    });
+
+    $(document).on('mousedown', '#omegaButton', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var symbolWrapper = new eqEd.SymbolWrapper('&#969;', "MathJax_MathItalic", symbolSizeConfig);
         insertWrapper(symbolWrapper);
     });
 
