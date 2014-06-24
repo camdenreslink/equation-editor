@@ -81,6 +81,6 @@ eqEd.StackedFractionDenominatorContainer = function(symbolSizeConfig) {
     eqEd.StackedFractionDenominatorContainer.prototype.constructor = eqEd.StackedFractionDenominatorContainer;
     eqEd.StackedFractionDenominatorContainer.prototype.buildDomObj = function() {
         return new eqEd.ContainerDom(this,
-            '<div class="container stackedFractionDenominatorContainer"></div>');
+            '<div class="eqEdContainer stackedFractionDenominatorContainer"></div>');
     };
 })();

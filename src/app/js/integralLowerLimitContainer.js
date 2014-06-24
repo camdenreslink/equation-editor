@@ -103,6 +103,6 @@ eqEd.IntegralLowerLimitContainer = function(symbolSizeConfig) {
     eqEd.IntegralLowerLimitContainer.prototype.constructor = eqEd.IntegralLowerLimitContainer;
     eqEd.IntegralLowerLimitContainer.prototype.buildDomObj = function() {
         return new eqEd.ContainerDom(this,
-            '<div class="container integralLowerLimitContainer"></div>');
+            '<div class="eqEdContainer integralLowerLimitContainer"></div>');
     };
 })();

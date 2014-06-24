@@ -156,7 +156,7 @@ eqEd.SuperscriptAndSubscriptWrapper = function(symbolSizeConfig) {
     eqEd.SuperscriptAndSubscriptWrapper.prototype.constructor = eqEd.SuperscriptAndSubscriptWrapper;
     eqEd.SuperscriptAndSubscriptWrapper.prototype.buildDomObj = function() {
         return new eqEd.WrapperDom(this,
-            '<div class="wrapper superscriptAndSubscriptWrapper"></div>')
+            '<div class="eqEdWrapper superscriptAndSubscriptWrapper"></div>')
     };
     eqEd.SuperscriptAndSubscriptWrapper.prototype.clone = function() {
         var copy = new this.constructor(this.symbolSizeConfig);

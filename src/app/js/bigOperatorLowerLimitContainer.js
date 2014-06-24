@@ -101,6 +101,6 @@ eqEd.BigOperatorLowerLimitContainer = function(symbolSizeConfig) {
     eqEd.BigOperatorLowerLimitContainer.prototype.constructor = eqEd.BigOperatorLowerLimitContainer;
     eqEd.BigOperatorLowerLimitContainer.prototype.buildDomObj = function() {
         return new eqEd.ContainerDom(this,
-            '<div class="container bigOperatorLowerLimitContainer"></div>');
+            '<div class="eqEdContainer bigOperatorLowerLimitContainer"></div>');
     };
 })();

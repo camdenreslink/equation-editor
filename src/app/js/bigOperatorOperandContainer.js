@@ -97,6 +97,6 @@ eqEd.BigOperatorOperandContainer = function(symbolSizeConfig) {
     eqEd.BigOperatorOperandContainer.prototype.constructor = eqEd.BigOperatorOperandContainer;
     eqEd.BigOperatorOperandContainer.prototype.buildDomObj = function() {
         return new eqEd.ContainerDom(this,
-            '<div class="container bigOperatorOperandContainer"></div>');
+            '<div class="eqEdContainer bigOperatorOperandContainer"></div>');
     };
 })();

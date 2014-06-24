@@ -102,6 +102,6 @@ eqEd.SubscriptContainer = function(symbolSizeConfig) {
     eqEd.SubscriptContainer.prototype.constructor = eqEd.SubscriptContainer;
     eqEd.SubscriptContainer.prototype.buildDomObj = function() {
         return new eqEd.ContainerDom(this,
-            '<div class="container subscriptContainer"></div>');
+            '<div class="eqEdContainer subscriptContainer"></div>');
     };
 })();

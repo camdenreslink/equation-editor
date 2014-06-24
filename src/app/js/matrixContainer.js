@@ -106,6 +106,6 @@ eqEd.MatrixContainer = function(row, col, symbolSizeConfig) {
     }
     eqEd.MatrixContainer.prototype.buildDomObj = function() {
         return new eqEd.ContainerDom(this,
-            '<div class="container matrixContainer"></div>');
+            '<div class="eqEdContainer matrixContainer"></div>');
     };
 })();

@@ -199,6 +199,6 @@ eqEd.Container = function(symbolSizeConfig) {
     }
     eqEd.Container.prototype.buildDomObj = function() {
       return new eqEd.ContainerDom(this,
-            '<div class="container"></div>');
+            '<div class="eqEdContainer"></div>');
     }
 })();

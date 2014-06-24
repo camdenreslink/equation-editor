@@ -297,8 +297,8 @@ var setupKeyboardEvents = function(symbolSizeConfig) {
                     if (container instanceof eqEd.SquareEmptyContainer) {
                         container = container.parent.parent;
                     }
-                    if (container.domObj.value.prev('.container').length > 0) {
-                        container = container.domObj.value.prev('.container').first().data('eqObject');
+                    if (container.domObj.value.prev('.eqEdContainer').length > 0) {
+                        container = container.domObj.value.prev('.eqEdContainer').first().data('eqObject');
                         if (container.wrappers[0] instanceof eqEd.SquareEmptyContainerWrapper) {
                             container = container.wrappers[0].childContainers[0];
                         }
@@ -341,8 +341,8 @@ var setupKeyboardEvents = function(symbolSizeConfig) {
                     if (container instanceof eqEd.SquareEmptyContainer) {
                         container = container.parent.parent;
                     }
-                    if (container.domObj.value.next('.container').length > 0) {
-                        container = container.domObj.value.next('.container').first().data('eqObject');
+                    if (container.domObj.value.next('.eqEdContainer').length > 0) {
+                        container = container.domObj.value.next('.eqEdContainer').first().data('eqObject');
                         if (container.wrappers[0] instanceof eqEd.SquareEmptyContainerWrapper) {
                             container = container.wrappers[0].childContainers[0];
                         }

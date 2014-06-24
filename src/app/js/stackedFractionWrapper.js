@@ -72,7 +72,7 @@ eqEd.StackedFractionWrapper = function(symbolSizeConfig) {
     eqEd.StackedFractionWrapper.prototype.constructor = eqEd.StackedFractionWrapper;
     eqEd.StackedFractionWrapper.prototype.buildDomObj = function() {
         return new eqEd.WrapperDom(this,
-            '<div class="wrapper stackedFractionWrapper"></div>')
+            '<div class="eqEdWrapper stackedFractionWrapper"></div>')
     }
     eqEd.StackedFractionWrapper.prototype.clone = function() {
         var copy = new this.constructor(this.symbolSizeConfig);

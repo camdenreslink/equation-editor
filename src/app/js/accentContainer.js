@@ -74,6 +74,6 @@ eqEd.AccentContainer = function(symbolSizeConfig) {
     eqEd.AccentContainer.prototype.constructor = eqEd.AccentContainer;
     eqEd.AccentContainer.prototype.buildDomObj = function() {
         return new eqEd.ContainerDom(this,
-            '<div class="container accentContainer"></div>');
+            '<div class="eqEdContainer accentContainer"></div>');
     };
 })();

@@ -75,6 +75,6 @@ eqEd.FunctionLowerContainer = function(symbolSizeConfig) {
     eqEd.FunctionLowerContainer.prototype.constructor = eqEd.FunctionLowerContainer;
     eqEd.FunctionLowerContainer.prototype.buildDomObj = function() {
         return new eqEd.ContainerDom(this,
-            '<div class="container functionLowerContainer"></div>');
+            '<div class="eqEdContainer functionLowerContainer"></div>');
     };
 })();

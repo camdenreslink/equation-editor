@@ -103,6 +103,6 @@ eqEd.BigOperatorUpperLimitContainer = function(symbolSizeConfig) {
     eqEd.BigOperatorUpperLimitContainer.prototype.constructor = eqEd.BigOperatorUpperLimitContainer;
     eqEd.BigOperatorUpperLimitContainer.prototype.buildDomObj = function() {
         return new eqEd.ContainerDom(this,
-            '<div class="container bigOperatorUpperLimitContainer"></div>');
+            '<div class="eqEdContainer bigOperatorUpperLimitContainer"></div>');
     };
 })();

@@ -119,6 +119,6 @@ eqEd.NthRootDegreeContainer = function(symbolSizeConfig) {
     eqEd.NthRootDegreeContainer.prototype.constructor = eqEd.NthRootDegreeContainer;
     eqEd.NthRootDegreeContainer.prototype.buildDomObj = function() {
         return new eqEd.ContainerDom(this,
-            '<div class="container nthRootDegreeContainer"></div>');
+            '<div class="eqEdContainer nthRootDegreeContainer"></div>');
     };
 })();

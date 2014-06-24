@@ -156,6 +156,6 @@ eqEd.OperatorWrapper = function(operatorSymbol, fontStyle, symbolSizeConfig) {
     };
     eqEd.OperatorWrapper.prototype.buildDomObj = function() {
         return new eqEd.WrapperDom(this,
-            '<div class="wrapper operatorWrapper"></div>')
+            '<div class="eqEdWrapper operatorWrapper"></div>')
     };
 })();

@@ -131,7 +131,7 @@ eqEd.SubscriptWrapper = function(symbolSizeConfig) {
     eqEd.SubscriptWrapper.prototype.constructor = eqEd.SubscriptWrapper;
     eqEd.SubscriptWrapper.prototype.buildDomObj = function() {
         return new eqEd.WrapperDom(this,
-            '<div class="wrapper subscriptWrapper"></div>')
+            '<div class="eqEdWrapper subscriptWrapper"></div>')
     };
     eqEd.SubscriptWrapper.prototype.clone = function() {
         var copy = new this.constructor(this.symbolSizeConfig);

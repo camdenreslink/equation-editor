@@ -103,6 +103,6 @@ eqEd.IntegralUpperLimitContainer = function(symbolSizeConfig) {
     eqEd.IntegralUpperLimitContainer.prototype.constructor = eqEd.IntegralUpperLimitContainer;
     eqEd.IntegralUpperLimitContainer.prototype.buildDomObj = function() {
         return new eqEd.ContainerDom(this,
-            '<div class="container integralUpperLimitContainer"></div>');
+            '<div class="eqEdContainer integralUpperLimitContainer"></div>');
     };
 })();

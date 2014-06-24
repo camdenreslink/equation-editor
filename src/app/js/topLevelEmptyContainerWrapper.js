@@ -65,6 +65,6 @@ eqEd.TopLevelEmptyContainerWrapper = function(symbolSizeConfig) {
     eqEd.TopLevelEmptyContainerWrapper.prototype.constructor = eqEd.TopLevelEmptyContainerWrapper;
     eqEd.TopLevelEmptyContainerWrapper.prototype.buildDomObj = function() {
         return new eqEd.WrapperDom(this,
-            '<div class="wrapper emptyContainerWrapper topLevelEmptyContainerWrapper"></div>');
+            '<div class="eqEdWrapper emptyContainerWrapper topLevelEmptyContainerWrapper"></div>');
     }
 })();

@@ -23,7 +23,7 @@ eqEd.DoubleIntegralSymbol = function(symbolSizeConfig) {
         },
         compute: function() {
             var fontHeight = this.symbolSizeConfig.height[this.parent.parent.fontSize];
-            return 2 * fontHeight;
+            return 2.25 * fontHeight;
         },
         updateDom: function() {
             this.domObj.updateHeight(this.height);

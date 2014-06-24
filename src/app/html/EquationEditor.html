@@ -170,135 +170,20 @@
   <script src="../js/equationEditor.js"></script>
 </head>
 <body>
-    <button id="stackedFractionButton">Stacked Fraction</button>
-    <button id="superscriptButton">Superscript</button>
-    <button id="subscriptButton">Subscript</button>
-    <button id="superscriptAndSubscriptButton">SuperscriptAndSubscript</button>
-    <button id="squareRootButton">SquareRoot</button>
-    <button id="nthRootButton">NthRoot</button>
+  <!--
+    
     <button id="lessThanOrEqualToButton">LessThanOrEqualTo</button>
     <button id="greaterThanOrEqualToButton">GreaterThanOrEqualTo</button>
     <button id="belongsToButton">BelongsTo</button>
     <button id="approxEqualToButton">ApproxEqualTo</button>
-    <button id="leftAngleBracketButton">LeftAngleBracket</button>
-    <button id="rightAngleBracketButton">RightAngleBracket</button>
-    <button id="leftFloorBracketButton">LeftFloorBracket</button>
-    <button id="rightFloorBracketButton">RightFloorBracket</button>
-    <button id="leftCeilBracketButton">LeftCeilBracket</button>
-    <button id="rightCeilBracketButton">RightCeilBracket</button>
-    <button id="parenthesesBracketPairButton">ParenthesesBracketPair</button>
-    <button id="squareBracketPairButton">SquareBracketPair</button>
-    <button id="curlyBracketPairButton">CurlyBracketPair</button>
-    <button id="angleBracketPairButton">AngleBracketPair</button>
-    <button id="floorBracketPairButton">FloorBracketPair</button>
-    <button id="ceilBracketPairButton">CeilBracketPair</button>
-    <button id="absValBracketPairButton">AbsValBracketPair</button>
-    <button id="normBracketPairButton">NormBracketPair</button>
-    <button id="sumBigOperatorButton">SumBigOperator</button>
-    <button id="sumBigOperatorNoUpperButton">SumBigOperatorNoUpper</button>
-    <button id="sumBigOperatorNoUpperNoLowerButton">SumBigOperatorNoUpperNoLower</button>
-    <button id="bigCapBigOperatorButton">BigCapBigOperator</button>
-    <button id="bigCapBigOperatorNoUpperButton">BigCapBigOperatorNoUpper</button>
-    <button id="bigCapBigOperatorNoUpperNoLowerButton">BigCapBigOperatorNoUpperNoLower</button>
-    <button id="bigCupBigOperatorButton">BigCupBigOperator</button>
-    <button id="bigCupBigOperatorNoUpperButton">BigCupBigOperatorNoUpper</button>
-    <button id="bigCupBigOperatorNoUpperNoLowerButton">BigCupBigOperatorNoUpperNoLower</button>
-    <button id="bigSqCapBigOperatorButton">BigSqCapBigOperator</button>
-    <button id="bigSqCapBigOperatorNoUpperButton">BigSqCapBigOperatorNoUpper</button>
-    <button id="bigSqCapBigOperatorNoUpperNoLowerButton">BigSqCapBigOperatorNoUpperNoLower</button>
-    <button id="bigSqCupBigOperatorButton">BigSqCupBigOperator</button>
-    <button id="bigSqCupBigOperatorNoUpperButton">BigSqCupBigOperatorNoUpper</button>
-    <button id="bigSqCupBigOperatorNoUpperNoLowerButton">BigSqCupBigOperatorNoUpperNoLower</button>
-    <button id="prodBigOperatorButton">ProdBigOperator</button>
-    <button id="prodBigOperatorNoUpperButton">ProdBigOperatorNoUpper</button>
-    <button id="prodBigOperatorNoUpperNoLowerButton">ProdBigOperatorNoUpperNoLower</button>
-    <button id="coProdBigOperatorButton">CoProdBigOperator</button>
-    <button id="coProdBigOperatorNoUpperButton">CoProdBigOperatorNoUpper</button>
-    <button id="coProdBigOperatorNoUpperNoLowerButton">CoProdBigOperatorNoUpperNoLower</button>
-    <button id="bigVeeBigOperatorButton">BigVeeBigOperator</button>
-    <button id="bigVeeBigOperatorNoUpperButton">BigVeeBigOperatorNoUpper</button>
-    <button id="bigVeeBigOperatorNoUpperNoLowerButton">BigVeeBigOperatorNoUpperNoLower</button>
-    <button id="bigWedgeBigOperatorButton">BigWedgeBigOperator</button>
-    <button id="bigWedgeBigOperatorNoUpperButton">BigWedgeBigOperatorNoUpper</button>
-    <button id="bigWedgeBigOperatorNoUpperNoLowerButton">BigWedgeBigOperatorNoUpperNoLower</button>
-    <button id="inlineSumBigOperatorButton">InlineSumBigOperator</button>
-    <button id="inlineSumBigOperatorNoUpperButton">InlineSumBigOperatorNoUpper</button>
-    <button id="inlineBigCapBigOperatorButton">InlineBigCapBigOperator</button>
-    <button id="inlineBigCapBigOperatorNoUpperButton">InlineBigCapBigOperatorNoUpper</button>
-    <button id="inlineBigCupBigOperatorButton">InlineBigCupBigOperator</button>
-    <button id="inlineBigCupBigOperatorNoUpperButton">InlineBigCupBigOperatorNoUpper</button>
-    <button id="inlineBigSqCapBigOperatorButton">InlineBigSqCapBigOperator</button>
-    <button id="inlineBigSqCapBigOperatorNoUpperButton">InlineBigSqCapBigOperatorNoUpper</button>
-    <button id="inlineBigSqCupBigOperatorButton">InlineBigSqCupBigOperator</button>
-    <button id="inlineBigSqCupBigOperatorNoUpperButton">InlineBigSqCupBigOperatorNoUpper</button>
-    <button id="inlineProdBigOperatorButton">InlineProdBigOperator</button>
-    <button id="inlineProdBigOperatorNoUpperButton">InlineProdBigOperatorNoUpper</button>
-    <button id="inlineCoProdBigOperatorButton">InlineCoProdBigOperator</button>
-    <button id="inlineCoProdBigOperatorNoUpperButton">InlineCoProdBigOperatorNoUpper</button>
-    <button id="inlineBigVeeBigOperatorButton">InlineBigVeeBigOperator</button>
-    <button id="inlineBigVeeBigOperatorNoUpperButton">InlineBigVeeBigOperatorNoUpper</button>
-    <button id="inlineBigWedgeBigOperatorButton">InlineBigWedgeBigOperator</button>
-    <button id="inlineBigWedgeBigOperatorNoUpperButton">InlineBigWedgeBigOperatorNoUpper</button>
-    <button id="integralButton">Integral</button>
-    <button id="integralNoUpperButton">IntegralNoUpper</button>
-    <button id="integralNoUpperNoLowerButton">IntegralNoUpperNoLower</button>
-    <button id="doubleIntegralButton">DoubleIntegral</button>
-    <button id="doubleIntegralNoUpperButton">DoubleIntegralNoUpper</button>
-    <button id="doubleIntegralNoUpperNoLowerButton">DoubleIntegralNoUpperNoLower</button>
-    <button id="tripleIntegralButton">TripleIntegral</button>
-    <button id="tripleIntegralNoUpperButton">TripleIntegralNoUpper</button>
-    <button id="tripleIntegralNoUpperNoLowerButton">TripleIntegralNoUpperNoLower</button>
-    <button id="contourIntegralButton">ContourIntegral</button>
-    <button id="contourIntegralNoUpperButton">ContourIntegralNoUpper</button>
-    <button id="contourIntegralNoUpperNoLowerButton">ContourIntegralNoUpperNoLower</button>
-    <button id="contourDoubleIntegralButton">ContourDoubleIntegral</button>
-    <button id="contourDoubleIntegralNoUpperButton">ContourDoubleIntegralNoUpper</button>
-    <button id="contourDoubleIntegralNoUpperNoLowerButton">ContourDoubleIntegralNoUpperNoLower</button>
-    <button id="contourTripleIntegralButton">ContourTripleIntegral</button>
-    <button id="contourTripleIntegralNoUpperButton">ContourTripleIntegralNoUpper</button>
-    <button id="contourTripleIntegralNoUpperNoLowerButton">ContourTripleIntegralNoUpperNoLower</button>
-    <button id="inlineIntegralButton">InlineIntegral</button>
-    <button id="inlineIntegralNoUpperButton">InlineIntegralNoUpper</button>
-    <button id="inlineDoubleIntegralButton">InlineDoubleIntegral</button>
-    <button id="inlineDoubleIntegralNoUpperButton">InlineDoubleIntegralNoUpper</button>
-    <button id="inlineTripleIntegralButton">InlineTripleIntegral</button>
-    <button id="inlineTripleIntegralNoUpperButton">InlineTripleIntegralNoUpper</button>
-    <button id="inlineContourIntegralButton">InlineContourIntegral</button>
-    <button id="inlineContourIntegralNoUpperButton">InlineContourIntegralNoUpper</button>
-    <button id="inlineContourDoubleIntegralButton">InlineContourDoubleIntegral</button>
-    <button id="inlineContourDoubleIntegralNoUpperButton">InlineContourDoubleIntegralNoUpper</button>
-    <button id="inlineContourTripleIntegralButton">InlineContourTripleIntegral</button>
-    <button id="inlineContourTripleIntegralNoUpperButton">InlineContourTripleIntegralNoUpper</button>
+
+
+
     <button id="partialDifferentialButton">PartialDifferential</button>
-    <button id="logButton">Log</button>
-    <button id="lnButton">Ln</button>
-    <button id="limButton">Lim</button>
-    <button id="maxButton">Max</button>
-    <button id="minButton">Min</button>
-    <button id="supButton">Sup</button>
-    <button id="infButton">Inf</button>
-    <button id="sinButton">Sin</button>
-    <button id="cosButton">Cos</button>
-    <button id="tanButton">Tan</button>
-    <button id="cotButton">Cot</button>
-    <button id="secButton">Sec</button>
-    <button id="cscButton">Csc</button>
-    <button id="sinhButton">Sinh</button>
-    <button id="coshButton">Cosh</button>
-    <button id="tanhButton">Tanh</button>
-    <button id="cothButton">Coth</button>
-    <button id="sechButton">Sech</button>
-    <button id="cschButton">Csch</button>
-    <button id="limitButton">Limit</button>
-    <button id="maxLowerButton">MaxLower</button>
-    <button id="minLowerButton">MinLower</button>
-    <button id="logLowerButton">LogLower</button>
+
+
     rows: <input type="text" id="rows" /> cols: <input type="text" id="cols" />
     <button id="matrixButton">Matrix</button>
-    <button id="dotAccentButton">DotAccent</button>
-    <button id="hatAccentButton">HatAccent</button>
-    <button id="vectorAccentButton">VectorAccent</button>
-    <button id="barAccentButton">BarAccent</button>
     <select id="greek">
       <option value="&#915;">&#915;</option>
       <option value="&#916;">&#916;</option>
@@ -342,134 +227,251 @@
       <option value="&#969;">&#969;</option>
     </select>
     <button id="greekButton">GreekButton</button>
+  -->
     <div class="testEquation equation"></div>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<span class="MathJax_Main" style="font-size: 65px; background-color: #abcdef; line-height: 1;">3</span><span class="MathJax_MathItalic" style="font-size: 65px; background-color: #abcdef; line-height: 1;">x</span><span class="MathJax_MathItalic" style="font-size: 65px; background-color: #abcdef; line-height: 1;">y</span><span class="MathJax_Main" style="font-size: 65px; background-color: #abcdef; line-height: 1;">^</span>
-<br>
-<br>
-<br>
-<div style="position: relative; height: 65px; width: 133px; background-color: #e6e6e6">
-  <div class="MathJax_Main" style="font-size: 65px; width: 32px; height: 65px; background-color: #abcdef; line-height: 1; position: absolute; top: 0px; left: 0px">3</div>
-  <div class="MathJax_MathItalic" style="font-size: 65px; width: 37px; height: 65px; background-color: #abcdef; line-height: 1; position: absolute; top: 0px; left: 32px">x</div>
-  <div class="MathJax_MathItalic" style="font-size: 65px; width: 32px; height: 65px; background-color: #abcdef; line-height: 1; position: absolute; top: 0px; left: 69px">y</div>
-  <div class="MathJax_Main" style="font-size: 65px; width: 32px; height: 65px; background-color: #abcdef; line-height: 1; position: absolute; top: 0px; left: 101px">^</div>
-</div>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<!--
-    <div class="fontSizeNormal" style="position: relative">
-      <div class="symbol MathJax_MathItalic" style="position: absolute; top: 0.111111em; left: 0em;">x</div>
-      <div class="symbol MathJax_Main" style="position: absolute; top: 0em; left: 0.6em;">&#8407;</div>
-    </div>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <div class="fontSizeNormal" style="position: relative">
-      <div class="symbol MathJax_MathItalic" style="position: absolute; top: 0em; left: 0em;">x</div>
-      <div class="symbol MathJax_Main" style="position: absolute; top: 0em; left: 0em;">^</div>
-    </div>
+    <div class="tabs">
+        <ul class="outer-tab-links tab-links">
+            <li class="outerTab active"><a href="#common">Common</a></li>
+            <li class="outerTab"><a href="#brackets">Brackets</a></li>
+            <li class="outerTab"><a href="#symbols">Symbols</a></li>
+            <li class="outerTab"><a href="#functions">Functions</a></li>
+            <li class="outerTab"><a href="#largeOperators">Large Operators</a></li>
+            <li class="outerTab"><a href="#integrals">Integrals</a></li>
+            <li class="outerTab"><a href="#misc">Misc</a></li>
+        </ul>
+     
+        <div class="tab-content" id="tab-content-top">
+            <div id="common" class="tab outer active">
+                <img class="menuItem" id="stackedFractionButton" src="../../MenuImages/png/stackedFraction.png">
+                <img class="menuItem" id="superscriptButton" src="../../MenuImages/png/superscript.png">
+                <img class="menuItem" id="subscriptButton" src="../../MenuImages/png/subscript.png">
+                <img class="menuItem" id="superscriptAndSubscriptButton" src="../../MenuImages/png/superscriptAndSubscript.png">
+                <img class="menuItem" id="squareRootButton" src="../../MenuImages/png/squareRoot.png">
+                <img class="menuItem" id="nthRootButton" height="60" src="../../MenuImages/png/nthRoot.png">
+                <img class="menuItem" id="limitButton" src="../../MenuImages/png/limit.png">
+                <img class="menuItem" id="logLowerButton" height="55" src="../../MenuImages/png/log_n.png">
+                <span class="menuItem MathJax_Main" id="logButton" style="font-size: 45px;">log</span>
+                <span class="menuItem MathJax_Main" id="lnButton" style="font-size: 45px;">ln</span>
+            </div>
+     
+            <div id="brackets" class="tab outer">
+                <ul class="inner-tab-links tab-links">
+                    <li class="innerTab active"><a href="#bracketsSingle">Single</a></li>
+                    <li class="innerTab"><a href="#bracketsPair">Pair</a></li>
+                </ul>
+                <div class="tab-content tab-content-nested">
+                  <div id="bracketsSingle" class="tab inner active">
+                    <span class="menuItem MathJax_Main" id="leftAngleBracketButton" style="font-size: 65px;">&#10216;</span>
+                    <span class="menuItem MathJax_Main" id="rightAngleBracketButton" style="font-size: 65px;">&#10217;</span>
+                    <span class="menuItem MathJax_Main" id="leftFloorBracketButton" style="font-size: 65px;">&#8970;</span>
+                    <span class="menuItem MathJax_Main" id="rightFloorBracketButton" style="font-size: 65px;">&#8971;</span>
+                    <span class="menuItem MathJax_Main" id="leftCeilBracketButton" style="font-size: 65px;">&#8968;</span>
+                    <span class="menuItem MathJax_Main" id="rightCeilBracketButton" style="font-size: 65px;">&#8969;</span>
+                  </div>
+                  <div id="bracketsPair" class="tab inner">
+                    <img class="menuItem" id="parenthesesBracketPairButton" src="../../MenuImages/png/parenthesesBracketPair.png">
+                    <img class="menuItem" id="squareBracketPairButton" src="../../MenuImages/png/squareBracketPair.png">
+                    <img class="menuItem" id="curlyBracketPairButton" src="../../MenuImages/png/curlyBracketPair.png">
+                    <img class="menuItem" id="angleBracketPairButton" src="../../MenuImages/png/angleBracketPair.png">
+                    <img class="menuItem" id="floorBracketPairButton" src="../../MenuImages/png/floorBracketPair.png">
+                    <img class="menuItem" id="ceilBracketPairButton" src="../../MenuImages/png/ceilBracketPair.png">
+                    <img class="menuItem" id="absValBracketPairButton" src="../../MenuImages/png/absBracketPair.png">
+                    <img class="menuItem" id="normBracketPairButton" src="../../MenuImages/png/normBracketPair.png">
+                  </div>
+                </div>
+            </div>
+            
+            <div id="symbols" class="tab outer">
+                <ul class="inner-tab-links tab-links">
+                    <li class="innerTab active"><a href="#symbolsOperators">Operators</a></li>
+                    <li class="innerTab"><a href="#symbolsGreek">Greek</a></li>
+                    <li class="innerTab"><a href="#symbolsMisc">Misc</a></li>
+                </ul>
+                <div class="tab-content tab-content-nested">
+                  <div id="symbolsOperators" class="tab inner active">
+                    This is symbol operator buttons.
+                  </div>
+                  <div id="symbolsGreek" class="tab inner">
+                    This is symbol greek buttons.
+                  </div>
+                  <div id="symbolsMisc" class="tab inner">
+                    This is symbol misc buttons.
+                  </div>
+                </div>
+            </div>
 
-    <div class="fontSizeNormal" style="position: relative">
-      <div class="symbol MathJax_MathItalic" style="position: absolute; top: 0.111111em; left: 0em;">o</div>
-      <div class="symbol MathJax_Main" style="position: absolute; top: 0em; left: 0.062em;">^</div>
+            <div id="functions" class="tab outer">
+                <ul class="inner-tab-links tab-links">
+                    <li class="innerTab active"><a href="#functionsTrig">Trig</a></li>
+                    <li class="innerTab"><a href="#functionsMisc">Misc</a></li>
+                </ul>
+                <div class="tab-content tab-content-nested">
+                  <div id="functionsTrig" class="tab inner active">
+                    <span class="menuItem MathJax_Main" id="sinButton" style="font-size: 45px;">sin</span>
+                    <span class="menuItem MathJax_Main" id="cosButton" style="font-size: 45px;">cos</span>
+                    <span class="menuItem MathJax_Main" id="tanButton" style="font-size: 45px;">tan</span>
+                    <span class="menuItem MathJax_Main" id="cotButton" style="font-size: 45px;">cot</span>
+                    <span class="menuItem MathJax_Main" id="secButton" style="font-size: 45px;">sec</span>
+                    <span class="menuItem MathJax_Main" id="cscButton" style="font-size: 45px;">csc</span>
+                    <span class="menuItem MathJax_Main" id="sinhButton" style="font-size: 45px;">sinh</span>
+                    <span class="menuItem MathJax_Main" id="coshButton" style="font-size: 45px;">cosh</span>
+                    <span class="menuItem MathJax_Main" id="tanhButton" style="font-size: 45px;">tanh</span>
+                    <span class="menuItem MathJax_Main" id="cothButton" style="font-size: 45px;">coth</span>
+                    <span class="menuItem MathJax_Main" id="sechButton" style="font-size: 45px;">sech</span>
+                    <span class="menuItem MathJax_Main" id="cschButton" style="font-size: 45px;">csch</span>
+                  </div>
+                  <div id="functionsMisc" class="tab inner">
+                    <span class="menuItem MathJax_Main" id="limButton" style="font-size: 45px;">lim</span>
+                    <span class="menuItem MathJax_Main" id="maxButton" style="font-size: 45px;">max</span>
+                    <span class="menuItem MathJax_Main" id="minButton" style="font-size: 45px;">min</span>
+                    <span class="menuItem MathJax_Main" id="supButton" style="font-size: 45px;">sup</span>
+                    <span class="menuItem MathJax_Main" id="infButton" style="font-size: 45px;">inf</span>
+                    <img class="menuItem" id="maxLowerButton" src="../../MenuImages/png/maxLower.png">
+                    <img class="menuItem" id="minLowerButton" src="../../MenuImages/png/minLower.png">
+                  </div>
+                </div>
+            </div>
+     
+            <div id="largeOperators" class="tab outer">
+                <ul class="inner-tab-links tab-links">
+                    <li class="innerTab active"><a href="#largeOperatorsSum"><img class="innerTabImg" src="../../MenuImages/png/sumSymbol.png"></a></li>
+                    <li class="innerTab"><a href="#largeOperatorsBigCap"><img class="innerTabImg" src="../../MenuImages/png/bigCapSymbol.png"></a></li>
+                    <li class="innerTab"><a href="#largeOperatorsBigCup"><img class="innerTabImg" src="../../MenuImages/png/bigCupSymbol.png"></a></li>
+                    <li class="innerTab"><a href="#largeOperatorsBigSqCap"><img class="innerTabImg" src="../../MenuImages/png/bigSqCapSymbol.png"></a></li>
+                    <li class="innerTab"><a href="#largeOperatorsBigSqCup"><img class="innerTabImg" src="../../MenuImages/png/bigSqCupSymbol.png"></a></li>
+                    <li class="innerTab"><a href="#largeOperatorsProd"><img class="innerTabImg" src="../../MenuImages/png/prodSymbol.png"></a></li>
+                    <li class="innerTab"><a href="#largeOperatorsCoProd"><img class="innerTabImg" src="../../MenuImages/png/coProdSymbol.png"></a></li>
+                    <li class="innerTab"><a href="#largeOperatorsBigVee"><img class="innerTabImg" src="../../MenuImages/png/bigVeeSymbol.png"></a></li>
+                    <li class="innerTab"><a href="#largeOperatorsBigWedge"><img class="innerTabImg" src="../../MenuImages/png/bigWedgeSymbol.png"></a></li>
+                </ul>
+                <div class="tab-content tab-content-nested">
+                  <div id="largeOperatorsSum" class="tab inner active">
+                    <img class="menuItem" id="sumBigOperatorButton" src="../../MenuImages/png/sum.png">
+                    <img class="menuItem" id="sumBigOperatorNoUpperButton" src="../../MenuImages/png/sumNoUpper.png">
+                    <img class="menuItem" id="sumBigOperatorNoUpperNoLowerButton" src="../../MenuImages/png/sumNoUpperNoLower.png">
+                    <img class="menuItem" id="inlineSumBigOperatorButton" src="../../MenuImages/png/sumInline.png">
+                    <img class="menuItem" id="inlineSumBigOperatorNoUpperButton" src="../../MenuImages/png/sumNoUpperInline.png">
+                  </div>
+                  <div id="largeOperatorsBigCap" class="tab inner">
+                    <img class="menuItem" id="bigCapBigOperatorButton" src="../../MenuImages/png/bigCap.png">
+                    <img class="menuItem" id="bigCapBigOperatorNoUpperButton" src="../../MenuImages/png/bigCapNoUpper.png">
+                    <img class="menuItem" id="bigCapBigOperatorNoUpperNoLowerButton" src="../../MenuImages/png/bigCapNoUpperNoLower.png">
+                    <img class="menuItem" id="inlineBigCapBigOperatorButton" src="../../MenuImages/png/bigCapInline.png">
+                    <img class="menuItem" id="inlineBigCapBigOperatorNoUpperButton" src="../../MenuImages/png/bigCapNoUpperInline.png">
+                  </div>
+                  <div id="largeOperatorsBigCup" class="tab inner">
+                    <img class="menuItem" id="bigCupBigOperatorButton" src="../../MenuImages/png/bigCup.png">
+                    <img class="menuItem" id="bigCupBigOperatorNoUpperButton" src="../../MenuImages/png/bigCupNoUpper.png">
+                    <img class="menuItem" id="bigCupBigOperatorNoUpperNoLowerButton" src="../../MenuImages/png/bigCupNoUpperNoLower.png">
+                    <img class="menuItem" id="inlineBigCupBigOperatorButton" src="../../MenuImages/png/bigCupInline.png">
+                    <img class="menuItem" id="inlineBigCupBigOperatorNoUpperButton" src="../../MenuImages/png/bigCupNoUpperInline.png">
+                  </div>
+                  <div id="largeOperatorsBigSqCap" class="tab inner">
+                    <img class="menuItem" id="bigSqCapBigOperatorButton" src="../../MenuImages/png/bigSqCap.png">
+                    <img class="menuItem" id="bigSqCapBigOperatorNoUpperButton" src="../../MenuImages/png/bigSqCapNoUpper.png">
+                    <img class="menuItem" id="bigSqCapBigOperatorNoUpperNoLowerButton" src="../../MenuImages/png/bigSqCapNoUpperNoLower.png">
+                    <img class="menuItem" id="inlineBigSqCapBigOperatorButton" src="../../MenuImages/png/bigSqCapInline.png">
+                    <img class="menuItem" id="inlineBigSqCapBigOperatorNoUpperButton" src="../../MenuImages/png/bigSqCapNoUpperInline.png">
+                  </div>
+                  <div id="largeOperatorsBigSqCup" class="tab inner">
+                    <img class="menuItem" id="bigSqCupBigOperatorButton" src="../../MenuImages/png/bigSqCup.png">
+                    <img class="menuItem" id="bigSqCupBigOperatorNoUpperButton" src="../../MenuImages/png/bigSqCupNoUpper.png">
+                    <img class="menuItem" id="bigSqCupBigOperatorNoUpperNoLowerButton" src="../../MenuImages/png/bigSqCupNoUpperNoLower.png">
+                    <img class="menuItem" id="inlineBigSqCupBigOperatorButton" src="../../MenuImages/png/bigSqCupInline.png">
+                    <img class="menuItem" id="inlineBigSqCupBigOperatorNoUpperButton" src="../../MenuImages/png/bigSqCupNoUpperInline.png">
+                  </div>
+                  <div id="largeOperatorsProd" class="tab inner">
+                    <img class="menuItem" id="prodBigOperatorButton" src="../../MenuImages/png/prod.png">
+                    <img class="menuItem" id="prodBigOperatorNoUpperButton" src="../../MenuImages/png/prodNoUpper.png">
+                    <img class="menuItem" id="prodBigOperatorNoUpperNoLowerButton" src="../../MenuImages/png/prodNoUpperNoLower.png">
+                    <img class="menuItem" id="inlineProdBigOperatorButton" src="../../MenuImages/png/prodInline.png">
+                    <img class="menuItem" id="inlineProdBigOperatorNoUpperButton" src="../../MenuImages/png/prodNoUpperInline.png">
+                  </div>
+                  <div id="largeOperatorsCoProd" class="tab inner">
+                    <img class="menuItem" id="coProdBigOperatorButton" src="../../MenuImages/png/coProd.png">
+                    <img class="menuItem" id="coProdBigOperatorNoUpperButton" src="../../MenuImages/png/coProdNoUpper.png">
+                    <img class="menuItem" id="coProdBigOperatorNoUpperNoLowerButton" src="../../MenuImages/png/coProdNoUpperNoLower.png">
+                    <img class="menuItem" id="inlineCoProdBigOperatorButton" src="../../MenuImages/png/coProdInline.png">
+                    <img class="menuItem" id="inlineCoProdBigOperatorNoUpperButton" src="../../MenuImages/png/coProdNoUpperInline.png">
+                  </div>
+                  <div id="largeOperatorsBigVee" class="tab inner">
+                    <img class="menuItem" id="bigVeeBigOperatorButton" src="../../MenuImages/png/bigVee.png">
+                    <img class="menuItem" id="bigVeeBigOperatorNoUpperButton" src="../../MenuImages/png/bigVeeNoUpper.png">
+                    <img class="menuItem" id="bigVeeBigOperatorNoUpperNoLowerButton" src="../../MenuImages/png/bigVeeNoUpperNoLower.png">
+                    <img class="menuItem" id="inlineBigVeeBigOperatorButton" src="../../MenuImages/png/bigVeeInline.png">
+                    <img class="menuItem" id="inlineBigVeeBigOperatorNoUpperButton" src="../../MenuImages/png/bigVeeNoUpperInline.png">
+                  </div>
+                  <div id="largeOperatorsBigWedge" class="tab inner">
+                    <img class="menuItem" id="bigWedgeBigOperatorButton" src="../../MenuImages/png/bigWedge.png">
+                    <img class="menuItem" id="bigWedgeBigOperatorNoUpperButton" src="../../MenuImages/png/bigWedgeNoUpper.png">
+                    <img class="menuItem" id="bigWedgeBigOperatorNoUpperNoLowerButton" src="../../MenuImages/png/bigWedgeNoUpperNoLower.png">
+                    <img class="menuItem" id="inlineBigWedgeBigOperatorButton" src="../../MenuImages/png/bigWedgeInline.png">
+                    <img class="menuItem" id="inlineBigWedgeBigOperatorNoUpperButton" src="../../MenuImages/png/bigWedgeNoUpperInline.png">
+                  </div>
+                </div>
+            </div>
+
+            <div id="integrals" class="tab outer">
+                <ul class="inner-tab-links tab-links">
+                    <li class="innerTab active"><a href="#integralsIntegral"><img class="innerTabImg" src="../../MenuImages/png/integralSymbol.png"></a></li>
+                    <li class="innerTab"><a href="#integralsDoubleIntegral"><img class="innerTabImg" src="../../MenuImages/png/doubleIntegralSymbol.png"></a></li>
+                    <li class="innerTab"><a href="#integralsTripleIntegral"><img class="innerTabImg" src="../../MenuImages/png/tripleIntegralSymbol.png"></a></li>
+                    <li class="innerTab"><a href="#integralsContourIntegral"><img class="innerTabImg" src="../../MenuImages/png/contourIntegralSymbol.png"></a></li>
+                    <li class="innerTab"><a href="#integralsContourDoubleIntegral"><img class="innerTabImg" src="../../MenuImages/png/doubleContourIntegralSymbol.png"></a></li>
+                    <li class="innerTab"><a href="#integralsContourTripleIntegral"><img class="innerTabImg" src="../../MenuImages/png/tripleContourIntegralSymbol.png"></a></li>
+                </ul>
+                <div class="tab-content tab-content-nested">
+                  <div id="integralsIntegral" class="tab inner active">
+                    <img class="menuItem" id="integralButton" src="../../MenuImages/png/integral.png">
+                    <img class="menuItem" id="integralNoUpperButton" src="../../MenuImages/png/integralNoUpper.png">
+                    <img class="menuItem" id="integralNoUpperNoLowerButton" src="../../MenuImages/png/integralNoUpperNoLower.png">
+                    <img class="menuItem" id="inlineIntegralButton" src="../../MenuImages/png/integralInline.png">
+                    <img class="menuItem" id="inlineIntegralNoUpperButton" src="../../MenuImages/png/integralNoUpperInline.png">
+                  </div>
+                  <div id="integralsDoubleIntegral" class="tab inner">
+                    <img class="menuItem" id="doubleIntegralButton" src="../../MenuImages/png/doubleIntegral.png">
+                    <img class="menuItem" id="doubleIntegralNoUpperButton" src="../../MenuImages/png/doubleIntegralNoUpper.png">
+                    <img class="menuItem" id="doubleIntegralNoUpperNoLowerButton" src="../../MenuImages/png/doubleIntegralNoUpperNoLower.png">
+                    <img class="menuItem" id="inlineDoubleIntegralButton" src="../../MenuImages/png/doubleIntegralInline.png">
+                    <img class="menuItem" id="inlineDoubleIntegralNoUpperButton" src="../../MenuImages/png/doubleIntegralNoUpperInline.png">
+                  </div>
+                  <div id="integralsTripleIntegral" class="tab inner">
+                    <img class="menuItem" id="tripleIntegralButton" src="../../MenuImages/png/tripleIntegral.png">
+                    <img class="menuItem" id="tripleIntegralNoUpperButton" src="../../MenuImages/png/tripleIntegralNoUpper.png">
+                    <img class="menuItem" id="tripleIntegralNoUpperNoLowerButton" src="../../MenuImages/png/tripleIntegralNoUpperNoLower.png">
+                    <img class="menuItem" id="inlineTripleIntegralButton" src="../../MenuImages/png/tripleIntegralInline.png">
+                    <img class="menuItem" id="inlineTripleIntegralNoUpperButton" src="../../MenuImages/png/tripleIntegralNoUpperInline.png">
+                  </div>
+                  <div id="integralsContourIntegral" class="tab inner">
+                    <img class="menuItem" id="contourIntegralButton" src="../../MenuImages/png/contourIntegral.png">
+                    <img class="menuItem" id="contourIntegralNoUpperButton" src="../../MenuImages/png/contourIntegralNoUpper.png">
+                    <img class="menuItem" id="contourIntegralNoUpperNoLowerButton" src="../../MenuImages/png/contourIntegralNoUpperNoLower.png">
+                    <img class="menuItem" id="inlineContourIntegralButton" src="../../MenuImages/png/contourIntegralInline.png">
+                    <img class="menuItem" id="inlineContourIntegralNoUpperButton" src="../../MenuImages/png/contourIntegralNoUpperInline.png">
+                  </div>
+                  <div id="integralsContourDoubleIntegral" class="tab inner">
+                    <img class="menuItem" id="contourDoubleIntegralButton" src="../../MenuImages/png/doubleContourIntegral.png">
+                    <img class="menuItem" id="contourDoubleIntegralNoUpperButton" src="../../MenuImages/png/doubleContourIntegralNoUpper.png">
+                    <img class="menuItem" id="contourDoubleIntegralNoUpperNoLowerButton" src="../../MenuImages/png/doubleContourIntegralNoUpperNoLower.png">
+                    <img class="menuItem" id="inlineContourDoubleIntegralButton" src="../../MenuImages/png/doubleContourIntegralInline.png">
+                    <img class="menuItem" id="inlineContourDoubleIntegralNoUpperButton" src="../../MenuImages/png/doubleContourIntegralNoUpperInline.png">
+                  </div>
+                  <div id="integralsContourTripleIntegral" class="tab inner">
+                    <img class="menuItem" id="contourTripleIntegralButton" src="../../MenuImages/png/tripleContourIntegral.png">
+                    <img class="menuItem" id="contourTripleIntegralNoUpperButton" src="../../MenuImages/png/tripleContourIntegralNoUpper.png">
+                    <img class="menuItem" id="contourTripleIntegralNoUpperNoLowerButton" src="../../MenuImages/png/tripleContourIntegralNoUpperNoLower.png">
+                    <img class="menuItem" id="inlineContourTripleIntegralButton" src="../../MenuImages/png/tripleContourIntegralInline.png">
+                    <img class="menuItem" id="inlineContourTripleIntegralNoUpperButton" src="../../MenuImages/png/tripleContourIntegralNoUpperInline.png">
+                  </div>
+                </div>
+            </div>
+            <div id="misc" class="tab outer">
+                <img class="menuItem" id="dotAccentButton" src="../../MenuImages/png/dotAccent.png">
+                <img class="menuItem" id="hatAccentButton" src="../../MenuImages/png/hatAccent.png">
+                <img class="menuItem" id="vectorAccentButton" src="../../MenuImages/png/vectorAccent.png">
+                <img class="menuItem" id="barAccentButton" src="../../MenuImages/png/barAccent.png">
+            </div>
+        </div>
     </div>
-    <br>
-    <br>
-    <br>
-    <br>
-    <div class="fontSizeNormal" style="position: relative">
-      <div class="symbol MathJax_MathItalic" style="position: absolute; top: 0.111111em; left: 0em;">x</div>
-      <div class="symbol MathJax_Main" style="position: absolute; top: 0em; left: 0.062em;">^</div>
-    </div>
-    <br>
-    <br>
-    <br>
-    <br>
-    <div class="fontSizeNormal" style="position: relative">
-      <div class="symbol MathJax_MathItalic" style="position: absolute; top: 0.111111em; left: 0em;">y</div>
-      <div class="symbol MathJax_Main" style="position: absolute; top: 0em; left: 0.062em;">^</div>
-    </div>
-    <br>
-    <br>
-    <br>
-    <br>
-    <div class="fontSizeNormal" style="position: relative">
-      <div class="symbol MathJax_MathItalic" style="position: absolute; top: 0.111111em; left: 0em;">o</div>
-      <div class="symbol MathJax_Main" style="position: absolute; top: 0em; left: 0.062em;">&#729;</div>
-    </div>
-    <br>
-    <br>
-    <br>
-    <br>
-    <div class="fontSizeNormal" style="position: relative">
-      <div class="symbol MathJax_MathItalic" style="position: absolute; top: 0.111111em; left: 0em;">x</div>
-      <div class="symbol MathJax_Main" style="position: absolute; top: 0em; left: 0.062em;">&#729;</div>
-    </div>
-    <br>
-    <br>
-    <br>
-    <br>
-    <div class="fontSizeNormal" style="position: relative">
-      <div class="symbol MathJax_MathItalic" style="position: absolute; top: 0.111111em; left: 0em;">y</div>
-      <div class="symbol MathJax_Main" style="position: absolute; top: 0em; left: 0.062em;">&#729;</div>
-    </div>
-    <br>
-    <br>
-    <br>
-    <br>
-    <div class="fontSizeNormal" style="position: relative">
-      <div class="symbol MathJax_MathItalic" style="position: absolute; top: 0.111111em; left: 0em;">z</div>
-      <div class="symbol MathJax_Main" style="position: absolute; top: 0em; left: 0.062em;">&#729;</div>
-    </div>
-    -->
 </body>
 </html>

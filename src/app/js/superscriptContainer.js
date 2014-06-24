@@ -93,6 +93,6 @@ eqEd.SuperscriptContainer = function(symbolSizeConfig) {
     eqEd.SuperscriptContainer.prototype.constructor = eqEd.SuperscriptContainer;
     eqEd.SuperscriptContainer.prototype.buildDomObj = function() {
         return new eqEd.ContainerDom(this,
-            '<div class="container superscriptContainer"></div>');
+            '<div class="eqEdContainer superscriptContainer"></div>');
     };
 })();

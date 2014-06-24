@@ -91,6 +91,6 @@ eqEd.FunctionWrapper = function(functionCharacters, fontStyle, symbolSizeConfig)
     };
     eqEd.FunctionWrapper.prototype.buildDomObj = function() {
         return new eqEd.WrapperDom(this,
-            '<div class="wrapper symbolWrapper"></div>')
+            '<div class="eqEdWrapper symbolWrapper"></div>')
     };
 })();

@@ -148,6 +148,6 @@ eqEd.SymbolWrapper = function(character, fontStyle, symbolSizeConfig) {
     };
     eqEd.SymbolWrapper.prototype.buildDomObj = function() {
         return new eqEd.WrapperDom(this,
-            '<div class="wrapper symbolWrapper"></div>')
+            '<div class="eqEdWrapper symbolWrapper"></div>')
     };
 })();

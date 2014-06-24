@@ -155,7 +155,6 @@ eqEd.SymbolSizeConfiguration = function() {
                     }
                     var extraWidth = (typeof this.charWidthExceedsBoundingBox[character] !== "undefined") ? this.charWidthExceedsBoundingBox[character] : 0;
                     this.width[character][fontStyle][fontSize] = fontTest.outerWidth() * (1 + extraWidth);
-                    
                     fontTest.remove();
                 }
             }

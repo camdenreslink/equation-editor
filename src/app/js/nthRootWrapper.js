@@ -112,7 +112,7 @@ eqEd.NthRootWrapper = function(symbolSizeConfig) {
     eqEd.NthRootWrapper.prototype.constructor = eqEd.NthRootWrapper;
     eqEd.NthRootWrapper.prototype.buildDomObj = function() {
         return new eqEd.WrapperDom(this,
-            '<div class="wrapper nthRootWrapper"></div>')
+            '<div class="eqEdWrapper nthRootWrapper"></div>')
     };
     eqEd.NthRootWrapper.prototype.clone = function() {
         var copy = new this.constructor(this.symbolSizeConfig);

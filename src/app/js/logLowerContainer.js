@@ -73,6 +73,6 @@ eqEd.LogLowerContainer = function(symbolSizeConfig) {
     eqEd.LogLowerContainer.prototype.constructor = eqEd.LogLowerContainer;
     eqEd.LogLowerContainer.prototype.buildDomObj = function() {
         return new eqEd.ContainerDom(this,
-            '<div class="container logLowerContainer"></div>');
+            '<div class="eqEdContainer logLowerContainer"></div>');
     };
 })();

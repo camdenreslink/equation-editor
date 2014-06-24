@@ -95,6 +95,6 @@ eqEd.SquareRootRadicandContainer = function(symbolSizeConfig) {
     eqEd.SquareRootRadicandContainer.prototype.constructor = eqEd.SquareRootRadicandContainer;
     eqEd.SquareRootRadicandContainer.prototype.buildDomObj = function() {
         return new eqEd.ContainerDom(this,
-            '<div class="container squareRootRadicandContainer"></div>');
+            '<div class="eqEdContainer squareRootRadicandContainer"></div>');
     };
 })();

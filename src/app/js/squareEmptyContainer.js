@@ -71,6 +71,6 @@ eqEd.SquareEmptyContainer = function(symbolSizeConfig) {
     eqEd.SquareEmptyContainer.prototype.constructor = eqEd.SquareEmptyContainer;
     eqEd.SquareEmptyContainer.prototype.buildDomObj = function() {
         return new eqEd.ContainerDom(this,
-            '<div class="container squareEmptyContainer ' + this.fontSize + '"></div>');
+            '<div class="eqEdContainer squareEmptyContainer ' + this.fontSize + '"></div>');
     };
 })();

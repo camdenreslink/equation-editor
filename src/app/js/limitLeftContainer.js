@@ -81,6 +81,6 @@ eqEd.LimitLeftContainer = function(symbolSizeConfig) {
     eqEd.LimitLeftContainer.prototype.constructor = eqEd.LimitLeftContainer;
     eqEd.LimitLeftContainer.prototype.buildDomObj = function() {
         return new eqEd.ContainerDom(this,
-            '<div class="container limitLeftContainer"></div>');
+            '<div class="eqEdContainer limitLeftContainer"></div>');
     };
 })();

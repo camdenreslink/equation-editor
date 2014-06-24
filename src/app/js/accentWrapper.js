@@ -155,7 +155,7 @@ eqEd.AccentWrapper = function(character, fontStyle, symbolSizeConfig) {
     eqEd.AccentWrapper.prototype.constructor = eqEd.AccentWrapper;
     eqEd.AccentWrapper.prototype.buildDomObj = function() {
         return new eqEd.WrapperDom(this,
-            '<div class="wrapper accentWrapper"></div>')
+            '<div class="eqEdWrapper accentWrapper"></div>')
     }
     eqEd.AccentWrapper.prototype.clone = function() {
         var copy = new this.constructor(this.character, this.fontStyle, this.symbolSizeConfig);

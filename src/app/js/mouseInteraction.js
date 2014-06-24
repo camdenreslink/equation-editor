@@ -11,8 +11,8 @@ var removeCursor = function() {
 var removeHighlight = function() {
     $('.highlight').remove();
     $('.highlighted').removeClass('highlighted');
-    $('.container').css('z-index', 3);
-    $('.wrapper').css('z-index', 3);
+    $('.eqEdContainer').css('z-index', 3);
+    $('.eqEdWrapper').css('z-index', 3);
     toggleLines = [];
     highlightStartIndex = null;
 }
@@ -209,7 +209,11 @@ var onMouseDown = function(self, e) {
     }
 }
 
-$(document).on('mousedown', '.container', function(e) {
+$(document).on('mousedown', '.tabs', function(e) {
+    e.stopPropagation();
+});
+
+$(document).on('mousedown', '.eqEdContainer', function(e) {
     onMouseDown(this, e);
 });
 
@@ -217,7 +221,7 @@ $(document).on('mousemove', function(e) {
     $('.hoverContainer').removeClass('hoverContainer');
 });
 
-$(document).on('mousemove', '.container', function(e) {
+$(document).on('mousemove', '.eqEdContainer', function(e) {
     if (mouseDown) {
         clearHighlighted();
     }
@@ -249,7 +253,7 @@ $(document).on('mousemove', '.container', function(e) {
     }
 })
 
-$(document).on('mouseenter', '.container', function (e) {
+$(document).on('mouseenter', '.eqEdContainer', function (e) {
     e.preventDefault();
     e.stopPropagation();
     if (mouseDown) {
@@ -280,7 +284,7 @@ $(document).on('mouseenter', '.container', function (e) {
     }
 });
 
-$(document).on('mouseleave', '.container', function (e) {
+$(document).on('mouseleave', '.eqEdContainer', function (e) {
     e.preventDefault();
      e.stopPropagation();
     if (!mouseDown) {

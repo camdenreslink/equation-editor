@@ -103,6 +103,6 @@ eqEd.NthRootRadicandContainer = function(symbolSizeConfig) {
     eqEd.NthRootRadicandContainer.prototype.constructor = eqEd.NthRootRadicandContainer;
     eqEd.NthRootRadicandContainer.prototype.buildDomObj = function() {
         return new eqEd.ContainerDom(this,
-            '<div class="container nthRootRadicandContainer"></div>');
+            '<div class="eqEdContainer nthRootRadicandContainer"></div>');
     };
 })();

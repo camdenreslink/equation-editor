@@ -190,7 +190,7 @@ eqEd.MatrixWrapper = function(numRows, numCols, horAlign, symbolSizeConfig) {
     eqEd.MatrixWrapper.prototype.constructor = eqEd.MatrixWrapper;
     eqEd.MatrixWrapper.prototype.buildDomObj = function() {
         return new eqEd.WrapperDom(this,
-            '<div class="wrapper matrixWrapper"></div>')
+            '<div class="eqEdWrapper matrixWrapper"></div>')
     }
     eqEd.MatrixWrapper.prototype.clone = function() {
         var copy = new this.constructor(this.numRows, this.numCols, this.horAlign, this.symbolSizeConfig);

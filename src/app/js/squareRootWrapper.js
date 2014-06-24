@@ -101,7 +101,7 @@ eqEd.SquareRootWrapper = function(symbolSizeConfig) {
     eqEd.SquareRootWrapper.prototype.constructor = eqEd.SquareRootWrapper;
     eqEd.SquareRootWrapper.prototype.buildDomObj = function() {
         return new eqEd.WrapperDom(this,
-            '<div class="wrapper squareRootWrapper"></div>')
+            '<div class="eqEdWrapper squareRootWrapper"></div>')
     };
     eqEd.SquareRootWrapper.prototype.clone = function() {
         var copy = new this.constructor(this.symbolSizeConfig);

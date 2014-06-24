@@ -79,7 +79,7 @@ eqEd.LogLowerWrapper = function(symbolSizeConfig) {
     eqEd.LogLowerWrapper.prototype.constructor = eqEd.LogLowerWrapper;
     eqEd.LogLowerWrapper.prototype.buildDomObj = function() {
         return new eqEd.WrapperDom(this,
-            '<div class="wrapper logLowerWrapper"></div>')
+            '<div class="eqEdWrapper logLowerWrapper"></div>')
     }
     eqEd.LogLowerWrapper.prototype.clone = function() {
         var copy = new this.constructor(this.symbolSizeConfig);

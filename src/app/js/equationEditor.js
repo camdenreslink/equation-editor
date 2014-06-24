@@ -3,7 +3,6 @@ $(window).load(function () {
     var fontsLoaded = false;
     var imagesLoaded = false;
     var setupInitialContainer = function() {
-        ///*
         var container = new eqEd.Container(symbolSizeConfig);
         container.padTop = 0.2;
         container.padBottom = 0.2;
@@ -15,7 +14,6 @@ $(window).load(function () {
         var topLevelEmptyContainerWrapper = new eqEd.TopLevelEmptyContainerWrapper(symbolSizeConfig);
         container.addWrappers([0, topLevelEmptyContainerWrapper]);
         topLevelEmptyContainerWrapper.updateAll();
-        //*/
     };
 
     var setup = function() {

@@ -86,7 +86,7 @@ eqEd.FunctionLowerWrapper = function(characters, fontStyle, symbolSizeConfig) {
     eqEd.FunctionLowerWrapper.prototype.constructor = eqEd.FunctionLowerWrapper;
     eqEd.FunctionLowerWrapper.prototype.buildDomObj = function() {
         return new eqEd.WrapperDom(this,
-            '<div class="wrapper functionLowerWrapper"></div>')
+            '<div class="eqEdWrapper functionLowerWrapper"></div>')
     }
     eqEd.FunctionLowerWrapper.prototype.clone = function() {
         var copy = new this.constructor(this.symbolSizeConfig);

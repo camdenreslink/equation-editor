@@ -82,6 +82,6 @@ eqEd.BracketContainer = function(symbolSizeConfig) {
     eqEd.BracketContainer.prototype.constructor = eqEd.BracketContainer;
     eqEd.BracketContainer.prototype.buildDomObj = function() {
         return new eqEd.ContainerDom(this,
-            '<div class="container bracketContainer"></div>');
+            '<div class="eqEdContainer bracketContainer"></div>');
     };
 })();

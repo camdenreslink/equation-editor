@@ -168,7 +168,7 @@ eqEd.SuperscriptWrapper = function(symbolSizeConfig) {
     eqEd.SuperscriptWrapper.prototype.constructor = eqEd.SuperscriptWrapper;
     eqEd.SuperscriptWrapper.prototype.buildDomObj = function() {
         return new eqEd.WrapperDom(this,
-            '<div class="wrapper superscriptWrapper"></div>')
+            '<div class="eqEdWrapper superscriptWrapper"></div>')
     };
     eqEd.SuperscriptWrapper.prototype.clone = function() {
         var copy = new this.constructor(this.symbolSizeConfig);

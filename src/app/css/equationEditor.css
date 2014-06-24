@@ -2,6 +2,9 @@
     position: relative;
     line-height: 1;
     overflow: visible;
+    -webkit-box-sizing: content-box;
+    -moz-box-sizing: content-box;
+    box-sizing: content-box;
 }
 
 .activeContainer .hoverContainer {
@@ -19,6 +22,9 @@
     position: absolute;
     top: 0em;
     left: 0em;
+    -webkit-box-sizing: content-box;
+    -moz-box-sizing: content-box;
+    box-sizing: content-box;
     /* Try to prevent highlighting */
     -webkit-touch-callout: none;
     -webkit-user-select: none;
@@ -29,12 +35,26 @@
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0) !important;
 }
 
-.equation.container {
+.equation.eqEdContainer {
     margin: 20px;
 }
 
 .fontTest {
     visibility: hidden;
+}
+
+.equation:before,
+.equation:after {
+    -webkit-box-sizing: content-box;
+    -moz-box-sizing: content-box;
+    box-sizing: content-box;
+}
+
+.equation :before,
+.equation :after {
+    -webkit-box-sizing: content-box;
+    -moz-box-sizing: content-box;
+    box-sizing: content-box;
 }
 
 .fontSizeNormal {
@@ -134,7 +154,7 @@ div.squareCursor {
     stroke: #FFFFFF !important;
 }
 
-.container {
+.eqEdContainer {
     cursor: text;
     z-index: 3;
 }
@@ -148,7 +168,7 @@ div.activeContainer {
     border: 4px solid #000000;
 }
 
-.wrapper {
+.eqEdWrapper {
     z-index: 3;
 }
 
@@ -215,4 +235,107 @@ div.activeContainer {
 .eqImg {
     width: 100%;
     height: 100%;
+}
+
+/* Menu CSS */
+/*----- Tabs -----*/
+.tabs {
+    width:100%;
+    display:inline-block;
+}
+ 
+/*----- Tab Links -----*/
+/* Clearfix */
+.tab-links:after {
+    display:block;
+    clear:both;
+    content:'';
+}
+
+.tab-links {
+    margin-bottom: 0px;
+    padding-left: 7px;
+}
+
+.tab-links li {
+    margin-left: 3px;
+    margin-right: 3px;
+    margin-top: 6px;
+    margin-bottom: 0px;
+    float:left;
+    list-style:none;
+}
+ 
+.tab-links a {
+    padding:9px 15px;
+    display:inline-block;
+    background:#E0E0E0;
+    font-size:16px;
+    color:#000;
+    text-decoration:none;
+}
+
+.outer-tab-links a:hover {
+    background:#BABABA;
+}
+
+.inner-tab-links a:hover {
+    background:#8A8A8A;
+}
+
+.outerTab.active a, .outerTab.active a:hover {
+    background: #9C9C9C;
+}
+
+.innerTab.active a, .innerTab.active a:hover {
+    background: #707070;
+}
+
+.top-level-tab {
+    background:#9C9C9C;
+}
+/*----- Content of Tabs -----*/
+.tab-content {
+    padding: 15px 2.5%;
+}
+
+.tab-content-nested {
+    background: #707070;
+}
+
+#tab-content-top {
+    width: 650px;
+    background: #9C9C9C;
+}
+ 
+.tab {
+    display:none;
+}
+
+.tab.active {
+    display:block;
+}
+
+.innerTabImg {
+    height: 34px;
+}
+
+.menuItem {
+    background: transparent;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    padding: 5px;
+    vertical-align: top;
+}
+
+.menuItem:hover {
+    cursor: pointer;
+}
+
+.tab.outer > .menuItem:hover {
+    background-color: #707070;
+}
+
+.tab.inner > .menuItem:hover {
+    background-color: #545454;
 }

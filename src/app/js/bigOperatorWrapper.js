@@ -184,7 +184,7 @@ eqEd.BigOperatorWrapper = function(isInline, hasUpperLimit, hasLowerLimit, bigOp
     eqEd.BigOperatorWrapper.prototype.constructor = eqEd.BigOperatorWrapper;
     eqEd.BigOperatorWrapper.prototype.buildDomObj = function() {
         return new eqEd.WrapperDom(this,
-            '<div class="wrapper bigOperatorWrapper"></div>')
+            '<div class="eqEdWrapper bigOperatorWrapper"></div>')
     }
     eqEd.BigOperatorWrapper.prototype.clone = function() {
         var copy = new this.constructor(this.isInline, this.hasUpperLimit, this.hasLowerLimit, this.bigOperatorType, this.symbolSizeConfig);

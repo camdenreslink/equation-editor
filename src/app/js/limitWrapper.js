@@ -111,7 +111,7 @@ eqEd.LimitWrapper = function(symbolSizeConfig) {
     eqEd.LimitWrapper.prototype.constructor = eqEd.LimitWrapper;
     eqEd.LimitWrapper.prototype.buildDomObj = function() {
         return new eqEd.WrapperDom(this,
-            '<div class="wrapper limitWrapper"></div>')
+            '<div class="eqEdWrapper limitWrapper"></div>')
     }
     eqEd.LimitWrapper.prototype.clone = function() {
         var copy = new this.constructor(this.symbolSizeConfig);
