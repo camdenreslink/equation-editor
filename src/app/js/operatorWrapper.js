@@ -46,7 +46,8 @@ eqEd.OperatorWrapper = function(operatorSymbol, fontStyle, symbolSizeConfig) {
                        || this.operator.character === "&#60;"
                        || this.operator.character === "&#62;"
                        || this.operator.character === "&#x2264;"
-                       || this.operator.character === "&#x2265;") {
+                       || this.operator.character === "&#x2265;"
+                       || this.operator.character === "&#x2248;") {
                 isComparisonVal = true;
             }
             return isComparisonVal;

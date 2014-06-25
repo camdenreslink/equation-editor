@@ -35,30 +35,7 @@ var setupMenuEvents = function(symbolSizeConfig) {
         var nthRootButton = new eqEd.NthRootWrapper(symbolSizeConfig);
         insertWrapper(nthRootButton);
     });
-    $(document).on('mousedown', '#lessThanOrEqualToButton', function (e) {
-        e.preventDefault();
-        e.stopPropagation();
-        var operatorWrapper = new eqEd.OperatorWrapper('&#x2264;', "MathJax_Main", symbolSizeConfig);
-        insertWrapper(operatorWrapper);
-    });
-    $(document).on('mousedown', '#greaterThanOrEqualToButton', function (e) {
-        e.preventDefault();
-        e.stopPropagation();
-        var operatorWrapper = new eqEd.OperatorWrapper('&#x2265;', "MathJax_Main", symbolSizeConfig);
-        insertWrapper(operatorWrapper);
-    });
-    $(document).on('mousedown', '#approxEqualToButton', function (e) {
-        e.preventDefault();
-        e.stopPropagation();
-        var operatorWrapper = new eqEd.OperatorWrapper('&#x2248;', "MathJax_Main", symbolSizeConfig);
-        insertWrapper(operatorWrapper);
-    });
-    $(document).on('mousedown', '#belongsToButton', function (e) {
-        e.preventDefault();
-        e.stopPropagation();
-        var operatorWrapper = new eqEd.OperatorWrapper('&#8712;', "MathJax_Main", symbolSizeConfig);
-        insertWrapper(operatorWrapper);
-    });
+    
     $(document).on('mousedown', '#leftAngleBracketButton', function (e) {
         e.preventDefault();
         e.stopPropagation();
@@ -1112,15 +1089,123 @@ var setupMenuEvents = function(symbolSizeConfig) {
         insertWrapper(symbolWrapper);
     });
 
-    $('.tabs .tab-links a').on('click', function(e)  {
-        var currentAttrValue = $(this).attr('href');
- 
-        // Show/Hide Tabs
-        $('.tabs ' + currentAttrValue).show().siblings().hide();
- 
-        // Change/remove current tab to active
-        $(this).parent('li').addClass('active').siblings().removeClass('active');
- 
+    $(document).on('mousedown', '#lessThanOrEqualToButton', function (e) {
         e.preventDefault();
+        e.stopPropagation();
+        var operatorWrapper = new eqEd.OperatorWrapper('&#x2264;', "MathJax_Main", symbolSizeConfig);
+        insertWrapper(operatorWrapper);
+    });
+    $(document).on('mousedown', '#greaterThanOrEqualToButton', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var operatorWrapper = new eqEd.OperatorWrapper('&#x2265;', "MathJax_Main", symbolSizeConfig);
+        insertWrapper(operatorWrapper);
+    });
+    $(document).on('mousedown', '#circleOperatorButton', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var operatorWrapper = new eqEd.OperatorWrapper('&#9702;', "MathJax_Main", symbolSizeConfig);
+        insertWrapper(operatorWrapper);
+    });
+    $(document).on('mousedown', '#approxEqualToButton', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var operatorWrapper = new eqEd.OperatorWrapper('&#x2248;', "MathJax_Main", symbolSizeConfig);
+        insertWrapper(operatorWrapper);
+    });
+    $(document).on('mousedown', '#belongsToButton', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var operatorWrapper = new eqEd.OperatorWrapper('&#8712;', "MathJax_Main", symbolSizeConfig);
+        insertWrapper(operatorWrapper);
+    });
+
+    $(document).on('mousedown', '#timesButton', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var operatorWrapper = new eqEd.OperatorWrapper('&#215;', "MathJax_Main", symbolSizeConfig);
+        insertWrapper(operatorWrapper);
+    });
+
+    $(document).on('mousedown', '#pmButton', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var operatorWrapper = new eqEd.OperatorWrapper('&#177;', "MathJax_Main", symbolSizeConfig);
+        insertWrapper(operatorWrapper);
+    });
+
+    $(document).on('mousedown', '#wedgeButton', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var operatorWrapper = new eqEd.OperatorWrapper('&#8743;', "MathJax_Main", symbolSizeConfig);
+        insertWrapper(operatorWrapper);
+    });
+
+    $(document).on('mousedown', '#veeButton', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var operatorWrapper = new eqEd.OperatorWrapper('&#8744;', "MathJax_Main", symbolSizeConfig);
+        insertWrapper(operatorWrapper);
+    });
+
+    $(document).on('mousedown', '#equivButton', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var operatorWrapper = new eqEd.OperatorWrapper('&#8801;', "MathJax_Main", symbolSizeConfig);
+        insertWrapper(operatorWrapper);
+    });
+
+    $(document).on('mousedown', '#congButton', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var operatorWrapper = new eqEd.OperatorWrapper('&#8773;', "MathJax_Main", symbolSizeConfig);
+        insertWrapper(operatorWrapper);
+    });
+
+    $(document).on('mousedown', '#neqButton', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var operatorWrapper = new eqEd.OperatorWrapper('&#8800;', "MathJax_Main", symbolSizeConfig);
+        insertWrapper(operatorWrapper);
+    });
+
+    $(document).on('mousedown', '#simButton', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var operatorWrapper = new eqEd.OperatorWrapper('&#8764;', "MathJax_Main", symbolSizeConfig);
+        insertWrapper(operatorWrapper);
+    });
+
+    $(document).on('mousedown', '#proptoButton', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var operatorWrapper = new eqEd.OperatorWrapper('&#8733;', "MathJax_Main", symbolSizeConfig);
+        insertWrapper(operatorWrapper);
+    });
+
+    $(document).on('mousedown', '#precButton', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var operatorWrapper = new eqEd.OperatorWrapper('&#8826;', "MathJax_Main", symbolSizeConfig);
+        insertWrapper(operatorWrapper);
+    });
+
+    $(document).on('mousedown', '#precEqButton', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var operatorWrapper = new eqEd.OperatorWrapper('&#10927;', "MathJax_Main", symbolSizeConfig);
+        insertWrapper(operatorWrapper);
     });
 };
+
+$(document).on('click', '.tabs .tab-links a', function(e)  {
+    var currentAttrValue = $(this).attr('href');
+
+    // Show/Hide Tabs
+    $('.tabs ' + currentAttrValue).show().siblings().hide();
+
+    // Change/remove current tab to active
+    $(this).parent('li').addClass('active').siblings().removeClass('active');
+
+    e.preventDefault();
+});

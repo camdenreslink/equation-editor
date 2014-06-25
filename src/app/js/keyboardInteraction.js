@@ -131,6 +131,13 @@ var setupKeyboardEvents = function(symbolSizeConfig) {
         return false;
     });
 
+    // setminus
+    Mousetrap.bind('\\', function(e) { 
+        var operatorWrapper = new eqEd.OperatorWrapper('&#8726;', "MathJax_Main", symbolSizeConfig);
+        insertWrapper(operatorWrapper);
+        return false;
+    });
+
     // superscript shortcut
     Mousetrap.bind('^', function(e) { 
         var superscriptWrapper = new eqEd.SuperscriptWrapper(symbolSizeConfig);
