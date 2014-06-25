@@ -255,6 +255,7 @@ div.activeContainer {
 .tab-links {
     margin-bottom: 0px;
     padding-left: 7px;
+    white-space: nowrap !important;
 }
 
 .tab-links li {
@@ -262,7 +263,8 @@ div.activeContainer {
     margin-right: 3px;
     margin-top: 6px;
     margin-bottom: 0px;
-    float:left;
+    /*float:left;*/
+    display:inline-block;
     list-style:none;
 }
  
@@ -304,7 +306,7 @@ div.activeContainer {
 }
 
 #tab-content-top {
-    width: 650px;
+    width: 700px;
     background: #9C9C9C;
 }
  

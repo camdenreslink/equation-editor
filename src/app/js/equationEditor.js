@@ -1,5 +1,6 @@
-$(window).load(function () {
+$(document).ready(function () {
     var symbolSizeConfig = null;
+    var clipboard = null;
     var fontsLoaded = false;
     var imagesLoaded = false;
     var setupInitialContainer = function() {
@@ -19,8 +20,9 @@ $(window).load(function () {
     var setup = function() {
         if (fontsLoaded && imagesLoaded) {
             symbolSizeConfig = new eqEd.SymbolSizeConfiguration();
+            clipboard = new eqEd.Clipboard();
             inializePropertyHooks(symbolSizeConfig);
-            setupKeyboardEvents(symbolSizeConfig);
+            setupKeyboardEvents(symbolSizeConfig, clipboard);
             setupMenuEvents(symbolSizeConfig);
             setupInitialContainer();
         }

@@ -167,6 +167,7 @@
   <script src="../js/addWrapperUtil.js"></script>
   <script src="../js/keyboardInteraction.js"></script>
   <script src="../js/menuInteraction.js"></script>
+  <script src="../js/clipboard.js"></script>
   <script src="../js/equationEditor.js"></script>
 </head>
 <body>
@@ -289,6 +290,7 @@
                 </ul>
                 <div class="tab-content tab-content-nested">
                   <div id="symbolsOperators" class="tab inner active">
+                    <span class="menuItem MathJax_Main" id="colonButton" style="font-size: 45px;">:</span>
                     <span class="menuItem MathJax_Main" id="lessThanOrEqualToButton" style="font-size: 45px;">&#x2264;</span>
                     <span class="menuItem MathJax_Main" id="greaterThanOrEqualToButton" style="font-size: 45px;">&#x2265;</span>
                     <span class="menuItem MathJax_Main" id="circleOperatorButton" style="font-size: 45px;">&#9702;</span>
@@ -305,6 +307,13 @@
                     <span class="menuItem MathJax_Main" id="proptoButton" style="font-size: 45px;">&#8733;</span>
                     <span class="menuItem MathJax_Main" id="precButton" style="font-size: 45px;">&#8826;</span>
                     <span class="menuItem MathJax_Main" id="precEqButton" style="font-size: 45px;">&#10927;</span>
+                    <span class="menuItem MathJax_Main" id="subsetButton" style="font-size: 45px;">&#8834;</span>
+                    <span class="menuItem MathJax_Main" id="subsetEqButton" style="font-size: 45px;">&#8838;</span>
+                    <span class="menuItem MathJax_Main" id="succButton" style="font-size: 45px;">&#8827;</span>
+                    <span class="menuItem MathJax_Main" id="succEqButton" style="font-size: 45px;">&#10928;</span>
+                    <span class="menuItem MathJax_Main" id="perpButton" style="font-size: 45px;">&#8869;</span>
+                    <span class="menuItem MathJax_Main" id="midButton" style="font-size: 45px;">&#8739;</span>
+                    <span class="menuItem MathJax_Main" id="parallelButton" style="font-size: 45px;">&#8741;</span>
                   </div>
                   <div id="symbolsGreek" class="tab inner">
                     <span class="menuItem MathJax_Main" id="gammaUpperButton" style="font-size: 45px;">&#915;</span>
@@ -350,7 +359,8 @@
                     <span class="menuItem MathJax_MathItalic" id="omegaButton" style="font-size: 45px;">&#969;</span>
                   </div>
                   <div id="symbolsMisc" class="tab inner">
-                    This is symbol misc buttons.
+                    <span class="menuItem MathJax_Main" id="partialButton" style="font-size: 45px;">&#8706;</span>
+                    <span class="menuItem MathJax_Main" id="infinityButton" style="font-size: 45px;">&#8734;</span>
                   </div>
                 </div>
             </div>
@@ -525,6 +535,8 @@
                 <img class="menuItem" id="hatAccentButton" src="../../MenuImages/png/hatAccent.png">
                 <img class="menuItem" id="vectorAccentButton" src="../../MenuImages/png/vectorAccent.png">
                 <img class="menuItem" id="barAccentButton" src="../../MenuImages/png/barAccent.png">
+                <div style="display: inline-block">rows: <input type="text" id="rows" /><br> cols: <input type="text" id="cols" /></div>
+                <div class="menuItem" id="matrixButton" style="font-size: 35px; padding: 5px 5px; display: inline-block">Matrix</div>
             </div>
         </div>
     </div>

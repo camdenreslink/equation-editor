@@ -775,6 +775,8 @@ var setupMenuEvents = function(symbolSizeConfig) {
     $(document).on('mousedown', '#matrixButton', function (e) {
         e.preventDefault();
         e.stopPropagation();
+        $('#rows').blur();
+        $('#cols').blur();
         var rows = parseInt($('#rows').val());
         var cols = parseInt($('#cols').val());
         var matrixWrapper = new eqEd.MatrixWrapper(rows, cols, 'center', symbolSizeConfig);
@@ -1195,6 +1197,76 @@ var setupMenuEvents = function(symbolSizeConfig) {
         e.stopPropagation();
         var operatorWrapper = new eqEd.OperatorWrapper('&#10927;', "MathJax_Main", symbolSizeConfig);
         insertWrapper(operatorWrapper);
+    });
+
+    $(document).on('mousedown', '#subsetButton', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var operatorWrapper = new eqEd.OperatorWrapper('&#8834;', "MathJax_Main", symbolSizeConfig);
+        insertWrapper(operatorWrapper);
+    });
+
+    $(document).on('mousedown', '#subsetEqButton', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var operatorWrapper = new eqEd.OperatorWrapper('&#8838;', "MathJax_Main", symbolSizeConfig);
+        insertWrapper(operatorWrapper);
+    });
+
+    $(document).on('mousedown', '#succButton', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var operatorWrapper = new eqEd.OperatorWrapper('&#8827;', "MathJax_Main", symbolSizeConfig);
+        insertWrapper(operatorWrapper);
+    });
+
+    $(document).on('mousedown', '#succEqButton', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var operatorWrapper = new eqEd.OperatorWrapper('&#10928;', "MathJax_Main", symbolSizeConfig);
+        insertWrapper(operatorWrapper);
+    });
+
+    $(document).on('mousedown', '#perpButton', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var operatorWrapper = new eqEd.OperatorWrapper('&#8869;', "MathJax_Main", symbolSizeConfig);
+        insertWrapper(operatorWrapper);
+    });
+
+    $(document).on('mousedown', '#midButton', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var operatorWrapper = new eqEd.OperatorWrapper('&#8739;', "MathJax_Main", symbolSizeConfig);
+        insertWrapper(operatorWrapper);
+    });
+
+    $(document).on('mousedown', '#parallelButton', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var operatorWrapper = new eqEd.OperatorWrapper('&#8741;', "MathJax_Main", symbolSizeConfig);
+        insertWrapper(operatorWrapper);
+    });
+
+    $(document).on('mousedown', '#colonButton', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var operatorWrapper = new eqEd.OperatorWrapper(':', "MathJax_Main", symbolSizeConfig);
+        insertWrapper(operatorWrapper);
+    });
+
+    $(document).on('mousedown', '#partialButton', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var symbolWrapper = new eqEd.SymbolWrapper('&#8706;', "MathJax_Main", symbolSizeConfig);
+        insertWrapper(symbolWrapper);
+    });
+
+    $(document).on('mousedown', '#infinityButton', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var symbolWrapper = new eqEd.SymbolWrapper('&#8734;', "MathJax_Main", symbolSizeConfig);
+        insertWrapper(symbolWrapper);
     });
 };
 

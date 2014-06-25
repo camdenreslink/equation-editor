@@ -1,4 +1,4 @@
-var setupKeyboardEvents = function(symbolSizeConfig) {
+var setupKeyboardEvents = function(symbolSizeConfig, clipboard) {
     var MathJax_MathItalic = [
         'q',
         'w',
@@ -138,6 +138,20 @@ var setupKeyboardEvents = function(symbolSizeConfig) {
         return false;
     });
 
+    // colon
+    Mousetrap.bind(':', function(e) { 
+        var operatorWrapper = new eqEd.OperatorWrapper(':', "MathJax_Main", symbolSizeConfig);
+        insertWrapper(operatorWrapper);
+        return false;
+    });
+
+    // apostrophe
+    Mousetrap.bind('\'', function(e) { 
+        var operatorWrapper = new eqEd.OperatorWrapper('\'', "MathJax_MathItalic", symbolSizeConfig);
+        insertWrapper(operatorWrapper);
+        return false;
+    });
+
     // superscript shortcut
     Mousetrap.bind('^', function(e) { 
         var superscriptWrapper = new eqEd.SuperscriptWrapper(symbolSizeConfig);
@@ -154,17 +168,39 @@ var setupKeyboardEvents = function(symbolSizeConfig) {
 
     // copy
     Mousetrap.bind('ctrl+c', function(e) {
-
+        var highlighted = $('.highlighted');
+        var container = null;
+        if (highlighted.length > 0) {
+            container = highlighted.parent().data('eqObject');
+            if (!(container.parent instanceof eqEd.EmptyContainerWrapper)) {
+                var copiedWrappersIndices;
+                if (highlightStartIndex < highlightEndIndex) {
+                    copiedWrappersIndices = _.range(highlightStartIndex, highlightEndIndex);
+                } else {
+                    copiedWrappersIndices = _.range(highlightEndIndex, highlightStartIndex);
+                }
+                clipboard.copyWrappers(container, copiedWrappersIndices);
+            }
+        }
     });
 
     // cut
     Mousetrap.bind('ctrl+x', function(e) {
-
+        Mousetrap.trigger('ctrl+c');
+        var highlighted = $('.highlighted');
+        if (highlighted.length > 0) {
+            Mousetrap.trigger('del');
+        }
+        return false;
     });
 
     // paste
     Mousetrap.bind('ctrl+v', function(e) {
-
+        var pastedWrapperList = clipboard.paste();
+        for (var i = 0; i < pastedWrapperList.length; i++) {
+            insertWrapper(pastedWrapperList[i]);
+        }
+        return false;
     });
 
     // undo
