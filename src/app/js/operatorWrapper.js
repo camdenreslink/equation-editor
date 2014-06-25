@@ -3,7 +3,6 @@ eqEd.OperatorWrapper = function(operatorSymbol, fontStyle, symbolSizeConfig) {
 	this.className = "eqEd.OperatorWrapper";
 
     this.operatorSymbol = operatorSymbol;
-    //this.operatorList = {"addition": "+", "subtraction": "&#x2212;", "dotProduct": "&#x22c5;", "equal": "=", 'lessThan': "&#60;", 'greaterThan': "&#62;", 'lessThanOrEqualTo': "&#x2264;", 'greaterThanOrEqualTo': "&#x2265;", 'division': "&#x00f7;"};
     this.operator = new eqEd.Symbol(operatorSymbol, fontStyle, symbolSizeConfig);
     this.operator.parent = this;
 	this.domObj = this.buildDomObj();
@@ -47,7 +46,18 @@ eqEd.OperatorWrapper = function(operatorSymbol, fontStyle, symbolSizeConfig) {
                        || this.operator.character === "&#62;"
                        || this.operator.character === "&#x2264;"
                        || this.operator.character === "&#x2265;"
-                       || this.operator.character === "&#x2248;") {
+                       || this.operator.character === "&#x2248;"
+                       || this.operator.character === "&#8801;"
+                       || this.operator.character === "&#8773;"
+                       || this.operator.character === "&#8800;"
+                       || this.operator.character === "&#8764;"
+                       || this.operator.character === "&#8733;"
+                       || this.operator.character === "&#8826;"
+                       || this.operator.character === "&#10927;"
+                       || this.operator.character === "&#8834;"
+                       || this.operator.character === "&#8838;"
+                       || this.operator.character === "&#8827;"
+                       || this.operator.character === "&#10928;") {
                 isComparisonVal = true;
             }
             return isComparisonVal;

@@ -9,7 +9,9 @@ eqEd.Symbol = function(character, fontStyle, symbolSizeConfig) {
         if (this.fontStyle === "MathJax_MathItalic") {
             this.adjustTop = 0.345;
         } else {
-            this.adjustTop = 0.3;
+            if (this.character !== '&#9702;') {
+                this.adjustTop = 0.3;
+            }
         }
     } else {
         if (this.fontStyle === "MathJax_MathItalic") {
