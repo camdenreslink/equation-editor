@@ -1,58 +1,60 @@
-$(document).ready(function () {
-    var symbolSizeConfig = null;
-    var clipboard = null;
-    var fontsLoaded = false;
-    var imagesLoaded = false;
-    var setupInitialContainer = function() {
-        var container = new eqEd.Container(symbolSizeConfig);
-        container.padTop = 0.2;
-        container.padBottom = 0.2;
-        container.fontSize = "fontSizeNormal";
-        container.domObj = container.buildDomObj();
-        container.domObj.updateFontSize(container.fontSize);
-        container.domObj.value.addClass('equation');
-        $('.testEquation').after(container.domObj.value);
-        var topLevelEmptyContainerWrapper = new eqEd.TopLevelEmptyContainerWrapper(symbolSizeConfig);
-        container.addWrappers([0, topLevelEmptyContainerWrapper]);
-        topLevelEmptyContainerWrapper.updateAll();
-    };
+var symbolSizeConfig = null;
+var clipboard = null;
+var fontsLoaded = false;
+var imagesLoaded = false;
+var setupInitialContainer = function() {
+    var container = new eqEd.Container(symbolSizeConfig);
+    container.padTop = 0.2;
+    container.padBottom = 0.2;
+    container.fontSize = "fontSizeNormal";
+    container.domObj = container.buildDomObj();
+    container.domObj.updateFontSize(container.fontSize);
+    container.domObj.value.addClass('equation');
+    $('.testEquation').after(container.domObj.value);
+    var topLevelEmptyContainerWrapper = new eqEd.TopLevelEmptyContainerWrapper(symbolSizeConfig);
+    container.addWrappers([0, topLevelEmptyContainerWrapper]);
+    topLevelEmptyContainerWrapper.updateAll();
+};
 
-    var setup = function() {
-        if (fontsLoaded && imagesLoaded) {
-            symbolSizeConfig = new eqEd.SymbolSizeConfiguration();
-            clipboard = new eqEd.Clipboard();
-            inializePropertyHooks(symbolSizeConfig);
-            setupKeyboardEvents(symbolSizeConfig, clipboard);
-            setupMenuEvents(symbolSizeConfig);
-            setupInitialContainer();
-        }
+var setup = function() {
+    if (fontsLoaded && imagesLoaded) {
+        symbolSizeConfig = new eqEd.SymbolSizeConfiguration();
+        $('.loadingMessage').remove();
+        clipboard = new eqEd.Clipboard();
+        inializePropertyHooks(symbolSizeConfig);
+        setupKeyboardEvents(symbolSizeConfig, clipboard);
+        setupMenuEvents(symbolSizeConfig);
+        setupInitialContainer();
     }
+}
 
-    // preload fonts, using webfont.js
-    var loadFonts = function(fontList, cssPath, callback) {
-        WebFont.load({
-            custom: {
-                families: fontList,
-                urls: [cssPath]
+// preload fonts, using webfont.js
+var loadFonts = function(callback) {
+    WebFont.load({
+        custom: {
+            families: ['MathJax_Main:n4,i4', 'MathJax_Math:i4', 'MathJax_Size1:n4', 'MathJax_Size2:n4', 'MathJax_Size3:n4', 'MathJax_Size4:n4', 'MathJax_AMS:n4'],
+            testStrings: {
+                'MathJax_Size2:n4': '\u2211\u22C2\u2A00\u220F\u22C3\u2A02\u2210\u2A06\u2A01\u222B\u22C1\u2A04'
             },
-            active: function() {
-                fontsLoaded = true;
-                callback();
-            }
-        });
-    };
+            urls: ['../../Fonts/TeX/font.css']
+        },
+        active: function() {
+            fontsLoaded = true;
+            setTimeout(function() { callback(); }, 1500);
+        }
+    });
+};
 
-    // preload images
-    // arrayOfImages is an array of the paths to images you want to preload
-    // ex) ['../../Images/radical.png', '../../Images/radicalHighlight.png', '../../Images/radicalDiagonalLine.png']
-    var loadImages = function(arrayOfImages, callback) {
-        $(arrayOfImages).each(function () {
-            $('<img />').attr('src',this).appendTo('body').css('display','none');
-        });
-        imagesLoaded = true;
-        callback();
-    };
+// preload images
+// arrayOfImages is an array of the paths to images you want to preload
+// ex) ['../../Images/radical.png', '../../Images/radicalHighlight.png', '../../Images/radicalDiagonalLine.png']
+var loadImages = function(arrayOfImages, callback) {
+    $(arrayOfImages).each(function () {
+        $('<img />').attr('src',this).appendTo('body').css('display','none');
+    });
+    imagesLoaded = true;
+    callback();
+};
 
-    loadFonts(['MathJax_Main', 'MathJax_Main:i4', 'MathJax_Math:i4', 'MathJax_Size1', 'MathJax_Size2', 'MathJax_Size3', 'MathJax_Size4'], '../../Fonts/TeX/font.css', setup);
-    loadImages([], setup);
-});
+loadFonts(setup);
+loadImages([], setup);

@@ -2,6 +2,7 @@
     font-family: 'MathJax_Main';
     src: url('woff/MathJax_Main-Regular.woff') format('woff'),
          url('svg/MathJax_Main-Regular.svg#MathJax_Main') format('svg');
+    font-weight: normal;
 }
 
 @font-face {
@@ -9,6 +10,7 @@
     src: url('woff/MathJax_Main-Italic.woff') format('woff'),
          url('svg/MathJax_Main-Italic.svg#MathJax_Main') format('svg');
     font-style: italic;
+    font-weight: normal;
 }
 
 @font-face {
@@ -16,34 +18,40 @@
     src: url('woff/MathJax_Math-Italic.woff') format('woff'),
          url('svg/MathJax_Math-Italic.svg#MathJax_Math') format('svg');
     font-style: italic;
+    font-weight: normal;
 }
 
 @font-face {
     font-family: 'MathJax_Size1';
     src: url('woff/MathJax_Size1-Regular.woff') format('woff'),
          url('svg/MathJax_Size1-Regular.svg#MathJax_Size1') format('svg');
+    font-weight: normal;
 }
 
 @font-face {
     font-family: 'MathJax_Size2';
     src: url('woff/MathJax_Size2-Regular.woff') format('woff'),
          url('svg/MathJax_Size2-Regular.svg#MathJax_Size2') format('svg');
+    font-weight: normal;
 }
 
 @font-face {
     font-family: 'MathJax_Size3';
     src: url('woff/MathJax_Size3-Regular.woff') format('woff'),
          url('svg/MathJax_Size3-Regular.svg#MathJax_Size3') format('svg');
+    font-weight: normal;
 }
 
 @font-face {
     font-family: 'MathJax_Size4';
     src: url('woff/MathJax_Size4-Regular.woff') format('woff'),
          url('svg/MathJax_Size4-Regular.svg#MathJax_Size4') format('svg');
+    font-weight: normal;
 }
 
 @font-face {
     font-family: 'MathJax_AMS';
     src: url('woff/MathJax_AMS-Regular.woff') format('woff'),
          url('svg/MathJax_AMS-Regular.svg#MathJax_AMS') format('svg');
+    font-weight: normal;
 }

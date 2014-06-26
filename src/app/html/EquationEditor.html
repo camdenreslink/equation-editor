@@ -3,8 +3,6 @@
 <head>
   <meta charset="utf-8">
   <title>Equation Editor</title>
-  <!--<link href="../../Fonts/TeX/font.css" rel="stylesheet" type="text/css" charset="utf-8" />-->
-  <link href="../css/equationEditor.css" rel="stylesheet" type="text/css" charset="utf-8" />
   <script src="../../lib/jquery-2.0.0.js"></script>
   <script src="../../lib/underscore-1.6.0.js"></script>
   <script src="../../lib/mousetrap-1.4.6.js"></script>
@@ -169,9 +167,12 @@
   <script src="../js/menuInteraction.js"></script>
   <script src="../js/clipboard.js"></script>
   <script src="../js/equationEditor.js"></script>
+  <link href="../../Fonts/TeX/font.css" rel="stylesheet" type="text/css" charset="utf-8" />
+  <link href="../css/equationEditor.css" rel="stylesheet" type="text/css" charset="utf-8" />
 </head>
 <body>
     <div class="testEquation equation"></div>
+    <div class="loadingMessage fontSizeSmaller">Please wait a moment, while fonts/images load...</div>
     <div class="tabs">
         <ul class="outer-tab-links tab-links">
             <li class="outerTab active"><a href="#common">Common</a></li>
