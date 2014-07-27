@@ -179,4 +179,14 @@ eqEd.SuperscriptWrapper = function(symbolSizeConfig) {
     	copy.childContainers = [copy.superscriptContainer];
         return copy;
     };
+    eqEd.SuperscriptWrapper.prototype.buildJsonObj = function() {
+        var jsonObj = {
+            type: this.className.substring(5, this.className.length - 7),
+            value: null,
+            operands: {
+                superscriptContainer: this.superscriptContainer.buildJsonObj()
+            }
+        };
+        return jsonObj;
+    };
 })();

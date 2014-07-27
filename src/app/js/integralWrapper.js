@@ -177,7 +177,7 @@ eqEd.IntegralWrapper = function(isInline, hasUpperLimit, hasLowerLimit, integral
     eqEd.IntegralWrapper.prototype.buildDomObj = function() {
         return new eqEd.WrapperDom(this,
             '<div class="eqEdWrapper integralWrapper"></div>')
-    }
+    };
     eqEd.IntegralWrapper.prototype.clone = function() {
         var copy = new this.constructor(this.isInline, this.hasUpperLimit, this.hasLowerLimit, this.integralType, this.symbolSizeConfig);
 
@@ -202,5 +202,28 @@ eqEd.IntegralWrapper = function(isInline, hasUpperLimit, hasLowerLimit, integral
         copy.domObj.append(copy.symbol.domObj);
         copy.childNoncontainers = [copy.symbol];
         return copy;
-    }
+    };
+    eqEd.IntegralWrapper.prototype.buildJsonObj = function() {
+        var jsonObj = {
+            type: this.className.substring(5, this.className.length - 7),
+            value: this.integralType
+        };
+        if (!this.hasLowerLimit && !this.hasUpperLimit) {
+            jsonObj.operands = null;
+        } else if (this.hasLowerLimit && !this.hasUpperLimit) {
+            jsonObj.operands = {
+                lowerLimit: this.lowerLimitContainer.buildJsonObj()
+            }
+        } else if (!this.hasLowerLimit && this.hasUpperLimit) {
+            jsonObj.operands = {
+                upperLimit: this.upperLimitContainer.buildJsonObj()
+            }
+        } else {
+            jsonObj.operands = {
+                lowerLimit: this.lowerLimitContainer.buildJsonObj(),
+                upperLimit: this.upperLimitContainer.buildJsonObj()
+            }
+        }
+        return jsonObj;
+    };
 })();

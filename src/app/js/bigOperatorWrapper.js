@@ -217,5 +217,33 @@ eqEd.BigOperatorWrapper = function(isInline, hasUpperLimit, hasLowerLimit, bigOp
         copy.childContainers.push(copy.operandContainer);
 
         return copy;
-    }
+    };
+    eqEd.BigOperatorWrapper.prototype.buildJsonObj = function() {
+        var jsonObj = {
+            type: this.className.substring(5, this.className.length - 7),
+            value: this.bigOperatorType
+        };
+        if (!this.hasLowerLimit && !this.hasUpperLimit) {
+            jsonObj.operands = {
+                operandContainer: this.operandContainer.buildJsonObj()
+            };
+        } else if (this.hasLowerLimit && !this.hasUpperLimit) {
+            jsonObj.operands = {
+                lowerLimit: this.lowerLimitContainer.buildJsonObj(),
+                operandContainer: this.operandContainer.buildJsonObj()
+            }
+        } else if (!this.hasLowerLimit && this.hasUpperLimit) {
+            jsonObj.operands = {
+                upperLimit: this.upperLimitContainer.buildJsonObj(),
+                operandContainer: this.operandContainer.buildJsonObj()
+            }
+        } else {
+            jsonObj.operands = {
+                lowerLimit: this.lowerLimitContainer.buildJsonObj(),
+                upperLimit: this.upperLimitContainer.buildJsonObj(),
+                operandContainer: this.operandContainer.buildJsonObj()
+            }
+        }
+        return jsonObj;
+    };
 })();

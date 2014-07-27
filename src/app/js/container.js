@@ -197,6 +197,15 @@ eqEd.Container = function(symbolSizeConfig) {
       eqEd.Container.prototype.addWrappers.apply(copy, indexAndWrapperList);
       return copy;
     }
+    eqEd.Container.prototype.buildJsonObj = function() {
+      var jsonWrappers = [];
+      if (!(this.wrappers[0] instanceof eqEd.EmptyContainerWrapper)) {
+        for (var i = 0; i < this.wrappers.length; i++) {
+          jsonWrappers.push(this.wrappers[i].buildJsonObj());
+        }
+      }
+      return jsonWrappers;
+    }
     eqEd.Container.prototype.buildDomObj = function() {
       return new eqEd.ContainerDom(this,
             '<div class="eqEdContainer"></div>');

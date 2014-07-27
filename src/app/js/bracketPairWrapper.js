@@ -145,5 +145,15 @@ eqEd.BracketPairWrapper = function(bracketType, symbolSizeConfig) {
         copy.childContainers = [copy.bracketContainer];
 
         return copy;
-    }
+    };
+    eqEd.BracketPairWrapper.prototype.buildJsonObj = function() {
+        var jsonObj = {
+            type: this.className.substring(5, this.className.length - 7),
+            value: this.bracketType,
+            operands: {
+                bracketContainer: this.bracketContainer.buildJsonObj()
+            }
+        };
+        return jsonObj;
+    };
 })();

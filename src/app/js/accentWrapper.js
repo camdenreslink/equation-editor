@@ -156,7 +156,7 @@ eqEd.AccentWrapper = function(character, fontStyle, symbolSizeConfig) {
     eqEd.AccentWrapper.prototype.buildDomObj = function() {
         return new eqEd.WrapperDom(this,
             '<div class="eqEdWrapper accentWrapper"></div>')
-    }
+    };
     eqEd.AccentWrapper.prototype.clone = function() {
         var copy = new this.constructor(this.character, this.fontStyle, this.symbolSizeConfig);
         copy.accentSymbol = new eqEd.AccentSymbol(this.character, this.fontStyle, this.symbolSizeConfig);
@@ -171,5 +171,15 @@ eqEd.AccentWrapper = function(character, fontStyle, symbolSizeConfig) {
         copy.childContainers = [copy.accentContainer];
 
         return copy;
-    }
+    };
+    eqEd.AccentWrapper.prototype.buildJsonObj = function() {
+        var jsonObj = {
+            type: this.className.substring(5, this.className.length - 7),
+            value: this.character,
+            operands: {
+                accentContainer: this.accentContainer.buildJsonObj()
+            }
+        };
+        return jsonObj;
+    };
 })();

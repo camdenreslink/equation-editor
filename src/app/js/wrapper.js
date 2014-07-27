@@ -95,6 +95,7 @@ eqEd.Wrapper = function(symbolSizeConfig) {
             this.childNoncontainers[i].update();
         }
     }
+    eqEd.Wrapper.prototype.buildJsonObj = function() {}
     // Each wrapper class will need it's own clone() definition
     eqEd.Wrapper.prototype.clone = function() {};
 })();

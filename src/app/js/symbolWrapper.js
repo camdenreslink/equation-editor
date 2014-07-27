@@ -150,4 +150,12 @@ eqEd.SymbolWrapper = function(character, fontStyle, symbolSizeConfig) {
         return new eqEd.WrapperDom(this,
             '<div class="eqEdWrapper symbolWrapper"></div>')
     };
+    eqEd.SymbolWrapper.prototype.buildJsonObj = function() {
+        var jsonObj = {
+            type: this.className.substring(5, this.className.length - 7),
+            value: this.symbol.character,
+            operands: null
+        };
+        return jsonObj;
+    };
 })();

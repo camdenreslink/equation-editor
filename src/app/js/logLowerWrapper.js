@@ -80,7 +80,7 @@ eqEd.LogLowerWrapper = function(symbolSizeConfig) {
     eqEd.LogLowerWrapper.prototype.buildDomObj = function() {
         return new eqEd.WrapperDom(this,
             '<div class="eqEdWrapper logLowerWrapper"></div>')
-    }
+    };
     eqEd.LogLowerWrapper.prototype.clone = function() {
         var copy = new this.constructor(this.symbolSizeConfig);
         copy.functionWord = new eqEd.FunctionWord(characters, fontStyle, symbolSizeConfig);
@@ -95,5 +95,15 @@ eqEd.LogLowerWrapper = function(symbolSizeConfig) {
         copy.childContainers = [copy.functionLowerContainer];
 
         return copy;
-    }
+    };
+    eqEd.LogLowerWrapper.prototype.buildJsonObj = function() {
+        var jsonObj = {
+            type: this.className.substring(5, this.className.length - 7),
+            value: null,
+            operands: {
+                functionLowerContainer: this.functionLowerContainer.buildJsonObj()
+            }
+        };
+        return jsonObj;
+    };
 })();

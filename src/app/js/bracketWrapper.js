@@ -88,4 +88,12 @@ eqEd.BracketWrapper = function(bracketType, symbolSizeConfig) {
         var copy = new this.constructor(this.bracketType, this.symbolSizeConfig);
         return copy;
     };
+    eqEd.BracketWrapper.prototype.buildJsonObj = function() {
+        var jsonObj = {
+            type: this.className.substring(5, this.className.length - 7),
+            value: this.bracketType,
+            operands: null
+        };
+        return jsonObj;
+    };
 })();

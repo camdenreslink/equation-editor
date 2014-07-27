@@ -103,4 +103,14 @@ eqEd.FunctionLowerWrapper = function(characters, fontStyle, symbolSizeConfig) {
 
         return copy;
     }
+    eqEd.FunctionLowerWrapper.prototype.buildJsonObj = function() {
+        var jsonObj = {
+            type: this.className.substring(5, this.className.length - 7),
+            value: this.functionWord.characters.join(""),
+            operands: {
+                functionLowerContainer: this.functionLowerContainer.buildJsonObj()
+            }
+        };
+        return jsonObj;
+    };
 })();

@@ -171,6 +171,7 @@
   <link href="../css/equationEditor.css" rel="stylesheet" type="text/css" charset="utf-8" />
 </head>
 <body>
+    <button id="toJSON">To JSON</button>
     <div class="testEquation equation"></div>
     <div class="loadingMessage fontSizeSmaller">Please wait a moment, while fonts/images load...</div>
     <div class="tabs">
@@ -483,5 +484,12 @@
             </div>
         </div>
     </div>
+    <div id="ContentJSON" style="margin: 20px; border: solid 1px #000">&nbsp;</div>
+    <script>
+      $('#toJSON').on('click', function() {
+        var jsonObj = $('.testEquation').next().data('eqObject').buildJsonObj();
+        $('#ContentJSON').html(JSON.stringify(jsonObj));
+      });
+    </script>
 </body>
 </html>

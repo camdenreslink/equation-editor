@@ -169,4 +169,12 @@ eqEd.OperatorWrapper = function(operatorSymbol, fontStyle, symbolSizeConfig) {
         return new eqEd.WrapperDom(this,
             '<div class="eqEdWrapper operatorWrapper"></div>')
     };
+    eqEd.OperatorWrapper.prototype.buildJsonObj = function() {
+        var jsonObj = {
+            type: this.className.substring(5, this.className.length - 7),
+            value: this.operator.character,
+            operands: null
+        };
+        return jsonObj;
+    };
 })();

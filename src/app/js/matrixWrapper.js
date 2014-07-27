@@ -191,7 +191,7 @@ eqEd.MatrixWrapper = function(numRows, numCols, horAlign, symbolSizeConfig) {
     eqEd.MatrixWrapper.prototype.buildDomObj = function() {
         return new eqEd.WrapperDom(this,
             '<div class="eqEdWrapper matrixWrapper"></div>')
-    }
+    };
     eqEd.MatrixWrapper.prototype.clone = function() {
         var copy = new this.constructor(this.numRows, this.numCols, this.horAlign, this.symbolSizeConfig);
         console.log(this.symbolSizeConfig);
@@ -212,5 +212,23 @@ eqEd.MatrixWrapper = function(numRows, numCols, horAlign, symbolSizeConfig) {
         }
 
         return copy;
-    }
+    };
+    eqEd.MatrixWrapper.prototype.buildJsonObj = function() {
+        var jsonObj = {
+            type: this.className.substring(5, this.className.length - 7),
+            value: null
+        };
+        var jsonMatrixContainers = [];
+        for (var i = 0; i < this.matrixContainers.length; i++) {
+            var jsonRow = [];
+            for (var j = 0; j < this.matrixContainers[i].length; j++) {
+                jsonRow.push(this.matrixContainers[i][j].buildJsonObj());
+            }
+            jsonMatrixContainers.push(jsonRow);
+        }
+        jsonObj.operands = {
+            matrixContainers: jsonMatrixContainers
+        }
+        return jsonObj;
+    };
 })();

@@ -142,4 +142,14 @@ eqEd.SubscriptWrapper = function(symbolSizeConfig) {
         copy.childContainers = [copy.subscriptContainer];
         return copy;
     };
+    eqEd.SubscriptWrapper.prototype.buildJsonObj = function() {
+        var jsonObj = {
+            type: this.className.substring(5, this.className.length - 7),
+            value: null,
+            operands: {
+                subscriptContainer: this.subscriptContainer.buildJsonObj()
+            }
+        };
+        return jsonObj;
+    };
 })();

@@ -112,7 +112,7 @@ eqEd.LimitWrapper = function(symbolSizeConfig) {
     eqEd.LimitWrapper.prototype.buildDomObj = function() {
         return new eqEd.WrapperDom(this,
             '<div class="eqEdWrapper limitWrapper"></div>')
-    }
+    };
     eqEd.LimitWrapper.prototype.clone = function() {
         var copy = new this.constructor(this.symbolSizeConfig);
         copy.limitWord = new eqEd.LimitWord(this.symbolSizeConfig);
@@ -133,5 +133,16 @@ eqEd.LimitWrapper = function(symbolSizeConfig) {
         copy.childContainers = [copy.limitLeftContainer, copy.limitRightContainer];
 
         return copy;
-    }
+    };
+    eqEd.LimitWrapper.prototype.buildJsonObj = function() {
+        var jsonObj = {
+            type: this.className.substring(5, this.className.length - 7),
+            value: null,
+            operands: {
+                limitLeftContainer: this.limitLeftContainer.buildJsonObj(),
+                limitRightContainer: this.limitRightContainer.buildJsonObj()
+            }
+        };
+        return jsonObj;
+    };
 })();

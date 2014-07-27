@@ -73,7 +73,7 @@ eqEd.StackedFractionWrapper = function(symbolSizeConfig) {
     eqEd.StackedFractionWrapper.prototype.buildDomObj = function() {
         return new eqEd.WrapperDom(this,
             '<div class="eqEdWrapper stackedFractionWrapper"></div>')
-    }
+    };
     eqEd.StackedFractionWrapper.prototype.clone = function() {
         var copy = new this.constructor(this.symbolSizeConfig);
         copy.stackedFractionNumeratorContainer = this.stackedFractionNumeratorContainer.clone();
@@ -91,5 +91,16 @@ eqEd.StackedFractionWrapper = function(symbolSizeConfig) {
         copy.childContainers = [copy.stackedFractionNumeratorContainer, copy.stackedFractionDenominatorContainer];
 
         return copy;
-    }
+    };
+    eqEd.StackedFractionWrapper.prototype.buildJsonObj = function() {
+        var jsonObj = {
+            type: this.className.substring(5, this.className.length - 7),
+            value: null,
+            operands: {
+                stackedFractionNumeratorContainer: this.stackedFractionNumeratorContainer.buildJsonObj(),
+                stackedFractionDenominatorContainer: this.stackedFractionDenominatorContainer.buildJsonObj()
+            }
+        };
+        return jsonObj;
+    };
 })();

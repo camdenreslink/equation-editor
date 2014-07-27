@@ -93,4 +93,12 @@ eqEd.FunctionWrapper = function(functionCharacters, fontStyle, symbolSizeConfig)
         return new eqEd.WrapperDom(this,
             '<div class="eqEdWrapper symbolWrapper"></div>')
     };
+    eqEd.FunctionWrapper.prototype.buildJsonObj = function() {
+        var jsonObj = {
+            type: this.className.substring(5, this.className.length - 7),
+            value: this.word.characters.join(""),
+            operands: null
+        };
+        return jsonObj;
+    };
 })();
