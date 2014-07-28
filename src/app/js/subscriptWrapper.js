@@ -147,7 +147,7 @@ eqEd.SubscriptWrapper = function(symbolSizeConfig) {
             type: this.className.substring(5, this.className.length - 7),
             value: null,
             operands: {
-                subscriptContainer: this.subscriptContainer.buildJsonObj()
+                subscript: this.subscriptContainer.buildJsonObj()
             }
         };
         return jsonObj;

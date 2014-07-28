@@ -151,7 +151,7 @@ eqEd.BracketPairWrapper = function(bracketType, symbolSizeConfig) {
             type: this.className.substring(5, this.className.length - 7),
             value: this.bracketType,
             operands: {
-                bracketContainer: this.bracketContainer.buildJsonObj()
+                bracketedExpression: this.bracketContainer.buildJsonObj()
             }
         };
         return jsonObj;

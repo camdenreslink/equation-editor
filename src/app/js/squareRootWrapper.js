@@ -130,7 +130,7 @@ eqEd.SquareRootWrapper = function(symbolSizeConfig) {
             type: this.className.substring(5, this.className.length - 7),
             value: null,
             operands: {
-                radicandContainer: this.radicandContainer.buildJsonObj()
+                radicand: this.radicandContainer.buildJsonObj()
             }
         };
         return jsonObj;

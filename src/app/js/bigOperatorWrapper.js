@@ -225,23 +225,23 @@ eqEd.BigOperatorWrapper = function(isInline, hasUpperLimit, hasLowerLimit, bigOp
         };
         if (!this.hasLowerLimit && !this.hasUpperLimit) {
             jsonObj.operands = {
-                operandContainer: this.operandContainer.buildJsonObj()
+                operand: this.operandContainer.buildJsonObj()
             };
         } else if (this.hasLowerLimit && !this.hasUpperLimit) {
             jsonObj.operands = {
                 lowerLimit: this.lowerLimitContainer.buildJsonObj(),
-                operandContainer: this.operandContainer.buildJsonObj()
+                operand: this.operandContainer.buildJsonObj()
             }
         } else if (!this.hasLowerLimit && this.hasUpperLimit) {
             jsonObj.operands = {
                 upperLimit: this.upperLimitContainer.buildJsonObj(),
-                operandContainer: this.operandContainer.buildJsonObj()
+                operand: this.operandContainer.buildJsonObj()
             }
         } else {
             jsonObj.operands = {
                 lowerLimit: this.lowerLimitContainer.buildJsonObj(),
                 upperLimit: this.upperLimitContainer.buildJsonObj(),
-                operandContainer: this.operandContainer.buildJsonObj()
+                operand: this.operandContainer.buildJsonObj()
             }
         }
         return jsonObj;

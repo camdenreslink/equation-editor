@@ -81,7 +81,7 @@ eqEd.SubscriptContainer = function(symbolSizeConfig) {
 	        if (actualParentContainer.fontSize === "fontSizeSmaller" || actualParentContainer.fontSize === "fontSizeSmallest") {
 	            fontSizeVal = "fontSizeSmallest";
 	        } else {
-	            if (baseWrapper instanceof eqEd.SuperscriptWrapper
+	            if (baseWrapper instanceof eqEd.SubscriptWrapper
 	             || baseWrapper instanceof eqEd.SuperscriptAndSubscriptWrapper) {
 	                fontSizeVal = "fontSizeSmallest";
 	            } else {

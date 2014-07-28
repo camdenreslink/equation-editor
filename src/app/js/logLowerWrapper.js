@@ -101,7 +101,7 @@ eqEd.LogLowerWrapper = function(symbolSizeConfig) {
             type: this.className.substring(5, this.className.length - 7),
             value: null,
             operands: {
-                functionLowerContainer: this.functionLowerContainer.buildJsonObj()
+                lower: this.functionLowerContainer.buildJsonObj()
             }
         };
         return jsonObj;

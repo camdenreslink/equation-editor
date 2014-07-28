@@ -227,7 +227,7 @@ eqEd.MatrixWrapper = function(numRows, numCols, horAlign, symbolSizeConfig) {
             jsonMatrixContainers.push(jsonRow);
         }
         jsonObj.operands = {
-            matrixContainers: jsonMatrixContainers
+            elements: jsonMatrixContainers
         }
         return jsonObj;
     };

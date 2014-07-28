@@ -177,7 +177,7 @@ eqEd.AccentWrapper = function(character, fontStyle, symbolSizeConfig) {
             type: this.className.substring(5, this.className.length - 7),
             value: this.character,
             operands: {
-                accentContainer: this.accentContainer.buildJsonObj()
+                accentedExpression: this.accentContainer.buildJsonObj()
             }
         };
         return jsonObj;

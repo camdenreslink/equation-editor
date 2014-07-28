@@ -57,7 +57,7 @@ eqEd.Symbol = function(character, fontStyle, symbolSizeConfig) {
         },
         compute: function() {
             var fontHeight = this.getFontHeight();
-            return 1  * fontHeight;
+            return 1 * fontHeight;
         },
         updateDom: function() {
             this.domObj.updateHeight(this.height);

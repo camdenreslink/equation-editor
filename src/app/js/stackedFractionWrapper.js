@@ -97,8 +97,8 @@ eqEd.StackedFractionWrapper = function(symbolSizeConfig) {
             type: this.className.substring(5, this.className.length - 7),
             value: null,
             operands: {
-                stackedFractionNumeratorContainer: this.stackedFractionNumeratorContainer.buildJsonObj(),
-                stackedFractionDenominatorContainer: this.stackedFractionDenominatorContainer.buildJsonObj()
+                numerator: this.stackedFractionNumeratorContainer.buildJsonObj(),
+                denominator: this.stackedFractionDenominatorContainer.buildJsonObj()
             }
         };
         return jsonObj;

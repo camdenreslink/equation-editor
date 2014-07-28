@@ -144,8 +144,8 @@ eqEd.NthRootWrapper = function(symbolSizeConfig) {
             type: this.className.substring(5, this.className.length - 7),
             value: null,
             operands: {
-                radicandContainer: this.radicandContainer.buildJsonObj(),
-                nthRootDegreeContainer: this.nthRootDegreeContainer.buildJsonObj()
+                radicand: this.radicandContainer.buildJsonObj(),
+                degree: this.nthRootDegreeContainer.buildJsonObj()
             }
         };
         return jsonObj;

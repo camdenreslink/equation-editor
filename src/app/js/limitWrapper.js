@@ -139,8 +139,8 @@ eqEd.LimitWrapper = function(symbolSizeConfig) {
             type: this.className.substring(5, this.className.length - 7),
             value: null,
             operands: {
-                limitLeftContainer: this.limitLeftContainer.buildJsonObj(),
-                limitRightContainer: this.limitRightContainer.buildJsonObj()
+                left: this.limitLeftContainer.buildJsonObj(),
+                right: this.limitRightContainer.buildJsonObj()
             }
         };
         return jsonObj;

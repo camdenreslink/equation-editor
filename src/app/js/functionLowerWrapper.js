@@ -108,7 +108,7 @@ eqEd.FunctionLowerWrapper = function(characters, fontStyle, symbolSizeConfig) {
             type: this.className.substring(5, this.className.length - 7),
             value: this.functionWord.characters.join(""),
             operands: {
-                functionLowerContainer: this.functionLowerContainer.buildJsonObj()
+                lower: this.functionLowerContainer.buildJsonObj()
             }
         };
         return jsonObj;
