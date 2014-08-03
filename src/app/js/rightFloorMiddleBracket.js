@@ -2,7 +2,7 @@ eqEd.RightFloorMiddleBracket = function(index, symbolSizeConfig) {
     eqEd.MiddleBracket.call(this, index, symbolSizeConfig); // call super constructor.
     this.className = "eqEd.RightFloorMiddleBracket";
     
-    this.character = "&#9125;";
+    this.character = "⎥";
     this.fontStyle = "MathJax_Size4";
     this.domObj = this.buildDomObj();
 

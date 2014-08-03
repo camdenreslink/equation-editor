@@ -2,7 +2,7 @@ eqEd.RightSquareTopBracket = function(symbolSizeConfig) {
     eqEd.TopBracket.call(this, symbolSizeConfig); // call super constructor.
     this.className = "eqEd.RightSquareTopBracket";
     
-    this.character = "&#9124;";
+    this.character = "⎤";
     this.fontStyle = "MathJax_Size4";
     this.domObj = this.buildDomObj();
     this.adjustTop = 0.4;

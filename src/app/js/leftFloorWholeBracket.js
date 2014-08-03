@@ -2,7 +2,7 @@ eqEd.LeftFloorWholeBracket = function(fontStyle, symbolSizeConfig) {
     eqEd.WholeBracket.call(this, symbolSizeConfig); // call super constructor.
     this.className = "eqEd.LeftFloorWholeBracket";
     
-    this.character = "&#8970;";
+    this.character = "⌊";
     this.fontStyle = fontStyle;
     this.domObj = this.buildDomObj();
     this.adjustTop = 0;

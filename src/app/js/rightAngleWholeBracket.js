@@ -2,7 +2,7 @@ eqEd.RightAngleWholeBracket = function(fontStyle, symbolSizeConfig) {
     eqEd.WholeBracket.call(this, symbolSizeConfig); // call super constructor.
     this.className = "eqEd.RightAngleWholeBracket";
     
-    this.character = "&#x27E9;";
+    this.character = "⟩";
     this.fontStyle = fontStyle;
     this.domObj = this.buildDomObj();
     this.adjustTop = 0;

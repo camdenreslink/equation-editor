@@ -159,79 +159,14 @@ eqEd.SymbolWrapper = function(character, fontStyle, symbolSizeConfig) {
         return jsonObj;
     };
     eqEd.SymbolWrapper.constructFromJsonObj = function(jsonObj, symbolSizeConfig) {
-        var MathJax_MathItalic = [
-            'q',
-            'w',
-            'e',
-            'r',
-            't',
-            'y',
-            'u',
-            'i',
-            'o',
-            'p',
-            'a',
-            's',
-            'd',
-            'f',
-            'g',
-            'h',
-            'j',
-            'k',
-            'l',
-            'z',
-            'x',
-            'c',
-            'v',
-            'b',
-            'n',
-            'm',
-            'Q',
-            'W',
-            'E',
-            'R',
-            'T',
-            'Y',
-            'U',
-            'I',
-            'O',
-            'P',
-            'A',
-            'S',
-            'D',
-            'F',
-            'G',
-            'H',
-            'J',
-            'K',
-            'L',
-            'Z',
-            'X',
-            'C',
-            'V',
-            'B',
-            'N',
-            'M'
-        ];
-        var MathJax_Main = [
-            '1',
-            '2',
-            '3',
-            '4',
-            '5',
-            '6',
-            '7',
-            '8',
-            '9',
-            '0',
-            '!',
-            '$',
-            '%',
-            '.'
-        ];
-        console.log(jsonObj.value)
-        console.log(_.indexOf(MathJax_MathItalic, jsonObj.value))
-        var fontStyle = (_.indexOf(MathJax_MathItalic, jsonObj.value) !== -1) ? "MathJax_MathItalic" : "MathJax_Main"
+        var fontStyle = "";
+        if (_.indexOf(symbolSizeConfig.MathJax_MathItalic, jsonObj.value) !== -1) {
+            fontStyle = "MathJax_MathItalic";
+        } else if (_.indexOf(symbolSizeConfig.MathJax_Main, jsonObj.value) !== -1) {
+            fontStyle = "MathJax_Main";
+        } else if (_.indexOf(symbolSizeConfig.MathJax_MainItalic, jsonObj.value) !== -1) {
+            fontStyle = "MathJax_MainItalic";
+        }
         var symbolWrapper = new eqEd.SymbolWrapper(jsonObj.value, fontStyle, symbolSizeConfig);
         return symbolWrapper;
     }

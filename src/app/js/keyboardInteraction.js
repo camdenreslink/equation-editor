@@ -80,13 +80,13 @@ var setupKeyboardEvents = function(symbolSizeConfig, clipboard) {
         '>'
     ];
     var operatorCharactersMap = {
-        '-': '&#x2212;',
-        '/': '&#x00f7;',
-        '*': '&#x22c5;',
+        '-': '−',
+        '/': '÷',
+        '*': '⋅',
         '=': '=',
         '+': '+',
-        '<': '&#60;',
-        '>': '&#62;'
+        '<': '<',
+        '>': '>'
     }
     var bracketCharacters = [
         '(',
@@ -133,7 +133,7 @@ var setupKeyboardEvents = function(symbolSizeConfig, clipboard) {
 
     // setminus
     Mousetrap.bind('\\', function(e) { 
-        var operatorWrapper = new eqEd.OperatorWrapper('&#8726;', "MathJax_Main", symbolSizeConfig);
+        var operatorWrapper = new eqEd.OperatorWrapper('∖', "MathJax_Main", symbolSizeConfig);
         insertWrapper(operatorWrapper);
         return false;
     });

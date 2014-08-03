@@ -2,7 +2,7 @@ eqEd.LeftParenthesisBottomBracket = function(symbolSizeConfig) {
     eqEd.BottomBracket.call(this, symbolSizeConfig); // call super constructor.
     this.className = "eqEd.LeftParenthesisBottomBracket";
     
-    this.character = "&#9117;";
+    this.character = "⎝";
     this.fontStyle = "MathJax_Size4";
     this.domObj = this.buildDomObj();
 

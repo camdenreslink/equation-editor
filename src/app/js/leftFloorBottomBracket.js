@@ -2,7 +2,7 @@ eqEd.LeftFloorBottomBracket = function(symbolSizeConfig) {
     eqEd.BottomBracket.call(this, symbolSizeConfig); // call super constructor.
     this.className = "eqEd.LeftFloorBottomBracket";
     
-    this.character = "&#9123;";
+    this.character = "⎣";
     this.fontStyle = "MathJax_Size4";
     this.domObj = this.buildDomObj();
 

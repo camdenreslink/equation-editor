@@ -1,5 +1,5 @@
 eqEd.LimitSymbol = function(symbolSizeConfig) {
-    eqEd.Symbol.call(this, '&#8594;', 'MathJax_Main', symbolSizeConfig); // call super constructor.
+    eqEd.Symbol.call(this, '→', 'MathJax_Main', symbolSizeConfig); // call super constructor.
     this.className = "eqEd.LimitSymbol";
 
     // Height has already been added to properties in superclass

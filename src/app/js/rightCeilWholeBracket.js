@@ -2,7 +2,7 @@ eqEd.RightCeilWholeBracket = function(fontStyle, symbolSizeConfig) {
     eqEd.WholeBracket.call(this, symbolSizeConfig); // call super constructor.
     this.className = "eqEd.RightCeilWholeBracket";
     
-    this.character = "&#8969;";
+    this.character = "⌉";
     this.fontStyle = fontStyle;
     this.domObj = this.buildDomObj();
     if (this.fontStyle === "MathJax_Main") {

@@ -4,9 +4,9 @@ eqEd.RightCurlyMiddleBracket = function(index, characterType, symbolSizeConfig) 
     
     this.characterType = characterType;
     if (this.characterType === "middleVert") {
-        this.character = "&#9130;";
+        this.character = "⎪";
     } else if (this.characterType === "middleCurly") {
-        this.character = "&#9132;";
+        this.character = "⎬";
     }
     this.fontStyle = "MathJax_Size4";
     this.domObj = this.buildDomObj();

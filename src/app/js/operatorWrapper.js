@@ -22,7 +22,7 @@ eqEd.OperatorWrapper = function(operatorSymbol, fontStyle, symbolSizeConfig) {
             var isUnaryVal = false;
             var i = this.index;
             if ((i === 0 || this.parent.wrappers[i-1] instanceof eqEd.OperatorWrapper || (this.parent.wrappers[i-1] instanceof eqEd.BracketWrapper && this.parent.wrappers[i-1].bracket instanceof eqEd.LeftBracket))
-                && (this.operator.character === "+" || this.operator.character === "&#x2212;")) {
+                && (this.operator.character === "+" || this.operator.character === "−")) {
                     isUnaryVal = true;
             }
             return isUnaryVal;
@@ -42,22 +42,22 @@ eqEd.OperatorWrapper = function(operatorSymbol, fontStyle, symbolSizeConfig) {
         compute: function() {
             var isComparisonVal = false;
             if (this.operator.character === "="
-                       || this.operator.character === "&#60;"
-                       || this.operator.character === "&#62;"
-                       || this.operator.character === "&#x2264;"
-                       || this.operator.character === "&#x2265;"
-                       || this.operator.character === "&#x2248;"
-                       || this.operator.character === "&#8801;"
-                       || this.operator.character === "&#8773;"
-                       || this.operator.character === "&#8800;"
-                       || this.operator.character === "&#8764;"
-                       || this.operator.character === "&#8733;"
-                       || this.operator.character === "&#8826;"
-                       || this.operator.character === "&#10927;"
-                       || this.operator.character === "&#8834;"
-                       || this.operator.character === "&#8838;"
-                       || this.operator.character === "&#8827;"
-                       || this.operator.character === "&#10928;") {
+                       || this.operator.character === "<"
+                       || this.operator.character === ">"
+                       || this.operator.character === "≤"
+                       || this.operator.character === "≥"
+                       || this.operator.character === "≈"
+                       || this.operator.character === "≡"
+                       || this.operator.character === "≅"
+                       || this.operator.character === "≠"
+                       || this.operator.character === "∼"
+                       || this.operator.character === "∝"
+                       || this.operator.character === "≺"
+                       || this.operator.character === "⪯"
+                       || this.operator.character === "⊂"
+                       || this.operator.character === "⊆"
+                       || this.operator.character === "≻"
+                       || this.operator.character === "⪰") {
                 isComparisonVal = true;
             }
             return isComparisonVal;

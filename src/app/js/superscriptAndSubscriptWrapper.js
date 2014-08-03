@@ -184,7 +184,7 @@ eqEd.SuperscriptAndSubscriptWrapper = function(symbolSizeConfig) {
         return jsonObj;
     };
     eqEd.SuperscriptAndSubscriptWrapper.constructFromJsonObj = function(jsonObj, symbolSizeConfig) {
-        var superscriptAndSubscriptWrapper = new eqEd.NthRootWrapper(symbolSizeConfig);
+        var superscriptAndSubscriptWrapper = new eqEd.SuperscriptAndSubscriptWrapper(symbolSizeConfig);
         for (var i = 0; i < jsonObj.operands.superscript.length; i++) {
             var innerWrapperCtor = eqEd.Equation.JsonTypeToConstructor(jsonObj.operands.superscript[i].type);
             var innerWrapper = innerWrapperCtor.constructFromJsonObj(jsonObj.operands.superscript[i], symbolSizeConfig);

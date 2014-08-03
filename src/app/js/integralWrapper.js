@@ -228,8 +228,8 @@ eqEd.IntegralWrapper = function(isInline, hasUpperLimit, hasLowerLimit, integral
     };
 
     eqEd.IntegralWrapper.constructFromJsonObj = function(jsonObj, symbolSizeConfig) {
-        var hasUpperLimit = (typeof jsonObj.operands.upperLimit !== "undefined");
-        var hasLowerLimit = (typeof jsonObj.operands.lowerLimit !== "undefined");
+        var hasUpperLimit = (jsonObj.operands !== null && typeof jsonObj.operands.upperLimit !== "undefined");
+        var hasLowerLimit = (jsonObj.operands !== null && typeof jsonObj.operands.lowerLimit !== "undefined");
         var integralWrapper = new eqEd.IntegralWrapper(true, hasUpperLimit, hasLowerLimit, jsonObj.value, symbolSizeConfig);
         if (hasUpperLimit) {
             for (var i = 0; i < jsonObj.operands.upperLimit.length; i++) {

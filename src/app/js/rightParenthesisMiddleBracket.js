@@ -2,7 +2,7 @@ eqEd.RightParenthesisMiddleBracket = function(index, symbolSizeConfig) {
     eqEd.MiddleBracket.call(this, index, symbolSizeConfig); // call super constructor.
     this.className = "eqEd.RightParenthesisMiddleBracket";
     
-    this.character = "&#9119;";
+    this.character = "⎟";
     this.fontStyle = "MathJax_Size4";
     this.domObj = this.buildDomObj();
 

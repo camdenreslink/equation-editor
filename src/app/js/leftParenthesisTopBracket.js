@@ -2,7 +2,7 @@ eqEd.LeftParenthesisTopBracket = function(symbolSizeConfig) {
     eqEd.TopBracket.call(this, symbolSizeConfig); // call super constructor.
     this.className = "eqEd.LeftParenthesisTopBracket";
     
-    this.character = "&#9115;";
+    this.character = "⎛";
     this.fontStyle = "MathJax_Size4";
     this.domObj = this.buildDomObj();
     this.adjustTop = 0.4;

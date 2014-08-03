@@ -9,7 +9,7 @@ eqEd.Symbol = function(character, fontStyle, symbolSizeConfig) {
         if (this.fontStyle === "MathJax_MathItalic") {
             this.adjustTop = 0.345;
         } else {
-            if (this.character !== '&#9702;') {
+            if (this.character !== '◦') {
                 this.adjustTop = 0.3;
             }
         }
@@ -35,10 +35,10 @@ eqEd.Symbol = function(character, fontStyle, symbolSizeConfig) {
             if (this.parent !== null 
                 &&this.parent.parent.parent instanceof eqEd.AccentContainer) {
                 if (this.character === 'i') {
-                    this.character = '&#305;';
+                    this.character = 'ı';
                     this.domObj = this.buildDomObj();
                 } else if (this.character === 'j') {
-                    this.character = '&#567;';
+                    this.character = 'ȷ';
                     this.domObj = this.buildDomObj();
                 }
             }

@@ -605,7 +605,7 @@ var setupMenuEvents = function(symbolSizeConfig) {
     $(document).on('mousedown', '#partialDifferentialButton', function (e) {
         e.preventDefault();
         e.stopPropagation();
-        var differentialWrapper = new eqEd.SymbolWrapper('&#8706;', "MathJax_Main", symbolSizeConfig);
+        var differentialWrapper = new eqEd.SymbolWrapper('∂', "MathJax_Main", symbolSizeConfig);
         insertWrapper(differentialWrapper);
     });
 
@@ -786,7 +786,7 @@ var setupMenuEvents = function(symbolSizeConfig) {
     $(document).on('mousedown', '#dotAccentButton', function (e) {
         e.preventDefault();
         e.stopPropagation();
-        var accentWrapper = new eqEd.AccentWrapper('&#729;', 'MathJax_Main', symbolSizeConfig);
+        var accentWrapper = new eqEd.AccentWrapper('˙', 'MathJax_Main', symbolSizeConfig);
         insertWrapper(accentWrapper);
     });
 
@@ -800,451 +800,451 @@ var setupMenuEvents = function(symbolSizeConfig) {
     $(document).on('mousedown', '#vectorAccentButton', function (e) {
         e.preventDefault();
         e.stopPropagation();
-        var accentWrapper = new eqEd.AccentWrapper('&#8407;', 'MathJax_Main', symbolSizeConfig);
+        var accentWrapper = new eqEd.AccentWrapper('⃗', 'MathJax_Main', symbolSizeConfig);
         insertWrapper(accentWrapper);
     });
 
     $(document).on('mousedown', '#barAccentButton', function (e) {
         e.preventDefault();
         e.stopPropagation();
-        var accentWrapper = new eqEd.AccentWrapper('&#175;', 'MathJax_Main', symbolSizeConfig);
+        var accentWrapper = new eqEd.AccentWrapper('¯', 'MathJax_Main', symbolSizeConfig);
         insertWrapper(accentWrapper);
     });
 
         $(document).on('mousedown', '#gammaUpperButton', function (e) {
         e.preventDefault();
         e.stopPropagation();
-        var symbolWrapper = new eqEd.SymbolWrapper('&#915;', "MathJax_Main", symbolSizeConfig);
+        var symbolWrapper = new eqEd.SymbolWrapper('Γ', "MathJax_Main", symbolSizeConfig);
         insertWrapper(symbolWrapper);
     });
 
     $(document).on('mousedown', '#deltaUpperButton', function (e) {
         e.preventDefault();
         e.stopPropagation();
-        var symbolWrapper = new eqEd.SymbolWrapper('&#916;', "MathJax_Main", symbolSizeConfig);
+        var symbolWrapper = new eqEd.SymbolWrapper('Δ', "MathJax_Main", symbolSizeConfig);
         insertWrapper(symbolWrapper);
     });
 
     $(document).on('mousedown', '#thetaUpperButton', function (e) {
         e.preventDefault();
         e.stopPropagation();
-        var symbolWrapper = new eqEd.SymbolWrapper('&#920;', "MathJax_Main", symbolSizeConfig);
+        var symbolWrapper = new eqEd.SymbolWrapper('Θ', "MathJax_Main", symbolSizeConfig);
         insertWrapper(symbolWrapper);
     });
 
     $(document).on('mousedown', '#lambdaUpperButton', function (e) {
         e.preventDefault();
         e.stopPropagation();
-        var symbolWrapper = new eqEd.SymbolWrapper('&#923;', "MathJax_Main", symbolSizeConfig);
+        var symbolWrapper = new eqEd.SymbolWrapper('Λ', "MathJax_Main", symbolSizeConfig);
         insertWrapper(symbolWrapper);
     });
 
     $(document).on('mousedown', '#xiUpperButton', function (e) {
         e.preventDefault();
         e.stopPropagation();
-        var symbolWrapper = new eqEd.SymbolWrapper('&#926;', "MathJax_Main", symbolSizeConfig);
+        var symbolWrapper = new eqEd.SymbolWrapper('Ξ', "MathJax_Main", symbolSizeConfig);
         insertWrapper(symbolWrapper);
     });
 
     $(document).on('mousedown', '#piUpperButton', function (e) {
         e.preventDefault();
         e.stopPropagation();
-        var symbolWrapper = new eqEd.SymbolWrapper('&#928;', "MathJax_Main", symbolSizeConfig);
+        var symbolWrapper = new eqEd.SymbolWrapper('Π', "MathJax_Main", symbolSizeConfig);
         insertWrapper(symbolWrapper);
     });
 
     $(document).on('mousedown', '#sigmaUpperButton', function (e) {
         e.preventDefault();
         e.stopPropagation();
-        var symbolWrapper = new eqEd.SymbolWrapper('&#931;', "MathJax_Main", symbolSizeConfig);
+        var symbolWrapper = new eqEd.SymbolWrapper('Σ', "MathJax_Main", symbolSizeConfig);
         insertWrapper(symbolWrapper);
     });
 
     $(document).on('mousedown', '#upsilonUpperButton', function (e) {
         e.preventDefault();
         e.stopPropagation();
-        var symbolWrapper = new eqEd.SymbolWrapper('&#933;', "MathJax_Main", symbolSizeConfig);
+        var symbolWrapper = new eqEd.SymbolWrapper('Υ', "MathJax_Main", symbolSizeConfig);
         insertWrapper(symbolWrapper);
     });
 
     $(document).on('mousedown', '#phiUpperButton', function (e) {
         e.preventDefault();
         e.stopPropagation();
-        var symbolWrapper = new eqEd.SymbolWrapper('&#934;', "MathJax_Main", symbolSizeConfig);
+        var symbolWrapper = new eqEd.SymbolWrapper('Φ', "MathJax_Main", symbolSizeConfig);
         insertWrapper(symbolWrapper);
     });
 
     $(document).on('mousedown', '#psiUpperButton', function (e) {
         e.preventDefault();
         e.stopPropagation();
-        var symbolWrapper = new eqEd.SymbolWrapper('&#936;', "MathJax_Main", symbolSizeConfig);
+        var symbolWrapper = new eqEd.SymbolWrapper('Ψ', "MathJax_Main", symbolSizeConfig);
         insertWrapper(symbolWrapper);
     });
 
     $(document).on('mousedown', '#omegaUpperButton', function (e) {
         e.preventDefault();
         e.stopPropagation();
-        var symbolWrapper = new eqEd.SymbolWrapper('&#937;', "MathJax_Main", symbolSizeConfig);
+        var symbolWrapper = new eqEd.SymbolWrapper('Ω', "MathJax_Main", symbolSizeConfig);
         insertWrapper(symbolWrapper);
     });
 
     $(document).on('mousedown', '#alphaButton', function (e) {
         e.preventDefault();
         e.stopPropagation();
-        var symbolWrapper = new eqEd.SymbolWrapper('&#945;', "MathJax_MathItalic", symbolSizeConfig);
+        var symbolWrapper = new eqEd.SymbolWrapper('α', "MathJax_MathItalic", symbolSizeConfig);
         insertWrapper(symbolWrapper);
     });
 
     $(document).on('mousedown', '#betaButton', function (e) {
         e.preventDefault();
         e.stopPropagation();
-        var symbolWrapper = new eqEd.SymbolWrapper('&#946;', "MathJax_MathItalic", symbolSizeConfig);
+        var symbolWrapper = new eqEd.SymbolWrapper('β', "MathJax_MathItalic", symbolSizeConfig);
         insertWrapper(symbolWrapper);
     });
 
     $(document).on('mousedown', '#gammaButton', function (e) {
         e.preventDefault();
         e.stopPropagation();
-        var symbolWrapper = new eqEd.SymbolWrapper('&#947;', "MathJax_MathItalic", symbolSizeConfig);
+        var symbolWrapper = new eqEd.SymbolWrapper('γ', "MathJax_MathItalic", symbolSizeConfig);
         insertWrapper(symbolWrapper);
     });
 
     $(document).on('mousedown', '#deltaButton', function (e) {
         e.preventDefault();
         e.stopPropagation();
-        var symbolWrapper = new eqEd.SymbolWrapper('&#948;', "MathJax_MathItalic", symbolSizeConfig);
+        var symbolWrapper = new eqEd.SymbolWrapper('δ', "MathJax_MathItalic", symbolSizeConfig);
         insertWrapper(symbolWrapper);
     });
 
     $(document).on('mousedown', '#varEpsilonButton', function (e) {
         e.preventDefault();
         e.stopPropagation();
-        var symbolWrapper = new eqEd.SymbolWrapper('&#949;', "MathJax_MathItalic", symbolSizeConfig);
+        var symbolWrapper = new eqEd.SymbolWrapper('ε', "MathJax_MathItalic", symbolSizeConfig);
         insertWrapper(symbolWrapper);
     });
 
     $(document).on('mousedown', '#epsilonButton', function (e) {
         e.preventDefault();
         e.stopPropagation();
-        var symbolWrapper = new eqEd.SymbolWrapper('&#1013;', "MathJax_MathItalic", symbolSizeConfig);
+        var symbolWrapper = new eqEd.SymbolWrapper('ϵ', "MathJax_MathItalic", symbolSizeConfig);
         insertWrapper(symbolWrapper);
     });
 
     $(document).on('mousedown', '#zetaButton', function (e) {
         e.preventDefault();
         e.stopPropagation();
-        var symbolWrapper = new eqEd.SymbolWrapper('&#950;', "MathJax_MathItalic", symbolSizeConfig);
+        var symbolWrapper = new eqEd.SymbolWrapper('ζ', "MathJax_MathItalic", symbolSizeConfig);
         insertWrapper(symbolWrapper);
     });
 
     $(document).on('mousedown', '#etaButton', function (e) {
         e.preventDefault();
         e.stopPropagation();
-        var symbolWrapper = new eqEd.SymbolWrapper('&#951;', "MathJax_MathItalic", symbolSizeConfig);
+        var symbolWrapper = new eqEd.SymbolWrapper('η', "MathJax_MathItalic", symbolSizeConfig);
         insertWrapper(symbolWrapper);
     });
 
     $(document).on('mousedown', '#thetaButton', function (e) {
         e.preventDefault();
         e.stopPropagation();
-        var symbolWrapper = new eqEd.SymbolWrapper('&#952;', "MathJax_MathItalic", symbolSizeConfig);
+        var symbolWrapper = new eqEd.SymbolWrapper('θ', "MathJax_MathItalic", symbolSizeConfig);
         insertWrapper(symbolWrapper);
     });
 
     $(document).on('mousedown', '#varThetaButton', function (e) {
         e.preventDefault();
         e.stopPropagation();
-        var symbolWrapper = new eqEd.SymbolWrapper('&#977;', "MathJax_MathItalic", symbolSizeConfig);
+        var symbolWrapper = new eqEd.SymbolWrapper('ϑ', "MathJax_MathItalic", symbolSizeConfig);
         insertWrapper(symbolWrapper);
     });
 
     $(document).on('mousedown', '#iotaButton', function (e) {
         e.preventDefault();
         e.stopPropagation();
-        var symbolWrapper = new eqEd.SymbolWrapper('&#953;', "MathJax_MathItalic", symbolSizeConfig);
+        var symbolWrapper = new eqEd.SymbolWrapper('ι', "MathJax_MathItalic", symbolSizeConfig);
         insertWrapper(symbolWrapper);
     });
 
     $(document).on('mousedown', '#kappaButton', function (e) {
         e.preventDefault();
         e.stopPropagation();
-        var symbolWrapper = new eqEd.SymbolWrapper('&#954;', "MathJax_MathItalic", symbolSizeConfig);
+        var symbolWrapper = new eqEd.SymbolWrapper('κ', "MathJax_MathItalic", symbolSizeConfig);
         insertWrapper(symbolWrapper);
     });
 
     $(document).on('mousedown', '#lambdaButton', function (e) {
         e.preventDefault();
         e.stopPropagation();
-        var symbolWrapper = new eqEd.SymbolWrapper('&#955;', "MathJax_MathItalic", symbolSizeConfig);
+        var symbolWrapper = new eqEd.SymbolWrapper('λ', "MathJax_MathItalic", symbolSizeConfig);
         insertWrapper(symbolWrapper);
     });
 
     $(document).on('mousedown', '#muButton', function (e) {
         e.preventDefault();
         e.stopPropagation();
-        var symbolWrapper = new eqEd.SymbolWrapper('&#956;', "MathJax_MathItalic", symbolSizeConfig);
+        var symbolWrapper = new eqEd.SymbolWrapper('μ', "MathJax_MathItalic", symbolSizeConfig);
         insertWrapper(symbolWrapper);
     });
 
     $(document).on('mousedown', '#nuButton', function (e) {
         e.preventDefault();
         e.stopPropagation();
-        var symbolWrapper = new eqEd.SymbolWrapper('&#957;', "MathJax_MathItalic", symbolSizeConfig);
+        var symbolWrapper = new eqEd.SymbolWrapper('ν', "MathJax_MathItalic", symbolSizeConfig);
         insertWrapper(symbolWrapper);
     });
 
     $(document).on('mousedown', '#xiButton', function (e) {
         e.preventDefault();
         e.stopPropagation();
-        var symbolWrapper = new eqEd.SymbolWrapper('&#958;', "MathJax_MathItalic", symbolSizeConfig);
+        var symbolWrapper = new eqEd.SymbolWrapper('ξ', "MathJax_MathItalic", symbolSizeConfig);
         insertWrapper(symbolWrapper);
     });
 
     $(document).on('mousedown', '#piButton', function (e) {
         e.preventDefault();
         e.stopPropagation();
-        var symbolWrapper = new eqEd.SymbolWrapper('&#960;', "MathJax_MathItalic", symbolSizeConfig);
+        var symbolWrapper = new eqEd.SymbolWrapper('π', "MathJax_MathItalic", symbolSizeConfig);
         insertWrapper(symbolWrapper);
     });
 
     $(document).on('mousedown', '#varPiButton', function (e) {
         e.preventDefault();
         e.stopPropagation();
-        var symbolWrapper = new eqEd.SymbolWrapper('&#982;', "MathJax_MathItalic", symbolSizeConfig);
+        var symbolWrapper = new eqEd.SymbolWrapper('ϖ', "MathJax_MathItalic", symbolSizeConfig);
         insertWrapper(symbolWrapper);
     });
 
     $(document).on('mousedown', '#rhoButton', function (e) {
         e.preventDefault();
         e.stopPropagation();
-        var symbolWrapper = new eqEd.SymbolWrapper('&#961;', "MathJax_MathItalic", symbolSizeConfig);
+        var symbolWrapper = new eqEd.SymbolWrapper('ρ', "MathJax_MathItalic", symbolSizeConfig);
         insertWrapper(symbolWrapper);
     });
 
     $(document).on('mousedown', '#varRhoButton', function (e) {
         e.preventDefault();
         e.stopPropagation();
-        var symbolWrapper = new eqEd.SymbolWrapper('&#1009;', "MathJax_MathItalic", symbolSizeConfig);
+        var symbolWrapper = new eqEd.SymbolWrapper('ϱ', "MathJax_MathItalic", symbolSizeConfig);
         insertWrapper(symbolWrapper);
     });
 
     $(document).on('mousedown', '#sigmaButton', function (e) {
         e.preventDefault();
         e.stopPropagation();
-        var symbolWrapper = new eqEd.SymbolWrapper('&#963;', "MathJax_MathItalic", symbolSizeConfig);
+        var symbolWrapper = new eqEd.SymbolWrapper('σ', "MathJax_MathItalic", symbolSizeConfig);
         insertWrapper(symbolWrapper);
     });
 
     $(document).on('mousedown', '#varSigmaButton', function (e) {
         e.preventDefault();
         e.stopPropagation();
-        var symbolWrapper = new eqEd.SymbolWrapper('&#962;', "MathJax_MathItalic", symbolSizeConfig);
+        var symbolWrapper = new eqEd.SymbolWrapper('ς', "MathJax_MathItalic", symbolSizeConfig);
         insertWrapper(symbolWrapper);
     });
 
     $(document).on('mousedown', '#tauButton', function (e) {
         e.preventDefault();
         e.stopPropagation();
-        var symbolWrapper = new eqEd.SymbolWrapper('&#964;', "MathJax_MathItalic", symbolSizeConfig);
+        var symbolWrapper = new eqEd.SymbolWrapper('τ', "MathJax_MathItalic", symbolSizeConfig);
         insertWrapper(symbolWrapper);
     });
 
     $(document).on('mousedown', '#upsilonButton', function (e) {
         e.preventDefault();
         e.stopPropagation();
-        var symbolWrapper = new eqEd.SymbolWrapper('&#965;', "MathJax_MathItalic", symbolSizeConfig);
+        var symbolWrapper = new eqEd.SymbolWrapper('υ', "MathJax_MathItalic", symbolSizeConfig);
         insertWrapper(symbolWrapper);
     });
 
     $(document).on('mousedown', '#varPhiButton', function (e) {
         e.preventDefault();
         e.stopPropagation();
-        var symbolWrapper = new eqEd.SymbolWrapper('&#966;', "MathJax_MathItalic", symbolSizeConfig);
+        var symbolWrapper = new eqEd.SymbolWrapper('φ', "MathJax_MathItalic", symbolSizeConfig);
         insertWrapper(symbolWrapper);
     });
 
     $(document).on('mousedown', '#phiButton', function (e) {
         e.preventDefault();
         e.stopPropagation();
-        var symbolWrapper = new eqEd.SymbolWrapper('&#981;', "MathJax_MathItalic", symbolSizeConfig);
+        var symbolWrapper = new eqEd.SymbolWrapper('ϕ', "MathJax_MathItalic", symbolSizeConfig);
         insertWrapper(symbolWrapper);
     });
 
     $(document).on('mousedown', '#chiButton', function (e) {
         e.preventDefault();
         e.stopPropagation();
-        var symbolWrapper = new eqEd.SymbolWrapper('&#967;', "MathJax_MathItalic", symbolSizeConfig);
+        var symbolWrapper = new eqEd.SymbolWrapper('χ', "MathJax_MathItalic", symbolSizeConfig);
         insertWrapper(symbolWrapper);
     });
 
     $(document).on('mousedown', '#psiButton', function (e) {
         e.preventDefault();
         e.stopPropagation();
-        var symbolWrapper = new eqEd.SymbolWrapper('&#968;', "MathJax_MathItalic", symbolSizeConfig);
+        var symbolWrapper = new eqEd.SymbolWrapper('ψ', "MathJax_MathItalic", symbolSizeConfig);
         insertWrapper(symbolWrapper);
     });
 
     $(document).on('mousedown', '#omegaButton', function (e) {
         e.preventDefault();
         e.stopPropagation();
-        var symbolWrapper = new eqEd.SymbolWrapper('&#969;', "MathJax_MathItalic", symbolSizeConfig);
+        var symbolWrapper = new eqEd.SymbolWrapper('ω', "MathJax_MathItalic", symbolSizeConfig);
         insertWrapper(symbolWrapper);
     });
 
     $(document).on('mousedown', '#lessThanOrEqualToButton', function (e) {
         e.preventDefault();
         e.stopPropagation();
-        var operatorWrapper = new eqEd.OperatorWrapper('&#x2264;', "MathJax_Main", symbolSizeConfig);
+        var operatorWrapper = new eqEd.OperatorWrapper('≤', "MathJax_Main", symbolSizeConfig);
         insertWrapper(operatorWrapper);
     });
     $(document).on('mousedown', '#greaterThanOrEqualToButton', function (e) {
         e.preventDefault();
         e.stopPropagation();
-        var operatorWrapper = new eqEd.OperatorWrapper('&#x2265;', "MathJax_Main", symbolSizeConfig);
+        var operatorWrapper = new eqEd.OperatorWrapper('≥', "MathJax_Main", symbolSizeConfig);
         insertWrapper(operatorWrapper);
     });
     $(document).on('mousedown', '#circleOperatorButton', function (e) {
         e.preventDefault();
         e.stopPropagation();
-        var operatorWrapper = new eqEd.OperatorWrapper('&#9702;', "MathJax_Main", symbolSizeConfig);
+        var operatorWrapper = new eqEd.OperatorWrapper('◦', "MathJax_Main", symbolSizeConfig);
         insertWrapper(operatorWrapper);
     });
     $(document).on('mousedown', '#approxEqualToButton', function (e) {
         e.preventDefault();
         e.stopPropagation();
-        var operatorWrapper = new eqEd.OperatorWrapper('&#x2248;', "MathJax_Main", symbolSizeConfig);
+        var operatorWrapper = new eqEd.OperatorWrapper('≈', "MathJax_Main", symbolSizeConfig);
         insertWrapper(operatorWrapper);
     });
     $(document).on('mousedown', '#belongsToButton', function (e) {
         e.preventDefault();
         e.stopPropagation();
-        var operatorWrapper = new eqEd.OperatorWrapper('&#8712;', "MathJax_Main", symbolSizeConfig);
+        var operatorWrapper = new eqEd.OperatorWrapper('∈', "MathJax_Main", symbolSizeConfig);
         insertWrapper(operatorWrapper);
     });
 
     $(document).on('mousedown', '#timesButton', function (e) {
         e.preventDefault();
         e.stopPropagation();
-        var operatorWrapper = new eqEd.OperatorWrapper('&#215;', "MathJax_Main", symbolSizeConfig);
+        var operatorWrapper = new eqEd.OperatorWrapper('×', "MathJax_Main", symbolSizeConfig);
         insertWrapper(operatorWrapper);
     });
 
     $(document).on('mousedown', '#pmButton', function (e) {
         e.preventDefault();
         e.stopPropagation();
-        var operatorWrapper = new eqEd.OperatorWrapper('&#177;', "MathJax_Main", symbolSizeConfig);
+        var operatorWrapper = new eqEd.OperatorWrapper('±', "MathJax_Main", symbolSizeConfig);
         insertWrapper(operatorWrapper);
     });
 
     $(document).on('mousedown', '#wedgeButton', function (e) {
         e.preventDefault();
         e.stopPropagation();
-        var operatorWrapper = new eqEd.OperatorWrapper('&#8743;', "MathJax_Main", symbolSizeConfig);
+        var operatorWrapper = new eqEd.OperatorWrapper('∧', "MathJax_Main", symbolSizeConfig);
         insertWrapper(operatorWrapper);
     });
 
     $(document).on('mousedown', '#veeButton', function (e) {
         e.preventDefault();
         e.stopPropagation();
-        var operatorWrapper = new eqEd.OperatorWrapper('&#8744;', "MathJax_Main", symbolSizeConfig);
+        var operatorWrapper = new eqEd.OperatorWrapper('∨', "MathJax_Main", symbolSizeConfig);
         insertWrapper(operatorWrapper);
     });
 
     $(document).on('mousedown', '#equivButton', function (e) {
         e.preventDefault();
         e.stopPropagation();
-        var operatorWrapper = new eqEd.OperatorWrapper('&#8801;', "MathJax_Main", symbolSizeConfig);
+        var operatorWrapper = new eqEd.OperatorWrapper('≡', "MathJax_Main", symbolSizeConfig);
         insertWrapper(operatorWrapper);
     });
 
     $(document).on('mousedown', '#congButton', function (e) {
         e.preventDefault();
         e.stopPropagation();
-        var operatorWrapper = new eqEd.OperatorWrapper('&#8773;', "MathJax_Main", symbolSizeConfig);
+        var operatorWrapper = new eqEd.OperatorWrapper('≅', "MathJax_Main", symbolSizeConfig);
         insertWrapper(operatorWrapper);
     });
 
     $(document).on('mousedown', '#neqButton', function (e) {
         e.preventDefault();
         e.stopPropagation();
-        var operatorWrapper = new eqEd.OperatorWrapper('&#8800;', "MathJax_Main", symbolSizeConfig);
+        var operatorWrapper = new eqEd.OperatorWrapper('≠', "MathJax_Main", symbolSizeConfig);
         insertWrapper(operatorWrapper);
     });
 
     $(document).on('mousedown', '#simButton', function (e) {
         e.preventDefault();
         e.stopPropagation();
-        var operatorWrapper = new eqEd.OperatorWrapper('&#8764;', "MathJax_Main", symbolSizeConfig);
+        var operatorWrapper = new eqEd.OperatorWrapper('∼', "MathJax_Main", symbolSizeConfig);
         insertWrapper(operatorWrapper);
     });
 
     $(document).on('mousedown', '#proptoButton', function (e) {
         e.preventDefault();
         e.stopPropagation();
-        var operatorWrapper = new eqEd.OperatorWrapper('&#8733;', "MathJax_Main", symbolSizeConfig);
+        var operatorWrapper = new eqEd.OperatorWrapper('∝', "MathJax_Main", symbolSizeConfig);
         insertWrapper(operatorWrapper);
     });
 
     $(document).on('mousedown', '#precButton', function (e) {
         e.preventDefault();
         e.stopPropagation();
-        var operatorWrapper = new eqEd.OperatorWrapper('&#8826;', "MathJax_Main", symbolSizeConfig);
+        var operatorWrapper = new eqEd.OperatorWrapper('≺', "MathJax_Main", symbolSizeConfig);
         insertWrapper(operatorWrapper);
     });
 
     $(document).on('mousedown', '#precEqButton', function (e) {
         e.preventDefault();
         e.stopPropagation();
-        var operatorWrapper = new eqEd.OperatorWrapper('&#10927;', "MathJax_Main", symbolSizeConfig);
+        var operatorWrapper = new eqEd.OperatorWrapper('⪯', "MathJax_Main", symbolSizeConfig);
         insertWrapper(operatorWrapper);
     });
 
     $(document).on('mousedown', '#subsetButton', function (e) {
         e.preventDefault();
         e.stopPropagation();
-        var operatorWrapper = new eqEd.OperatorWrapper('&#8834;', "MathJax_Main", symbolSizeConfig);
+        var operatorWrapper = new eqEd.OperatorWrapper('⊂', "MathJax_Main", symbolSizeConfig);
         insertWrapper(operatorWrapper);
     });
 
     $(document).on('mousedown', '#subsetEqButton', function (e) {
         e.preventDefault();
         e.stopPropagation();
-        var operatorWrapper = new eqEd.OperatorWrapper('&#8838;', "MathJax_Main", symbolSizeConfig);
+        var operatorWrapper = new eqEd.OperatorWrapper('⊆', "MathJax_Main", symbolSizeConfig);
         insertWrapper(operatorWrapper);
     });
 
     $(document).on('mousedown', '#succButton', function (e) {
         e.preventDefault();
         e.stopPropagation();
-        var operatorWrapper = new eqEd.OperatorWrapper('&#8827;', "MathJax_Main", symbolSizeConfig);
+        var operatorWrapper = new eqEd.OperatorWrapper('≻', "MathJax_Main", symbolSizeConfig);
         insertWrapper(operatorWrapper);
     });
 
     $(document).on('mousedown', '#succEqButton', function (e) {
         e.preventDefault();
         e.stopPropagation();
-        var operatorWrapper = new eqEd.OperatorWrapper('&#10928;', "MathJax_Main", symbolSizeConfig);
+        var operatorWrapper = new eqEd.OperatorWrapper('⪰', "MathJax_Main", symbolSizeConfig);
         insertWrapper(operatorWrapper);
     });
 
     $(document).on('mousedown', '#perpButton', function (e) {
         e.preventDefault();
         e.stopPropagation();
-        var operatorWrapper = new eqEd.OperatorWrapper('&#8869;', "MathJax_Main", symbolSizeConfig);
+        var operatorWrapper = new eqEd.OperatorWrapper('⊥', "MathJax_Main", symbolSizeConfig);
         insertWrapper(operatorWrapper);
     });
 
     $(document).on('mousedown', '#midButton', function (e) {
         e.preventDefault();
         e.stopPropagation();
-        var operatorWrapper = new eqEd.OperatorWrapper('&#8739;', "MathJax_Main", symbolSizeConfig);
+        var operatorWrapper = new eqEd.OperatorWrapper('∣', "MathJax_Main", symbolSizeConfig);
         insertWrapper(operatorWrapper);
     });
 
     $(document).on('mousedown', '#parallelButton', function (e) {
         e.preventDefault();
         e.stopPropagation();
-        var operatorWrapper = new eqEd.OperatorWrapper('&#8741;', "MathJax_Main", symbolSizeConfig);
+        var operatorWrapper = new eqEd.OperatorWrapper('∥', "MathJax_Main", symbolSizeConfig);
         insertWrapper(operatorWrapper);
     });
 
@@ -1258,14 +1258,14 @@ var setupMenuEvents = function(symbolSizeConfig) {
     $(document).on('mousedown', '#partialButton', function (e) {
         e.preventDefault();
         e.stopPropagation();
-        var symbolWrapper = new eqEd.SymbolWrapper('&#8706;', "MathJax_Main", symbolSizeConfig);
+        var symbolWrapper = new eqEd.SymbolWrapper('∂', "MathJax_Main", symbolSizeConfig);
         insertWrapper(symbolWrapper);
     });
 
     $(document).on('mousedown', '#infinityButton', function (e) {
         e.preventDefault();
         e.stopPropagation();
-        var symbolWrapper = new eqEd.SymbolWrapper('&#8734;', "MathJax_Main", symbolSizeConfig);
+        var symbolWrapper = new eqEd.SymbolWrapper('∞', "MathJax_Main", symbolSizeConfig);
         insertWrapper(symbolWrapper);
     });
 };
