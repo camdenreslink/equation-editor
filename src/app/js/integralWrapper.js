@@ -226,4 +226,26 @@ eqEd.IntegralWrapper = function(isInline, hasUpperLimit, hasLowerLimit, integral
         }
         return jsonObj;
     };
+
+    eqEd.IntegralWrapper.constructFromJsonObj = function(jsonObj, symbolSizeConfig) {
+        var hasUpperLimit = (typeof jsonObj.operands.upperLimit !== "undefined");
+        var hasLowerLimit = (typeof jsonObj.operands.lowerLimit !== "undefined");
+        var integralWrapper = new eqEd.IntegralWrapper(true, hasUpperLimit, hasLowerLimit, jsonObj.value, symbolSizeConfig);
+        if (hasUpperLimit) {
+            for (var i = 0; i < jsonObj.operands.upperLimit.length; i++) {
+                var innerWrapperCtor = eqEd.Equation.JsonTypeToConstructor(jsonObj.operands.upperLimit[i].type);
+                var innerWrapper = innerWrapperCtor.constructFromJsonObj(jsonObj.operands.upperLimit[i], symbolSizeConfig);
+                integralWrapper.upperLimitContainer.addWrappers([i, innerWrapper]);
+            }
+        }
+        if (hasLowerLimit) {
+            for (var i = 0; i < jsonObj.operands.lowerLimit.length; i++) {
+                var innerWrapperCtor = eqEd.Equation.JsonTypeToConstructor(jsonObj.operands.lowerLimit[i].type);
+                var innerWrapper = innerWrapperCtor.constructFromJsonObj(jsonObj.operands.lowerLimit[i], symbolSizeConfig);
+                integralWrapper.lowerLimitContainer.addWrappers([i, innerWrapper]);
+            }
+        }
+
+        return integralWrapper;
+    }
 })();

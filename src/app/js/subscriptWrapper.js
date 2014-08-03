@@ -152,4 +152,13 @@ eqEd.SubscriptWrapper = function(symbolSizeConfig) {
         };
         return jsonObj;
     };
+    eqEd.SubscriptWrapper.constructFromJsonObj = function(jsonObj, symbolSizeConfig) {
+        var subscriptWrapper = new eqEd.SubscriptWrapper(symbolSizeConfig);
+        for (var i = 0; i < jsonObj.operands.subscript.length; i++) {
+            var innerWrapperCtor = eqEd.Equation.JsonTypeToConstructor(jsonObj.operands.subscript[i].type);
+            var innerWrapper = innerWrapperCtor.constructFromJsonObj(jsonObj.operands.subscript[i], symbolSizeConfig);
+            subscriptWrapper.subscriptContainer.addWrappers([i, innerWrapper]);
+        }
+        return subscriptWrapper;
+    }
 })();

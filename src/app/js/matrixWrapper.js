@@ -231,4 +231,21 @@ eqEd.MatrixWrapper = function(numRows, numCols, horAlign, symbolSizeConfig) {
         }
         return jsonObj;
     };
+    eqEd.MatrixWrapper.constructFromJsonObj = function(jsonObj, symbolSizeConfig) {
+        var numRows = jsonObj.operands.elements.length;
+        var numCols = jsonObj.operands.elements[0].length;
+        var matrixWrapper = new eqEd.MatrixWrapper(numRows, numCols, 'center', symbolSizeConfig);
+        for (var i = 0; i < jsonObj.operands.elements.length; i++) {
+            var matrixRow = jsonObj.operands.elements[i];
+            for (var j = 0; j < matrixRow.length; j++) {
+                var matrixEntry = matrixRow[j];
+                for (var k = 0; k < matrixEntry.length; k++) {
+                    var innerWrapperCtor = eqEd.Equation.JsonTypeToConstructor(matrixEntry[k].type);
+                    var innerWrapper = innerWrapperCtor.constructFromJsonObj(matrixEntry[k], symbolSizeConfig);
+                    matrixWrapper.matrixContainers[i][j].addWrappers([k, innerWrapper]);
+                }
+            }
+        }
+        return matrixWrapper;
+    };
 })();

@@ -189,4 +189,13 @@ eqEd.SuperscriptWrapper = function(symbolSizeConfig) {
         };
         return jsonObj;
     };
+    eqEd.SuperscriptWrapper.constructFromJsonObj = function(jsonObj, symbolSizeConfig) {
+        var superscriptWrapper = new eqEd.SuperscriptWrapper(symbolSizeConfig);
+        for (var i = 0; i < jsonObj.operands.superscript.length; i++) {
+            var innerWrapperCtor = eqEd.Equation.JsonTypeToConstructor(jsonObj.operands.superscript[i].type);
+            var innerWrapper = innerWrapperCtor.constructFromJsonObj(jsonObj.operands.superscript[i], symbolSizeConfig);
+            superscriptWrapper.superscriptContainer.addWrappers([i, innerWrapper]);
+        }
+        return superscriptWrapper;
+    }
 })();

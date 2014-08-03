@@ -113,4 +113,13 @@ eqEd.FunctionLowerWrapper = function(characters, fontStyle, symbolSizeConfig) {
         };
         return jsonObj;
     };
+    eqEd.FunctionLowerWrapper.constructFromJsonObj = function(jsonObj, symbolSizeConfig) {
+      var functionLowerWrapper = new eqEd.FunctionLowerWrapper(jsonObj.value, "MathJax_Main", symbolSizeConfig);
+      for (var i = 0; i < jsonObj.operands.lower.length; i++) {
+        var innerWrapperCtor = eqEd.Equation.JsonTypeToConstructor(jsonObj.operands.lower[i].type);
+        var innerWrapper = innerWrapperCtor.constructFromJsonObj(jsonObj.operands.lower[i], symbolSizeConfig);
+        functionLowerWrapper.functionLowerContainer.addWrappers([i, innerWrapper]);
+      }
+      return functionLowerWrapper;
+    };
 })();

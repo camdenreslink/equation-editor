@@ -115,4 +115,27 @@ eqEd.Equation = function(symbolSizeConfig) {
         }
         return this.symbolSizeConfig.height[context.fontSize];
     }
+    eqEd.Equation.JsonTypeToConstructor = function(type) {
+        var typeToConstructorMapping = {
+            'Accent': eqEd.AccentWrapper,
+            'BigOperator': eqEd.BigOperatorWrapper,
+            'BracketPair': eqEd.BracketPairWrapper,
+            'Bracket': eqEd.BracketWrapper,
+            'FunctionLower': eqEd.FunctionLowerWrapper,
+            'Function': eqEd.FunctionWrapper,
+            'Integral': eqEd.IntegralWrapper,
+            'Limit': eqEd.LimitWrapper,
+            'LogLower': eqEd.LogLowerWrapper,
+            'Matrix': eqEd.MatrixWrapper,
+            'NthRoot': eqEd.NthRootWrapper,
+            'Operator': eqEd.OperatorWrapper,
+            'SquareRoot': eqEd.SquareRootWrapper,
+            'StackedFraction': eqEd.StackedFractionWrapper,
+            'Subscript': eqEd.SubscriptWrapper,
+            'SuperscriptAndSubscript': eqEd.SuperscriptAndSubscriptWrapper,
+            'Superscript': eqEd.SuperscriptWrapper,
+            'Symbol': eqEd.SymbolWrapper
+        }
+        return typeToConstructorMapping[type];
+    };
 })();

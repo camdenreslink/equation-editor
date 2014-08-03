@@ -145,4 +145,18 @@ eqEd.LimitWrapper = function(symbolSizeConfig) {
         };
         return jsonObj;
     };
+    eqEd.LimitWrapper.constructFromJsonObj = function(jsonObj, symbolSizeConfig) {
+        var limitWrapper = new eqEd.LimitWrapper(symbolSizeConfig);
+        for (var i = 0; i < jsonObj.operands.left.length; i++) {
+            var innerWrapperCtor = eqEd.Equation.JsonTypeToConstructor(jsonObj.operands.left[i].type);
+            var innerWrapper = innerWrapperCtor.constructFromJsonObj(jsonObj.operands.left[i], symbolSizeConfig);
+            limitWrapper.limitLeftContainer.addWrappers([i, innerWrapper]);
+        }
+        for (var i = 0; i < jsonObj.operands.right.length; i++) {
+            var innerWrapperCtor = eqEd.Equation.JsonTypeToConstructor(jsonObj.operands.right[i].type);
+            var innerWrapper = innerWrapperCtor.constructFromJsonObj(jsonObj.operands.right[i], symbolSizeConfig);
+            limitWrapper.limitRightContainer.addWrappers([i, innerWrapper]);
+        }
+        return limitWrapper;
+    }
 })();

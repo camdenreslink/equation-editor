@@ -182,4 +182,13 @@ eqEd.AccentWrapper = function(character, fontStyle, symbolSizeConfig) {
         };
         return jsonObj;
     };
+    eqEd.AccentWrapper.constructFromJsonObj = function(jsonObj, symbolSizeConfig) {
+      var accentWrapper = new eqEd.AccentWrapper(jsonObj.value, 'MathJax_Main', symbolSizeConfig);
+      for (var i = 0; i < jsonObj.operands.accentedExpression.length; i++) {
+        var innerWrapperCtor = eqEd.Equation.JsonTypeToConstructor(jsonObj.operands.accentedExpression[i].type);
+        var innerWrapper = innerWrapperCtor.constructFromJsonObj(jsonObj.operands.accentedExpression[i], symbolSizeConfig);
+        accentWrapper.accentContainer.addWrappers([i, innerWrapper]);
+      }
+      return accentWrapper;
+    }
 })();

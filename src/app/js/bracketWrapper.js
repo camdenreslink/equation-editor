@@ -96,4 +96,8 @@ eqEd.BracketWrapper = function(bracketType, symbolSizeConfig) {
         };
         return jsonObj;
     };
+    eqEd.BracketWrapper.constructFromJsonObj = function(jsonObj, symbolSizeConfig) {
+      var bracketWrapper = new eqEd.BracketPairWrapper(jsonObj.value, symbolSizeConfig);
+      return bracketWrapper;
+    }
 })();

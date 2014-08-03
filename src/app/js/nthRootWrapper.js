@@ -150,4 +150,18 @@ eqEd.NthRootWrapper = function(symbolSizeConfig) {
         };
         return jsonObj;
     };
+    eqEd.NthRootWrapper.constructFromJsonObj = function(jsonObj, symbolSizeConfig) {
+        var nthRootWrapper = new eqEd.NthRootWrapper(symbolSizeConfig);
+        for (var i = 0; i < jsonObj.operands.radicand.length; i++) {
+            var innerWrapperCtor = eqEd.Equation.JsonTypeToConstructor(jsonObj.operands.radicand[i].type);
+            var innerWrapper = innerWrapperCtor.constructFromJsonObj(jsonObj.operands.radicand[i], symbolSizeConfig);
+            nthRootWrapper.radicandContainer.addWrappers([i, innerWrapper]);
+        }
+        for (var i = 0; i < jsonObj.operands.degree.length; i++) {
+            var innerWrapperCtor = eqEd.Equation.JsonTypeToConstructor(jsonObj.operands.degree[i].type);
+            var innerWrapper = innerWrapperCtor.constructFromJsonObj(jsonObj.operands.degree[i], symbolSizeConfig);
+            nthRootWrapper.nthRootDegreeContainer.addWrappers([i, innerWrapper]);
+        }
+        return nthRootWrapper;
+    }
 })();

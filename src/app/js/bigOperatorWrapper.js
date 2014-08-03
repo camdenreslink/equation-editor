@@ -246,4 +246,30 @@ eqEd.BigOperatorWrapper = function(isInline, hasUpperLimit, hasLowerLimit, bigOp
         }
         return jsonObj;
     };
+    eqEd.BigOperatorWrapper.constructFromJsonObj = function(jsonObj, symbolSizeConfig) {
+        var hasUpperLimit = (typeof jsonObj.operands.upperLimit !== "undefined");
+        var hasLowerLimit = (typeof jsonObj.operands.lowerLimit !== "undefined");
+        var bigOperatorWrapper = new eqEd.BigOperatorWrapper(false, hasUpperLimit, hasLowerLimit, jsonObj.value, symbolSizeConfig);
+        if (hasUpperLimit) {
+            for (var i = 0; i < jsonObj.operands.upperLimit.length; i++) {
+                var innerWrapperCtor = eqEd.Equation.JsonTypeToConstructor(jsonObj.operands.upperLimit[i].type);
+                var innerWrapper = innerWrapperCtor.constructFromJsonObj(jsonObj.operands.upperLimit[i], symbolSizeConfig);
+                bigOperatorWrapper.upperLimitContainer.addWrappers([i, innerWrapper]);
+            }
+        }
+        if (hasLowerLimit) {
+            for (var i = 0; i < jsonObj.operands.lowerLimit.length; i++) {
+                var innerWrapperCtor = eqEd.Equation.JsonTypeToConstructor(jsonObj.operands.lowerLimit[i].type);
+                var innerWrapper = innerWrapperCtor.constructFromJsonObj(jsonObj.operands.lowerLimit[i], symbolSizeConfig);
+                bigOperatorWrapper.lowerLimitContainer.addWrappers([i, innerWrapper]);
+            }
+        }
+        for (var i = 0; i < jsonObj.operands.operand.length; i++) {
+            var innerWrapperCtor = eqEd.Equation.JsonTypeToConstructor(jsonObj.operands.operand[i].type);
+            var innerWrapper = innerWrapperCtor.constructFromJsonObj(jsonObj.operands.operand[i], symbolSizeConfig);
+            bigOperatorWrapper.operandContainer.addWrappers([i, innerWrapper]);
+        }
+
+        return bigOperatorWrapper;
+    }
 })();

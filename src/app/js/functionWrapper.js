@@ -101,4 +101,8 @@ eqEd.FunctionWrapper = function(functionCharacters, fontStyle, symbolSizeConfig)
         };
         return jsonObj;
     };
+    eqEd.FunctionWrapper.constructFromJsonObj = function(jsonObj, symbolSizeConfig) {
+      var functionWrapper = new eqEd.FunctionWrapper(jsonObj.value, "MathJax_Main", symbolSizeConfig);
+      return functionWrapper;
+    }
 })();

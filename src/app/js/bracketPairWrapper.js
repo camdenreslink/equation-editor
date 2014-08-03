@@ -156,4 +156,14 @@ eqEd.BracketPairWrapper = function(bracketType, symbolSizeConfig) {
         };
         return jsonObj;
     };
+
+    eqEd.BracketPairWrapper.constructFromJsonObj = function(jsonObj, symbolSizeConfig) {
+      var bracketPairWrapper = new eqEd.BracketPairWrapper(jsonObj.value, symbolSizeConfig);
+      for (var i = 0; i < jsonObj.operands.bracketedExpression.length; i++) {
+        var innerWrapperCtor = eqEd.Equation.JsonTypeToConstructor(jsonObj.operands.bracketedExpression[i].type);
+        var innerWrapper = innerWrapperCtor.constructFromJsonObj(jsonObj.operands.bracketedExpression[i], symbolSizeConfig);
+        bracketPairWrapper.bracketContainer.addWrappers([i, innerWrapper]);
+      }
+      return bracketPairWrapper;
+    }
 })();

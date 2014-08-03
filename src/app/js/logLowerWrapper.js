@@ -106,4 +106,13 @@ eqEd.LogLowerWrapper = function(symbolSizeConfig) {
         };
         return jsonObj;
     };
+    eqEd.LogLowerWrapper.constructFromJsonObj = function(jsonObj, symbolSizeConfig) {
+        var logLowerWrapper = new eqEd.LogLowerWrapper(symbolSizeConfig);
+        for (var i = 0; i < jsonObj.operands.lower.length; i++) {
+            var innerWrapperCtor = eqEd.Equation.JsonTypeToConstructor(jsonObj.operands.lower[i].type);
+            var innerWrapper = innerWrapperCtor.constructFromJsonObj(jsonObj.operands.lower[i], symbolSizeConfig);
+            logLowerWrapper.functionLowerContainer.addWrappers([i, innerWrapper]);
+        }
+        return logLowerWrapper;
+    };
 })();

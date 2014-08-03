@@ -183,4 +183,18 @@ eqEd.SuperscriptAndSubscriptWrapper = function(symbolSizeConfig) {
         };
         return jsonObj;
     };
+    eqEd.SuperscriptAndSubscriptWrapper.constructFromJsonObj = function(jsonObj, symbolSizeConfig) {
+        var superscriptAndSubscriptWrapper = new eqEd.NthRootWrapper(symbolSizeConfig);
+        for (var i = 0; i < jsonObj.operands.superscript.length; i++) {
+            var innerWrapperCtor = eqEd.Equation.JsonTypeToConstructor(jsonObj.operands.superscript[i].type);
+            var innerWrapper = innerWrapperCtor.constructFromJsonObj(jsonObj.operands.superscript[i], symbolSizeConfig);
+            superscriptAndSubscriptWrapper.superscriptContainer.addWrappers([i, innerWrapper]);
+        }
+        for (var i = 0; i < jsonObj.operands.subscript.length; i++) {
+            var innerWrapperCtor = eqEd.Equation.JsonTypeToConstructor(jsonObj.operands.subscript[i].type);
+            var innerWrapper = innerWrapperCtor.constructFromJsonObj(jsonObj.operands.subscript[i], symbolSizeConfig);
+            superscriptAndSubscriptWrapper.subscriptContainer.addWrappers([i, innerWrapper]);
+        }
+        return superscriptAndSubscriptWrapper;
+    }
 })();

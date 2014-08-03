@@ -135,4 +135,13 @@ eqEd.SquareRootWrapper = function(symbolSizeConfig) {
         };
         return jsonObj;
     };
+    eqEd.SquareRootWrapper.constructFromJsonObj = function(jsonObj, symbolSizeConfig) {
+        var squareRootWrapper = new eqEd.SquareRootWrapper(symbolSizeConfig);
+        for (var i = 0; i < jsonObj.operands.radicand.length; i++) {
+            var innerWrapperCtor = eqEd.Equation.JsonTypeToConstructor(jsonObj.operands.radicand[i].type);
+            var innerWrapper = innerWrapperCtor.constructFromJsonObj(jsonObj.operands.radicand[i], symbolSizeConfig);
+            squareRootWrapper.radicandContainer.addWrappers([i, innerWrapper]);
+        }
+        return squareRootWrapper;
+    }
 })();

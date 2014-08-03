@@ -103,4 +103,18 @@ eqEd.StackedFractionWrapper = function(symbolSizeConfig) {
         };
         return jsonObj;
     };
+    eqEd.StackedFractionWrapper.constructFromJsonObj = function(jsonObj, symbolSizeConfig) {
+        var stackedFractionWrapper = new eqEd.StackedFractionWrapper(symbolSizeConfig);
+        for (var i = 0; i < jsonObj.operands.numerator.length; i++) {
+            var innerWrapperCtor = eqEd.Equation.JsonTypeToConstructor(jsonObj.operands.numerator[i].type);
+            var innerWrapper = innerWrapperCtor.constructFromJsonObj(jsonObj.operands.numerator[i], symbolSizeConfig);
+            stackedFractionWrapper.stackedFractionNumeratorContainer.addWrappers([i, innerWrapper]);
+        }
+        for (var i = 0; i < jsonObj.operands.denominator.length; i++) {
+            var innerWrapperCtor = eqEd.Equation.JsonTypeToConstructor(jsonObj.operands.denominator[i].type);
+            var innerWrapper = innerWrapperCtor.constructFromJsonObj(jsonObj.operands.denominator[i], symbolSizeConfig);
+            stackedFractionWrapper.stackedFractionDenominatorContainer.addWrappers([i, innerWrapper]);
+        }
+        return stackedFractionWrapper;
+    }
 })();

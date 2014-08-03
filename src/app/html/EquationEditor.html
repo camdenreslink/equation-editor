@@ -493,5 +493,29 @@
         $('#ContentJSON').html(JSON.stringify(jsonObj));
       });
     </script>
+    <textarea id="TextJSON"></textarea>
+    <br>
+    <button id="JSONtoEqEd">Render Equation</button>
+    <script>
+      $('#JSONtoEqEd').on('click', function(e) {
+        var jsonObj = $.parseJSON($('#TextJSON').val());
+        var container = new eqEd.Container(symbolSizeConfig);
+        container.padTop = 0.2;
+        container.padBottom = 0.2;
+        container.fontSize = "fontSizeNormal";
+        container.domObj = container.buildDomObj();
+        container.domObj.updateFontSize(container.fontSize);
+        container.domObj.value.addClass('equation');
+        $('#renderedEq').empty();
+        $('#renderedEq').append(container.domObj.value);
+        for (var i = 0; i < jsonObj.length; i++) {
+          var innerWrapperCtor = eqEd.Equation.JsonTypeToConstructor(jsonObj[i].type);
+          var innerWrapper = innerWrapperCtor.constructFromJsonObj(jsonObj[i], symbolSizeConfig);
+          container.addWrappers([i, innerWrapper]);
+        }
+        container.updateAll();
+      });
+    </script>
+    <div id="renderedEq"></div>
 </body>
 </html>
