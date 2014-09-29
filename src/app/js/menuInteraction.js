@@ -811,7 +811,7 @@ var setupMenuEvents = function(symbolSizeConfig) {
         insertWrapper(accentWrapper);
     });
 
-        $(document).on('mousedown', '#gammaUpperButton', function (e) {
+    $(document).on('mousedown', '#gammaUpperButton', function (e) {
         e.preventDefault();
         e.stopPropagation();
         var symbolWrapper = new eqEd.SymbolWrapper('Γ', "MathJax_Main", symbolSizeConfig);
