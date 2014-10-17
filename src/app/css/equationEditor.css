@@ -1,7 +1,8 @@
 .equation {
     position: relative;
     line-height: 1;
-    overflow: visible;
+    /*overflow: visible;*/
+    overflow: hidden;
     -webkit-box-sizing: content-box;
     -moz-box-sizing: content-box;
     box-sizing: content-box;
@@ -170,6 +171,8 @@ div.activeContainer {
 
 .eqEdWrapper {
     z-index: 3;
+    /*overflow-y: hidden;
+    overflow-x: visible;*/
 }
 
 .activeContainer .topLevelEmptyContainerWrapper {

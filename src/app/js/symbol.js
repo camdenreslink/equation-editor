@@ -7,7 +7,8 @@ eqEd.Symbol = function(character, fontStyle, symbolSizeConfig) {
     this.domObj = this.buildDomObj();
     if (IEVersion >= 9) {
         if (this.fontStyle === "MathJax_MathItalic") {
-            this.adjustTop = 0.345;
+            //this.adjustTop = 0.345;
+            this.adjustTop = 0.33
         } else {
             if (this.character !== '◦') {
                 this.adjustTop = 0.3;
@@ -15,7 +16,8 @@ eqEd.Symbol = function(character, fontStyle, symbolSizeConfig) {
         }
     } else {
         if (this.fontStyle === "MathJax_MathItalic") {
-            this.adjustTop = 0.025;
+            //this.adjustTop = 0.025;
+            this.adjustTop = 0.05
         }
     }
     // Set up the width calculation
