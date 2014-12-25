@@ -36,7 +36,7 @@ eqEd.Container = function(symbolSizeConfig) {
             maxIndex = i;
         }
       }
-      return maxIndex;
+      return (this.wrappers.length === 0) ? null : maxIndex;
     },
     updateDom: function() {}
   }));
@@ -55,7 +55,7 @@ eqEd.Container = function(symbolSizeConfig) {
             maxIndex = i;
         }
       }
-      return maxIndex;
+      return (this.wrappers.length === 0) ? null : maxIndex;
     },
     updateDom: function() {}
   }));

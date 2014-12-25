@@ -112,7 +112,12 @@ eqEd.BigOperatorWrapper = function(isInline, hasUpperLimit, hasLowerLimit, bigOp
         compute: function() {
             var topAlignVal = 0;
             var leftPartTopAlign = 0;
-            var rightPartTopAlign = this.operandContainer.wrappers[this.operandContainer.maxTopAlignIndex].topAlign;
+            var rightPartTopAlign = 0;
+            // Need to check if maxTopAlignIndex exists, because it doesn't exist
+            // when this.operandContainer.wrappers.length === 0
+            if (this.operandContainer.maxTopAlignIndex !== null) {
+                rightPartTopAlign = this.operandContainer.wrappers[this.operandContainer.maxTopAlignIndex].topAlign;
+            }
             if (this.isInline) {
                 if (this.hasUpperLimit) {
                     if (this.upperLimitContainer.height > this.symbol.height * this.inlineUpperLimitOverlap) {
@@ -151,7 +156,14 @@ eqEd.BigOperatorWrapper = function(isInline, hasUpperLimit, hasLowerLimit, bigOp
         compute: function() {
             var bottomAlignVal = 0;
             var leftPartBottomAlign = 0;
-            var rightPartBottomAlign = this.operandContainer.wrappers[this.operandContainer.maxBottomAlignIndex].bottomAlign;
+            var rightPartBottomAlign = 0;
+            
+            // Need to check if maxBottomAlignIndex exists, because it doesn't exist
+            // when this.operandContainer.wrappers.length === 0
+            if (this.operandContainer.maxBottomAlignIndex !== null) {
+                rightPartBottomAlign = this.operandContainer.wrappers[this.operandContainer.maxBottomAlignIndex].topAlign;
+            }
+
             if (this.isInline) {
                 if (this.hasLowerLimit) {
                     if (this.lowerLimitContainer.height > this.symbol.height * this.inlineLowerLimitOverlap) {

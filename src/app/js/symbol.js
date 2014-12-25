@@ -8,7 +8,7 @@ eqEd.Symbol = function(character, fontStyle, symbolSizeConfig) {
     if (IEVersion >= 9) {
         if (this.fontStyle === "MathJax_MathItalic") {
             //this.adjustTop = 0.345;
-            this.adjustTop = 0.33
+            this.adjustTop = 0.32
         } else {
             if (this.character !== '◦') {
                 this.adjustTop = 0.3;
