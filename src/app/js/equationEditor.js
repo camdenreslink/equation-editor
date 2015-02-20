@@ -40,7 +40,6 @@ var loadFonts = function(callback) {
         },
         active: function() {
             fontsLoaded = true;
-            //setTimeout(function() { callback(); }, 1500);
             callback();
         },
         inactive: function() {

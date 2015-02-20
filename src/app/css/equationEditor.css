@@ -1,8 +1,6 @@
 .equation {
     position: relative;
     line-height: 1;
-    /*overflow: visible;*/
-    /*overflow: hidden;*/
     -webkit-box-sizing: content-box;
     -moz-box-sizing: content-box;
     box-sizing: content-box;
@@ -112,7 +110,7 @@
 div.cursor {
     background-color: #000000;
     /* The cursor should always be on top */
-    z-index: 50 !important;
+    z-index: 50;
 }
 
 div.normalCursor {
@@ -153,7 +151,7 @@ div.squareCursor {
 }
 
 .highlighted rect {
-    stroke: #FFFFFF !important;
+    stroke: #FFFFFF;
 }
 
 .eqEdContainer {
@@ -172,15 +170,12 @@ div.activeContainer {
 
 .eqEdWrapper {
     z-index: 3;
-    /*overflow: hidden;*/
 }
 
-.bracketWrapper {
+/* This overflow must be hidden, because brackets extend past
+   equation boundaries, and mess up mouse interactions. */
+.bracket {
     overflow: hidden;
-}
-
-.symbolWrapper {
-    overflow: visible;
 }
 
 .activeContainer .topLevelEmptyContainerWrapper {
@@ -266,7 +261,7 @@ div.activeContainer {
 .tab-links {
     margin-bottom: 0px;
     padding-left: 7px;
-    white-space: nowrap !important;
+    white-space: nowrap;
 }
 
 .tab-links li {
