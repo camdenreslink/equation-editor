@@ -3,7 +3,9 @@ eqEd.Bracket = function(symbolSizeConfig) {
 	this.className = "eqEd.Bracket";
 
     if (IEVersion >= 9) {
-        this.adjustTop += 0.28;
+        this.adjustTop = 0.280;
+    } else {
+        this.adjustTop = 0.025;
     }
 
     // Set up the heightRatio calculation

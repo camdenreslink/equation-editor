@@ -5,21 +5,21 @@ eqEd.Symbol = function(character, fontStyle, symbolSizeConfig) {
     this.character = character;
     this.fontStyle = fontStyle;
     this.domObj = this.buildDomObj();
+    
     if (IEVersion >= 9) {
         if (this.fontStyle === "MathJax_MathItalic") {
-            //this.adjustTop = 0.345;
-            this.adjustTop = 0.32
+            this.adjustTop = 0.340;
         } else {
-            if (this.character !== '◦') {
-                this.adjustTop = 0.3;
-            }
+            this.adjustTop = 0.280;
         }
     } else {
         if (this.fontStyle === "MathJax_MathItalic") {
-            //this.adjustTop = 0.025;
-            this.adjustTop = 0.05
+            this.adjustTop = 0.085
+        } else {
+            this.adjustTop = 0.025;
         }
     }
+    
     // Set up the width calculation
     var width = 0;
     this.properties.push(new Property(this, "width", width, {

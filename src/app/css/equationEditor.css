@@ -58,19 +58,19 @@
 }
 
 .fontSizeNormal {
-    font-size: 45px;
+    font-size: 45.5px;
 }
 
 .fontSizeSmaller {
-    font-size: 35px; /* fontSizeNormal * 0.707 */
+    font-size: 35.5px; /* fontSizeNormal * 0.707 */
 }
 
 .fontSizeSmallest {
-    font-size: 30px; /* fontSizeNormal * 0.5 */
+    font-size: 30.5px; /* fontSizeNormal * 0.5 */
 }
 
 .fontSizeMessage {
-    font-size: 20px;
+    font-size: 20.5px;
 }
 
 .MathJax_MathItalic {
