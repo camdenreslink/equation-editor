@@ -1,14 +1,14 @@
 @font-face {
     font-family: 'MathJax_Main';
     src: url('woff/MathJax_Main-Regular.woff') format('woff'),
-         url('svg/MathJax_Main-Regular.svg#MathJax_Main') format('svg');
+         url('otf/MathJax_Main-Regular.otf') format('opentype');
     font-weight: normal;
 }
 
 @font-face {
     font-family: 'MathJax_Main';
     src: url('woff/MathJax_Main-Italic.woff') format('woff'),
-         url('svg/MathJax_Main-Italic.svg#MathJax_Main') format('svg');
+         url('otf/MathJax_Main-Italic.otf') format('opentype');
     font-style: italic;
     font-weight: normal;
 }
@@ -16,7 +16,7 @@
 @font-face {
     font-family: 'MathJax_Math';
     src: url('woff/MathJax_Math-Italic.woff') format('woff'),
-         url('svg/MathJax_Math-Italic.svg#MathJax_Math') format('svg');
+         url('otf/MathJax_Math-Italic.otf') format('opentype');
     font-style: italic;
     font-weight: normal;
 }
@@ -24,34 +24,34 @@
 @font-face {
     font-family: 'MathJax_Size1';
     src: url('woff/MathJax_Size1-Regular.woff') format('woff'),
-         url('svg/MathJax_Size1-Regular.svg#MathJax_Size1') format('svg');
+         url('otf/MMathJax_Size1-Regular.otf') format('opentype');
     font-weight: normal;
 }
 
 @font-face {
     font-family: 'MathJax_Size2';
     src: url('woff/MathJax_Size2-Regular.woff') format('woff'),
-         url('svg/MathJax_Size2-Regular.svg#MathJax_Size2') format('svg');
+         url('otf/MathJax_Size2-Regular.otf') format('opentype');
     font-weight: normal;
 }
 
 @font-face {
     font-family: 'MathJax_Size3';
     src: url('woff/MathJax_Size3-Regular.woff') format('woff'),
-         url('svg/MathJax_Size3-Regular.svg#MathJax_Size3') format('svg');
+         url('otf/MathJax_Size3-Regular.otf') format('opentype');
     font-weight: normal;
 }
 
 @font-face {
     font-family: 'MathJax_Size4';
     src: url('woff/MathJax_Size4-Regular.woff') format('woff'),
-         url('svg/MathJax_Size4-Regular.svg#MathJax_Size4') format('svg');
+         url('otf/MathJax_Size4-Regular.otf') format('opentype');
     font-weight: normal;
 }
 
 @font-face {
     font-family: 'MathJax_AMS';
     src: url('woff/MathJax_AMS-Regular.woff') format('woff'),
-         url('svg/MathJax_AMS-Regular.svg#MathJax_AMS') format('svg');
+         url('otf/MathJax_AMS-Regular.otf') format('opentype');
     font-weight: normal;
 }

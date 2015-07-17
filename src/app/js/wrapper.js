@@ -20,14 +20,14 @@ eqEd.Wrapper = function(symbolSizeConfig) {
         compute: function() {
             // special code added to prevent compute hook from
             // executing on this property.
-            var newLeft = 0;
+            var leftVal = 0;
             if (this.index === 0) {
-                newLeft = this.parent.padLeft;
+                leftVal = this.parent.padLeft;
             } else {
                 var prevWrapper = this.parent.wrappers[this.index - 1];
-                newLeft = prevWrapper.left + prevWrapper.width;
+                leftVal = prevWrapper.left + prevWrapper.width;
             }
-            return newLeft;
+            return leftVal;
         },
         updateDom: function() {
             this.domObj.updateLeft(this.left);
