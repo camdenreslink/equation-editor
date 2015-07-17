@@ -25,6 +25,26 @@ eqEd.NthRootWrapper = function(symbolSizeConfig) {
     this.padBottomWhenParentIsFraction = 0.2;
     this.padLeft = 0.1;
     this.padRight = 0.1;
+    this.padTop = 0.1;
+
+    // Set up the padBottom calculation
+    var padBottom = 0;
+    this.properties.push(new Property(this, "padBottom", padBottom, {
+        get: function() {
+            return padBottom;
+        },
+        set: function(value) {
+            padBottom = value;
+        },
+        compute: function() {
+            var padBottomVal = 0;
+            if (this.parent instanceof eqEd.StackedFractionNumeratorContainer) {
+                padBottomVal = 0.2;
+            }
+            return padBottomVal;
+        },
+        updateDom: function() {}
+    }));
 
     // Set up the width calculation
     var width = 0;
@@ -95,9 +115,6 @@ eqEd.NthRootWrapper = function(symbolSizeConfig) {
                 bottomAlignVal += this.radicandContainer.padBottomMaxChildAlignTopIsRoot * fontHeight;
             } else {
                 bottomAlignVal += this.radicandContainer.padBottomMaxChildAlignTopIsNotRoot * fontHeight;
-            }
-            if (this.parent instanceof eqEd.StackedFractionNumeratorContainer) {
-                bottomAlignVal += this.padBottomWhenParentIsFraction * fontHeight;
             }
             return bottomAlignVal;
         },

@@ -19,9 +19,46 @@ eqEd.SquareRootWrapper = function(symbolSizeConfig) {
     this.childContainers = [this.radicandContainer];
     this.childNoncontainers = [this.squareRootDiagonal, this.radical, this.squareRootOverBar];
 
-    this.padBottomWhenParentIsFraction = 0.2;
     this.padLeft = 0.1;
     this.padRight = 0.1;
+
+    // Set up the padTop calculation
+    var padTop = 0;
+    this.properties.push(new Property(this, "padTop", padTop, {
+        get: function() {
+            return padTop;
+        },
+        set: function(value) {
+            padTop = value;
+        },
+        compute: function() {
+            var padTopVal = 0;
+            if (this.parent instanceof eqEd.StackedFractionDenominatorContainer) {
+                padTopVal = 0.1;
+            }
+            return padTopVal;
+        },
+        updateDom: function() {}
+    }));
+
+    // Set up the padBottom calculation
+    var padBottom = 0;
+    this.properties.push(new Property(this, "padBottom", padBottom, {
+        get: function() {
+            return padBottom;
+        },
+        set: function(value) {
+            padBottom = value;
+        },
+        compute: function() {
+            var padBottomVal = 0;
+            if (this.parent instanceof eqEd.StackedFractionNumeratorContainer) {
+                padBottomVal = 0.2;
+            }
+            return padBottomVal;
+        },
+        updateDom: function() {}
+    }));
 
     // Set up the width calculation
     var width = 0;
@@ -85,9 +122,6 @@ eqEd.SquareRootWrapper = function(symbolSizeConfig) {
                 bottomAlignVal += this.radicandContainer.padBottomMaxChildAlignTopIsRoot * fontHeight;
             } else {
                 bottomAlignVal += this.radicandContainer.padBottomMaxChildAlignTopIsNotRoot * fontHeight;
-            }
-            if (this.parent instanceof eqEd.StackedFractionNumeratorContainer) {
-                bottomAlignVal += this.padBottomWhenParentIsFraction * fontHeight;
             }
             return bottomAlignVal;
         },
