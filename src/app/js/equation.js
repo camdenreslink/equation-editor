@@ -69,13 +69,11 @@ eqEd.Equation = function(symbolSizeConfig) {
     // objects that correspond to properties being
     // computed.
     eqEd.Equation.prototype.update = function() {
-        Property.isComputing = true;
         for (var i = 0; i < this.properties.length; i++) {
             this.properties[i].compute();
         }
         for (var i = 0; i < this.children.length; i++) {
             this.children[i].update();
-            //console.log(this.className);
         }
     };
     // updateAll allows formatting the entire equation
@@ -91,19 +89,15 @@ eqEd.Equation = function(symbolSizeConfig) {
         // Do some set up in the static Property object
         // to allow for scanning of compute() methods
         // to determine dependencies dynamically.
-        Property.isComputing = true;
+        Property.beginComputing();
         
         // This line kicks off the recursive formatting cycle.
-        rootElement.update()
+        rootElement.update();
 
         // Do some clean up for the static Property object.
         // This will allow for a new recursive update cycle
         // to occur correctly in the future.
-        for (var i = 0; i < Property.alreadyComputed.length; i++) {
-            Property.alreadyComputed[i].isAlreadyComputed = false;
-        }
-        Property.alreadyComputed = [];
-        Property.isComputing = false;
+        Property.endComputing();
     };
     // If this is called during a compute() call, should
     // call compute on fontSize  properties that are

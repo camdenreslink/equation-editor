@@ -30,7 +30,6 @@ eqEd.LeftCurlyMiddleBracket = function(index, characterType, symbolSizeConfig) {
             } else if (this.index === Math.round(numSegs / 2)) {
                 topVal = (this.index * adjustTopFactor + 1.1 + 0.15) * fontHeight;
             } else {
-                //console.log(this.adjustTopFactor);
                 var centerBracket = Math.round(numSegs / 2) * adjustTopFactor + 1.1 + 0.15;
                 topVal = (centerBracket + 0.878 + (this.index - Math.round(numSegs / 2) - 1) * adjustTopFactor) * fontHeight;
             }

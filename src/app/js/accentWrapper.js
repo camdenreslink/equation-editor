@@ -28,7 +28,6 @@ eqEd.AccentWrapper = function(character, fontStyle, symbolSizeConfig) {
         compute: function() {
             var accentGapVal = 0.25;
             if (this.accentContainerCharacter !== "") {
-                console.log(this.accentContainerCharacter);
                 if (this.symbolSizeConfig.shortCharacters.contains(this.accentContainerCharacter)) {
                     accentGapVal = -0.02;
                 } else if (this.symbolSizeConfig.mediumCharacters.contains(this.accentContainerCharacter)) {
@@ -82,7 +81,6 @@ eqEd.AccentWrapper = function(character, fontStyle, symbolSizeConfig) {
                     accentContainerCharacterVal = "multipleWrappers";
                 }
             }
-            console.log(accentContainerCharacterVal);
             return accentContainerCharacterVal;
         },
         updateDom: function() {}

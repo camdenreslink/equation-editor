@@ -73,7 +73,6 @@ eqEd.LeftNormBracket = function(symbolSizeConfig) {
         this.bottomBracket = null;
         this.children = [];
         var numberOfMiddleBrackets = Math.ceil((this.heightRatio - 1.07)/0.5) + 1;
-        console.log(numberOfMiddleBrackets);
         for (var i = 0; i < numberOfMiddleBrackets; i++) {
             var middleBracket = new eqEd.LeftNormMiddleBracket(i, this.symbolSizeConfig);
             middleBracket.parent = this;

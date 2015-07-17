@@ -100,7 +100,6 @@ eqEd.MatrixWrapper = function(numRows, numCols, horAlign, symbolSizeConfig) {
             for (var i = 0; i < this.numCols; i++) {
                 var colWidthsList = [];
                 for (var j = 0; j < this.numRows; j++) {
-                    //console.log(i + ", " + j);
                     colWidthsList.push(this.matrixContainers[j][i].width);
                 }
                 colWidthsVal.push(colWidthsList.max());
@@ -194,7 +193,6 @@ eqEd.MatrixWrapper = function(numRows, numCols, horAlign, symbolSizeConfig) {
     };
     eqEd.MatrixWrapper.prototype.clone = function() {
         var copy = new this.constructor(this.numRows, this.numCols, this.horAlign, this.symbolSizeConfig);
-        console.log(this.symbolSizeConfig);
         copy.domObj = copy.buildDomObj();
 
         copy.childContainers = [];

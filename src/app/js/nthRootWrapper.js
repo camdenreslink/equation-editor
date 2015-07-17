@@ -71,7 +71,6 @@ eqEd.NthRootWrapper = function(symbolSizeConfig) {
             if (this.nthRootDegreeContainer.isTopFlushToWrapper) {
                 topAlignVal += this.nthRootDegreeContainer.height + this.radical.height + this.nthRootDegreeContainer.offsetRadicalBottom * fontHeight - this.nthRootDiagonal.height;
             }
-            console.log(this.nthRootDegreeContainer.isTopFlushToWrapper);
             return topAlignVal;
         },
         updateDom: function() {}

@@ -113,6 +113,8 @@ var inializePropertyHooks = function(symbolSizeConfig) {
       value = 0;
     }
     var fontHeight = this.getFontHeight();
+
+    // TODO: Figure out why this special case is in here. It has a funny code smell.
     if (this instanceof eqEd.Container) {
       if (this.wrappers[0] instanceof eqEd.TopLevelEmptyContainerWrapper) {
         return value;
@@ -165,7 +167,8 @@ var inializePropertyHooks = function(symbolSizeConfig) {
   };
   Property.postComputeHooks['all'] = function(value, propName) {
     var isNumeric = (value !== null) && !isNaN(value) && !(value === true || value === false) && Object.prototype.toString.call(value) !== '[object Array]';
-    if (isNumeric && propName !== "padLeft" && propName !== "padRight" 
+    if (isNumeric && propName !== "padLeft" && propName !== "padRight"
+      && propName !== "padTop" && propName !== "padBottom" 
       && propName !=="adjustTop" && propName !== "adjustLeft" 
       && propName !== "heightRatio" && propName !== "accentGap") {
       value = Math.ceil(value);

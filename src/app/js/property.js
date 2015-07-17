@@ -56,3 +56,13 @@ Property.alreadyComputed = [];
 Property.isComputing = false;
 Property.uniqueId = 0;
 Property.postComputeHooks = {};
+Property.beginComputing = function() {
+  Property.isComputing = true;
+};
+Property.endComputing = function() {
+  for (var i = 0; i < Property.alreadyComputed.length; i++) {
+      Property.alreadyComputed[i].isAlreadyComputed = false;
+  }
+  Property.alreadyComputed = [];
+  Property.isComputing = false;
+};
