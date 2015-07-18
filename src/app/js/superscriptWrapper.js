@@ -119,7 +119,7 @@ eqEd.SuperscriptWrapper = function(symbolSizeConfig) {
 	                topAlign = baseWrapper.topAlign + this.superscriptContainer.height - superscriptContainerBottomAlign - this.superscriptContainer.offsetTop * fontHeight;
 	            }
 	        }
-            return topAlign;
+            return topAlign - baseWrapper.padTop * fontHeight;
         },
         updateDom: function() {}
     }));
