@@ -77,17 +77,13 @@ eqEd.SuperscriptWrapper = function(symbolSizeConfig) {
         		} else {
         			if (baseWrapper instanceof eqEd.SquareRootWrapper) {
 	                    baseWrapperOverlap = (superscriptContainerBottomAlign / baseWrapper.height);
-	                    if (baseWrapperOverlap <= this.maxBaseWrapperOverlap) {
-	                        baseWrapperOverlap = baseWrapperOverlap;
-	                    } else {
+	                    if (baseWrapperOverlap > this.maxBaseWrapperOverlap) {
 	                        baseWrapperOverlap = this.maxBaseWrapperOverlap;
 	                    }
 	                }
 	                if (baseWrapper instanceof eqEd.NthRootWrapper) {
 	                    var baseWrapperOverlap = (superscriptContainerBottomAlign / baseWrapper.nthRootDiagonal.height);
-	                    if (baseWrapperOverlap <= this.maxBaseWrapperOverlap) {
-	                        baseWrapperOverlap = baseWrapperOverlap;
-	                    } else {
+	                    if (baseWrapperOverlap > this.maxBaseWrapperOverlap) {
 	                        baseWrapperOverlap = this.maxBaseWrapperOverlap;
 	                    }
 	                }
