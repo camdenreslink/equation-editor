@@ -119,6 +119,8 @@ var inializePropertyHooks = function(symbolSizeConfig) {
       if (this.wrappers[0] instanceof eqEd.TopLevelEmptyContainerWrapper) {
         return value;
       }
+    } else if (this instanceof eqEd.Wrapper) {
+      return value;
     }
     return value + (this.padTop + this.padBottom) * fontHeight;
   };
