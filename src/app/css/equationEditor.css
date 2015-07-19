@@ -1,9 +1,9 @@
 .equation {
     position: relative;
     line-height: 1;
-    -webkit-box-sizing: content-box;
-    -moz-box-sizing: content-box;
-    box-sizing: content-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
 
 }
 
@@ -22,9 +22,9 @@
     position: absolute;
     top: 0em;
     left: 0em;
-    -webkit-box-sizing: content-box;
-    -moz-box-sizing: content-box;
-    box-sizing: content-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
     /* Try to prevent highlighting */
     -webkit-touch-callout: none;
     -webkit-user-select: none;

@@ -98,6 +98,22 @@ eqEd.Container = function(symbolSizeConfig) {
         this.domObj.updateHeight(this.height);
     }
   }));
+
+  var clipping = "";
+  this.properties.push(new Property(this, "clipping", clipping, {
+    get: function() {
+      return clipping;
+    },
+    set: function(value) {
+      clipping = value;
+    },
+    compute: function() {
+      return '0px ' + (this.width + 5) + 'px ' + height + 'px ' + (-5) + 'px';
+    },
+    updateDom: function() {
+        this.domObj.updateClipping(this.clipping);
+    }
+  }));
 };
 (function() {
     // subclass extends superclass

@@ -21,7 +21,7 @@ eqEd.SquareEmptyContainerWrapper = function(symbolSizeConfig) {
             width = value;
         },
         compute: function() {
-            return this.squareEmptyContainer.width + 2 * this.squareEmptyContainer.borderWidth;
+            return this.squareEmptyContainer.width;
         },
         updateDom: function() {
             this.domObj.updateWidth(this.width);

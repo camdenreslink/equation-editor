@@ -37,7 +37,7 @@ eqEd.SquareEmptyContainer = function(symbolSizeConfig) {
         },
         compute: function() {
             var fontHeight = this.symbolSizeConfig.height[this.fontSize];
-            return 0.5 * fontHeight - 0.5 * this.squareEmptyContainerFillerWrapper.height - this.borderWidth;
+            return 0.5 * fontHeight - 0.5 * this.squareEmptyContainerFillerWrapper.height;
         },
         updateDom: function() {
             this.domObj.updateTop(this.top);

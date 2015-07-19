@@ -11,3 +11,7 @@ eqEd.ContainerDom.prototype.addWrapper = function(index, wrapper) {
 eqEd.ContainerDom.prototype.removeWrapper = function(index) {
     this.value.children().eq(index).remove();
 }
+
+eqEd.ContainerDom.prototype.updateClipping = function(clipping) {
+	this.value.css('clip', 'rect(' + clipping + ')');
+}

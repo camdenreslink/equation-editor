@@ -5,7 +5,7 @@ eqEd.SquareEmptyContainerFillerWrapper = function(symbolSizeConfig) {
     this.domObj = this.buildDomObj();
 
 
-    this.sideLength = 0.6;
+    this.sideLength = 0.85;
 
     // Set up the width calculation
     var width = 0;
