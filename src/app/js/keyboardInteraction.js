@@ -251,7 +251,7 @@ var setupKeyboardEvents = function(symbolSizeConfig, clipboard) {
                 addCursorAtIndex(container, highlightStartIndex);
             }
         }
-        if (container.wrappers.length === 0) {
+        if (container !== null && container.wrappers.length === 0) {
             if (container.parent === null) {
                 container.addWrappers([0, new eqEd.TopLevelEmptyContainerWrapper(container.symbolSizeConfig)]);
                 container.updateAll();
@@ -303,7 +303,7 @@ var setupKeyboardEvents = function(symbolSizeConfig, clipboard) {
                 addCursorAtIndex(container, highlightStartIndex);
             }
         }
-        if (container.wrappers.length === 0) {
+        if (container !== null && container.wrappers.length === 0) {
             if (container.parent === null) {
                 container.addWrappers([0, new eqEd.TopLevelEmptyContainerWrapper(container.symbolSizeConfig)]);
                 container.updateAll();
