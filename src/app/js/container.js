@@ -108,7 +108,8 @@ eqEd.Container = function(symbolSizeConfig) {
       clipping = value;
     },
     compute: function() {
-      return '0px ' + (this.width + 5) + 'px ' + height + 'px ' + (-5) + 'px';
+      // adding 2 px b/c j-hat bottom gets cut off.
+      return '0px ' + (this.width + 5) + 'px ' + (height + 2) + 'px ' + (-5) + 'px';
     },
     updateDom: function() {
         this.domObj.updateClipping(this.clipping);
