@@ -42,68 +42,64 @@ eqEd.SuperscriptAndSubscriptWrapper = function(symbolSizeConfig) {
         },
         compute: function() {
         	var fontHeight = this.symbolSizeConfig.height[this.parent.fontSize];
-        	var baseWrapper = null;
-        	var base = null;
-        	var baseWrapperOverlap = 0.75;
-        	var superscriptContainerBottomAlign = 0;
-        	if (this.superscriptContainer.wrappers.length !== 0) {
-        		superscriptContainerBottomAlign = this.superscriptContainer.wrappers[this.superscriptContainer.maxBottomAlignIndex].bottomAlign;
-        	}
-        	if (this.index !== 0) {
-        		baseWrapper = this.parent.wrappers[this.index - 1];
-        		if (baseWrapper instanceof eqEd.SuperscriptWrapper || baseWrapper instanceof eqEd.SuperscriptAndSubscriptWrapper) {
-        			base = baseWrapper.superscriptContainer;
-        			fontHeight = this.symbolSizeConfig.height[base.fontSize];
-        		} else {
-        			if (baseWrapper instanceof eqEd.SquareRootWrapper) {
-	                    baseWrapperOverlap = (superscriptContainerBottomAlign / baseWrapper.height);
-	                    if (baseWrapperOverlap <= this.maxBaseWrapperOverlap) {
-	                        baseWrapperOverlap = baseWrapperOverlap;
-	                    } else {
-	                        baseWrapperOverlap = this.maxBaseWrapperOverlap;
-	                    }
-	                }
-	                if (baseWrapper instanceof eqEd.NthRootWrapper) {
-	                    var baseWrapperOverlap = (superscriptContainerBottomAlign / baseWrapper.nthRootDiagonal.height);
-	                    if (baseWrapperOverlap <= this.maxBaseWrapperOverlap) {
-	                        baseWrapperOverlap = baseWrapperOverlap;
-	                    } else {
-	                        baseWrapperOverlap = this.maxBaseWrapperOverlap;
-	                    }
-	                }
-	                base = baseWrapper;
-        		}
-        	} else {
-        		// The superscript wrapper is the first entry in the container.
-        		// We want to format it, as if there is a symbol immediately
-        		// preceeding it.
-        		baseWrapper = new eqEd.SymbolWrapper('a', 'MathJax_MathItalic', this.symbolSizeConfig);
-        		baseWrapper.parent = this.parent;
-        		baseWrapper.index = 0;
-        		// Can't just call baseWrapper.update(), because it creates a circular reference
+            var baseWrapper = null;
+            var base = null;
+            var baseWrapperOverlap = 0.75;
+            var superscriptContainerBottomAlign = 0;
+            if (this.superscriptContainer.wrappers.length !== 0) {
+                superscriptContainerBottomAlign = this.superscriptContainer.wrappers[this.superscriptContainer.maxBottomAlignIndex].bottomAlign;
+            }
+            if (this.index !== 0) {
+                baseWrapper = this.parent.wrappers[this.index - 1];
+                if (baseWrapper instanceof eqEd.SuperscriptWrapper || baseWrapper instanceof eqEd.SuperscriptAndSubscriptWrapper) {
+                    base = baseWrapper.superscriptContainer;
+                    fontHeight = this.symbolSizeConfig.height[base.fontSize];
+                } else {
+                    if (baseWrapper instanceof eqEd.SquareRootWrapper) {
+                        baseWrapperOverlap = (superscriptContainerBottomAlign / baseWrapper.height);
+                        if (baseWrapperOverlap > this.maxBaseWrapperOverlap) {
+                            baseWrapperOverlap = this.maxBaseWrapperOverlap;
+                        }
+                    }
+                    if (baseWrapper instanceof eqEd.NthRootWrapper) {
+                        var baseWrapperOverlap = (superscriptContainerBottomAlign / baseWrapper.nthRootDiagonal.height);
+                        if (baseWrapperOverlap > this.maxBaseWrapperOverlap) {
+                            baseWrapperOverlap = this.maxBaseWrapperOverlap;
+                        }
+                    }
+                    base = baseWrapper;
+                }
+            } else {
+                // The superscript wrapper is the first entry in the container.
+                // We want to format it, as if there is a symbol immediately
+                // preceeding it.
+                baseWrapper = new eqEd.SymbolWrapper('a', 'MathJax_MathItalic', this.symbolSizeConfig);
+                baseWrapper.parent = this.parent;
+                baseWrapper.index = 0;
+                // Can't just call baseWrapper.update(), because it creates a circular reference
                 for (var i = 0; i < baseWrapper.properties.length; i++) {
                     var prop = baseWrapper.properties[i];
                     if (prop.propName !== "top" && prop.propName !== "left") {
                         prop.compute();
                     }
                 }
-        		base = baseWrapper;
-        	}
-        	var topAlign = 0;
-        	if (baseWrapper instanceof eqEd.NthRootWrapper) {
-	            if (this.superscriptContainer.offsetTop * fontHeight + superscriptContainerBottomAlign > baseWrapper.nthRootDiagonal.height * baseWrapperOverlap) {
-	                topAlign = this.superscriptContainer.height - (baseWrapper.nthRootDiagonal.height * baseWrapperOverlap - (base.topAlign - (base.height - baseWrapper.nthRootDiagonal.height)));
-	            } else {
-	                topAlign = (baseWrapper.topAlign - (base.height - baseWrapper.nthRootDiagonal.height)) + this.superscriptContainer.height - superscriptContainerBottomAlign - this.superscriptContainer.offsetTop * fontHeight;
-	            }
-	        } else {
-	            if (this.superscriptContainer.offsetTop * fontHeight + superscriptContainerBottomAlign > base.height * baseWrapperOverlap) {
-	                topAlign = this.superscriptContainer.height - (base.height * baseWrapperOverlap - baseWrapper.topAlign);
-	            } else {
-	                topAlign = baseWrapper.topAlign + this.superscriptContainer.height - superscriptContainerBottomAlign - this.superscriptContainer.offsetTop * fontHeight;
-	            }
-	        }
-            return topAlign;
+                base = baseWrapper;
+            }
+            var topAlign = 0;
+            if (baseWrapper instanceof eqEd.NthRootWrapper) {
+                if (this.superscriptContainer.offsetTop * fontHeight + superscriptContainerBottomAlign > baseWrapper.nthRootDiagonal.height * baseWrapperOverlap) {
+                    topAlign = this.superscriptContainer.height - (baseWrapper.nthRootDiagonal.height * baseWrapperOverlap - (base.topAlign - (base.height - baseWrapper.nthRootDiagonal.height)));
+                } else {
+                    topAlign = (baseWrapper.topAlign - (base.height - baseWrapper.nthRootDiagonal.height)) + this.superscriptContainer.height - superscriptContainerBottomAlign - this.superscriptContainer.offsetTop * fontHeight;
+                }
+            } else {
+                if (this.superscriptContainer.offsetTop * fontHeight + superscriptContainerBottomAlign > base.height * baseWrapperOverlap) {
+                    topAlign = this.superscriptContainer.height - (base.height * baseWrapperOverlap - baseWrapper.topAlign);
+                } else {
+                    topAlign = baseWrapper.topAlign + this.superscriptContainer.height - superscriptContainerBottomAlign - this.superscriptContainer.offsetTop * fontHeight;
+                }
+            }
+            return topAlign - baseWrapper.padTop * fontHeight;
         },
         updateDom: function() {}
     }));
