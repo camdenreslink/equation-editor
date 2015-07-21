@@ -138,7 +138,7 @@ eqEd.OperatorWrapper = function(operatorSymbol, fontStyle, symbolSizeConfig) {
             topAlign = value;
         },
         compute: function() {
-            return 0.5 * this.operator.height;
+            return 0.62 * this.operator.height;
         },
         updateDom: function() {}
     }));
@@ -153,7 +153,7 @@ eqEd.OperatorWrapper = function(operatorSymbol, fontStyle, symbolSizeConfig) {
             bottomAlign = value;
         },
         compute: function() {
-            return 0.5 * this.operator.height;
+            return 0.38 * this.operator.height;
         },
         updateDom: function() {}
     }));

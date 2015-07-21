@@ -71,6 +71,17 @@ jQuery.fn.insertAt = function(index, element) {
     return this;
 };
 
+$.getCSS = function(fromClass, prop) {
+
+    var $inspector = $("<div>").css('display', 'none').addClass(fromClass);
+    $("body").append($inspector); // add to DOM, in order to read the CSS property
+    try {
+        return $inspector.css(prop);
+    } finally {
+        $inspector.remove(); // and remove from DOM
+    }
+};
+
 Array.prototype.max = function() {
     return Math.max.apply( Math, this );
 };
@@ -172,7 +183,8 @@ var inializePropertyHooks = function(symbolSizeConfig) {
     if (isNumeric && propName !== "padLeft" && propName !== "padRight"
       && propName !== "padTop" && propName !== "padBottom" 
       && propName !=="adjustTop" && propName !== "adjustLeft" 
-      && propName !== "heightRatio" && propName !== "accentGap") {
+      && propName !== "heightRatio" && propName !== "accentGap"
+      && propName !== "borderWidth") {
       value = Math.ceil(value);
     }
     return value;

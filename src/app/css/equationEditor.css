@@ -43,30 +43,16 @@
     visibility: hidden;
 }
 
-.equation:before,
-.equation:after {
-    -webkit-box-sizing: content-box;
-    -moz-box-sizing: content-box;
-    box-sizing: content-box;
-}
-
-.equation :before,
-.equation :after {
-    -webkit-box-sizing: content-box;
-    -moz-box-sizing: content-box;
-    box-sizing: content-box;
-}
-
 .fontSizeNormal {
-    font-size: 45.5px;
+    font-size: 35.5px;/*18.5px;*/
 }
 
 .fontSizeSmaller {
-    font-size: 35.5px; /* fontSizeNormal * 0.707 */
+    font-size: 27.7px;/* fontSizeNormal * 0.7802 */
 }
 
 .fontSizeSmallest {
-    font-size: 30.5px; /* fontSizeNormal * 0.5 */
+    font-size: 23.8px;/* fontSizeNormal * 0.6703 */
 }
 
 .fontSizeMessage {
@@ -165,7 +151,7 @@ div.activeContainer {
 
 .squareEmptyContainer {
     cursor: pointer;
-    border: 4px solid #000000;
+    border: solid #000000;
 }
 
 .eqEdWrapper {

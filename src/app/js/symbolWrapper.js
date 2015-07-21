@@ -119,7 +119,7 @@ eqEd.SymbolWrapper = function(character, fontStyle, symbolSizeConfig) {
             topAlign = value;
         },
         compute: function() {
-            return 0.5 * this.symbol.height;
+            return 0.60 * this.symbol.height;
         },
         updateDom: function() {}
     }));
@@ -134,7 +134,7 @@ eqEd.SymbolWrapper = function(character, fontStyle, symbolSizeConfig) {
             bottomAlign = value;
         },
         compute: function() {
-            return 0.5 * this.symbol.height;
+            return 0.40 * this.symbol.height;
         },
         updateDom: function() {}
     }));

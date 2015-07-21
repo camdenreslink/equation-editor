@@ -64,6 +64,24 @@ eqEd.SquareEmptyContainer = function(symbolSizeConfig) {
             this.domObj.updateFontSize(this.fontSize);
         }
     }));
+
+    // Set up the borderWidth calculation
+    var borderWidth = 0;
+    this.properties.push(new Property(this, "borderWidth", fontSize, {
+        get: function() {
+            return borderWidth;
+        },
+        set: function(value) {
+            borderWidth = value;
+        },
+        compute: function() {
+            return 0.088 * this.symbolSizeConfig.height["fontSizeNormal"];
+        },
+        updateDom: function() {
+            this.domObj.updateBorderWidth(borderWidth);
+        }
+    }));
+
 };
 (function() {
     // subclass extends superclass

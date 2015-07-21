@@ -46,9 +46,13 @@ eqEd.EquationDom.prototype.addClass = function(className) {
     this.value.addClass(className);
 }
 
-eqEd.EquationDom.prototype.updateFontSize = function(fontSize) {
+eqEd.EquationDom.prototype.updateFontSize = function(fontClass) {
     this.value.removeClass('fontSizeNormal');
     this.value.removeClass('fontSizeSmaller');
     this.value.removeClass('fontSizeSmallest');
-    this.value.addClass(fontSize);
+    this.value.addClass(fontClass);
+}
+
+eqEd.EquationDom.prototype.updateBorderWidth = function(borderWidth) {
+    this.value.css('border-width', borderWidth + 'px');
 }

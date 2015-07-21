@@ -115,10 +115,10 @@ eqEd.SymbolSizeConfiguration = function() {
     // needs to be mapped by hand.
     // NOTE: Might want to add automatic process in the future.
     this.height = {
-        "fontSizeMessage": 20,
-        "fontSizeSmallest": 30, 
-        "fontSizeSmaller": 35, 
-        "fontSizeNormal": 45
+        "fontSizeMessage": parseInt($.getCSS('fontSizeMessage', "font-size"), 10),
+        "fontSizeSmallest": parseInt($.getCSS('fontSizeSmallest', "font-size"), 10), 
+        "fontSizeSmaller": parseInt($.getCSS('fontSizeSmaller', "font-size"), 10),
+        "fontSizeNormal": parseInt($.getCSS('fontSizeNormal', "font-size"), 10)
     };
     // Eventual format will be this.width[character][fontStyle][fontSize]
     this.width = {};
@@ -136,7 +136,6 @@ eqEd.SymbolSizeConfiguration = function() {
         //  after initialization is complete. This saves constantly dipping into the dom to
         //  check the heights widths of characters/containers/wrappers etc. Makes the code
         //  cleaner, and should give a performance boost.
-        
         for (var i = 0; i < this.fontStyles.length; i++) {
             var fontStyle = this.fontStyles[i];
             for (var j = 0; j < this[fontStyle].length; j++) {

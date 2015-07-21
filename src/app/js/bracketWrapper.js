@@ -57,11 +57,13 @@ eqEd.BracketWrapper = function(bracketType, symbolSizeConfig) {
         },
         compute: function() {
             var topAlignVal = 0;
+            
             if (this.bracket.heightRatio <= 1.5) {
-                topAlignVal = 0.45 * this.bracket.height;
+                topAlignVal = 0.525 * this.bracket.height;
             } else {
                 topAlignVal = 0.5 * this.bracket.height;
             }
+            
             return topAlignVal;
         },
         updateDom: function() {}
@@ -78,11 +80,13 @@ eqEd.BracketWrapper = function(bracketType, symbolSizeConfig) {
         },
         compute: function() {
             var bottomAlignVal = 0;
+            
             if (this.bracket.heightRatio <= 1.5) {
-                bottomAlignVal = 0.55 * this.bracket.height;
+                bottomAlignVal = 0.475 * this.bracket.height;
             } else {
                 bottomAlignVal = 0.5 * this.bracket.height;
             }
+            
             return bottomAlignVal;
         },
         updateDom: function() {}
