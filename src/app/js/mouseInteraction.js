@@ -24,6 +24,13 @@ var clearOnMouseDown = function() {
     clearHighlighted();
     $('.activeContainer').removeClass('activeContainer');
     $('.hoverContainer').removeClass('hoverContainer');
+    $('#hiddenFocusInput').blur();
+};
+
+var moveHiddenInput = function() {
+    $('#hiddenFocusInput').css('left', $('.cursor').first().offset().left);
+    $('#hiddenFocusInput').css('top', $('.cursor').first().offset().top);
+    $('#hiddenFocusInput').focus().click();
 };
 
 var calculateIndex = function(offsetLeft) {
@@ -83,6 +90,7 @@ var addCursor = function(container, characterClickPos) {
     }
     container.domObj.value.append(cursor);
     addBlink();
+    moveHiddenInput();
 };
 
 // side effect: populates toggleLines array, and highlightStartIndex.
@@ -124,6 +132,7 @@ var addCursorAtIndex = function(container, index) {
     }
     container.domObj.value.append(cursor);
     addBlink();
+    moveHiddenInput();
 };
 
 var addHighlight = function(container) {
@@ -203,8 +212,8 @@ var onMouseDown = function(self, e) {
         $(self).addClass('activeContainer');
         var container = $(self).data("eqObject");
         addHighlight(container);
-        var clientX = (typeof e.originalEvent.clientX !== 'undefined') ? e.originalEvent.clientX : e.originalEvent.touches[0].clientX;
-        var characterClickPos = clientX - container.domObj.value.offset().left;
+        var xOffset = (typeof e.originalEvent.pageX !== 'undefined') ? e.originalEvent.pageX : e.originalEvent.touches[0].pageX;
+        var characterClickPos = xOffset - container.domObj.value.offset().left;
         addCursor(container, characterClickPos);
     }
 }
@@ -268,5 +277,5 @@ $(document).on('mouseenter', '.eqEdContainer', function (e) {
 
 $(document).on('mouseleave', '.eqEdContainer', function (e) {
     e.preventDefault();
-     e.stopPropagation();
+    e.stopPropagation();
 });
