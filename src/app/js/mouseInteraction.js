@@ -184,11 +184,11 @@ var updateHighlightFormatting = function(container, endIndex) {
     }
 }
 
-$(document).on('mousedown', function(e) {
+$(document).on('touchstart mousedown', function(e) {
     clearOnMouseDown();
 });
 
-$(document).on('mouseup', function(e) {
+$(document).on('touchend mouseup', function(e) {
     mouseDown = false;
     if ($('.cursor').length > 0) {
         addBlink();
@@ -202,18 +202,18 @@ var onMouseDown = function(self, e) {
         clearOnMouseDown();
         $(self).addClass('activeContainer');
         var container = $(self).data("eqObject");
-        // addCursor call populates toggleLines array, and highlightStartIndex.
         addHighlight(container);
-        var characterClickPos = e.pageX - container.domObj.value.offset().left;
+        var clientX = (typeof e.originalEvent.clientX !== 'undefined') ? e.originalEvent.clientX : e.originalEvent.touches[0].clientX;
+        var characterClickPos = clientX - container.domObj.value.offset().left;
         addCursor(container, characterClickPos);
     }
 }
 
-$(document).on('mousedown', '.tabs', function(e) {
+$(document).on('touchstart mousedown', '.tabs', function(e) {
     e.stopPropagation();
 });
 
-$(document).on('mousedown', '.eqEdContainer', function(e) {
+$(document).on('touchstart mousedown', '.eqEdContainer', function(e) {
     onMouseDown(this, e);
 });
 
@@ -263,45 +263,10 @@ $(document).on('mouseenter', '.eqEdContainer', function (e) {
         } else {
             $(this).trigger("mousemove");
         }
-    } else {
-        /*
-        var container = $(this).data("eqObject");
-        $('.hoverContainer').removeClass('hoverContainer');
-        if (!($(this).hasClass('activeContainer')) &&
-            !(container.wrappers[0] instanceof eqEd.EmptyContainerWrapper) &&
-            !($('.highlighted').length > 0)) {
-            $(this).addClass('hoverContainer');
-            /*
-            var topVal = parseInt($(this).css('top'), 10);
-            var leftVal = parseInt($(this).css('left'), 10);
-            $(this).css({
-                border: '2px solid #828282',
-                top: (topVal + 2) + 'px',
-                left: (leftVal + 2) + 'px'
-            });
-        }
-        */
     }
 });
 
 $(document).on('mouseleave', '.eqEdContainer', function (e) {
     e.preventDefault();
      e.stopPropagation();
-    if (!mouseDown) {
-        /*
-        var container = $(this).data("eqObject");
-        $('.hoverContainer').removeClass('hoverContainer');
-        var eqObject = container.parent;
-        if (eqObject !== null) {
-            while (!(eqObject instanceof eqEd.Container)) {
-                eqObject = eqObject.parent;
-            }
-            if (!(eqObject.domObj.value.hasClass('activeContainer')) &&
-                !(eqObject.wrappers[0] instanceof eqEd.EmptyContainerWrapper) &&
-                !($('.highlighted').length > 0)) {
-                eqObject.domObj.value.addClass('hoverContainer');
-            }
-        }
-        */
-    }
 });
