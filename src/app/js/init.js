@@ -110,6 +110,20 @@ Array.prototype.contains = function(value) {
   return this.indexOf(value) > -1;
 }
 
+var insertNodeAtCursor = function(node) {
+    var sel, range, html;
+    if (window.getSelection) {
+        sel = window.getSelection();
+        if (sel.getRangeAt && sel.rangeCount) {
+            sel.getRangeAt(0).insertNode(node);
+        }
+    } else if (document.selection && document.selection.createRange) {
+        range = document.selection.createRange();
+        html = (node.nodeType == 3) ? node.data : node.outerHTML;
+        range.pasteHTML(html);
+    }
+}
+
 var inializePropertyHooks = function(symbolSizeConfig) {
   // Set up some general rules for computing property values.
   Property.postComputeHooks['width'] = function(value) {

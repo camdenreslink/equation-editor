@@ -166,18 +166,17 @@
   <script src="../js/keyboardInteraction.js"></script>
   <script src="../js/menuInteraction.js"></script>
   <script src="../js/clipboard.js"></script>
-  <script src="../js/equationEditor.js"></script>
+  <script src="../js/inlineEditor.js"></script>
   <script src="../js/latexGenerator.js"></script>
   <link href="../../Fonts/TeX/font.css" rel="stylesheet" type="text/css" charset="utf-8" />
   <link href="../css/equationEditor.css" rel="stylesheet" type="text/css" charset="utf-8" />
 </head>
-<body>
-    <button id="toJSON">To JSON</button>
-    <button id="toLatex">To LaTeX</button>
-    <br />
+<body spellcheck="false">
+    <div class="loadingMessage fontSizeSmaller">Please wait a moment, while fonts/images load...</div>
+    <button id="insertEquation">Insert Equation</button>
+    <div id="inlineEditor" style="font-size: 35.5px; width: 60%; border: 1px black solid; margin: 0 10%; padding: 15px; height: 150px;" contenteditable="true"></div>
     <input id="hiddenFocusInput" style="width: 0; height: 0; opacity: 0; position: absolute; top: 0; left: 0;" type="text" autocapitalize="off" />
     <div class="testEquation equation"></div>
-    <div class="loadingMessage fontSizeSmaller">Please wait a moment, while fonts/images load...</div>
     <div class="tabs">
         <ul class="outer-tab-links tab-links">
             <li class="outerTab active"><a href="#common">Common</a></li>
@@ -488,43 +487,5 @@
             </div>
         </div>
     </div>
-    JSON:
-    <div id="ContentJSON" style="margin: 20px; border: solid 1px #000">&nbsp;</div>
-    LaTeX:
-    <div id="ContentLatex" style="margin: 20px; border: solid 1px #000">&nbsp;</div>
-    <script>
-      $('#toJSON').on('click', function() {
-        var jsonObj = $('.testEquation').next().data('eqObject').buildJsonObj();
-        $('#ContentJSON').html(JSON.stringify(jsonObj));
-      });
-      $('#toLatex').on('click', function() {
-        var jsonObj = $('.testEquation').next().data('eqObject').buildJsonObj();
-        $('#ContentLatex').html(generateLatex(jsonObj));
-      });
-    </script>
-    <textarea id="TextJSON"></textarea>
-    <br>
-    <button id="JSONtoEqEd">Render Equation</button>
-    <script>
-      $('#JSONtoEqEd').on('click', function(e) {
-        var jsonObj = $.parseJSON($('#TextJSON').val());
-        var container = new eqEd.Container(symbolSizeConfig);
-        container.padTop = 0.2;
-        container.padBottom = 0.2;
-        container.fontSize = "fontSizeNormal";
-        container.domObj = container.buildDomObj();
-        container.domObj.updateFontSize(container.fontSize);
-        container.domObj.value.addClass('equation');
-        $('#renderedEq').empty();
-        $('#renderedEq').append(container.domObj.value);
-        for (var i = 0; i < jsonObj.length; i++) {
-          var innerWrapperCtor = eqEd.Equation.JsonTypeToConstructor(jsonObj[i].type);
-          var innerWrapper = innerWrapperCtor.constructFromJsonObj(jsonObj[i], symbolSizeConfig);
-          container.addWrappers([i, innerWrapper]);
-        }
-        container.updateAll();
-      });
-    </script>
-    <div id="renderedEq"></div>
 </body>
 </html>

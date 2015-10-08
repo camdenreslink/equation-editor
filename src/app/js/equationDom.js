@@ -8,6 +8,14 @@ eqEd.EquationDom = function(binding, html) {
     this.height = 0;
     this.left = 0;
     this.top = 0;
+
+    this.value.attr("contenteditable", false);
+    this.value.attr("autocomplete", "off");
+    this.value.attr("autocorrect", "off");
+    this.value.attr("autocapitalize", "off");
+    this.value.attr("spellcheck", false);
+    this.value.focus();
+    this.value.blur();
 }
 eqEd.EquationDom.prototype.constructor = eqEd.EquationDom;
 eqEd.EquationDom.prototype.updateWidth = function(width) {

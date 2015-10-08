@@ -163,198 +163,191 @@ var setupKeyboardEvents = function(symbolSizeConfig, clipboard) {
     });
 
     $(document).on('keydown', function(e) {
-        if (e.which === 8) {
-            // backspace
-            var cursor = $('.cursor');
-            var highlighted = $('.highlighted');
-            var container = null;
-            if (cursor.length > 0) {
-                container = cursor.parent().data('eqObject');
-                if (!(container.parent instanceof eqEd.EmptyContainerWrapper)) {
-                    if (highlightStartIndex !== 0 && highlightStartIndex !== null) {
-                        if (container.wrappers[highlightStartIndex - 1].childContainers.length > 0) {
-                            container.wrappers[highlightStartIndex - 1].domObj.value.addClass('highlighted');
-                            var endIndex = highlightStartIndex
-                            highlightStartIndex = highlightStartIndex - 1;
-                            updateHighlightFormatting(container, endIndex);
-                            removeCursor();
-                        } else {
-                            highlightStartIndex = highlightStartIndex - 1;
-                            container.removeWrappers(highlightStartIndex);
-                            container.updateAll();
-                            addCursorAtIndex(container, highlightStartIndex);
-                        }
-                    }
-                }
-            } else if (highlighted.length > 0) {
-                container = highlighted.parent().data('eqObject');
-                if (!(container.parent instanceof eqEd.EmptyContainerWrapper)) {
-                    var deleteWrappers;
-                    if (highlightStartIndex < highlightEndIndex) {
-                        deleteWrappers = _.range(highlightStartIndex, highlightEndIndex);
-                    } else {
-                        deleteWrappers = _.range(highlightEndIndex, highlightStartIndex);
-                    }
-                    eqEd.Container.prototype.removeWrappers.apply(container, deleteWrappers);
-                    container.updateAll();
-                    highlightStartIndex = (highlightStartIndex < highlightEndIndex) ? highlightStartIndex : highlightEndIndex;
-                    updateHighlightFormatting(container, highlightStartIndex);
-                    addCursorAtIndex(container, highlightStartIndex);
-                }
-            }
-            if (container !== null && container.wrappers.length === 0) {
-                if (container.parent === null) {
-                    container.addWrappers([0, new eqEd.TopLevelEmptyContainerWrapper(container.symbolSizeConfig)]);
-                    container.updateAll();
-                    addCursorAtIndex(container, 0);
-                } else {
-                    container.addWrappers([0, new eqEd.SquareEmptyContainerWrapper(container.symbolSizeConfig)]);
-                    container.updateAll();
-                    addCursorAtIndex(container.wrappers[0].childContainers[0], 0);
-                }
-                
-            }
-            return false;
-        } else if (e.which === 46) {
-            // delete
-            var cursor = $('.cursor');
-            var highlighted = $('.highlighted');
-            var container = null;
-            if (cursor.length > 0) {
-                container = cursor.parent().data('eqObject');
-                if (!(container.parent instanceof eqEd.EmptyContainerWrapper)) {
-                    if (highlightStartIndex !== container.wrappers.length && highlightStartIndex !== null) {
-                        if (container.wrappers[highlightStartIndex].childContainers.length > 0) {
-                            container.wrappers[highlightStartIndex].domObj.value.addClass('highlighted');
-                            var endIndex = highlightStartIndex + 1;
-                            updateHighlightFormatting(container, endIndex);
-                            removeCursor();
-                        } else {
-                            container.removeWrappers(highlightStartIndex);
-                            container.updateAll();
-                            addCursorAtIndex(container, highlightStartIndex);
-                        }
-                        
-                    }
-                }
-            } else if (highlighted.length > 0) {
-                container = highlighted.parent().data('eqObject');
-                if (!(container.parent instanceof eqEd.EmptyContainerWrapper)) {
-                    var deleteWrappers;
-                    if (highlightStartIndex < highlightEndIndex) {
-                        deleteWrappers = _.range(highlightStartIndex, highlightEndIndex);
-                    } else {
-                        deleteWrappers = _.range(highlightEndIndex, highlightStartIndex);
-                    }
-                    eqEd.Container.prototype.removeWrappers.apply(container, deleteWrappers);
-                    container.updateAll();
-                    highlightStartIndex = (highlightStartIndex < highlightEndIndex) ? highlightStartIndex : highlightEndIndex;
-                    updateHighlightFormatting(container, highlightStartIndex);
-                    addCursorAtIndex(container, highlightStartIndex);
-                }
-            }
-            if (container !== null && container.wrappers.length === 0) {
-                if (container.parent === null) {
-                    container.addWrappers([0, new eqEd.TopLevelEmptyContainerWrapper(container.symbolSizeConfig)]);
-                    container.updateAll();
-                    addCursorAtIndex(container, 0);
-                } else {
-                    container.addWrappers([0, new eqEd.SquareEmptyContainerWrapper(container.symbolSizeConfig)]);
-                    container.updateAll();
-                    addCursorAtIndex(container.wrappers[0].childContainers[0], 0);
-                }
-                
-            }
-            return false;
-        } else if (e.which === 37) {
-            // left
-            var cursor = $('.cursor');
-            var highlighted = $('.highlighted');
-            var container = null;
-            if (cursor.length > 0) {
-                container = cursor.parent().data('eqObject');
-                if (!(container.parent instanceof eqEd.TopLevelEmptyContainerWrapper)) {
-                    if (highlightStartIndex !== 0 && !(container instanceof eqEd.SquareEmptyContainer)) {
-                        if (container.wrappers[highlightStartIndex - 1].childContainers.length > 0) {
-                            if (container.wrappers[highlightStartIndex - 1].childContainers[container.wrappers[highlightStartIndex - 1].childContainers.length - 1].wrappers[0] instanceof eqEd.EmptyContainerWrapper) {
-                                addCursorAtIndex(container.wrappers[highlightStartIndex - 1].childContainers[container.wrappers[highlightStartIndex - 1].childContainers.length - 1].wrappers[0].childContainers[0], 0);
+        var cursor = $('.cursor');
+        var highlighted = $('.highlighted');
+        var container = null;
+        if ((typeof cursor !== 'undefined' && cursor !== null && cursor.length > 0) || (typeof highlighted !== 'undefined' && highlighted !== null && highlighted.length > 0)) {
+            if (e.which === 8) {
+                // backspace
+                if (cursor.length > 0) {
+                    container = cursor.parent().data('eqObject');
+                    if (!(container.parent instanceof eqEd.EmptyContainerWrapper)) {
+                        if (highlightStartIndex !== 0 && highlightStartIndex !== null) {
+                            if (container.wrappers[highlightStartIndex - 1].childContainers.length > 0) {
+                                container.wrappers[highlightStartIndex - 1].domObj.value.addClass('highlighted');
+                                var endIndex = highlightStartIndex
+                                highlightStartIndex = highlightStartIndex - 1;
+                                updateHighlightFormatting(container, endIndex);
+                                removeCursor();
                             } else {
-                                // The following line is ridiculous...try to refactor to make easier to understand.
-                                addCursorAtIndex(container.wrappers[highlightStartIndex - 1].childContainers[container.wrappers[highlightStartIndex - 1].childContainers.length - 1], container.wrappers[highlightStartIndex - 1].childContainers[container.wrappers[highlightStartIndex - 1].childContainers.length - 1].wrappers.length);
-                            }
-                        } else {
-                            addCursorAtIndex(container, highlightStartIndex - 1);
-                        }   
-                    } else {
-                        if (container instanceof eqEd.SquareEmptyContainer) {
-                            container = container.parent.parent;
-                        }
-                        if (container.domObj.value.prev('.eqEdContainer').length > 0) {
-                            container = container.domObj.value.prev('.eqEdContainer').first().data('eqObject');
-                            if (container.wrappers[0] instanceof eqEd.SquareEmptyContainerWrapper) {
-                                container = container.wrappers[0].childContainers[0];
-                            }
-                            addCursorAtIndex(container, container.wrappers.length);
-                        } else {
-                            if (container.parent !== null) {
-                                addCursorAtIndex(container.parent.parent, container.parent.index);
+                                highlightStartIndex = highlightStartIndex - 1;
+                                container.removeWrappers(highlightStartIndex);
+                                container.updateAll();
+                                addCursorAtIndex(container, highlightStartIndex);
                             }
                         }
                     }
+                } else if (highlighted.length > 0) {
+                    container = highlighted.parent().data('eqObject');
+                    if (!(container.parent instanceof eqEd.EmptyContainerWrapper)) {
+                        var deleteWrappers;
+                        if (highlightStartIndex < highlightEndIndex) {
+                            deleteWrappers = _.range(highlightStartIndex, highlightEndIndex);
+                        } else {
+                            deleteWrappers = _.range(highlightEndIndex, highlightStartIndex);
+                        }
+                        eqEd.Container.prototype.removeWrappers.apply(container, deleteWrappers);
+                        container.updateAll();
+                        highlightStartIndex = (highlightStartIndex < highlightEndIndex) ? highlightStartIndex : highlightEndIndex;
+                        updateHighlightFormatting(container, highlightStartIndex);
+                        addCursorAtIndex(container, highlightStartIndex);
+                    }
                 }
-            } else if (highlighted.length > 0) {
-                container = highlighted.parent().data('eqObject');
-                var cursorIndex = (highlightStartIndex < highlightEndIndex) ? highlightStartIndex : highlightEndIndex;
-                addCursorAtIndex(container, cursorIndex);
-                updateHighlightFormatting(container, cursorIndex);
-                $('.highlighted').removeClass('highlighted');
-            }
-            return false;
-        } else if (e.which === 39) {
-            // right
-            var cursor = $('.cursor');
-            var highlighted = $('.highlighted');
-            var container = null;
-            if (cursor.length > 0) {
-                container = cursor.parent().data('eqObject');
-                if (!(container.parent instanceof eqEd.TopLevelEmptyContainerWrapper)) {
-                    if (highlightStartIndex !== container.wrappers.length && !(container instanceof eqEd.SquareEmptyContainer)) {
-                        if (container.wrappers[highlightStartIndex].childContainers.length > 0) {
-                            if (container.wrappers[highlightStartIndex].childContainers[0].wrappers[0] instanceof eqEd.EmptyContainerWrapper) {
-                                addCursorAtIndex(container.wrappers[highlightStartIndex].childContainers[0].wrappers[0].childContainers[0], 0);
+                if (container !== null && container.wrappers.length === 0) {
+                    if (container.parent === null) {
+                        container.addWrappers([0, new eqEd.TopLevelEmptyContainerWrapper(container.symbolSizeConfig)]);
+                        container.updateAll();
+                        addCursorAtIndex(container, 0);
+                    } else {
+                        container.addWrappers([0, new eqEd.SquareEmptyContainerWrapper(container.symbolSizeConfig)]);
+                        container.updateAll();
+                        addCursorAtIndex(container.wrappers[0].childContainers[0], 0);
+                    }
+                    
+                }
+                return false;
+            } else if (e.which === 46) {
+                // delete
+                if (cursor.length > 0) {
+                    container = cursor.parent().data('eqObject');
+                    if (!(container.parent instanceof eqEd.EmptyContainerWrapper)) {
+                        if (highlightStartIndex !== container.wrappers.length && highlightStartIndex !== null) {
+                            if (container.wrappers[highlightStartIndex].childContainers.length > 0) {
+                                container.wrappers[highlightStartIndex].domObj.value.addClass('highlighted');
+                                var endIndex = highlightStartIndex + 1;
+                                updateHighlightFormatting(container, endIndex);
+                                removeCursor();
                             } else {
-                                addCursorAtIndex(container.wrappers[highlightStartIndex].childContainers[0], 0);
+                                container.removeWrappers(highlightStartIndex);
+                                container.updateAll();
+                                addCursorAtIndex(container, highlightStartIndex);
                             }
-                        } else {
-                            addCursorAtIndex(container, highlightStartIndex + 1);
-                        }   
-                    } else {
-                        if (container instanceof eqEd.SquareEmptyContainer) {
-                            container = container.parent.parent;
+                            
                         }
-                        if (container.domObj.value.next('.eqEdContainer').length > 0) {
-                            container = container.domObj.value.next('.eqEdContainer').first().data('eqObject');
-                            if (container.wrappers[0] instanceof eqEd.SquareEmptyContainerWrapper) {
-                                container = container.wrappers[0].childContainers[0];
-                            }
-                            addCursorAtIndex(container, 0);
+                    }
+                } else if (highlighted.length > 0) {
+                    container = highlighted.parent().data('eqObject');
+                    if (!(container.parent instanceof eqEd.EmptyContainerWrapper)) {
+                        var deleteWrappers;
+                        if (highlightStartIndex < highlightEndIndex) {
+                            deleteWrappers = _.range(highlightStartIndex, highlightEndIndex);
                         } else {
-                            if (container.parent !== null) {
-                                addCursorAtIndex(container.parent.parent, container.parent.index + 1);
+                            deleteWrappers = _.range(highlightEndIndex, highlightStartIndex);
+                        }
+                        eqEd.Container.prototype.removeWrappers.apply(container, deleteWrappers);
+                        container.updateAll();
+                        highlightStartIndex = (highlightStartIndex < highlightEndIndex) ? highlightStartIndex : highlightEndIndex;
+                        updateHighlightFormatting(container, highlightStartIndex);
+                        addCursorAtIndex(container, highlightStartIndex);
+                    }
+                }
+                if (container !== null && container.wrappers.length === 0) {
+                    if (container.parent === null) {
+                        container.addWrappers([0, new eqEd.TopLevelEmptyContainerWrapper(container.symbolSizeConfig)]);
+                        container.updateAll();
+                        addCursorAtIndex(container, 0);
+                    } else {
+                        container.addWrappers([0, new eqEd.SquareEmptyContainerWrapper(container.symbolSizeConfig)]);
+                        container.updateAll();
+                        addCursorAtIndex(container.wrappers[0].childContainers[0], 0);
+                    }
+                    
+                }
+                return false;
+            } else if (e.which === 37) {
+                // left
+                if (cursor.length > 0) {
+                    container = cursor.parent().data('eqObject');
+                    if (!(container.parent instanceof eqEd.TopLevelEmptyContainerWrapper)) {
+                        if (highlightStartIndex !== 0 && !(container instanceof eqEd.SquareEmptyContainer)) {
+                            if (container.wrappers[highlightStartIndex - 1].childContainers.length > 0) {
+                                if (container.wrappers[highlightStartIndex - 1].childContainers[container.wrappers[highlightStartIndex - 1].childContainers.length - 1].wrappers[0] instanceof eqEd.EmptyContainerWrapper) {
+                                    addCursorAtIndex(container.wrappers[highlightStartIndex - 1].childContainers[container.wrappers[highlightStartIndex - 1].childContainers.length - 1].wrappers[0].childContainers[0], 0);
+                                } else {
+                                    // The following line is ridiculous...try to refactor to make easier to understand.
+                                    addCursorAtIndex(container.wrappers[highlightStartIndex - 1].childContainers[container.wrappers[highlightStartIndex - 1].childContainers.length - 1], container.wrappers[highlightStartIndex - 1].childContainers[container.wrappers[highlightStartIndex - 1].childContainers.length - 1].wrappers.length);
+                                }
+                            } else {
+                                addCursorAtIndex(container, highlightStartIndex - 1);
+                            }   
+                        } else {
+                            if (container instanceof eqEd.SquareEmptyContainer) {
+                                container = container.parent.parent;
+                            }
+                            if (container.domObj.value.prev('.eqEdContainer').length > 0) {
+                                container = container.domObj.value.prev('.eqEdContainer').first().data('eqObject');
+                                if (container.wrappers[0] instanceof eqEd.SquareEmptyContainerWrapper) {
+                                    container = container.wrappers[0].childContainers[0];
+                                }
+                                addCursorAtIndex(container, container.wrappers.length);
+                            } else {
+                                if (container.parent !== null) {
+                                    addCursorAtIndex(container.parent.parent, container.parent.index);
+                                }
                             }
                         }
                     }
+                } else if (highlighted.length > 0) {
+                    container = highlighted.parent().data('eqObject');
+                    var cursorIndex = (highlightStartIndex < highlightEndIndex) ? highlightStartIndex : highlightEndIndex;
+                    addCursorAtIndex(container, cursorIndex);
+                    updateHighlightFormatting(container, cursorIndex);
+                    $('.highlighted').removeClass('highlighted');
                 }
-            } else if (highlighted.length > 0) {
-                container = highlighted.parent().data('eqObject');
-                var cursorIndex = (highlightStartIndex > highlightEndIndex) ? highlightStartIndex : highlightEndIndex;
-                addCursorAtIndex(container, cursorIndex);
-                updateHighlightFormatting(container, cursorIndex);
-                $('.highlighted').removeClass('highlighted');
+                return false;
+            } else if (e.which === 39) {
+                // right
+                if (cursor.length > 0) {
+                    container = cursor.parent().data('eqObject');
+                    if (!(container.parent instanceof eqEd.TopLevelEmptyContainerWrapper)) {
+                        if (highlightStartIndex !== container.wrappers.length && !(container instanceof eqEd.SquareEmptyContainer)) {
+                            if (container.wrappers[highlightStartIndex].childContainers.length > 0) {
+                                if (container.wrappers[highlightStartIndex].childContainers[0].wrappers[0] instanceof eqEd.EmptyContainerWrapper) {
+                                    addCursorAtIndex(container.wrappers[highlightStartIndex].childContainers[0].wrappers[0].childContainers[0], 0);
+                                } else {
+                                    addCursorAtIndex(container.wrappers[highlightStartIndex].childContainers[0], 0);
+                                }
+                            } else {
+                                addCursorAtIndex(container, highlightStartIndex + 1);
+                            }   
+                        } else {
+                            if (container instanceof eqEd.SquareEmptyContainer) {
+                                container = container.parent.parent;
+                            }
+                            if (container.domObj.value.next('.eqEdContainer').length > 0) {
+                                container = container.domObj.value.next('.eqEdContainer').first().data('eqObject');
+                                if (container.wrappers[0] instanceof eqEd.SquareEmptyContainerWrapper) {
+                                    container = container.wrappers[0].childContainers[0];
+                                }
+                                addCursorAtIndex(container, 0);
+                            } else {
+                                if (container.parent !== null) {
+                                    addCursorAtIndex(container.parent.parent, container.parent.index + 1);
+                                }
+                            }
+                        }
+                    }
+                } else if (highlighted.length > 0) {
+                    container = highlighted.parent().data('eqObject');
+                    var cursorIndex = (highlightStartIndex > highlightEndIndex) ? highlightStartIndex : highlightEndIndex;
+                    addCursorAtIndex(container, cursorIndex);
+                    updateHighlightFormatting(container, cursorIndex);
+                    $('.highlighted').removeClass('highlighted');
+                }
+                return false;
+            } else {
+                return;
             }
-            return false;
-        } else {
-            return;
         }
     });
 /*
