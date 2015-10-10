@@ -1,5 +1,5 @@
-eqEd.SquareRootOverBar = function(symbolSizeConfig) {
-    eqEd.Equation.call(this, symbolSizeConfig); // call super constructor.
+eqEd.SquareRootOverBar = function(fontMetrics) {
+    eqEd.Equation.call(this, fontMetrics); // call super constructor.
     this.className = "eqEd.SquareRootOverBar";
 
     this.domObj = this.buildDomObj();
@@ -16,7 +16,7 @@ eqEd.SquareRootOverBar = function(symbolSizeConfig) {
             width = value;
         },
         compute: function() {
-            var fontHeight = this.symbolSizeConfig.height[this.parent.parent.fontSize];
+            var fontHeight = this.fontMetrics.height[this.parent.parent.fontSize];
             return this.parent.radicandContainer.width - this.adjustLeft * fontHeight;
         },
         updateDom: function() {
@@ -34,7 +34,7 @@ eqEd.SquareRootOverBar = function(symbolSizeConfig) {
             height = value;
         },
         compute: function() {
-            var fontHeight = this.symbolSizeConfig.height["fontSizeNormal"];
+            var fontHeight = this.fontMetrics.height["fontSizeNormal"];
             return this.heightRatio * fontHeight;
         },
         updateDom: function() {

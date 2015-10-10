@@ -1,5 +1,5 @@
-eqEd.StackedFractionHorizontalBar = function(symbolSizeConfig) {
-    eqEd.Equation.call(this, symbolSizeConfig); // call super constructor.
+eqEd.StackedFractionHorizontalBar = function(fontMetrics) {
+    eqEd.Equation.call(this, fontMetrics); // call super constructor.
     this.className = "eqEd.StackedFractionHorizontalBar";
 
     this.domObj = this.buildDomObj();
@@ -16,7 +16,7 @@ eqEd.StackedFractionHorizontalBar = function(symbolSizeConfig) {
             width = value;
         },
         compute: function() {
-            var fontHeight = this.symbolSizeConfig.height[this.parent.parent.fontSize];
+            var fontHeight = this.fontMetrics.height[this.parent.parent.fontSize];
             var maxNumDenomWidth = (this.parent.stackedFractionDenominatorContainer.width > this.parent.stackedFractionNumeratorContainer.width) ? this.parent.stackedFractionDenominatorContainer.width : this.parent.stackedFractionNumeratorContainer.width;
             return maxNumDenomWidth + this.exceedsMaxNumDenomWidth * fontHeight;
         },
@@ -35,7 +35,7 @@ eqEd.StackedFractionHorizontalBar = function(symbolSizeConfig) {
             height = value;
         },
         compute: function() {
-            var fontHeight = this.symbolSizeConfig.height["fontSizeNormal"];
+            var fontHeight = this.fontMetrics.height["fontSizeNormal"];
             return this.barHeightRatio * fontHeight;
         },
         updateDom: function() {

@@ -1,5 +1,5 @@
-eqEd.RightParenthesisWholeBracket = function(fontStyle, symbolSizeConfig) {
-    eqEd.WholeBracket.call(this, symbolSizeConfig); // call super constructor.
+eqEd.RightParenthesisWholeBracket = function(fontStyle, fontMetrics) {
+    eqEd.WholeBracket.call(this, fontMetrics); // call super constructor.
     this.className = "eqEd.RightParenthesisWholeBracket";
     
     this.character = ")";

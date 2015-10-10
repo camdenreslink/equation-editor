@@ -1,9 +1,9 @@
-eqEd.SquareRootRadicandContainer = function(symbolSizeConfig) {
-	eqEd.Container.call(this, symbolSizeConfig);
+eqEd.SquareRootRadicandContainer = function(fontMetrics) {
+	eqEd.Container.call(this, fontMetrics);
 	this.className = "eqEd.SquareRootRadicandContainer";
 
 	this.domObj = this.buildDomObj();
-    var squareEmptyContainerWrapper = new eqEd.SquareEmptyContainerWrapper(symbolSizeConfig);
+    var squareEmptyContainerWrapper = new eqEd.SquareEmptyContainerWrapper(fontMetrics);
     this.addWrappers([0, squareEmptyContainerWrapper]);
     this.padTopMaxChildAlignTopIsRoot = 0.45;
     this.padTopMaxChildAlignTopIsNotRoot = 0.15;
@@ -53,7 +53,7 @@ eqEd.SquareRootRadicandContainer = function(symbolSizeConfig) {
             top = value;
         },
         compute: function() {
-        	var fontHeight = this.symbolSizeConfig.height[this.parent.parent.fontSize];
+        	var fontHeight = this.fontMetrics.height[this.parent.parent.fontSize];
             var topVal = 0;
             if (this.isMaxTopAlignRootWrapper) {
                 topVal += this.padTopMaxChildAlignTopIsRoot * fontHeight;

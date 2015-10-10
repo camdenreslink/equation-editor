@@ -1,9 +1,9 @@
-eqEd.SubscriptContainer = function(symbolSizeConfig) {
-	eqEd.Container.call(this, symbolSizeConfig);
+eqEd.SubscriptContainer = function(fontMetrics) {
+	eqEd.Container.call(this, fontMetrics);
 	this.className = "eqEd.SubscriptContainer";
 
 	this.domObj = this.buildDomObj();
-    var squareEmptyContainerWrapper = new eqEd.SquareEmptyContainerWrapper(symbolSizeConfig);
+    var squareEmptyContainerWrapper = new eqEd.SquareEmptyContainerWrapper(fontMetrics);
     this.addWrappers([0, squareEmptyContainerWrapper]);
     this.offsetTop = 0.75;
 
@@ -39,12 +39,12 @@ eqEd.SubscriptContainer = function(symbolSizeConfig) {
             if (this.parent.index !== 0) {
                 baseWrapper = this.parent.parent.wrappers[this.parent.index - 1];
             } else {
-                baseWrapper = new eqEd.SymbolWrapper('a', 'MathJax_MathItalic', this.symbolSizeConfig);
+                baseWrapper = new eqEd.SymbolWrapper('a', 'MathJax_MathItalic', this.fontMetrics);
                 baseWrapper.parent = this.parent.parent;
                 baseWrapper.index = 0;
                 baseWrapper.update();
             }
-            var fontHeight = this.symbolSizeConfig.height[this.fontSize];
+            var fontHeight = this.fontMetrics.height[this.fontSize];
             return this.parent.topAlign + baseWrapper.bottomAlign - this.offsetTop * fontHeight;
         },
         updateDom: function() {

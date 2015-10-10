@@ -1,5 +1,5 @@
-eqEd.BigSqCupBigOperatorSymbol = function(symbolSizeConfig) {
-    eqEd.BigOperatorSymbol.call(this, symbolSizeConfig); // call super constructor.
+eqEd.BigSqCupBigOperatorSymbol = function(fontMetrics) {
+    eqEd.BigOperatorSymbol.call(this, fontMetrics); // call super constructor.
     this.className = "eqEd.BigSqCupBigOperatorSymbol";
 
     this.domObj = this.buildDomObj();
@@ -14,7 +14,7 @@ eqEd.BigSqCupBigOperatorSymbol = function(symbolSizeConfig) {
             width = value;
         },
         compute: function() {
-            var fontHeight = this.symbolSizeConfig.height[this.parent.parent.fontSize];
+            var fontHeight = this.fontMetrics.height[this.parent.parent.fontSize];
             return 0.71426980882 * this.height;
         },
         updateDom: function() {

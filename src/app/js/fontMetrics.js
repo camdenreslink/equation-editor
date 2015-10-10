@@ -1,4 +1,4 @@
-eqEd.SymbolSizeConfiguration = function() {
+eqEd.FontMetrics = function() {
     this.fontSizes = ["fontSizeSmallest", "fontSizeSmaller", "fontSizeNormal"];
     this.fontStyles = ["MathJax_MathItalic", "MathJax_Main", "MathJax_MainItalic", "MathJax_Size1", "MathJax_Size2","MathJax_Size3", "MathJax_Size4"];
     // Lists all characters which need to be rendered in a normal font.
@@ -111,9 +111,6 @@ eqEd.SymbolSizeConfiguration = function() {
         'ȷ': 0.15
         //'∂': 0.05
     };
-    // Eventual format will be this.height[fontStyle] = pixel size;
-    // needs to be mapped by hand.
-    // NOTE: Might want to add automatic process in the future.
     this.height = {
         "fontSizeMessage": parseInt($.getCSS('fontSizeMessage', "font-size"), 10),
         "fontSizeSmallest": parseInt($.getCSS('fontSizeSmallest', "font-size"), 10), 
@@ -123,19 +120,32 @@ eqEd.SymbolSizeConfiguration = function() {
     // Eventual format will be this.width[character][fontStyle][fontSize]
     this.width = {};
 
+    // Each test div gets its own unique identifier, so font metrics for multiple equations can be calculated simultaneously.
+    this.testDivId = randomIntFromInterval(1, 10000);
+
     //Initialize the object.
     this.computeSymbolSizes();
 };
 
 (function() {
-    eqEd.SymbolSizeConfiguration.prototype.computeSymbolSizes = function() {
+
+    eqEd.FontMetrics.prototype.addTestDiv = function() {
+      $('body').append('<div id="testDiv' + this.testDivId + '" class="testEquation equation"></div>');
+    }
+
+    eqEd.FontMetrics.prototype.removeTestDiv = function() {
+      $('#testDiv' + this.testDivId).remove();
+    }
+
+    eqEd.FontMetrics.prototype.computeSymbolSizes = function() {
         //  This method will compute the heights and widths for each available character
-        //  at each available font size, and font style and store them in the eqEd.SymbolSizeConfiguration
+        //  at each available font size, and font style and store them in the eqEd.FontMetrics
         //  object.  This method should get called on the initialization of the editor. The
         //  purpose of this, is to allow all formatting calculation to be done in pure javascript
         //  after initialization is complete. This saves constantly dipping into the dom to
         //  check the heights widths of characters/containers/wrappers etc. Makes the code
         //  cleaner, and should give a performance boost.
+        this.addTestDiv();
         for (var i = 0; i < this.fontStyles.length; i++) {
             var fontStyle = this.fontStyles[i];
             for (var j = 0; j < this[fontStyle].length; j++) {
@@ -143,7 +153,7 @@ eqEd.SymbolSizeConfiguration = function() {
                 this.character.push(character);
                 for (var k = 0; k < this.fontSizes.length; k++) {
                     var fontSize = this.fontSizes[k];
-                    $('.testEquation').append('<div class="' + fontSize + ' ' + fontStyle + ' fontTest" id="fontTest">' + character + '</div>');
+                    $('#testDiv' + this.testDivId).append('<div class="' + fontSize + ' ' + fontStyle + ' fontTest" id="fontTest">' + character + '</div>');
                     var fontTest = $('#fontTest');
                     if (typeof this.width[character] === "undefined") {
                         this.width[character] = {};
@@ -163,5 +173,6 @@ eqEd.SymbolSizeConfiguration = function() {
                 }
             }
         }
+        this.removeTestDiv();
     }
 })();

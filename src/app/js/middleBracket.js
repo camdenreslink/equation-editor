@@ -1,5 +1,5 @@
-eqEd.MiddleBracket = function(index, symbolSizeConfig) {
-    eqEd.Equation.call(this, symbolSizeConfig); // call super constructor.
+eqEd.MiddleBracket = function(index, fontMetrics) {
+    eqEd.Equation.call(this, fontMetrics); // call super constructor.
     this.className = "eqEd.MiddleBracket";
     
     this.index = index;
@@ -67,7 +67,7 @@ eqEd.MiddleBracket = function(index, symbolSizeConfig) {
             '<div class="middleBracket ' + this.fontStyle + '">' + this.character + '</div>');
     };
     eqEd.MiddleBracket.prototype.clone = function() {
-        var copy = new this.constructor(this.index, this.symbolSizeConfig);
+        var copy = new this.constructor(this.index, this.fontMetrics);
         return copy;
     };
 })();

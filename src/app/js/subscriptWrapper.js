@@ -1,8 +1,8 @@
-eqEd.SubscriptWrapper = function(symbolSizeConfig) {
-	eqEd.Wrapper.call(this, symbolSizeConfig); // call super constructor.
+eqEd.SubscriptWrapper = function(fontMetrics) {
+	eqEd.Wrapper.call(this, fontMetrics); // call super constructor.
     this.className = "eqEd.SubscriptWrapper";
 
-    this.subscriptContainer = new eqEd.SubscriptContainer(symbolSizeConfig);
+    this.subscriptContainer = new eqEd.SubscriptContainer(fontMetrics);
     this.subscriptContainer.parent = this;
     this.domObj = this.buildDomObj();
     this.domObj.append(this.subscriptContainer.domObj);
@@ -67,7 +67,7 @@ eqEd.SubscriptWrapper = function(symbolSizeConfig) {
         		// The subscript wrapper is the first entry in the container.
         		// We want to format it, as if there is a symbol immediately
         		// preceeding it.
-        		baseWrapper = new eqEd.SymbolWrapper('a', 'MathJax_MathItalic', this.symbolSizeConfig);
+        		baseWrapper = new eqEd.SymbolWrapper('a', 'MathJax_MathItalic', this.fontMetrics);
         		baseWrapper.parent = this.parent;
         		baseWrapper.index = 0;
         		// Can't just call baseWrapper.update(), because it creates a circular reference
@@ -106,7 +106,7 @@ eqEd.SubscriptWrapper = function(symbolSizeConfig) {
         		// The subscript wrapper is the first entry in the container.
         		// We want to format it, as if there is a symbol immediately
         		// preceeding it.
-        		baseWrapper = new eqEd.SymbolWrapper('a', 'MathJax_MathItalic', this.symbolSizeConfig);
+        		baseWrapper = new eqEd.SymbolWrapper('a', 'MathJax_MathItalic', this.fontMetrics);
         		baseWrapper.parent = this.parent;
         		baseWrapper.index = 0;
         		// Can't just call baseWrapper.update(), because it creates a circular reference
@@ -118,7 +118,7 @@ eqEd.SubscriptWrapper = function(symbolSizeConfig) {
                 }
                 base = baseWrapper;
         	}
-            var fontHeightNested = this.symbolSizeConfig.height[this.subscriptContainer.fontSize];
+            var fontHeightNested = this.fontMetrics.height[this.subscriptContainer.fontSize];
             return this.subscriptContainer.height + baseWrapper.bottomAlign - this.subscriptContainer.offsetTop * fontHeightNested;
         },
         updateDom: function() {}
@@ -134,7 +134,7 @@ eqEd.SubscriptWrapper = function(symbolSizeConfig) {
             '<div class="eqEdWrapper subscriptWrapper"></div>')
     };
     eqEd.SubscriptWrapper.prototype.clone = function() {
-        var copy = new this.constructor(this.symbolSizeConfig);
+        var copy = new this.constructor(this.fontMetrics);
         copy.subscriptContainer = this.subscriptContainer.clone();
         copy.subscriptContainer.parent = copy;
         copy.domObj = copy.buildDomObj();
@@ -152,11 +152,11 @@ eqEd.SubscriptWrapper = function(symbolSizeConfig) {
         };
         return jsonObj;
     };
-    eqEd.SubscriptWrapper.constructFromJsonObj = function(jsonObj, symbolSizeConfig) {
-        var subscriptWrapper = new eqEd.SubscriptWrapper(symbolSizeConfig);
+    eqEd.SubscriptWrapper.constructFromJsonObj = function(jsonObj, fontMetrics) {
+        var subscriptWrapper = new eqEd.SubscriptWrapper(fontMetrics);
         for (var i = 0; i < jsonObj.operands.subscript.length; i++) {
             var innerWrapperCtor = eqEd.Equation.JsonTypeToConstructor(jsonObj.operands.subscript[i].type);
-            var innerWrapper = innerWrapperCtor.constructFromJsonObj(jsonObj.operands.subscript[i], symbolSizeConfig);
+            var innerWrapper = innerWrapperCtor.constructFromJsonObj(jsonObj.operands.subscript[i], fontMetrics);
             subscriptWrapper.subscriptContainer.addWrappers([i, innerWrapper]);
         }
         return subscriptWrapper;

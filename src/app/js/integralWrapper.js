@@ -1,5 +1,5 @@
-eqEd.IntegralWrapper = function(isInline, hasUpperLimit, hasLowerLimit, integralType, symbolSizeConfig) {
-    eqEd.Wrapper.call(this, symbolSizeConfig); // call super constructor.
+eqEd.IntegralWrapper = function(isInline, hasUpperLimit, hasLowerLimit, integralType, fontMetrics) {
+    eqEd.Wrapper.call(this, fontMetrics); // call super constructor.
     this.className = "eqEd.IntegralWrapper";
 
     this.isInline = isInline;
@@ -39,19 +39,19 @@ eqEd.IntegralWrapper = function(isInline, hasUpperLimit, hasLowerLimit, integral
     this.childContainers = [];
 
     if (this.hasUpperLimit) {
-        this.upperLimitContainer = new eqEd.IntegralUpperLimitContainer(symbolSizeConfig);
+        this.upperLimitContainer = new eqEd.IntegralUpperLimitContainer(fontMetrics);
         this.upperLimitContainer.parent = this;
         this.domObj.append(this.upperLimitContainer.domObj);
         this.childContainers.push(this.upperLimitContainer);
     }
     if (this.hasLowerLimit) {
-        this.lowerLimitContainer = new eqEd.IntegralLowerLimitContainer(symbolSizeConfig);
+        this.lowerLimitContainer = new eqEd.IntegralLowerLimitContainer(fontMetrics);
         this.lowerLimitContainer.parent = this;
         this.domObj.append(this.lowerLimitContainer.domObj);
         this.childContainers.push(this.lowerLimitContainer)
     }
     
-    this.symbol = new this.integralSymbolCtors[this.integralType](symbolSizeConfig);
+    this.symbol = new this.integralSymbolCtors[this.integralType](fontMetrics);
     this.symbol.parent = this;
     this.domObj.append(this.symbol.domObj);
     
@@ -71,7 +71,7 @@ eqEd.IntegralWrapper = function(isInline, hasUpperLimit, hasLowerLimit, integral
             width = value;
         },
         compute: function() {
-            var fontHeight = this.symbolSizeConfig.height[this.parent.fontSize];
+            var fontHeight = this.fontMetrics.height[this.parent.fontSize];
             var widthVal = 0;
             if (this.isInline) {
                 var maxWidthList = [];
@@ -125,7 +125,7 @@ eqEd.IntegralWrapper = function(isInline, hasUpperLimit, hasLowerLimit, integral
                 }
             } else {
                 if (this.hasUpperLimit) {
-                    var fontHeight = this.symbolSizeConfig.height[this.parent.fontSize];
+                    var fontHeight = this.fontMetrics.height[this.parent.fontSize];
                     topAlignVal = 0.5 * this.symbol.height + this.upperLimitContainer.height + this.upperLimitGap * fontHeight;
                 } else {
                     topAlignVal = 0.5 * this.symbol.height;
@@ -159,7 +159,7 @@ eqEd.IntegralWrapper = function(isInline, hasUpperLimit, hasLowerLimit, integral
                 }
             } else {
                 if (this.hasLowerLimit) {
-                    var fontHeight = this.symbolSizeConfig.height[this.parent.fontSize];
+                    var fontHeight = this.fontMetrics.height[this.parent.fontSize];
                     bottomAlignVal = 0.5 * this.symbol.height + this.lowerLimitContainer.height + this.lowerLimitGap * fontHeight;
                 } else {
                     bottomAlignVal = 0.5 * this.symbol.height;
@@ -179,7 +179,7 @@ eqEd.IntegralWrapper = function(isInline, hasUpperLimit, hasLowerLimit, integral
             '<div class="eqEdWrapper integralWrapper"></div>')
     };
     eqEd.IntegralWrapper.prototype.clone = function() {
-        var copy = new this.constructor(this.isInline, this.hasUpperLimit, this.hasLowerLimit, this.integralType, this.symbolSizeConfig);
+        var copy = new this.constructor(this.isInline, this.hasUpperLimit, this.hasLowerLimit, this.integralType, this.fontMetrics);
 
         copy.childContainers = [];
         copy.domObj = copy.buildDomObj();
@@ -197,7 +197,7 @@ eqEd.IntegralWrapper = function(isInline, hasUpperLimit, hasLowerLimit, integral
             copy.childContainers.push(copy.lowerLimitContainer);
         }
 
-        copy.symbol = new copy.integralSymbolCtors[copy.integralType](copy.symbolSizeConfig);
+        copy.symbol = new copy.integralSymbolCtors[copy.integralType](copy.fontMetrics);
         copy.symbol.parent = copy;
         copy.domObj.append(copy.symbol.domObj);
         copy.childNoncontainers = [copy.symbol];
@@ -227,21 +227,21 @@ eqEd.IntegralWrapper = function(isInline, hasUpperLimit, hasLowerLimit, integral
         return jsonObj;
     };
 
-    eqEd.IntegralWrapper.constructFromJsonObj = function(jsonObj, symbolSizeConfig) {
+    eqEd.IntegralWrapper.constructFromJsonObj = function(jsonObj, fontMetrics) {
         var hasUpperLimit = (jsonObj.operands !== null && typeof jsonObj.operands.upperLimit !== "undefined");
         var hasLowerLimit = (jsonObj.operands !== null && typeof jsonObj.operands.lowerLimit !== "undefined");
-        var integralWrapper = new eqEd.IntegralWrapper(true, hasUpperLimit, hasLowerLimit, jsonObj.value, symbolSizeConfig);
+        var integralWrapper = new eqEd.IntegralWrapper(true, hasUpperLimit, hasLowerLimit, jsonObj.value, fontMetrics);
         if (hasUpperLimit) {
             for (var i = 0; i < jsonObj.operands.upperLimit.length; i++) {
                 var innerWrapperCtor = eqEd.Equation.JsonTypeToConstructor(jsonObj.operands.upperLimit[i].type);
-                var innerWrapper = innerWrapperCtor.constructFromJsonObj(jsonObj.operands.upperLimit[i], symbolSizeConfig);
+                var innerWrapper = innerWrapperCtor.constructFromJsonObj(jsonObj.operands.upperLimit[i], fontMetrics);
                 integralWrapper.upperLimitContainer.addWrappers([i, innerWrapper]);
             }
         }
         if (hasLowerLimit) {
             for (var i = 0; i < jsonObj.operands.lowerLimit.length; i++) {
                 var innerWrapperCtor = eqEd.Equation.JsonTypeToConstructor(jsonObj.operands.lowerLimit[i].type);
-                var innerWrapper = innerWrapperCtor.constructFromJsonObj(jsonObj.operands.lowerLimit[i], symbolSizeConfig);
+                var innerWrapper = innerWrapperCtor.constructFromJsonObj(jsonObj.operands.lowerLimit[i], fontMetrics);
                 integralWrapper.lowerLimitContainer.addWrappers([i, innerWrapper]);
             }
         }

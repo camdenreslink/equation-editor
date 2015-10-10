@@ -1,5 +1,5 @@
-eqEd.BigVeeBigOperatorSymbol = function(symbolSizeConfig) {
-    eqEd.BigOperatorSymbol.call(this, symbolSizeConfig); // call super constructor.
+eqEd.BigVeeBigOperatorSymbol = function(fontMetrics) {
+    eqEd.BigOperatorSymbol.call(this, fontMetrics); // call super constructor.
     this.className = "eqEd.BigVeeBigOperatorSymbol";
 
     this.domObj = this.buildDomObj();
@@ -14,7 +14,7 @@ eqEd.BigVeeBigOperatorSymbol = function(symbolSizeConfig) {
             width = value;
         },
         compute: function() {
-            var fontHeight = this.symbolSizeConfig.height[this.parent.parent.fontSize];
+            var fontHeight = this.fontMetrics.height[this.parent.parent.fontSize];
             return 0.71433033986 * this.height;
         },
         updateDom: function() {

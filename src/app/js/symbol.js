@@ -1,5 +1,5 @@
-eqEd.Symbol = function(character, fontStyle, symbolSizeConfig) {
-    eqEd.Equation.call(this, symbolSizeConfig); // call super constructor.
+eqEd.Symbol = function(character, fontStyle, fontMetrics) {
+    eqEd.Equation.call(this, fontMetrics); // call super constructor.
     this.className = "eqEd.Symbol";
     
     this.character = character;
@@ -30,7 +30,7 @@ eqEd.Symbol = function(character, fontStyle, symbolSizeConfig) {
             width = value;
         },
         compute: function() {
-            return this.symbolSizeConfig.width[this.character][this.fontStyle][this.parent.parent.fontSize];
+            return this.fontMetrics.width[this.character][this.fontStyle][this.parent.parent.fontSize];
         },
         updateDom: function() {
             // This doesn't really belong here, but it is a convenient callback

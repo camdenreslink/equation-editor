@@ -1,5 +1,5 @@
-eqEd.LimitWrapper = function(symbolSizeConfig) {
-    eqEd.FunctionWrapper.call(this, 'lim', 'MathJax_Main', symbolSizeConfig); // call super constructor.
+eqEd.LimitWrapper = function(fontMetrics) {
+    eqEd.FunctionWrapper.call(this, 'lim', 'MathJax_Main', fontMetrics); // call super constructor.
     this.className = "eqEd.LimitWrapper";
 
     // topAlign, bottomAlign, width has already been added to 
@@ -16,10 +16,10 @@ eqEd.LimitWrapper = function(symbolSizeConfig) {
     this.rightLimitContainerGap = 0;
     this.belowLimitGap = -0.18;
 
-    this.limitWord = new eqEd.LimitWord(symbolSizeConfig);
-    this.limitLeftContainer = new eqEd.LimitLeftContainer(symbolSizeConfig);
-    this.limitRightContainer = new eqEd.LimitRightContainer(symbolSizeConfig);
-    this.symbol = new eqEd.LimitSymbol(symbolSizeConfig);
+    this.limitWord = new eqEd.LimitWord(fontMetrics);
+    this.limitLeftContainer = new eqEd.LimitLeftContainer(fontMetrics);
+    this.limitRightContainer = new eqEd.LimitRightContainer(fontMetrics);
+    this.symbol = new eqEd.LimitSymbol(fontMetrics);
     this.limitWord.parent = this;
     this.limitLeftContainer.parent = this;
     this.limitRightContainer.parent = this;
@@ -43,7 +43,7 @@ eqEd.LimitWrapper = function(symbolSizeConfig) {
             bottomHalfWidth = value;
         },
         compute: function() {
-            var fontHeight = this.symbolSizeConfig.height[this.parent.fontSize];
+            var fontHeight = this.fontMetrics.height[this.parent.fontSize];
             var bottomHalfWidthVal = this.limitLeftContainer.width + this.leftLimitContainerGap * fontHeight + this.symbol.width + this.rightLimitContainerGap * fontHeight + this.limitRightContainer.width;
             return bottomHalfWidthVal;
         },
@@ -60,7 +60,7 @@ eqEd.LimitWrapper = function(symbolSizeConfig) {
             width = value;
         },
         compute: function() {
-            var fontHeight = this.symbolSizeConfig.height[this.parent.fontSize];
+            var fontHeight = this.fontMetrics.height[this.parent.fontSize];
             var widthVal = 0;
             var topWidth = this.limitWord.width;
             widthVal = (topWidth > this.bottomHalfWidth) ? topWidth : this.bottomHalfWidth;
@@ -96,7 +96,7 @@ eqEd.LimitWrapper = function(symbolSizeConfig) {
             bottomAlign = value;
         },
         compute: function() {
-            var fontHeight = this.symbolSizeConfig.height[this.parent.fontSize];
+            var fontHeight = this.fontMetrics.height[this.parent.fontSize];
             var bottomAlignVal = 0;
             var maxBottomHalfHeight = [this.symbol.height, this.limitLeftContainer.height, this.limitRightContainer.height].max();
             bottomAlignVal = 0.5 * this.limitWord.height + this.belowLimitGap * fontHeight + maxBottomHalfHeight;
@@ -114,11 +114,11 @@ eqEd.LimitWrapper = function(symbolSizeConfig) {
             '<div class="eqEdWrapper limitWrapper"></div>')
     };
     eqEd.LimitWrapper.prototype.clone = function() {
-        var copy = new this.constructor(this.symbolSizeConfig);
-        copy.limitWord = new eqEd.LimitWord(this.symbolSizeConfig);
+        var copy = new this.constructor(this.fontMetrics);
+        copy.limitWord = new eqEd.LimitWord(this.fontMetrics);
         copy.limitLeftContainer = this.limitLeftContainer.clone();
         copy.limitRightContainer = this.limitRightContainer.clone();
-        copy.symbol = new eqEd.LimitSymbol(this.symbolSizeConfig);
+        copy.symbol = new eqEd.LimitSymbol(this.fontMetrics);
         copy.limitWord.parent = copy;
         copy.limitLeftContainer.parent = copy;
         copy.limitRightContainer.parent = copy;
@@ -145,16 +145,16 @@ eqEd.LimitWrapper = function(symbolSizeConfig) {
         };
         return jsonObj;
     };
-    eqEd.LimitWrapper.constructFromJsonObj = function(jsonObj, symbolSizeConfig) {
-        var limitWrapper = new eqEd.LimitWrapper(symbolSizeConfig);
+    eqEd.LimitWrapper.constructFromJsonObj = function(jsonObj, fontMetrics) {
+        var limitWrapper = new eqEd.LimitWrapper(fontMetrics);
         for (var i = 0; i < jsonObj.operands.left.length; i++) {
             var innerWrapperCtor = eqEd.Equation.JsonTypeToConstructor(jsonObj.operands.left[i].type);
-            var innerWrapper = innerWrapperCtor.constructFromJsonObj(jsonObj.operands.left[i], symbolSizeConfig);
+            var innerWrapper = innerWrapperCtor.constructFromJsonObj(jsonObj.operands.left[i], fontMetrics);
             limitWrapper.limitLeftContainer.addWrappers([i, innerWrapper]);
         }
         for (var i = 0; i < jsonObj.operands.right.length; i++) {
             var innerWrapperCtor = eqEd.Equation.JsonTypeToConstructor(jsonObj.operands.right[i].type);
-            var innerWrapper = innerWrapperCtor.constructFromJsonObj(jsonObj.operands.right[i], symbolSizeConfig);
+            var innerWrapper = innerWrapperCtor.constructFromJsonObj(jsonObj.operands.right[i], fontMetrics);
             limitWrapper.limitRightContainer.addWrappers([i, innerWrapper]);
         }
         return limitWrapper;

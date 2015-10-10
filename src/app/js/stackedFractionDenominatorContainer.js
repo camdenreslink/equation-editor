@@ -1,8 +1,8 @@
-eqEd.StackedFractionDenominatorContainer = function(symbolSizeConfig) {
-    eqEd.Container.call(this, symbolSizeConfig);
+eqEd.StackedFractionDenominatorContainer = function(fontMetrics) {
+    eqEd.Container.call(this, fontMetrics);
     this.className = "eqEd.StackedFractionDenominatorContainer";
     this.domObj = this.buildDomObj();
-    var squareEmptyContainerWrapper = new eqEd.SquareEmptyContainerWrapper(symbolSizeConfig);
+    var squareEmptyContainerWrapper = new eqEd.SquareEmptyContainerWrapper(fontMetrics);
     this.addWrappers([0, squareEmptyContainerWrapper]);
     
     this.padBottom = 0.025;
@@ -18,7 +18,7 @@ eqEd.StackedFractionDenominatorContainer = function(symbolSizeConfig) {
             left = value;
         },
         compute: function() {
-            var fontHeight = this.symbolSizeConfig.height[this.parent.parent.fontSize];
+            var fontHeight = this.fontMetrics.height[this.parent.parent.fontSize];
             var maxNumDenomWidth = (this.width > this.parent.stackedFractionNumeratorContainer.width) ? this.width : this.parent.stackedFractionNumeratorContainer.width;
             return 0.5 * (maxNumDenomWidth - this.width) + 0.5 * this.parent.stackedFractionHorizontalBar.exceedsMaxNumDenomWidth * fontHeight;
         },

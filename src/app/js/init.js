@@ -110,6 +110,11 @@ Array.prototype.contains = function(value) {
   return this.indexOf(value) > -1;
 }
 
+var randomIntFromInterval = function(min,max)
+{
+    return Math.floor(Math.random()*(max-min+1)+min);
+}
+
 var insertNodeAtCursor = function(node) {
     var sel, range, html;
     if (window.getSelection) {
@@ -124,7 +129,7 @@ var insertNodeAtCursor = function(node) {
     }
 }
 
-var inializePropertyHooks = function(symbolSizeConfig) {
+var inializePropertyHooks = function(fontMetrics) {
   // Set up some general rules for computing property values.
   Property.postComputeHooks['width'] = function(value) {
     if (typeof value === "undefined" || value === null) {

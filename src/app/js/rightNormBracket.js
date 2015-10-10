@@ -1,9 +1,9 @@
-eqEd.RightNormBracket = function(symbolSizeConfig) {
-	eqEd.RightBracket.call(this, symbolSizeConfig); // call super constructor.
+eqEd.RightNormBracket = function(fontMetrics) {
+	eqEd.RightBracket.call(this, fontMetrics); // call super constructor.
 	this.className = "eqEd.RightNormBracket";
 
     this.matchingBracketCtor = eqEd.LeftNormBracket;
-    this.wholeBracket = new eqEd.RightNormWholeBracket("MathJax_Main", this.symbolSizeConfig);
+    this.wholeBracket = new eqEd.RightNormWholeBracket("MathJax_Main", this.fontMetrics);
     this.topBracket = null;
     this.middleBrackets = [];
     this.bottomBracket = null;
@@ -26,7 +26,7 @@ eqEd.RightNormBracket = function(symbolSizeConfig) {
         },
         compute: function() {
             var widthVal = 0;
-            var fontHeight = this.symbolSizeConfig.height[this.parent.parent.fontSize];
+            var fontHeight = this.fontMetrics.height[this.parent.parent.fontSize];
             widthVal = 0.4888888 * fontHeight;
             return widthVal;
         },
@@ -46,7 +46,7 @@ eqEd.RightNormBracket = function(symbolSizeConfig) {
         },
         compute: function() {
             var heightVal = 0;
-            var fontHeight = this.symbolSizeConfig.height[this.parent.parent.fontSize];
+            var fontHeight = this.fontMetrics.height[this.parent.parent.fontSize];
             var numBrackets = Math.ceil((this.heightRatio - 1.07)/0.5) + 1;
             heightVal = (1.07 + (0.5 * (numBrackets - 1))) * fontHeight;
             return heightVal;
@@ -74,7 +74,7 @@ eqEd.RightNormBracket = function(symbolSizeConfig) {
         this.children = [];
         var numberOfMiddleBrackets = Math.ceil((this.heightRatio - 1.07)/0.5) + 1;
         for (var i = 0; i < numberOfMiddleBrackets; i++) {
-            var middleBracket = new eqEd.RightNormMiddleBracket(i, this.symbolSizeConfig);
+            var middleBracket = new eqEd.RightNormMiddleBracket(i, this.fontMetrics);
             middleBracket.parent = this;
             this.domObj.append(middleBracket.domObj);
             this.middleBrackets.push(middleBracket);

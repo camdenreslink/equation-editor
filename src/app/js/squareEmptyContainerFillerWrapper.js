@@ -1,5 +1,5 @@
-eqEd.SquareEmptyContainerFillerWrapper = function(symbolSizeConfig) {
-    eqEd.Wrapper.call(this, symbolSizeConfig); // call super constructor.
+eqEd.SquareEmptyContainerFillerWrapper = function(fontMetrics) {
+    eqEd.Wrapper.call(this, fontMetrics); // call super constructor.
     this.className = "eqEd.SquareEmptyContainerFillerWrapper";
 
     this.domObj = this.buildDomObj();
@@ -17,7 +17,7 @@ eqEd.SquareEmptyContainerFillerWrapper = function(symbolSizeConfig) {
             width = value;
         },
         compute: function() {
-            var fontHeight = this.symbolSizeConfig.height[this.parent.fontSize];
+            var fontHeight = this.fontMetrics.height[this.parent.fontSize];
             return this.sideLength * fontHeight;
         },
         updateDom: function() {
@@ -35,7 +35,7 @@ eqEd.SquareEmptyContainerFillerWrapper = function(symbolSizeConfig) {
             topAlign = value;
         },
         compute: function() {
-            var fontHeight = this.symbolSizeConfig.height[this.parent.fontSize];
+            var fontHeight = this.fontMetrics.height[this.parent.fontSize];
             return 0.5 * this.sideLength * fontHeight;
         },
         updateDom: function() {}
@@ -51,7 +51,7 @@ eqEd.SquareEmptyContainerFillerWrapper = function(symbolSizeConfig) {
             bottomAlign = value;
         },
         compute: function() {
-            var fontHeight = this.symbolSizeConfig.height[this.parent.fontSize];
+            var fontHeight = this.fontMetrics.height[this.parent.fontSize];
             return 0.5 * this.sideLength * fontHeight;
         },
         updateDom: function() {}
@@ -66,7 +66,7 @@ eqEd.SquareEmptyContainerFillerWrapper = function(symbolSizeConfig) {
             '<div class="eqEdWrapper squareEmptyContainerFillerWrapper"></div>')
     }
     eqEd.SquareEmptyContainerFillerWrapper.prototype.clone = function() {
-        var copy = new this.constructor(this.symbolSizeConfig);
+        var copy = new this.constructor(this.fontMetrics);
         return copy;
     }
 })();

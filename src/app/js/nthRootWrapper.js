@@ -1,14 +1,14 @@
-eqEd.NthRootWrapper = function(symbolSizeConfig) {
-	eqEd.Wrapper.call(this, symbolSizeConfig); // call super constructor.
+eqEd.NthRootWrapper = function(fontMetrics) {
+	eqEd.Wrapper.call(this, fontMetrics); // call super constructor.
     this.className = "eqEd.NthRootWrapper";
 
     this.domObj = this.buildDomObj();    
 
-    this.radicandContainer = new eqEd.NthRootRadicandContainer(symbolSizeConfig);
-    this.nthRootOverBar = new eqEd.NthRootOverBar(symbolSizeConfig);
-    this.radical = new eqEd.NthRootRadical(symbolSizeConfig);
-    this.nthRootDiagonal = new eqEd.NthRootDiagonal(symbolSizeConfig);
-    this.nthRootDegreeContainer = new eqEd.NthRootDegreeContainer(symbolSizeConfig);
+    this.radicandContainer = new eqEd.NthRootRadicandContainer(fontMetrics);
+    this.nthRootOverBar = new eqEd.NthRootOverBar(fontMetrics);
+    this.radical = new eqEd.NthRootRadical(fontMetrics);
+    this.nthRootDiagonal = new eqEd.NthRootDiagonal(fontMetrics);
+    this.nthRootDegreeContainer = new eqEd.NthRootDegreeContainer(fontMetrics);
     this.radicandContainer.parent = this;
     this.nthRootOverBar.parent = this;
     this.radical.parent = this;
@@ -56,7 +56,7 @@ eqEd.NthRootWrapper = function(symbolSizeConfig) {
             width = value;
         },
         compute: function() {
-            var fontHeight = this.symbolSizeConfig.height[this.parent.fontSize];
+            var fontHeight = this.fontMetrics.height[this.parent.fontSize];
             var widthVal = this.radical.width + this.nthRootDiagonal.width + this.radicandContainer.width;
             if (this.nthRootDegreeContainer.isLeftFlushToWrapper) {
                 widthVal += this.nthRootDegreeContainer.width - this.nthRootDegreeContainer.offsetRadicalRight * fontHeight + this.nthRootDegreeContainer.diagonalHeightAdjustment * this.nthRootDiagonal.height - this.radical.width;
@@ -78,7 +78,7 @@ eqEd.NthRootWrapper = function(symbolSizeConfig) {
             topAlign = value;
         },
         compute: function() {
-        	var fontHeight = this.symbolSizeConfig.height[this.parent.fontSize];
+        	var fontHeight = this.fontMetrics.height[this.parent.fontSize];
             var topAlignVal = 0;
              if (this.radicandContainer.wrappers.length > 0) {
                 topAlignVal += this.radicandContainer.wrappers[this.radicandContainer.maxTopAlignIndex].topAlign;
@@ -106,7 +106,7 @@ eqEd.NthRootWrapper = function(symbolSizeConfig) {
             bottomAlign = value;
         },
         compute: function() {
-        	var fontHeight = this.symbolSizeConfig.height[this.parent.fontSize];
+        	var fontHeight = this.fontMetrics.height[this.parent.fontSize];
             var bottomAlignVal = 0;
             if (this.radicandContainer.wrappers.length > 0) {
                 bottomAlignVal += this.radicandContainer.wrappers[this.radicandContainer.maxBottomAlignIndex].bottomAlign;
@@ -131,7 +131,7 @@ eqEd.NthRootWrapper = function(symbolSizeConfig) {
             '<div class="eqEdWrapper nthRootWrapper"></div>')
     };
     eqEd.NthRootWrapper.prototype.clone = function() {
-        var copy = new this.constructor(this.symbolSizeConfig);
+        var copy = new this.constructor(this.fontMetrics);
 
         copy.domObj = copy.buildDomObj();    
 
@@ -166,16 +166,16 @@ eqEd.NthRootWrapper = function(symbolSizeConfig) {
         };
         return jsonObj;
     };
-    eqEd.NthRootWrapper.constructFromJsonObj = function(jsonObj, symbolSizeConfig) {
-        var nthRootWrapper = new eqEd.NthRootWrapper(symbolSizeConfig);
+    eqEd.NthRootWrapper.constructFromJsonObj = function(jsonObj, fontMetrics) {
+        var nthRootWrapper = new eqEd.NthRootWrapper(fontMetrics);
         for (var i = 0; i < jsonObj.operands.radicand.length; i++) {
             var innerWrapperCtor = eqEd.Equation.JsonTypeToConstructor(jsonObj.operands.radicand[i].type);
-            var innerWrapper = innerWrapperCtor.constructFromJsonObj(jsonObj.operands.radicand[i], symbolSizeConfig);
+            var innerWrapper = innerWrapperCtor.constructFromJsonObj(jsonObj.operands.radicand[i], fontMetrics);
             nthRootWrapper.radicandContainer.addWrappers([i, innerWrapper]);
         }
         for (var i = 0; i < jsonObj.operands.degree.length; i++) {
             var innerWrapperCtor = eqEd.Equation.JsonTypeToConstructor(jsonObj.operands.degree[i].type);
-            var innerWrapper = innerWrapperCtor.constructFromJsonObj(jsonObj.operands.degree[i], symbolSizeConfig);
+            var innerWrapper = innerWrapperCtor.constructFromJsonObj(jsonObj.operands.degree[i], fontMetrics);
             nthRootWrapper.nthRootDegreeContainer.addWrappers([i, innerWrapper]);
         }
         return nthRootWrapper;

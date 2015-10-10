@@ -1,5 +1,5 @@
-eqEd.RightAbsValWholeBracket = function(fontStyle, symbolSizeConfig) {
-    eqEd.WholeBracket.call(this, symbolSizeConfig); // call super constructor.
+eqEd.RightAbsValWholeBracket = function(fontStyle, fontMetrics) {
+    eqEd.WholeBracket.call(this, fontMetrics); // call super constructor.
     this.className = "eqEd.RightAbsValWholeBracket";
     
     this.character = "|";

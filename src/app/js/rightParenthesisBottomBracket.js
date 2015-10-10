@@ -1,5 +1,5 @@
-eqEd.RightParenthesisBottomBracket = function(symbolSizeConfig) {
-    eqEd.BottomBracket.call(this, symbolSizeConfig); // call super constructor.
+eqEd.RightParenthesisBottomBracket = function(fontMetrics) {
+    eqEd.BottomBracket.call(this, fontMetrics); // call super constructor.
     this.className = "eqEd.RightParenthesisBottomBracket";
     
     this.character = "⎠";
@@ -16,7 +16,7 @@ eqEd.RightParenthesisBottomBracket = function(symbolSizeConfig) {
             top = value;
         },
         compute: function() {
-            var fontHeight = this.symbolSizeConfig.height[this.parent.parent.parent.fontSize];
+            var fontHeight = this.fontMetrics.height[this.parent.parent.parent.fontSize];
             var topVal = 0;
             if (this.parent.middleBrackets.length === 0) {
                 topVal = 1.939 * fontHeight;

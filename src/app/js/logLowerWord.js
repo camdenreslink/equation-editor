@@ -1,5 +1,5 @@
-eqEd.LogLowerWord = function(symbolSizeConfig) {
-    eqEd.Word.call(this, 'log', "MathJax_Main", symbolSizeConfig); // call super constructor.
+eqEd.LogLowerWord = function(fontMetrics) {
+    eqEd.Word.call(this, 'log', "MathJax_Main", fontMetrics); // call super constructor.
     this.className = "eqEd.LogLowerWord";
 
     // Set up the left calculation

@@ -1,5 +1,5 @@
-eqEd.MatrixWrapper = function(numRows, numCols, horAlign, symbolSizeConfig) {
-    eqEd.Wrapper.call(this, symbolSizeConfig); // call super constructor.
+eqEd.MatrixWrapper = function(numRows, numCols, horAlign, fontMetrics) {
+    eqEd.Wrapper.call(this, fontMetrics); // call super constructor.
     this.className = "eqEd.MatrixWrapper";
 
     this.numRows = numRows;
@@ -23,7 +23,7 @@ eqEd.MatrixWrapper = function(numRows, numCols, horAlign, symbolSizeConfig) {
     for (var i = 0; i < this.numRows; i++) {
         var row = [];
         for (var j = 0; j < this.numCols; j++) {
-            var matrixContainer = new eqEd.MatrixContainer(i, j, this.symbolSizeConfig);
+            var matrixContainer = new eqEd.MatrixContainer(i, j, this.fontMetrics);
             matrixContainer.parent = this;
             this.domObj.append(matrixContainer.domObj);
             row.push(matrixContainer);
@@ -119,7 +119,7 @@ eqEd.MatrixWrapper = function(numRows, numCols, horAlign, symbolSizeConfig) {
             width = value;
         },
         compute: function() {
-            var fontHeight = this.symbolSizeConfig.height[this.parent.fontSize];
+            var fontHeight = this.fontMetrics.height[this.parent.fontSize];
             var widthVal = 0;
             for (var i = 0; i < this.numCols; i++) {
                 widthVal += this.colWidths[i];
@@ -142,7 +142,7 @@ eqEd.MatrixWrapper = function(numRows, numCols, horAlign, symbolSizeConfig) {
             matrixHeight = value;
         },
         compute: function() {
-            var fontHeight = this.symbolSizeConfig.height[this.parent.fontSize];
+            var fontHeight = this.fontMetrics.height[this.parent.fontSize];
             var matrixHeightVal = 0;
             for (var i = 0; i < this.numRows; i++) {
                 matrixHeightVal += this.rowTopAligns[i] + this.rowBottomAligns[i];
@@ -192,7 +192,7 @@ eqEd.MatrixWrapper = function(numRows, numCols, horAlign, symbolSizeConfig) {
             '<div class="eqEdWrapper matrixWrapper"></div>')
     };
     eqEd.MatrixWrapper.prototype.clone = function() {
-        var copy = new this.constructor(this.numRows, this.numCols, this.horAlign, this.symbolSizeConfig);
+        var copy = new this.constructor(this.numRows, this.numCols, this.horAlign, this.fontMetrics);
         copy.domObj = copy.buildDomObj();
 
         copy.childContainers = [];
@@ -229,17 +229,17 @@ eqEd.MatrixWrapper = function(numRows, numCols, horAlign, symbolSizeConfig) {
         }
         return jsonObj;
     };
-    eqEd.MatrixWrapper.constructFromJsonObj = function(jsonObj, symbolSizeConfig) {
+    eqEd.MatrixWrapper.constructFromJsonObj = function(jsonObj, fontMetrics) {
         var numRows = jsonObj.operands.elements.length;
         var numCols = jsonObj.operands.elements[0].length;
-        var matrixWrapper = new eqEd.MatrixWrapper(numRows, numCols, 'center', symbolSizeConfig);
+        var matrixWrapper = new eqEd.MatrixWrapper(numRows, numCols, 'center', fontMetrics);
         for (var i = 0; i < jsonObj.operands.elements.length; i++) {
             var matrixRow = jsonObj.operands.elements[i];
             for (var j = 0; j < matrixRow.length; j++) {
                 var matrixEntry = matrixRow[j];
                 for (var k = 0; k < matrixEntry.length; k++) {
                     var innerWrapperCtor = eqEd.Equation.JsonTypeToConstructor(matrixEntry[k].type);
-                    var innerWrapper = innerWrapperCtor.constructFromJsonObj(matrixEntry[k], symbolSizeConfig);
+                    var innerWrapper = innerWrapperCtor.constructFromJsonObj(matrixEntry[k], fontMetrics);
                     matrixWrapper.matrixContainers[i][j].addWrappers([k, innerWrapper]);
                 }
             }

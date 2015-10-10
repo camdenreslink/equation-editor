@@ -1,5 +1,5 @@
-eqEd.LeftCurlyBottomBracket = function(symbolSizeConfig) {
-    eqEd.BottomBracket.call(this, symbolSizeConfig); // call super constructor.
+eqEd.LeftCurlyBottomBracket = function(fontMetrics) {
+    eqEd.BottomBracket.call(this, fontMetrics); // call super constructor.
     this.className = "eqEd.LeftCurlyBottomBracket";
     
     this.character = "⎩";
@@ -16,7 +16,7 @@ eqEd.LeftCurlyBottomBracket = function(symbolSizeConfig) {
             top = value;
         },
         compute: function() {
-            var fontHeight = this.symbolSizeConfig.height[this.parent.parent.parent.fontSize];
+            var fontHeight = this.fontMetrics.height[this.parent.parent.parent.fontSize];
             var length = this.parent.middleBrackets.length;
             var centerIndex = Math.floor(length / 2);
             return this.parent.middleBrackets[centerIndex].top + ((length - 1 - centerIndex) * 0.231 + 0.5) * fontHeight;

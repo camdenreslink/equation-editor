@@ -1,11 +1,11 @@
-eqEd.MatrixContainer = function(row, col, symbolSizeConfig) {
-    eqEd.Container.call(this, symbolSizeConfig);
+eqEd.MatrixContainer = function(row, col, fontMetrics) {
+    eqEd.Container.call(this, fontMetrics);
     this.className = "eqEd.MatrixContainer";
     this.row = row;
     this.col = col;
 
     this.domObj = this.buildDomObj();
-    var squareEmptyContainerWrapper = new eqEd.SquareEmptyContainerWrapper(symbolSizeConfig);
+    var squareEmptyContainerWrapper = new eqEd.SquareEmptyContainerWrapper(fontMetrics);
     this.addWrappers([0, squareEmptyContainerWrapper]);
     
     // Set up the left calculation
@@ -18,7 +18,7 @@ eqEd.MatrixContainer = function(row, col, symbolSizeConfig) {
             left = value;
         },
         compute: function() {
-            var fontHeight = this.symbolSizeConfig.height[this.parent.parent.fontSize];
+            var fontHeight = this.fontMetrics.height[this.parent.parent.fontSize];
             var leftVal = 0;
             for (var i = 0; i < this.col; i++) {
                 leftVal += this.parent.colWidths[i];
@@ -48,7 +48,7 @@ eqEd.MatrixContainer = function(row, col, symbolSizeConfig) {
             top = value;
         },
         compute: function() {
-            var fontHeight = this.symbolSizeConfig.height[this.parent.parent.fontSize];
+            var fontHeight = this.fontMetrics.height[this.parent.parent.fontSize];
             var topVal = 0;
             for (var i = 0; i < this.row; i++) {
                 topVal += this.parent.rowTopAligns[i] + this.parent.rowBottomAligns[i];
@@ -96,7 +96,7 @@ eqEd.MatrixContainer = function(row, col, symbolSizeConfig) {
     eqEd.MatrixContainer.prototype = Object.create(eqEd.Container.prototype);
     eqEd.MatrixContainer.prototype.constructor = eqEd.MatrixContainer;
     eqEd.MatrixContainer.prototype.clone = function() {
-      var copy = new this.constructor(this.row, this.col, this.symbolSizeConfig);
+      var copy = new this.constructor(this.row, this.col, this.fontMetrics);
       var indexAndWrapperList = [];
       for (var i = 0; i < this.wrappers.length; i++) {
         indexAndWrapperList.push([i, this.wrappers[i].clone()]);

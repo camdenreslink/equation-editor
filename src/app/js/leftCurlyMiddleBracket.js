@@ -1,5 +1,5 @@
-eqEd.LeftCurlyMiddleBracket = function(index, characterType, symbolSizeConfig) {
-    eqEd.MiddleBracket.call(this, index, symbolSizeConfig); // call super constructor.
+eqEd.LeftCurlyMiddleBracket = function(index, characterType, fontMetrics) {
+    eqEd.MiddleBracket.call(this, index, fontMetrics); // call super constructor.
     this.className = "eqEd.LeftCurlyMiddleBracket";
     
     this.characterType = characterType;
@@ -21,7 +21,7 @@ eqEd.LeftCurlyMiddleBracket = function(index, characterType, symbolSizeConfig) {
             top = value;
         },
         compute: function() {
-            var fontHeight = this.symbolSizeConfig.height[this.parent.parent.parent.fontSize];
+            var fontHeight = this.fontMetrics.height[this.parent.parent.parent.fontSize];
             var topVal = 0;
             var numSegs = this.parent.middleBrackets.length - 1;
             var adjustTopFactor = 0.231;

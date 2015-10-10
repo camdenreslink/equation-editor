@@ -1,5 +1,5 @@
-eqEd.BigOperatorWrapper = function(isInline, hasUpperLimit, hasLowerLimit, bigOperatorType, symbolSizeConfig) {
-    eqEd.Wrapper.call(this, symbolSizeConfig); // call super constructor.
+eqEd.BigOperatorWrapper = function(isInline, hasUpperLimit, hasLowerLimit, bigOperatorType, fontMetrics) {
+    eqEd.Wrapper.call(this, fontMetrics); // call super constructor.
     this.className = "eqEd.BigOperatorWrapper";
 
     this.isInline = isInline;
@@ -32,20 +32,20 @@ eqEd.BigOperatorWrapper = function(isInline, hasUpperLimit, hasLowerLimit, bigOp
     this.childContainers = [];
 
     if (this.hasUpperLimit) {
-        this.upperLimitContainer = new eqEd.BigOperatorUpperLimitContainer(this.symbolSizeConfig);
+        this.upperLimitContainer = new eqEd.BigOperatorUpperLimitContainer(this.fontMetrics);
         this.upperLimitContainer.parent = this;
         this.domObj.append(this.upperLimitContainer.domObj);
         this.childContainers.push(this.upperLimitContainer);
     }
     if (this.hasLowerLimit) {
-        this.lowerLimitContainer = new eqEd.BigOperatorLowerLimitContainer(this.symbolSizeConfig);
+        this.lowerLimitContainer = new eqEd.BigOperatorLowerLimitContainer(this.fontMetrics);
         this.lowerLimitContainer.parent = this;
         this.domObj.append(this.lowerLimitContainer.domObj);
         this.childContainers.push(this.lowerLimitContainer)
     }
     
-    this.operandContainer = new eqEd.BigOperatorOperandContainer(this.symbolSizeConfig);
-    this.symbol = new this.bigOperatorSymbolCtors[this.bigOperatorType](this.symbolSizeConfig);
+    this.operandContainer = new eqEd.BigOperatorOperandContainer(this.fontMetrics);
+    this.symbol = new this.bigOperatorSymbolCtors[this.bigOperatorType](this.fontMetrics);
 
     this.operandContainer.parent = this;
     this.symbol.parent = this;
@@ -69,7 +69,7 @@ eqEd.BigOperatorWrapper = function(isInline, hasUpperLimit, hasLowerLimit, bigOp
             width = value;
         },
         compute: function() {
-            var fontHeight = this.symbolSizeConfig.height[this.parent.fontSize];
+            var fontHeight = this.fontMetrics.height[this.parent.fontSize];
             var widthVal = 0;
             if (this.isInline) {
                 var maxWidthList = [];
@@ -131,7 +131,7 @@ eqEd.BigOperatorWrapper = function(isInline, hasUpperLimit, hasLowerLimit, bigOp
             } else {
                 if (this.operandContainer.wrappers.length > 0) {
                     if (this.hasUpperLimit) {
-                        var fontHeight = this.symbolSizeConfig.height[this.parent.fontSize];
+                        var fontHeight = this.fontMetrics.height[this.parent.fontSize];
                         leftPartTopAlign = 0.5 * this.symbol.height + this.upperLimitContainer.height + this.upperLimitGap * fontHeight;
                     } else {
                         leftPartTopAlign = 0.5 * this.symbol.height;
@@ -177,7 +177,7 @@ eqEd.BigOperatorWrapper = function(isInline, hasUpperLimit, hasLowerLimit, bigOp
             } else {
                 if (this.operandContainer.wrappers.length > 0) {
                     if (this.hasLowerLimit) {
-                        var fontHeight = this.symbolSizeConfig.height[this.parent.fontSize];
+                        var fontHeight = this.fontMetrics.height[this.parent.fontSize];
                         leftPartBottomAlign = 0.5 * this.symbol.height + this.lowerLimitContainer.height + this.lowerLimitGap * fontHeight;
                     } else {
                         leftPartBottomAlign = 0.5 * this.symbol.height;
@@ -199,7 +199,7 @@ eqEd.BigOperatorWrapper = function(isInline, hasUpperLimit, hasLowerLimit, bigOp
             '<div class="eqEdWrapper bigOperatorWrapper"></div>')
     }
     eqEd.BigOperatorWrapper.prototype.clone = function() {
-        var copy = new this.constructor(this.isInline, this.hasUpperLimit, this.hasLowerLimit, this.bigOperatorType, this.symbolSizeConfig);
+        var copy = new this.constructor(this.isInline, this.hasUpperLimit, this.hasLowerLimit, this.bigOperatorType, this.fontMetrics);
 
         copy.childContainers = [];
         copy.domObj = copy.buildDomObj();
@@ -217,7 +217,7 @@ eqEd.BigOperatorWrapper = function(isInline, hasUpperLimit, hasLowerLimit, bigOp
             copy.childContainers.push(copy.lowerLimitContainer);
         }
         copy.operandContainer = this.operandContainer.clone();
-        copy.symbol = new copy.bigOperatorSymbolCtors[copy.bigOperatorType](copy.symbolSizeConfig);
+        copy.symbol = new copy.bigOperatorSymbolCtors[copy.bigOperatorType](copy.fontMetrics);
 
         copy.operandContainer.parent = copy;
         copy.symbol.parent = copy;
@@ -258,27 +258,27 @@ eqEd.BigOperatorWrapper = function(isInline, hasUpperLimit, hasLowerLimit, bigOp
         }
         return jsonObj;
     };
-    eqEd.BigOperatorWrapper.constructFromJsonObj = function(jsonObj, symbolSizeConfig) {
+    eqEd.BigOperatorWrapper.constructFromJsonObj = function(jsonObj, fontMetrics) {
         var hasUpperLimit = (typeof jsonObj.operands.upperLimit !== "undefined");
         var hasLowerLimit = (typeof jsonObj.operands.lowerLimit !== "undefined");
-        var bigOperatorWrapper = new eqEd.BigOperatorWrapper(false, hasUpperLimit, hasLowerLimit, jsonObj.value, symbolSizeConfig);
+        var bigOperatorWrapper = new eqEd.BigOperatorWrapper(false, hasUpperLimit, hasLowerLimit, jsonObj.value, fontMetrics);
         if (hasUpperLimit) {
             for (var i = 0; i < jsonObj.operands.upperLimit.length; i++) {
                 var innerWrapperCtor = eqEd.Equation.JsonTypeToConstructor(jsonObj.operands.upperLimit[i].type);
-                var innerWrapper = innerWrapperCtor.constructFromJsonObj(jsonObj.operands.upperLimit[i], symbolSizeConfig);
+                var innerWrapper = innerWrapperCtor.constructFromJsonObj(jsonObj.operands.upperLimit[i], fontMetrics);
                 bigOperatorWrapper.upperLimitContainer.addWrappers([i, innerWrapper]);
             }
         }
         if (hasLowerLimit) {
             for (var i = 0; i < jsonObj.operands.lowerLimit.length; i++) {
                 var innerWrapperCtor = eqEd.Equation.JsonTypeToConstructor(jsonObj.operands.lowerLimit[i].type);
-                var innerWrapper = innerWrapperCtor.constructFromJsonObj(jsonObj.operands.lowerLimit[i], symbolSizeConfig);
+                var innerWrapper = innerWrapperCtor.constructFromJsonObj(jsonObj.operands.lowerLimit[i], fontMetrics);
                 bigOperatorWrapper.lowerLimitContainer.addWrappers([i, innerWrapper]);
             }
         }
         for (var i = 0; i < jsonObj.operands.operand.length; i++) {
             var innerWrapperCtor = eqEd.Equation.JsonTypeToConstructor(jsonObj.operands.operand[i].type);
-            var innerWrapper = innerWrapperCtor.constructFromJsonObj(jsonObj.operands.operand[i], symbolSizeConfig);
+            var innerWrapper = innerWrapperCtor.constructFromJsonObj(jsonObj.operands.operand[i], fontMetrics);
             bigOperatorWrapper.operandContainer.addWrappers([i, innerWrapper]);
         }
 

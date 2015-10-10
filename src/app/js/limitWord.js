@@ -1,5 +1,5 @@
-eqEd.LimitWord = function(symbolSizeConfig) {
-    eqEd.Word.call(this, "lim", "MathJax_Main", symbolSizeConfig); // call super constructor.
+eqEd.LimitWord = function(fontMetrics) {
+    eqEd.Word.call(this, "lim", "MathJax_Main", fontMetrics); // call super constructor.
     this.className = "eqEd.LimitWord";
 
     // Set up the left calculation
@@ -12,7 +12,7 @@ eqEd.LimitWord = function(symbolSizeConfig) {
             left = value;
         },
         compute: function() {
-            var fontHeight = this.symbolSizeConfig.height[this.parent.parent.fontSize];
+            var fontHeight = this.fontMetrics.height[this.parent.parent.fontSize];
             var leftOffset = 0.5 * ((this.parent.width - (this.parent.padLeft + this.parent.padRight) * fontHeight) - this.width);
             return leftOffset;
         },

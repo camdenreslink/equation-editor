@@ -1,5 +1,5 @@
-eqEd.BracketPairWrapper = function(bracketType, symbolSizeConfig) {
-    eqEd.Wrapper.call(this, symbolSizeConfig); // call super constructor.
+eqEd.BracketPairWrapper = function(bracketType, fontMetrics) {
+    eqEd.Wrapper.call(this, fontMetrics); // call super constructor.
     this.className = "eqEd.BracketPairWrapper";
 
     this.bracketType = bracketType;
@@ -38,9 +38,9 @@ eqEd.BracketPairWrapper = function(bracketType, symbolSizeConfig) {
         }
     };
 
-    this.leftBracket = new bracketCtors[bracketType]['left'](symbolSizeConfig);
-    this.bracketContainer = new eqEd.BracketContainer(symbolSizeConfig);
-    this.rightBracket = new bracketCtors[bracketType]['right'](symbolSizeConfig);
+    this.leftBracket = new bracketCtors[bracketType]['left'](fontMetrics);
+    this.bracketContainer = new eqEd.BracketContainer(fontMetrics);
+    this.rightBracket = new bracketCtors[bracketType]['right'](fontMetrics);
     this.leftBracket.parent = this;
     this.bracketContainer.parent = this;
     this.rightBracket.parent = this;
@@ -128,7 +128,7 @@ eqEd.BracketPairWrapper = function(bracketType, symbolSizeConfig) {
             '<div class="eqEdwrapper bracketPairWrapper ' + this.bracketType + '"></div>')
     };
     eqEd.BracketPairWrapper.prototype.clone = function() {
-        var copy = new this.constructor(this.bracketType, this.symbolSizeConfig);
+        var copy = new this.constructor(this.bracketType, this.fontMetrics);
 
         copy.leftBracket = this.leftBracket.clone();
         copy.bracketContainer = this.bracketContainer.clone();
@@ -157,11 +157,11 @@ eqEd.BracketPairWrapper = function(bracketType, symbolSizeConfig) {
         return jsonObj;
     };
 
-    eqEd.BracketPairWrapper.constructFromJsonObj = function(jsonObj, symbolSizeConfig) {
-      var bracketPairWrapper = new eqEd.BracketPairWrapper(jsonObj.value, symbolSizeConfig);
+    eqEd.BracketPairWrapper.constructFromJsonObj = function(jsonObj, fontMetrics) {
+      var bracketPairWrapper = new eqEd.BracketPairWrapper(jsonObj.value, fontMetrics);
       for (var i = 0; i < jsonObj.operands.bracketedExpression.length; i++) {
         var innerWrapperCtor = eqEd.Equation.JsonTypeToConstructor(jsonObj.operands.bracketedExpression[i].type);
-        var innerWrapper = innerWrapperCtor.constructFromJsonObj(jsonObj.operands.bracketedExpression[i], symbolSizeConfig);
+        var innerWrapper = innerWrapperCtor.constructFromJsonObj(jsonObj.operands.bracketedExpression[i], fontMetrics);
         bracketPairWrapper.bracketContainer.addWrappers([i, innerWrapper]);
       }
       return bracketPairWrapper;

@@ -1,5 +1,5 @@
-eqEd.LeftCurlyTopBracket = function(symbolSizeConfig) {
-    eqEd.TopBracket.call(this, symbolSizeConfig); // call super constructor.
+eqEd.LeftCurlyTopBracket = function(fontMetrics) {
+    eqEd.TopBracket.call(this, fontMetrics); // call super constructor.
     this.className = "eqEd.LeftCurlyTopBracket";
     
     this.character = "⎧";

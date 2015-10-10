@@ -1,4 +1,4 @@
-var setupKeyboardEvents = function(symbolSizeConfig, clipboard) {
+var setupKeyboardEvents = function(fontMetrics, clipboard) {
     var MathJax_MathItalic = [
         'q',
         'w',
@@ -111,49 +111,49 @@ var setupKeyboardEvents = function(symbolSizeConfig, clipboard) {
         if($('.cursor').length > 0) {
             var character = String.fromCharCode(e.which);
             if ($.inArray(character, MathJax_MathItalic) > -1) {
-                var symbolWrapper = new eqEd.SymbolWrapper(character, "MathJax_MathItalic", symbolSizeConfig);
+                var symbolWrapper = new eqEd.SymbolWrapper(character, "MathJax_MathItalic", fontMetrics);
                 insertWrapper(symbolWrapper);
                 return false;
             } else if ($.inArray(character, MathJax_Main) > -1) {
-                var symbolWrapper = new eqEd.SymbolWrapper(character, "MathJax_Main", symbolSizeConfig);
+                var symbolWrapper = new eqEd.SymbolWrapper(character, "MathJax_Main", fontMetrics);
                 insertWrapper(symbolWrapper);
                 return false;
             } else if ($.inArray(character, operatorCharacters) > -1) {
-                var operatorWrapper = new eqEd.OperatorWrapper(operatorCharactersMap[character], "MathJax_Main", symbolSizeConfig);
+                var operatorWrapper = new eqEd.OperatorWrapper(operatorCharactersMap[character], "MathJax_Main", fontMetrics);
                 insertWrapper(operatorWrapper);
                 return false;
             } else if ($.inArray(character, bracketCharacters) > -1) {
-                var bracketWrapper = new eqEd.BracketWrapper(bracketCharactersMap[character], symbolSizeConfig);
+                var bracketWrapper = new eqEd.BracketWrapper(bracketCharactersMap[character], fontMetrics);
                 insertWrapper(bracketWrapper);
                 return false;
             } else if (character === '\\') {
                 // setminus
-                var operatorWrapper = new eqEd.OperatorWrapper('∖', "MathJax_Main", symbolSizeConfig);
+                var operatorWrapper = new eqEd.OperatorWrapper('∖', "MathJax_Main", fontMetrics);
                 insertWrapper(operatorWrapper);
                 return false;
             } else if (character === ':') {
                 // colon
-                var operatorWrapper = new eqEd.OperatorWrapper(':', "MathJax_Main", symbolSizeConfig);
+                var operatorWrapper = new eqEd.OperatorWrapper(':', "MathJax_Main", fontMetrics);
                 insertWrapper(operatorWrapper);
                 return false;
             } else if (character === '\'') {
                 // apostrophe
-                var operatorWrapper = new eqEd.OperatorWrapper('\'', "MathJax_MathItalic", symbolSizeConfig);
+                var operatorWrapper = new eqEd.OperatorWrapper('\'', "MathJax_MathItalic", fontMetrics);
                 insertWrapper(operatorWrapper);
                 return false;
             } else if (character === '^') {
                 // superscript shortcut
-                var superscriptWrapper = new eqEd.SuperscriptWrapper(symbolSizeConfig);
+                var superscriptWrapper = new eqEd.SuperscriptWrapper(fontMetrics);
                 insertWrapper(superscriptWrapper);
                 return false;
             } else if (character === '_') {
                 // subscript shortcut
-                var subscriptWrapper = new eqEd.SubscriptWrapper(symbolSizeConfig);
+                var subscriptWrapper = new eqEd.SubscriptWrapper(fontMetrics);
                 insertWrapper(subscriptWrapper);
                 return false;
             } else if (character === '_') {
                 // copy
-                var subscriptWrapper = new eqEd.SubscriptWrapper(symbolSizeConfig);
+                var subscriptWrapper = new eqEd.SubscriptWrapper(fontMetrics);
                 insertWrapper(subscriptWrapper);
                 return false;
             } else {
@@ -205,11 +205,11 @@ var setupKeyboardEvents = function(symbolSizeConfig, clipboard) {
                 }
                 if (container !== null && container.wrappers.length === 0) {
                     if (container.parent === null) {
-                        container.addWrappers([0, new eqEd.TopLevelEmptyContainerWrapper(container.symbolSizeConfig)]);
+                        container.addWrappers([0, new eqEd.TopLevelEmptyContainerWrapper(container.fontMetrics)]);
                         container.updateAll();
                         addCursorAtIndex(container, 0);
                     } else {
-                        container.addWrappers([0, new eqEd.SquareEmptyContainerWrapper(container.symbolSizeConfig)]);
+                        container.addWrappers([0, new eqEd.SquareEmptyContainerWrapper(container.fontMetrics)]);
                         container.updateAll();
                         addCursorAtIndex(container.wrappers[0].childContainers[0], 0);
                     }
@@ -253,11 +253,11 @@ var setupKeyboardEvents = function(symbolSizeConfig, clipboard) {
                 }
                 if (container !== null && container.wrappers.length === 0) {
                     if (container.parent === null) {
-                        container.addWrappers([0, new eqEd.TopLevelEmptyContainerWrapper(container.symbolSizeConfig)]);
+                        container.addWrappers([0, new eqEd.TopLevelEmptyContainerWrapper(container.fontMetrics)]);
                         container.updateAll();
                         addCursorAtIndex(container, 0);
                     } else {
-                        container.addWrappers([0, new eqEd.SquareEmptyContainerWrapper(container.symbolSizeConfig)]);
+                        container.addWrappers([0, new eqEd.SquareEmptyContainerWrapper(container.fontMetrics)]);
                         container.updateAll();
                         addCursorAtIndex(container.wrappers[0].childContainers[0], 0);
                     }

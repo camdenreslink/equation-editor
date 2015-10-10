@@ -1,5 +1,5 @@
-eqEd.SquareRootRadical = function(symbolSizeConfig) {
-    eqEd.Equation.call(this, symbolSizeConfig); // call super constructor.
+eqEd.SquareRootRadical = function(fontMetrics) {
+    eqEd.Equation.call(this, fontMetrics); // call super constructor.
     this.className = "eqEd.SquareRootRadical";
 
     this.domObj = this.buildDomObj();
@@ -14,7 +14,7 @@ eqEd.SquareRootRadical = function(symbolSizeConfig) {
             width = value;
         },
         compute: function() {
-            var fontHeight = this.symbolSizeConfig.height[this.parent.parent.fontSize];
+            var fontHeight = this.fontMetrics.height[this.parent.parent.fontSize];
             var widthVal = 0;
             if (this.parent.squareRootDiagonal.height < 2 * fontHeight) {
                 widthVal = 0.4 * fontHeight;
@@ -38,7 +38,7 @@ eqEd.SquareRootRadical = function(symbolSizeConfig) {
             height = value;
         },
         compute: function() {
-            var fontHeight = this.symbolSizeConfig.height[this.parent.parent.fontSize];
+            var fontHeight = this.fontMetrics.height[this.parent.parent.fontSize];
             var heightVal = 0;
             if (this.parent.squareRootDiagonal.height < 2 * fontHeight) {
                 heightVal = 0.7 * fontHeight;

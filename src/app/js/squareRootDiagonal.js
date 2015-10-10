@@ -1,5 +1,5 @@
-eqEd.SquareRootDiagonal = function(symbolSizeConfig) {
-    eqEd.Equation.call(this, symbolSizeConfig); // call super constructor.
+eqEd.SquareRootDiagonal = function(fontMetrics) {
+    eqEd.Equation.call(this, fontMetrics); // call super constructor.
     this.className = "eqEd.SquareRootDiagonal";
 
     this.domObj = this.buildDomObj();
@@ -15,7 +15,7 @@ eqEd.SquareRootDiagonal = function(symbolSizeConfig) {
             width = value;
         },
         compute: function() {
-            var fontHeight = this.symbolSizeConfig.height[this.parent.parent.fontSize];
+            var fontHeight = this.fontMetrics.height[this.parent.parent.fontSize];
             return 0.58 * fontHeight + 0.05 * this.height;
         },
         updateDom: function() {
@@ -33,7 +33,7 @@ eqEd.SquareRootDiagonal = function(symbolSizeConfig) {
             height = value;
         },
         compute: function() {
-            var fontHeight = this.symbolSizeConfig.height[this.parent.parent.fontSize];
+            var fontHeight = this.fontMetrics.height[this.parent.parent.fontSize];
             var heightVal = this.parent.radicandContainer.height;
             if (this.parent.radicandContainer.isMaxTopAlignRootWrapper) {
                 heightVal += (this.parent.radicandContainer.padTopMaxChildAlignTopIsRoot + this.parent.radicandContainer.padBottomMaxChildAlignTopIsRoot) * fontHeight;

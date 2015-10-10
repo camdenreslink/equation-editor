@@ -1,8 +1,8 @@
-eqEd.LogLowerContainer = function(symbolSizeConfig) {
-    eqEd.Container.call(this, symbolSizeConfig);
+eqEd.LogLowerContainer = function(fontMetrics) {
+    eqEd.Container.call(this, fontMetrics);
     this.className = "eqEd.LogLowerContainer";
     this.domObj = this.buildDomObj();
-    var squareEmptyContainerWrapper = new eqEd.SquareEmptyContainerWrapper(symbolSizeConfig);
+    var squareEmptyContainerWrapper = new eqEd.SquareEmptyContainerWrapper(fontMetrics);
     this.addWrappers([0, squareEmptyContainerWrapper]);
 
     // Set up the left calculation
@@ -32,7 +32,7 @@ eqEd.LogLowerContainer = function(symbolSizeConfig) {
             top = value;
         },
         compute: function() {
-            var fontHeight = this.symbolSizeConfig.height[this.fontSize];
+            var fontHeight = this.fontMetrics.height[this.fontSize];
             return this.parent.functionWord.height - this.parent.logLowerOverlap * fontHeight;
         },
         updateDom: function() {

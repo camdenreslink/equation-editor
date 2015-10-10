@@ -1,5 +1,5 @@
-eqEd.Wrapper = function(symbolSizeConfig) {
-    eqEd.Equation.call(this, symbolSizeConfig); // call super constructor.
+eqEd.Wrapper = function(fontMetrics) {
+    eqEd.Equation.call(this, fontMetrics); // call super constructor.
     this.className = "eqEd.Wrapper";
     
     this.topAlign = 0;

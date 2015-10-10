@@ -1,5 +1,5 @@
-eqEd.BracketWrapper = function(bracketType, symbolSizeConfig) {
-	eqEd.Wrapper.call(this, symbolSizeConfig); // call super constructor.
+eqEd.BracketWrapper = function(bracketType, fontMetrics) {
+	eqEd.Wrapper.call(this, fontMetrics); // call super constructor.
 	this.className = "eqEd.BracketWrapper";
 
     this.bracketType = bracketType;
@@ -20,7 +20,7 @@ eqEd.BracketWrapper = function(bracketType, symbolSizeConfig) {
 
     this.domObj = this.buildDomObj();
 
-    this.bracket = new bracketCtors[bracketType](symbolSizeConfig);
+    this.bracket = new bracketCtors[bracketType](fontMetrics);
     this.bracket.parent = this;
     this.domObj.append(this.bracket.domObj);
 
@@ -101,7 +101,7 @@ eqEd.BracketWrapper = function(bracketType, symbolSizeConfig) {
             '<div class="eqEdWrapper bracketWrapper ' + this.bracketType + '"></div>')
     };
     eqEd.BracketWrapper.prototype.clone = function() {
-        var copy = new this.constructor(this.bracketType, this.symbolSizeConfig);
+        var copy = new this.constructor(this.bracketType, this.fontMetrics);
         return copy;
     };
     eqEd.BracketWrapper.prototype.buildJsonObj = function() {
@@ -112,8 +112,8 @@ eqEd.BracketWrapper = function(bracketType, symbolSizeConfig) {
         };
         return jsonObj;
     };
-    eqEd.BracketWrapper.constructFromJsonObj = function(jsonObj, symbolSizeConfig) {
-      var bracketWrapper = new eqEd.BracketWrapper(jsonObj.value, symbolSizeConfig);
+    eqEd.BracketWrapper.constructFromJsonObj = function(jsonObj, fontMetrics) {
+      var bracketWrapper = new eqEd.BracketWrapper(jsonObj.value, fontMetrics);
       return bracketWrapper;
     }
 })();

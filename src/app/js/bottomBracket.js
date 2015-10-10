@@ -1,5 +1,5 @@
-eqEd.BottomBracket = function(symbolSizeConfig) {
-    eqEd.Equation.call(this, symbolSizeConfig); // call super constructor.
+eqEd.BottomBracket = function(fontMetrics) {
+    eqEd.Equation.call(this, fontMetrics); // call super constructor.
     this.className = "eqEd.BottomBracket";
 
     // Set up the width calculation
@@ -65,7 +65,7 @@ eqEd.BottomBracket = function(symbolSizeConfig) {
             '<div class="bottomBracket ' + this.fontStyle + '">' + this.character + '</div>');
     };
     eqEd.BottomBracket.prototype.clone = function() {
-        var copy = new this.constructor(this.symbolSizeConfig);
+        var copy = new this.constructor(this.fontMetrics);
         return copy;
     };
 })();

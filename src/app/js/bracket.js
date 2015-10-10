@@ -1,5 +1,5 @@
-eqEd.Bracket = function(symbolSizeConfig) {
-	eqEd.Equation.call(this, symbolSizeConfig); // call super constructor.
+eqEd.Bracket = function(fontMetrics) {
+	eqEd.Equation.call(this, fontMetrics); // call super constructor.
 	this.className = "eqEd.Bracket";
 
     if (IEVersion >= 9) {
@@ -18,7 +18,7 @@ eqEd.Bracket = function(symbolSizeConfig) {
             heightRatio = value;
         },
         compute: function() {
-            var fontHeight = this.symbolSizeConfig.height[this.parent.parent.fontSize];
+            var fontHeight = this.fontMetrics.height[this.parent.parent.fontSize];
             return this.desiredHeight / fontHeight;
         },
         updateDom: function() {
@@ -80,7 +80,7 @@ eqEd.Bracket = function(symbolSizeConfig) {
     eqEd.Bracket.prototype = Object.create(eqEd.Equation.prototype);
     eqEd.Bracket.prototype.constructor = eqEd.Bracket;
     eqEd.Bracket.prototype.clone = function() {
-        var copy = new this.constructor(this.symbolSizeConfig);
+        var copy = new this.constructor(this.fontMetrics);
         copy.domObj = copy.buildDomObj();
         if (this.wholeBracket !== null) {
             copy.wholeBracket = this.wholeBracket.clone();

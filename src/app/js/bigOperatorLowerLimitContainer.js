@@ -1,8 +1,8 @@
-eqEd.BigOperatorLowerLimitContainer = function(symbolSizeConfig) {
-    eqEd.Container.call(this, symbolSizeConfig);
+eqEd.BigOperatorLowerLimitContainer = function(fontMetrics) {
+    eqEd.Container.call(this, fontMetrics);
     this.className = "eqEd.BigOperatorLowerLimitContainer";
     this.domObj = this.buildDomObj();
-    var squareEmptyContainerWrapper = new eqEd.SquareEmptyContainerWrapper(symbolSizeConfig);
+    var squareEmptyContainerWrapper = new eqEd.SquareEmptyContainerWrapper(fontMetrics);
     this.addWrappers([0, squareEmptyContainerWrapper]);
     
     // Set up the left calculation
@@ -15,7 +15,7 @@ eqEd.BigOperatorLowerLimitContainer = function(symbolSizeConfig) {
             left = value;
         },
         compute: function() {
-            var fontHeight = this.symbolSizeConfig.height[this.parent.parent.fontSize];
+            var fontHeight = this.fontMetrics.height[this.parent.parent.fontSize];
             var leftVal = 0;
             if (this.parent.isInline) {
                 leftVal = this.parent.symbol.width + this.parent.inlineLimitGap * fontHeight;
@@ -48,7 +48,7 @@ eqEd.BigOperatorLowerLimitContainer = function(symbolSizeConfig) {
             top = value;
         },
         compute: function() {
-            var fontHeight = this.symbolSizeConfig.height[this.parent.parent.fontSize];
+            var fontHeight = this.fontMetrics.height[this.parent.parent.fontSize];
             var topVal = 0;
             if (this.parent.isInline) {
                 var additionalTopAlign = 0;

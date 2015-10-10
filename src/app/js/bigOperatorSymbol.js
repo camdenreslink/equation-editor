@@ -1,5 +1,5 @@
-eqEd.BigOperatorSymbol = function(symbolSizeConfig) {
-    eqEd.Equation.call(this, symbolSizeConfig); // call super constructor.
+eqEd.BigOperatorSymbol = function(fontMetrics) {
+    eqEd.Equation.call(this, fontMetrics); // call super constructor.
     this.className = "eqEd.BigOperatorSymbol";
 
     this.domObj = this.buildDomObj();
@@ -46,7 +46,7 @@ eqEd.BigOperatorSymbol = function(symbolSizeConfig) {
             top = value;
         },
         compute: function() {
-            var fontHeight = this.symbolSizeConfig.height[this.parent.parent.fontSize];
+            var fontHeight = this.fontMetrics.height[this.parent.parent.fontSize];
             var topVal = this.parent.topAlign - 0.5 * this.height;
             return topVal;
         },
@@ -65,7 +65,7 @@ eqEd.BigOperatorSymbol = function(symbolSizeConfig) {
             height = value;
         },
         compute: function() {
-            var fontHeight = this.symbolSizeConfig.height[this.parent.parent.fontSize];
+            var fontHeight = this.fontMetrics.height[this.parent.parent.fontSize];
             return 1.5 * fontHeight;
         },
         updateDom: function() {

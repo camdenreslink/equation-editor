@@ -1,5 +1,5 @@
-eqEd.Word = function(characters, fontStyle, symbolSizeConfig) {
-    eqEd.Equation.call(this, symbolSizeConfig); // call super constructor.
+eqEd.Word = function(characters, fontStyle, fontMetrics) {
+    eqEd.Equation.call(this, fontMetrics); // call super constructor.
     this.className = "eqEd.Word";
     
     this.characters = characters.split("");
@@ -29,7 +29,7 @@ eqEd.Word = function(characters, fontStyle, symbolSizeConfig) {
         compute: function() {
         	var widthVal = 0;
         	for (var i = 0; i < this.characters.length; i++) {
-        		widthVal += this.symbolSizeConfig.width[this.characters[i]][this.fontStyle][this.parent.parent.fontSize];
+        		widthVal += this.fontMetrics.width[this.characters[i]][this.fontStyle][this.parent.parent.fontSize];
         	}
             return widthVal;
         },

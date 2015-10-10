@@ -1,0 +1,23 @@
+I need to refactor the application. To do this, the application needs split up into components with loose coupling. I need to identify different parts of the application that are independent of other parts and refactor them into their own modules.
+
+- Font loading
+- Image loading
+- Font metric calculation
+- Equation rendering (no interaction at all, just rendering an equation that's specified)
+- Inserting/Removing wrappers
+- Mouse interaction
+- Keyboard interaction
+
+Improvements:
+COMPLETE - Dynamically insert "testEquation" div onto the page when calculating font metrics. It shouldn't have to exist on the page already. Delete the test div when metric calculation has been completed.
+- Improve the way that new equations are created. The following should create and set up a new equation: var equation = new Equation(); Need to create new root equation object that has a container property.
+- Possibly move symbolSizeConfig to property on root equation object. Change parameter lists to accept rootEquation and parent. Remove symbolSizeConfig from parameter lists.
+- Rethink the way that the top level empty container works.
+- Consider moving the cursor as an absolutely positioned child of the equation div. This will allow for less css trickery (overflow can be hidden for all containers now). Also allows for animation when moving the cursor, rather than deleting it, and recreating it (might give a nicer/smoother experience).
+- The z-index calculation stuff could be more transparent. Maybe a declarative order of precedence could be placed in a json file or something. Right now seems to be a bit of voodoo to make it work.
+- Refactor to allow for editing special cases. For example, if there is an i with a hat, you use the special \imath under it (in symbol.js). If there is a dx after an integral, the spacing changes. If a user types out the letters log, convert it to a function for formatting purposes. Right now these are just sprinkled through code, needs to be a lot more clear where these exceptions go, and what conditions trigger them.
+- Eliminate type sniffing in inializePropertyHooks from init.js. Checking the type before adding property rules seems wrong. If you're going to do it this way, at least add a mechanism for it, so it can be configured externally, and isn't just hard coded if/else statements.
+- The code to add a wrapper to a container is an absolute mess (actually just looked at it, and it's in better shape than I thought it was). Still, need some way to specify where in an equation the cursor is, and where in an equation to insert a new wrapper.
+- JsonTypeToConstructor probably shouldn't be a static field on the eqEd.Equation object.
+- Underscore isn't used enough to justify its use.
+- Property is a global singleton, when it should be local per equation.

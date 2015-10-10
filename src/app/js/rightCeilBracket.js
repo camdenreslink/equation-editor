@@ -1,9 +1,9 @@
-eqEd.RightCeilBracket = function(symbolSizeConfig) {
-    eqEd.RightBracket.call(this, symbolSizeConfig); // call super constructor.
+eqEd.RightCeilBracket = function(fontMetrics) {
+    eqEd.RightBracket.call(this, fontMetrics); // call super constructor.
     this.className = "eqEd.RightCeilBracket";
 
     this.matchingBracketCtor = eqEd.LeftCeilBracket;
-    this.wholeBracket = new eqEd.RightCeilWholeBracket("MathJax_Main", symbolSizeConfig);
+    this.wholeBracket = new eqEd.RightCeilWholeBracket("MathJax_Main", fontMetrics);
     this.topBracket = null;
     this.middleBrackets = [];
     this.bottomBracket = null;
@@ -26,7 +26,7 @@ eqEd.RightCeilBracket = function(symbolSizeConfig) {
         },
         compute: function() {
             var widthVal = 0;
-            var fontHeight = this.symbolSizeConfig.height[this.parent.parent.fontSize];
+            var fontHeight = this.fontMetrics.height[this.parent.parent.fontSize];
             if (this.heightRatio <= 1.5) {
                 widthVal = 0.444444 * fontHeight;
             } else if (this.heightRatio > 1.5 && this.heightRatio <= 2.4) {
@@ -54,7 +54,7 @@ eqEd.RightCeilBracket = function(symbolSizeConfig) {
         },
         compute: function() {
             var heightVal = 0;
-            var fontHeight = this.symbolSizeConfig.height[this.parent.parent.fontSize];
+            var fontHeight = this.fontMetrics.height[this.parent.parent.fontSize];
             if (this.heightRatio <= 1.5) {
                 heightVal = fontHeight;
             } else if (this.heightRatio > 1.5 && this.heightRatio <= 2.4) {
@@ -88,27 +88,27 @@ eqEd.RightCeilBracket = function(symbolSizeConfig) {
         this.bottomBracket = null;
         this.children = [];
         if (this.heightRatio <= 1.5) {
-            this.wholeBracket = new eqEd.RightCeilWholeBracket("MathJax_Main", this.symbolSizeConfig);
+            this.wholeBracket = new eqEd.RightCeilWholeBracket("MathJax_Main", this.fontMetrics);
             this.wholeBracket.parent = this;
             this.domObj.append(this.wholeBracket.domObj);
             this.children = [this.wholeBracket];
         } else if (this.heightRatio > 1.5 && this.heightRatio <= 2.4) {
-            this.wholeBracket = new eqEd.RightCeilWholeBracket("MathJax_Size3", this.symbolSizeConfig);
+            this.wholeBracket = new eqEd.RightCeilWholeBracket("MathJax_Size3", this.fontMetrics);
             this.wholeBracket.parent = this;
             this.domObj.append(this.wholeBracket.domObj);
             this.children = [this.wholeBracket];
         } else if (this.heightRatio > 2.4 && this.heightRatio <= 3) {
-            this.wholeBracket = new eqEd.RightCeilWholeBracket("MathJax_Size4", this.symbolSizeConfig);
+            this.wholeBracket = new eqEd.RightCeilWholeBracket("MathJax_Size4", this.fontMetrics);
             this.wholeBracket.parent = this;
             this.domObj.append(this.wholeBracket.domObj);
             this.children = [this.wholeBracket];
         } else {
             var numberOfMiddleBrackets = Math.ceil((this.heightRatio - 0.6)/0.45) + 1;
-            this.topBracket = new eqEd.RightCeilTopBracket(this.symbolSizeConfig);
+            this.topBracket = new eqEd.RightCeilTopBracket(this.fontMetrics);
             this.topBracket.parent = this;
             this.domObj.append(this.topBracket.domObj);
             for (var i = 0; i < numberOfMiddleBrackets; i++) {
-                var middleBracket = new eqEd.RightCeilMiddleBracket(i, this.symbolSizeConfig);
+                var middleBracket = new eqEd.RightCeilMiddleBracket(i, this.fontMetrics);
                 middleBracket.parent = this;
                 this.domObj.append(middleBracket.domObj);
                 this.middleBrackets.push(middleBracket);

@@ -1,5 +1,5 @@
-eqEd.RightSquareTopBracket = function(symbolSizeConfig) {
-    eqEd.TopBracket.call(this, symbolSizeConfig); // call super constructor.
+eqEd.RightSquareTopBracket = function(fontMetrics) {
+    eqEd.TopBracket.call(this, fontMetrics); // call super constructor.
     this.className = "eqEd.RightSquareTopBracket";
     
     this.character = "⎤";

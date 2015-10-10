@@ -1,5 +1,5 @@
-eqEd.RightBracket = function(symbolSizeConfig) {
-	eqEd.Bracket.call(this, symbolSizeConfig); // call super constructor.
+eqEd.RightBracket = function(fontMetrics) {
+	eqEd.Bracket.call(this, fontMetrics); // call super constructor.
 	this.className = "eqEd.RightBracket";
 
     // Set up the desiredHeight calculation
@@ -38,7 +38,7 @@ eqEd.RightBracket = function(symbolSizeConfig) {
                 if (matchingBracketIndex !== null && !(maxTopAlign === 0 && maxBottomAlign === 0)) {
                     desiredHeightVal = (maxTopAlign > maxBottomAlign) ? 2 * maxTopAlign : 2 * maxBottomAlign;
                 } else {
-                    var fontHeight = this.symbolSizeConfig.height[this.parent.parent.fontSize];
+                    var fontHeight = this.fontMetrics.height[this.parent.parent.fontSize];
                     desiredHeightVal = fontHeight;
                 }
             } else if (this.parent instanceof eqEd.BracketPairWrapper) {

@@ -1,13 +1,13 @@
-eqEd.SquareRootWrapper = function(symbolSizeConfig) {
-	eqEd.Wrapper.call(this, symbolSizeConfig); // call super constructor.
+eqEd.SquareRootWrapper = function(fontMetrics) {
+	eqEd.Wrapper.call(this, fontMetrics); // call super constructor.
     this.className = "eqEd.SquareRootWrapper";
 
     this.domObj = this.buildDomObj();    
 
-    this.radicandContainer = new eqEd.SquareRootRadicandContainer(symbolSizeConfig);
-    this.squareRootOverBar = new eqEd.SquareRootOverBar(symbolSizeConfig);
-    this.radical = new eqEd.SquareRootRadical(symbolSizeConfig);
-    this.squareRootDiagonal = new eqEd.SquareRootDiagonal(symbolSizeConfig);
+    this.radicandContainer = new eqEd.SquareRootRadicandContainer(fontMetrics);
+    this.squareRootOverBar = new eqEd.SquareRootOverBar(fontMetrics);
+    this.radical = new eqEd.SquareRootRadical(fontMetrics);
+    this.squareRootDiagonal = new eqEd.SquareRootDiagonal(fontMetrics);
     this.radicandContainer.parent = this;
     this.squareRootOverBar.parent = this;
     this.radical.parent = this;
@@ -87,7 +87,7 @@ eqEd.SquareRootWrapper = function(symbolSizeConfig) {
             topAlign = value;
         },
         compute: function() {
-        	var fontHeight = this.symbolSizeConfig.height[this.parent.fontSize];
+        	var fontHeight = this.fontMetrics.height[this.parent.fontSize];
             var topAlignVal = 0;
             if (this.radicandContainer.wrappers.length > 0) {
                 topAlignVal += this.radicandContainer.wrappers[this.radicandContainer.maxTopAlignIndex].topAlign;
@@ -113,7 +113,7 @@ eqEd.SquareRootWrapper = function(symbolSizeConfig) {
             bottomAlign = value;
         },
         compute: function() {
-        	var fontHeight = this.symbolSizeConfig.height[this.parent.fontSize];
+        	var fontHeight = this.fontMetrics.height[this.parent.fontSize];
             var bottomAlignVal = 0;
             if (this.radicandContainer.wrappers.length > 0) {
                 bottomAlignVal += this.radicandContainer.wrappers[this.radicandContainer.maxBottomAlignIndex].bottomAlign;
@@ -138,7 +138,7 @@ eqEd.SquareRootWrapper = function(symbolSizeConfig) {
             '<div class="eqEdWrapper squareRootWrapper"></div>')
     };
     eqEd.SquareRootWrapper.prototype.clone = function() {
-        var copy = new this.constructor(this.symbolSizeConfig);
+        var copy = new this.constructor(this.fontMetrics);
 
         copy.domObj = copy.buildDomObj();    
 
@@ -169,11 +169,11 @@ eqEd.SquareRootWrapper = function(symbolSizeConfig) {
         };
         return jsonObj;
     };
-    eqEd.SquareRootWrapper.constructFromJsonObj = function(jsonObj, symbolSizeConfig) {
-        var squareRootWrapper = new eqEd.SquareRootWrapper(symbolSizeConfig);
+    eqEd.SquareRootWrapper.constructFromJsonObj = function(jsonObj, fontMetrics) {
+        var squareRootWrapper = new eqEd.SquareRootWrapper(fontMetrics);
         for (var i = 0; i < jsonObj.operands.radicand.length; i++) {
             var innerWrapperCtor = eqEd.Equation.JsonTypeToConstructor(jsonObj.operands.radicand[i].type);
-            var innerWrapper = innerWrapperCtor.constructFromJsonObj(jsonObj.operands.radicand[i], symbolSizeConfig);
+            var innerWrapper = innerWrapperCtor.constructFromJsonObj(jsonObj.operands.radicand[i], fontMetrics);
             squareRootWrapper.radicandContainer.addWrappers([i, innerWrapper]);
         }
         return squareRootWrapper;

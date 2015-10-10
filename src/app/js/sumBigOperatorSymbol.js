@@ -1,5 +1,5 @@
-eqEd.SumBigOperatorSymbol = function(symbolSizeConfig) {
-    eqEd.BigOperatorSymbol.call(this, symbolSizeConfig); // call super constructor.
+eqEd.SumBigOperatorSymbol = function(fontMetrics) {
+    eqEd.BigOperatorSymbol.call(this, fontMetrics); // call super constructor.
     this.className = "eqEd.SumBigOperatorSymbol";
 
     this.domObj = this.buildDomObj();
@@ -14,7 +14,7 @@ eqEd.SumBigOperatorSymbol = function(symbolSizeConfig) {
             width = value;
         },
         compute: function() {
-            var fontHeight = this.symbolSizeConfig.height[this.parent.parent.fontSize];
+            var fontHeight = this.fontMetrics.height[this.parent.parent.fontSize];
             return 0.94287111375 * this.height;
         },
         updateDom: function() {

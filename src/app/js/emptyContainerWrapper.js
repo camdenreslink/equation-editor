@@ -1,5 +1,5 @@
-eqEd.EmptyContainerWrapper = function(symbolSizeConfig) {
-    eqEd.Wrapper.call(this, symbolSizeConfig); // call super constructor.
+eqEd.EmptyContainerWrapper = function(fontMetrics) {
+    eqEd.Wrapper.call(this, fontMetrics); // call super constructor.
     this.className = "eqEd.EmptyContainerWrapper";
 };
 (function() {

@@ -1,9 +1,9 @@
-eqEd.RightSquareBracket = function(symbolSizeConfig) {
-    eqEd.RightBracket.call(this, symbolSizeConfig); // call super constructor.
+eqEd.RightSquareBracket = function(fontMetrics) {
+    eqEd.RightBracket.call(this, fontMetrics); // call super constructor.
     this.className = "eqEd.RightSquareBracket";
 
     this.matchingBracketCtor = eqEd.LeftSquareBracket;
-    this.wholeBracket = new eqEd.RightSquareWholeBracket("MathJax_Main", symbolSizeConfig);
+    this.wholeBracket = new eqEd.RightSquareWholeBracket("MathJax_Main", fontMetrics);
     this.topBracket = null;
     this.middleBrackets = [];
     this.bottomBracket = null;
@@ -26,7 +26,7 @@ eqEd.RightSquareBracket = function(symbolSizeConfig) {
         },
         compute: function() {
             var widthVal = 0;
-            var fontHeight = this.symbolSizeConfig.height[this.parent.parent.fontSize];
+            var fontHeight = this.fontMetrics.height[this.parent.parent.fontSize];
             if (this.heightRatio <= 1.5) {
                 widthVal = 0.288888 * fontHeight;
             } else if (this.heightRatio > 1.5 && this.heightRatio <= 2.4) {
@@ -54,7 +54,7 @@ eqEd.RightSquareBracket = function(symbolSizeConfig) {
         },
         compute: function() {
             var heightVal = 0;
-            var fontHeight = this.symbolSizeConfig.height[this.parent.parent.fontSize];
+            var fontHeight = this.fontMetrics.height[this.parent.parent.fontSize];
             if (this.heightRatio <= 1.5) {
                 heightVal = fontHeight;
             } else if (this.heightRatio > 1.5 && this.heightRatio <= 2.4) {
@@ -88,30 +88,30 @@ eqEd.RightSquareBracket = function(symbolSizeConfig) {
         this.bottomBracket = null;
         this.children = [];
         if (this.heightRatio <= 1.5) {
-            this.wholeBracket = new eqEd.RightSquareWholeBracket("MathJax_Main", this.symbolSizeConfig);
+            this.wholeBracket = new eqEd.RightSquareWholeBracket("MathJax_Main", this.fontMetrics);
             this.wholeBracket.parent = this;
             this.domObj.append(this.wholeBracket.domObj);
             this.children = [this.wholeBracket];
         } else if (this.heightRatio > 1.5 && this.heightRatio <= 2.4) {
-            this.wholeBracket = new eqEd.RightSquareWholeBracket("MathJax_Size3", this.symbolSizeConfig);
+            this.wholeBracket = new eqEd.RightSquareWholeBracket("MathJax_Size3", this.fontMetrics);
             this.wholeBracket.parent = this;
             this.domObj.append(this.wholeBracket.domObj);
             this.children = [this.wholeBracket];
         } else if (this.heightRatio > 2.4 && this.heightRatio <= 3) {
-            this.wholeBracket = new eqEd.RightSquareWholeBracket("MathJax_Size4", this.symbolSizeConfig);
+            this.wholeBracket = new eqEd.RightSquareWholeBracket("MathJax_Size4", this.fontMetrics);
             this.wholeBracket.parent = this;
             this.domObj.append(this.wholeBracket.domObj);
             this.children = [this.wholeBracket];
         } else {
             var numberOfMiddleBrackets = Math.ceil((this.heightRatio - 0.6)/0.45) + 1;
-            this.topBracket = new eqEd.RightSquareTopBracket(this.symbolSizeConfig);
-            this.bottomBracket = new eqEd.RightSquareBottomBracket(this.symbolSizeConfig);
+            this.topBracket = new eqEd.RightSquareTopBracket(this.fontMetrics);
+            this.bottomBracket = new eqEd.RightSquareBottomBracket(this.fontMetrics);
             this.topBracket.parent = this;
             this.bottomBracket.parent = this;
             this.domObj.append(this.topBracket.domObj);
             this.domObj.append(this.bottomBracket.domObj);
             for (var i = 0; i < numberOfMiddleBrackets; i++) {
-                var middleBracket = new eqEd.RightSquareMiddleBracket(i, this.symbolSizeConfig);
+                var middleBracket = new eqEd.RightSquareMiddleBracket(i, this.fontMetrics);
                 middleBracket.parent = this;
                 this.domObj.append(middleBracket.domObj);
                 this.middleBrackets.push(middleBracket);

@@ -1,5 +1,5 @@
-eqEd.TopBracket = function(symbolSizeConfig) {
-    eqEd.Equation.call(this, symbolSizeConfig); // call super constructor.
+eqEd.TopBracket = function(fontMetrics) {
+    eqEd.Equation.call(this, fontMetrics); // call super constructor.
     this.className = "eqEd.TopBracket";
     
     // Set up the width calculation
@@ -84,7 +84,7 @@ eqEd.TopBracket = function(symbolSizeConfig) {
             '<div class="topBracket ' + this.fontStyle + '">' + this.character + '</div>');
     };
     eqEd.TopBracket.prototype.clone = function() {
-        var copy = new this.constructor(this.symbolSizeConfig);
+        var copy = new this.constructor(this.fontMetrics);
         return copy;
     };
 })();

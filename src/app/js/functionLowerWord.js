@@ -1,5 +1,5 @@
-eqEd.FunctionLowerWord = function(characters, fontStyle, symbolSizeConfig) {
-    eqEd.Word.call(this, characters, fontStyle, symbolSizeConfig); // call super constructor.
+eqEd.FunctionLowerWord = function(characters, fontStyle, fontMetrics) {
+    eqEd.Word.call(this, characters, fontStyle, fontMetrics); // call super constructor.
     this.className = "eqEd.FunctionLowerWord";
 
     // Set up the left calculation
@@ -12,7 +12,7 @@ eqEd.FunctionLowerWord = function(characters, fontStyle, symbolSizeConfig) {
             left = value;
         },
         compute: function() {
-            var fontHeight = this.symbolSizeConfig.height[this.parent.parent.fontSize];
+            var fontHeight = this.fontMetrics.height[this.parent.parent.fontSize];
             var leftOffset = 0.5 * ((this.parent.width - (this.parent.padLeft + this.parent.padRight) * fontHeight) - this.width);
             return leftOffset;
         },

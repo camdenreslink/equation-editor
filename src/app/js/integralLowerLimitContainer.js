@@ -1,8 +1,8 @@
-eqEd.IntegralLowerLimitContainer = function(symbolSizeConfig) {
-    eqEd.Container.call(this, symbolSizeConfig);
+eqEd.IntegralLowerLimitContainer = function(fontMetrics) {
+    eqEd.Container.call(this, fontMetrics);
     this.className = "eqEd.IntegralLowerLimitContainer";
     this.domObj = this.buildDomObj();
-    var squareEmptyContainerWrapper = new eqEd.SquareEmptyContainerWrapper(symbolSizeConfig);
+    var squareEmptyContainerWrapper = new eqEd.SquareEmptyContainerWrapper(fontMetrics);
     this.addWrappers([0, squareEmptyContainerWrapper]);
     
     this.inlineLeftOverlap = 0.55;
@@ -17,7 +17,7 @@ eqEd.IntegralLowerLimitContainer = function(symbolSizeConfig) {
             left = value;
         },
         compute: function() {
-            var fontHeight = this.symbolSizeConfig.height[this.parent.parent.fontSize];
+            var fontHeight = this.fontMetrics.height[this.parent.parent.fontSize];
             var leftVal = 0;
             if (this.parent.isInline) {
                 leftVal = this.parent.symbol.width + (this.parent.inlineLimitGap - this.inlineLeftOverlap) * fontHeight;
@@ -50,7 +50,7 @@ eqEd.IntegralLowerLimitContainer = function(symbolSizeConfig) {
             top = value;
         },
         compute: function() {
-            var fontHeight = this.symbolSizeConfig.height[this.parent.parent.fontSize];
+            var fontHeight = this.fontMetrics.height[this.parent.parent.fontSize];
             var topVal = 0;
             if (this.parent.isInline) {
                 var additionalTopAlign = 0;

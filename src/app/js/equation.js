@@ -2,12 +2,12 @@
 // from Equation. This is where methods/properties
 // should be set that will be common to all objects in
 // the editor.
-eqEd.Equation = function(symbolSizeConfig) {
+eqEd.Equation = function(fontMetrics) {
     this.className = "eqEd.Equation";
     // SymbolSizeConfig gives some info about fontHeights.
     // Allows all calculations to happen with plain javascript
     // objects without accessing the DOM.
-    this.symbolSizeConfig = symbolSizeConfig;
+    this.fontMetrics = fontMetrics;
     // The properties array is required for use with Property
     // class. Allows for automatic resolution of dependencies
     // during formatting loop.
@@ -56,7 +56,7 @@ eqEd.Equation = function(symbolSizeConfig) {
     // because will need deep clones of equations for
     // copy/cut, paste mechanisms.
     eqEd.Equation.prototype.clone = function() {
-        var copy = new this.constructor(this.symbolSizeConfig);
+        var copy = new this.constructor(this.fontMetrics);
         return copy;
     };
     // Use buildDomObj() to create an instance of
@@ -107,7 +107,7 @@ eqEd.Equation = function(symbolSizeConfig) {
         while (typeof context.fontSize === "undefined") {
           context = context.parent;
         }
-        return this.symbolSizeConfig.height[context.fontSize];
+        return this.fontMetrics.height[context.fontSize];
     }
     eqEd.Equation.JsonTypeToConstructor = function(type) {
         var typeToConstructorMapping = {

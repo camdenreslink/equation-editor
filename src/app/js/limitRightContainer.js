@@ -1,8 +1,8 @@
-eqEd.LimitRightContainer = function(symbolSizeConfig) {
-    eqEd.Container.call(this, symbolSizeConfig);
+eqEd.LimitRightContainer = function(fontMetrics) {
+    eqEd.Container.call(this, fontMetrics);
     this.className = "eqEd.LimitRightContainer";
     this.domObj = this.buildDomObj();
-    var squareEmptyContainerWrapper = new eqEd.SquareEmptyContainerWrapper(symbolSizeConfig);
+    var squareEmptyContainerWrapper = new eqEd.SquareEmptyContainerWrapper(fontMetrics);
     this.addWrappers([0, squareEmptyContainerWrapper]);
 
     // Set up the left calculation
@@ -15,7 +15,7 @@ eqEd.LimitRightContainer = function(symbolSizeConfig) {
             left = value;
         },
         compute: function() {
-            var fontHeight = this.symbolSizeConfig.height[this.parent.parent.fontSize];
+            var fontHeight = this.fontMetrics.height[this.parent.parent.fontSize];
             var leftOffset = 0.5 * ((this.parent.width - (this.parent.padLeft + this.parent.padRight) * fontHeight) - this.parent.bottomHalfWidth);
             return leftOffset + this.parent.limitLeftContainer.width + this.parent.leftLimitContainerGap * fontHeight + this.parent.symbol.width + this.parent.rightLimitContainerGap * fontHeight;
         },
@@ -34,7 +34,7 @@ eqEd.LimitRightContainer = function(symbolSizeConfig) {
             top = value;
         },
         compute: function() {
-            var fontHeight = this.symbolSizeConfig.height[this.parent.parent.fontSize];
+            var fontHeight = this.fontMetrics.height[this.parent.parent.fontSize];
             var bottomHalfMaxTopAlign = 0;
             var topOffset = 0;
             if (this.wrappers.length > 0 && this.parent.limitLeftContainer.wrappers.length > 0) {

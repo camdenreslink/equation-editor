@@ -1,5 +1,5 @@
-eqEd.ContourIntegralSymbol = function(symbolSizeConfig) {
-    eqEd.BigOperatorSymbol.call(this, symbolSizeConfig); // call super constructor.
+eqEd.ContourIntegralSymbol = function(fontMetrics) {
+    eqEd.BigOperatorSymbol.call(this, fontMetrics); // call super constructor.
     this.className = "eqEd.ContourIntegralSymbol";
 
     this.domObj = this.buildDomObj();
@@ -22,7 +22,7 @@ eqEd.ContourIntegralSymbol = function(symbolSizeConfig) {
             height = value;
         },
         compute: function() {
-            var fontHeight = this.symbolSizeConfig.height[this.parent.parent.fontSize];
+            var fontHeight = this.fontMetrics.height[this.parent.parent.fontSize];
             return 2.25 * fontHeight;
         },
         updateDom: function() {
@@ -40,7 +40,7 @@ eqEd.ContourIntegralSymbol = function(symbolSizeConfig) {
             width = value;
         },
         compute: function() {
-            var fontHeight = this.symbolSizeConfig.height[this.parent.parent.fontSize];
+            var fontHeight = this.fontMetrics.height[this.parent.parent.fontSize];
             return 0.40004502251 * this.height;
         },
         updateDom: function() {

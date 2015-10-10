@@ -1,5 +1,5 @@
-eqEd.NthRootDiagonal = function(symbolSizeConfig) {
-    eqEd.Equation.call(this, symbolSizeConfig); // call super constructor.
+eqEd.NthRootDiagonal = function(fontMetrics) {
+    eqEd.Equation.call(this, fontMetrics); // call super constructor.
     this.className = "eqEd.NthRootDiagonal";
 
     this.domObj = this.buildDomObj();
@@ -15,7 +15,7 @@ eqEd.NthRootDiagonal = function(symbolSizeConfig) {
             width = value;
         },
         compute: function() {
-            var fontHeight = this.symbolSizeConfig.height[this.parent.parent.fontSize];
+            var fontHeight = this.fontMetrics.height[this.parent.parent.fontSize];
             return 0.58 * fontHeight + 0.05 * this.height;
         },
         updateDom: function() {
@@ -33,7 +33,7 @@ eqEd.NthRootDiagonal = function(symbolSizeConfig) {
             height = value;
         },
         compute: function() {
-            var fontHeight = this.symbolSizeConfig.height[this.parent.parent.fontSize];
+            var fontHeight = this.fontMetrics.height[this.parent.parent.fontSize];
             var heightVal = this.parent.radicandContainer.height;
             if (this.parent.radicandContainer.isMaxTopAlignRootWrapper) {
                 heightVal += (this.parent.radicandContainer.padTopMaxChildAlignTopIsRoot + this.parent.radicandContainer.padBottomMaxChildAlignTopIsRoot) * fontHeight;
@@ -57,7 +57,7 @@ eqEd.NthRootDiagonal = function(symbolSizeConfig) {
             left = value;
         },
         compute: function() {
-            var fontHeight = this.symbolSizeConfig.height[this.parent.parent.fontSize];
+            var fontHeight = this.fontMetrics.height[this.parent.parent.fontSize];
             var leftVal = this.parent.radical.width;
             if (this.parent.nthRootDegreeContainer.isLeftFlushToWrapper) {
                leftVal += this.parent.nthRootDegreeContainer.width - this.parent.nthRootDegreeContainer.offsetRadicalRight * fontHeight + this.parent.nthRootDegreeContainer.diagonalHeightAdjustment * this.parent.nthRootDiagonal.height - this.parent.radical.width;
@@ -79,7 +79,7 @@ eqEd.NthRootDiagonal = function(symbolSizeConfig) {
             top = value;
         },
         compute: function() {
-            var fontHeight = this.symbolSizeConfig.height[this.parent.parent.fontSize];
+            var fontHeight = this.fontMetrics.height[this.parent.parent.fontSize];
             var topVal = 0;
             if (this.parent.nthRootDegreeContainer.isTopFlushToWrapper) {
                 topVal += this.parent.nthRootDegreeContainer.height + this.parent.radical.height + this.parent.nthRootDegreeContainer.offsetRadicalBottom * fontHeight - this.height;

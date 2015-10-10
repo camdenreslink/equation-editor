@@ -3,8 +3,8 @@
 // in a row. A container may be within a wrapper
 // (example: numerator in a fraction; numerator 
 // defines a new scope).
-eqEd.Container = function(symbolSizeConfig) {
-  eqEd.Equation.call(this, symbolSizeConfig); // call super constructor.
+eqEd.Container = function(fontMetrics) {
+  eqEd.Equation.call(this, fontMetrics); // call super constructor.
   this.className = "eqEd.Container";
   
   // The wrappers property defines the wrapper objects
@@ -206,7 +206,7 @@ eqEd.Container = function(symbolSizeConfig) {
     }
     // TODO Write tests for clone!
     eqEd.Container.prototype.clone = function() {
-      var copy = new this.constructor(this.symbolSizeConfig);
+      var copy = new this.constructor(this.fontMetrics);
       var indexAndWrapperList = [];
       for (var i = 0; i < this.wrappers.length; i++) {
         indexAndWrapperList.push([i, this.wrappers[i].clone()]);

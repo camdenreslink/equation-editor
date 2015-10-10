@@ -1,10 +1,10 @@
-eqEd.StackedFractionWrapper = function(symbolSizeConfig) {
-    eqEd.Wrapper.call(this, symbolSizeConfig); // call super constructor.
+eqEd.StackedFractionWrapper = function(fontMetrics) {
+    eqEd.Wrapper.call(this, fontMetrics); // call super constructor.
     this.className = "eqEd.StackedFractionWrapper";
 
-    this.stackedFractionNumeratorContainer = new eqEd.StackedFractionNumeratorContainer(symbolSizeConfig);
-    this.stackedFractionDenominatorContainer = new eqEd.StackedFractionDenominatorContainer(symbolSizeConfig);
-    this.stackedFractionHorizontalBar = new eqEd.StackedFractionHorizontalBar(symbolSizeConfig);
+    this.stackedFractionNumeratorContainer = new eqEd.StackedFractionNumeratorContainer(fontMetrics);
+    this.stackedFractionDenominatorContainer = new eqEd.StackedFractionDenominatorContainer(fontMetrics);
+    this.stackedFractionHorizontalBar = new eqEd.StackedFractionHorizontalBar(fontMetrics);
     this.stackedFractionNumeratorContainer.parent = this;
     this.stackedFractionDenominatorContainer.parent = this;
     this.stackedFractionHorizontalBar.parent = this;
@@ -75,7 +75,7 @@ eqEd.StackedFractionWrapper = function(symbolSizeConfig) {
             '<div class="eqEdWrapper stackedFractionWrapper"></div>')
     };
     eqEd.StackedFractionWrapper.prototype.clone = function() {
-        var copy = new this.constructor(this.symbolSizeConfig);
+        var copy = new this.constructor(this.fontMetrics);
         copy.stackedFractionNumeratorContainer = this.stackedFractionNumeratorContainer.clone();
         copy.stackedFractionDenominatorContainer = this.stackedFractionDenominatorContainer.clone();
         copy.stackedFractionHorizontalBar = this.stackedFractionHorizontalBar.clone();
@@ -103,16 +103,16 @@ eqEd.StackedFractionWrapper = function(symbolSizeConfig) {
         };
         return jsonObj;
     };
-    eqEd.StackedFractionWrapper.constructFromJsonObj = function(jsonObj, symbolSizeConfig) {
-        var stackedFractionWrapper = new eqEd.StackedFractionWrapper(symbolSizeConfig);
+    eqEd.StackedFractionWrapper.constructFromJsonObj = function(jsonObj, fontMetrics) {
+        var stackedFractionWrapper = new eqEd.StackedFractionWrapper(fontMetrics);
         for (var i = 0; i < jsonObj.operands.numerator.length; i++) {
             var innerWrapperCtor = eqEd.Equation.JsonTypeToConstructor(jsonObj.operands.numerator[i].type);
-            var innerWrapper = innerWrapperCtor.constructFromJsonObj(jsonObj.operands.numerator[i], symbolSizeConfig);
+            var innerWrapper = innerWrapperCtor.constructFromJsonObj(jsonObj.operands.numerator[i], fontMetrics);
             stackedFractionWrapper.stackedFractionNumeratorContainer.addWrappers([i, innerWrapper]);
         }
         for (var i = 0; i < jsonObj.operands.denominator.length; i++) {
             var innerWrapperCtor = eqEd.Equation.JsonTypeToConstructor(jsonObj.operands.denominator[i].type);
-            var innerWrapper = innerWrapperCtor.constructFromJsonObj(jsonObj.operands.denominator[i], symbolSizeConfig);
+            var innerWrapper = innerWrapperCtor.constructFromJsonObj(jsonObj.operands.denominator[i], fontMetrics);
             stackedFractionWrapper.stackedFractionDenominatorContainer.addWrappers([i, innerWrapper]);
         }
         return stackedFractionWrapper;

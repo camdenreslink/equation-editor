@@ -1,8 +1,8 @@
-eqEd.FunctionWrapper = function(functionCharacters, fontStyle, symbolSizeConfig) {
-	eqEd.Wrapper.call(this, symbolSizeConfig); // call super constructor.
+eqEd.FunctionWrapper = function(functionCharacters, fontStyle, fontMetrics) {
+	eqEd.Wrapper.call(this, fontMetrics); // call super constructor.
 	this.className = "eqEd.FunctionWrapper";
 
-    this.word = new eqEd.FunctionWord(functionCharacters, fontStyle, symbolSizeConfig);
+    this.word = new eqEd.FunctionWord(functionCharacters, fontStyle, fontMetrics);
 	this.word.parent = this;
 	this.domObj = this.buildDomObj();
 	this.domObj.append(this.word.domObj);
@@ -87,7 +87,7 @@ eqEd.FunctionWrapper = function(functionCharacters, fontStyle, symbolSizeConfig)
     eqEd.FunctionWrapper.prototype = Object.create(eqEd.Wrapper.prototype);
     eqEd.FunctionWrapper.prototype.constructor = eqEd.FunctionWrapper;
     eqEd.FunctionWrapper.prototype.clone = function() {
-    	return new this.constructor(this.word.characters.join(""), this.word.fontStyle, this.symbolSizeConfig);
+    	return new this.constructor(this.word.characters.join(""), this.word.fontStyle, this.fontMetrics);
     };
     eqEd.FunctionWrapper.prototype.buildDomObj = function() {
         return new eqEd.WrapperDom(this,
@@ -101,8 +101,8 @@ eqEd.FunctionWrapper = function(functionCharacters, fontStyle, symbolSizeConfig)
         };
         return jsonObj;
     };
-    eqEd.FunctionWrapper.constructFromJsonObj = function(jsonObj, symbolSizeConfig) {
-      var functionWrapper = new eqEd.FunctionWrapper(jsonObj.value, "MathJax_Main", symbolSizeConfig);
+    eqEd.FunctionWrapper.constructFromJsonObj = function(jsonObj, fontMetrics) {
+      var functionWrapper = new eqEd.FunctionWrapper(jsonObj.value, "MathJax_Main", fontMetrics);
       return functionWrapper;
     }
 })();

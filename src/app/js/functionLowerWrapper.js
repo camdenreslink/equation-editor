@@ -1,5 +1,5 @@
-eqEd.FunctionLowerWrapper = function(characters, fontStyle, symbolSizeConfig) {
-    eqEd.FunctionWrapper.call(this, characters, fontStyle, symbolSizeConfig); // call super constructor.
+eqEd.FunctionLowerWrapper = function(characters, fontStyle, fontMetrics) {
+    eqEd.FunctionWrapper.call(this, characters, fontStyle, fontMetrics); // call super constructor.
     this.className = "eqEd.FunctionLowerWrapper";
 
     // topAlign, bottomAlign, width has already been added to 
@@ -14,8 +14,8 @@ eqEd.FunctionLowerWrapper = function(characters, fontStyle, symbolSizeConfig) {
 
     this.belowFunctionGap = -0.075;
 
-    this.functionWord = new eqEd.FunctionLowerWord(characters, fontStyle, symbolSizeConfig);
-    this.functionLowerContainer = new eqEd.FunctionLowerContainer(symbolSizeConfig);
+    this.functionWord = new eqEd.FunctionLowerWord(characters, fontStyle, fontMetrics);
+    this.functionLowerContainer = new eqEd.FunctionLowerContainer(fontMetrics);
     this.functionWord.parent = this;
     this.functionLowerContainer.parent = this;
     this.domObj = this.buildDomObj();
@@ -38,7 +38,7 @@ eqEd.FunctionLowerWrapper = function(characters, fontStyle, symbolSizeConfig) {
             width = value;
         },
         compute: function() {
-            var fontHeight = this.symbolSizeConfig.height[this.parent.fontSize];
+            var fontHeight = this.fontMetrics.height[this.parent.fontSize];
             var widthVal = 0;
             var topWidth = this.functionWord.width;
             widthVal = (topWidth > this.functionLowerContainer.width) ? topWidth : this.functionLowerContainer.width;
@@ -74,7 +74,7 @@ eqEd.FunctionLowerWrapper = function(characters, fontStyle, symbolSizeConfig) {
             bottomAlign = value;
         },
         compute: function() {
-            var fontHeight = this.symbolSizeConfig.height[this.parent.fontSize];
+            var fontHeight = this.fontMetrics.height[this.parent.fontSize];
             return 0.5 * this.functionWord.height + this.belowFunctionGap * fontHeight + this.functionLowerContainer.height;
         },
         updateDom: function() {}
@@ -89,8 +89,8 @@ eqEd.FunctionLowerWrapper = function(characters, fontStyle, symbolSizeConfig) {
             '<div class="eqEdWrapper functionLowerWrapper"></div>')
     }
     eqEd.FunctionLowerWrapper.prototype.clone = function() {
-        var copy = new this.constructor(this.symbolSizeConfig);
-        copy.functionWord = new eqEd.FunctionWord(characters, fontStyle, symbolSizeConfig);
+        var copy = new this.constructor(this.fontMetrics);
+        copy.functionWord = new eqEd.FunctionWord(characters, fontStyle, fontMetrics);
         copy.functionLowerContainer = this.functionLowerContainer.clone();
         copy.functionWord.parent = copy;
         copy.functionLowerContainer.parent = copy;
@@ -113,11 +113,11 @@ eqEd.FunctionLowerWrapper = function(characters, fontStyle, symbolSizeConfig) {
         };
         return jsonObj;
     };
-    eqEd.FunctionLowerWrapper.constructFromJsonObj = function(jsonObj, symbolSizeConfig) {
-      var functionLowerWrapper = new eqEd.FunctionLowerWrapper(jsonObj.value, "MathJax_Main", symbolSizeConfig);
+    eqEd.FunctionLowerWrapper.constructFromJsonObj = function(jsonObj, fontMetrics) {
+      var functionLowerWrapper = new eqEd.FunctionLowerWrapper(jsonObj.value, "MathJax_Main", fontMetrics);
       for (var i = 0; i < jsonObj.operands.lower.length; i++) {
         var innerWrapperCtor = eqEd.Equation.JsonTypeToConstructor(jsonObj.operands.lower[i].type);
-        var innerWrapper = innerWrapperCtor.constructFromJsonObj(jsonObj.operands.lower[i], symbolSizeConfig);
+        var innerWrapper = innerWrapperCtor.constructFromJsonObj(jsonObj.operands.lower[i], fontMetrics);
         functionLowerWrapper.functionLowerContainer.addWrappers([i, innerWrapper]);
       }
       return functionLowerWrapper;

@@ -1,5 +1,5 @@
-eqEd.CoProdBigOperatorSymbol = function(symbolSizeConfig) {
-    eqEd.BigOperatorSymbol.call(this, symbolSizeConfig); // call super constructor.
+eqEd.CoProdBigOperatorSymbol = function(fontMetrics) {
+    eqEd.BigOperatorSymbol.call(this, fontMetrics); // call super constructor.
     this.className = "eqEd.CoProdBigOperatorSymbol";
 
     this.domObj = this.buildDomObj();

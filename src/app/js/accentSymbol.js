@@ -1,5 +1,5 @@
-eqEd.AccentSymbol = function(character, fontStyle, symbolSizeConfig) {
-    eqEd.Symbol.call(this, character, fontStyle, symbolSizeConfig); // call super constructor.
+eqEd.AccentSymbol = function(character, fontStyle, fontMetrics) {
+    eqEd.Symbol.call(this, character, fontStyle, fontMetrics); // call super constructor.
     this.className = "eqEd.AccentSymbol";
 
     // width has already been added to 
@@ -644,8 +644,8 @@ eqEd.AccentSymbol = function(character, fontStyle, symbolSizeConfig) {
             left = value;
         },
         compute: function() {
-            var fontHeight = this.symbolSizeConfig.height[this.parent.parent.fontSize];
-            var fontWidth = this.symbolSizeConfig.width[this.character][this.fontStyle][this.parent.parent.fontSize];
+            var fontHeight = this.fontMetrics.height[this.parent.parent.fontSize];
+            var fontWidth = this.fontMetrics.width[this.character][this.fontStyle][this.parent.parent.fontSize];
             var leftOffset = 0.5 * (this.parent.width - (this.parent.padLeft + this.parent.padRight) * fontHeight - fontWidth);
             return leftOffset;
         },
@@ -664,7 +664,7 @@ eqEd.AccentSymbol = function(character, fontStyle, symbolSizeConfig) {
             top = value;
         },
         compute: function() {
-            var fontHeight = this.symbolSizeConfig.height[this.parent.parent.fontSize];
+            var fontHeight = this.fontMetrics.height[this.parent.parent.fontSize];
             var topVal = 0
             if (this.parent.accentGap < 0) {
                 topVal = -1 * this.parent.accentGap * fontHeight;
@@ -686,7 +686,7 @@ eqEd.AccentSymbol = function(character, fontStyle, symbolSizeConfig) {
             width = value;
         },
         compute: function() {
-            var fontHeight = this.symbolSizeConfig.height[this.parent.parent.fontSize];
+            var fontHeight = this.fontMetrics.height[this.parent.parent.fontSize];
             var widthVal = 0;
             if (this.character === '˙') {
                 widthVal = 0.33 * fontHeight;

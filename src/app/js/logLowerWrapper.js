@@ -1,5 +1,5 @@
-eqEd.LogLowerWrapper = function(symbolSizeConfig) {
-    eqEd.FunctionWrapper.call(this, 'log', 'MathJax_Main', symbolSizeConfig); // call super constructor.
+eqEd.LogLowerWrapper = function(fontMetrics) {
+    eqEd.FunctionWrapper.call(this, 'log', 'MathJax_Main', fontMetrics); // call super constructor.
     this.className = "eqEd.LogLowerWrapper";
 
     // topAlign, bottomAlign, width has already been added to 
@@ -14,8 +14,8 @@ eqEd.LogLowerWrapper = function(symbolSizeConfig) {
 
     this.logLowerOverlap = 0.75;
 
-    this.functionWord = new eqEd.LogLowerWord(symbolSizeConfig);
-    this.functionLowerContainer = new eqEd.LogLowerContainer(symbolSizeConfig);
+    this.functionWord = new eqEd.LogLowerWord(fontMetrics);
+    this.functionLowerContainer = new eqEd.LogLowerContainer(fontMetrics);
     this.functionWord.parent = this;
     this.functionLowerContainer.parent = this;
     this.domObj = this.buildDomObj();
@@ -67,7 +67,7 @@ eqEd.LogLowerWrapper = function(symbolSizeConfig) {
             bottomAlign = value;
         },
         compute: function() {
-            var fontHeightNested = this.symbolSizeConfig.height[this.functionLowerContainer.fontSize];
+            var fontHeightNested = this.fontMetrics.height[this.functionLowerContainer.fontSize];
             return this.functionWord.height - this.logLowerOverlap * fontHeightNested + this.functionLowerContainer.height - this.topAlign;
         },
         updateDom: function() {}
@@ -82,8 +82,8 @@ eqEd.LogLowerWrapper = function(symbolSizeConfig) {
             '<div class="eqEdWrapper logLowerWrapper"></div>')
     };
     eqEd.LogLowerWrapper.prototype.clone = function() {
-        var copy = new this.constructor(this.symbolSizeConfig);
-        copy.functionWord = new eqEd.FunctionWord(characters, fontStyle, symbolSizeConfig);
+        var copy = new this.constructor(this.fontMetrics);
+        copy.functionWord = new eqEd.FunctionWord(characters, fontStyle, fontMetrics);
         copy.functionLowerContainer = this.functionLowerContainer.clone();
         copy.functionWord.parent = copy;
         copy.functionLowerContainer.parent = copy;
@@ -106,11 +106,11 @@ eqEd.LogLowerWrapper = function(symbolSizeConfig) {
         };
         return jsonObj;
     };
-    eqEd.LogLowerWrapper.constructFromJsonObj = function(jsonObj, symbolSizeConfig) {
-        var logLowerWrapper = new eqEd.LogLowerWrapper(symbolSizeConfig);
+    eqEd.LogLowerWrapper.constructFromJsonObj = function(jsonObj, fontMetrics) {
+        var logLowerWrapper = new eqEd.LogLowerWrapper(fontMetrics);
         for (var i = 0; i < jsonObj.operands.lower.length; i++) {
             var innerWrapperCtor = eqEd.Equation.JsonTypeToConstructor(jsonObj.operands.lower[i].type);
-            var innerWrapper = innerWrapperCtor.constructFromJsonObj(jsonObj.operands.lower[i], symbolSizeConfig);
+            var innerWrapper = innerWrapperCtor.constructFromJsonObj(jsonObj.operands.lower[i], fontMetrics);
             logLowerWrapper.functionLowerContainer.addWrappers([i, innerWrapper]);
         }
         return logLowerWrapper;

@@ -1,9 +1,9 @@
-eqEd.OperatorWrapper = function(operatorSymbol, fontStyle, symbolSizeConfig) {
-	eqEd.Wrapper.call(this, symbolSizeConfig); // call super constructor.
+eqEd.OperatorWrapper = function(operatorSymbol, fontStyle, fontMetrics) {
+	eqEd.Wrapper.call(this, fontMetrics); // call super constructor.
 	this.className = "eqEd.OperatorWrapper";
 
     this.operatorSymbol = operatorSymbol;
-    this.operator = new eqEd.Symbol(operatorSymbol, fontStyle, symbolSizeConfig);
+    this.operator = new eqEd.Symbol(operatorSymbol, fontStyle, fontMetrics);
     this.operator.parent = this;
 	this.domObj = this.buildDomObj();
 	this.domObj.append(this.operator.domObj);
@@ -163,7 +163,7 @@ eqEd.OperatorWrapper = function(operatorSymbol, fontStyle, symbolSizeConfig) {
     eqEd.OperatorWrapper.prototype = Object.create(eqEd.Wrapper.prototype);
     eqEd.OperatorWrapper.prototype.constructor = eqEd.OperatorWrapper;
     eqEd.OperatorWrapper.prototype.clone = function() {
-    	return new this.constructor(this.operatorSymbol, this.operator.fontStyle, this.symbolSizeConfig);
+    	return new this.constructor(this.operatorSymbol, this.operator.fontStyle, this.fontMetrics);
     };
     eqEd.OperatorWrapper.prototype.buildDomObj = function() {
         return new eqEd.WrapperDom(this,
@@ -177,8 +177,8 @@ eqEd.OperatorWrapper = function(operatorSymbol, fontStyle, symbolSizeConfig) {
         };
         return jsonObj;
     };
-    eqEd.OperatorWrapper.constructFromJsonObj = function(jsonObj, symbolSizeConfig) {
-      var operatorWrapper = new eqEd.OperatorWrapper(jsonObj.value, "MathJax_Main", symbolSizeConfig);
+    eqEd.OperatorWrapper.constructFromJsonObj = function(jsonObj, fontMetrics) {
+      var operatorWrapper = new eqEd.OperatorWrapper(jsonObj.value, "MathJax_Main", fontMetrics);
       return operatorWrapper;
     }
 })();

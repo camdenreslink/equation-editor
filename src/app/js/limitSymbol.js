@@ -1,5 +1,5 @@
-eqEd.LimitSymbol = function(symbolSizeConfig) {
-    eqEd.Symbol.call(this, '→', 'MathJax_Main', symbolSizeConfig); // call super constructor.
+eqEd.LimitSymbol = function(fontMetrics) {
+    eqEd.Symbol.call(this, '→', 'MathJax_Main', fontMetrics); // call super constructor.
     this.className = "eqEd.LimitSymbol";
 
     // Height has already been added to properties in superclass
@@ -21,7 +21,7 @@ eqEd.LimitSymbol = function(symbolSizeConfig) {
             left = value;
         },
         compute: function() {
-            var fontHeight = this.symbolSizeConfig.height[this.parent.parent.fontSize];
+            var fontHeight = this.fontMetrics.height[this.parent.parent.fontSize];
             var leftOffset = 0.5 * ((this.parent.width - (this.parent.padLeft + this.parent.padRight) * fontHeight) - this.parent.bottomHalfWidth);
             return leftOffset + this.parent.limitLeftContainer.width + this.parent.leftLimitContainerGap * fontHeight;
         },
@@ -40,7 +40,7 @@ eqEd.LimitSymbol = function(symbolSizeConfig) {
             top = value;
         },
         compute: function() {
-            var fontHeight = this.symbolSizeConfig.height[this.parent.parent.fontSize];
+            var fontHeight = this.fontMetrics.height[this.parent.parent.fontSize];
             var bottomHalfMaxTopAlign = 0;
             var topOffset = 0;
             if (this.parent.limitLeftContainer.wrappers.length > 0

@@ -1,8 +1,8 @@
-eqEd.SymbolWrapper = function(character, fontStyle, symbolSizeConfig) {
-	eqEd.Wrapper.call(this, symbolSizeConfig); // call super constructor.
+eqEd.SymbolWrapper = function(character, fontStyle, fontMetrics) {
+	eqEd.Wrapper.call(this, fontMetrics); // call super constructor.
 	this.className = "eqEd.SymbolWrapper";
 
-    this.symbol = new eqEd.Symbol(character, fontStyle, symbolSizeConfig);
+    this.symbol = new eqEd.Symbol(character, fontStyle, fontMetrics);
 	this.symbol.parent = this;
 	this.domObj = this.buildDomObj();
 	this.domObj.append(this.symbol.domObj);
@@ -144,7 +144,7 @@ eqEd.SymbolWrapper = function(character, fontStyle, symbolSizeConfig) {
     eqEd.SymbolWrapper.prototype = Object.create(eqEd.Wrapper.prototype);
     eqEd.SymbolWrapper.prototype.constructor = eqEd.SymbolWrapper;
     eqEd.SymbolWrapper.prototype.clone = function() {
-    	return new this.constructor(this.symbol.character, this.symbol.fontStyle, this.symbolSizeConfig);
+    	return new this.constructor(this.symbol.character, this.symbol.fontStyle, this.fontMetrics);
     };
     eqEd.SymbolWrapper.prototype.buildDomObj = function() {
         return new eqEd.WrapperDom(this,
@@ -158,16 +158,16 @@ eqEd.SymbolWrapper = function(character, fontStyle, symbolSizeConfig) {
         };
         return jsonObj;
     };
-    eqEd.SymbolWrapper.constructFromJsonObj = function(jsonObj, symbolSizeConfig) {
+    eqEd.SymbolWrapper.constructFromJsonObj = function(jsonObj, fontMetrics) {
         var fontStyle = "";
-        if (_.indexOf(symbolSizeConfig.MathJax_MathItalic, jsonObj.value) !== -1) {
+        if (_.indexOf(fontMetrics.MathJax_MathItalic, jsonObj.value) !== -1) {
             fontStyle = "MathJax_MathItalic";
-        } else if (_.indexOf(symbolSizeConfig.MathJax_Main, jsonObj.value) !== -1) {
+        } else if (_.indexOf(fontMetrics.MathJax_Main, jsonObj.value) !== -1) {
             fontStyle = "MathJax_Main";
-        } else if (_.indexOf(symbolSizeConfig.MathJax_MainItalic, jsonObj.value) !== -1) {
+        } else if (_.indexOf(fontMetrics.MathJax_MainItalic, jsonObj.value) !== -1) {
             fontStyle = "MathJax_MainItalic";
         }
-        var symbolWrapper = new eqEd.SymbolWrapper(jsonObj.value, fontStyle, symbolSizeConfig);
+        var symbolWrapper = new eqEd.SymbolWrapper(jsonObj.value, fontStyle, fontMetrics);
         return symbolWrapper;
     }
 })();

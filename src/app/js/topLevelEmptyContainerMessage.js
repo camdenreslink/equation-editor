@@ -1,5 +1,5 @@
-eqEd.TopLevelEmptyContainerMessage = function(symbolSizeConfig) {
-    eqEd.Equation.call(this, symbolSizeConfig); // call super constructor.
+eqEd.TopLevelEmptyContainerMessage = function(fontMetrics) {
+    eqEd.Equation.call(this, fontMetrics); // call super constructor.
     this.className = "eqEd.TopLevelEmptyContainerMessage";
     
     this.message = "Enter&nbsp;Your&nbsp;Equation&nbsp;Here";
@@ -87,7 +87,7 @@ eqEd.TopLevelEmptyContainerMessage = function(symbolSizeConfig) {
     eqEd.TopLevelEmptyContainerMessage.prototype.constructor = eqEd.TopLevelEmptyContainerMessage;
     eqEd.TopLevelEmptyContainerMessage.prototype.clone = function() {
         // character doesn't need cloned, because it isn't an object, it's
-        // a native type.  symbolSizeConfig doesn't need cloned, because
+        // a native type.  fontMetrics doesn't need cloned, because
         // it is a singleton over the equation life cycle. Only need a 
         // reference to the singleton.
         return new this.constructor();

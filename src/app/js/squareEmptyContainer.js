@@ -1,11 +1,11 @@
-eqEd.SquareEmptyContainer = function(symbolSizeConfig) {
-    eqEd.Container.call(this, symbolSizeConfig);
+eqEd.SquareEmptyContainer = function(fontMetrics) {
+    eqEd.Container.call(this, fontMetrics);
     this.className = "eqEd.SquareEmptyContainer";
     this.borderWidth = 4;
     this.fontSize = "fontSizeNormal";
     this.domObj = this.buildDomObj();
 
-    this.squareEmptyContainerFillerWrapper = new eqEd.SquareEmptyContainerFillerWrapper(symbolSizeConfig);
+    this.squareEmptyContainerFillerWrapper = new eqEd.SquareEmptyContainerFillerWrapper(fontMetrics);
     this.addWrappers([0, this.squareEmptyContainerFillerWrapper]);
 
     // Set up the left calculation
@@ -36,7 +36,7 @@ eqEd.SquareEmptyContainer = function(symbolSizeConfig) {
             top = value;
         },
         compute: function() {
-            var fontHeight = this.symbolSizeConfig.height[this.fontSize];
+            var fontHeight = this.fontMetrics.height[this.fontSize];
             return 0.5 * fontHeight - 0.5 * this.squareEmptyContainerFillerWrapper.height;
         },
         updateDom: function() {
@@ -75,7 +75,7 @@ eqEd.SquareEmptyContainer = function(symbolSizeConfig) {
             borderWidth = value;
         },
         compute: function() {
-            return 0.088 * this.symbolSizeConfig.height["fontSizeNormal"];
+            return 0.088 * this.fontMetrics.height["fontSizeNormal"];
         },
         updateDom: function() {
             this.domObj.updateBorderWidth(borderWidth);

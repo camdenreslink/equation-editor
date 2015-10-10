@@ -1,8 +1,8 @@
-eqEd.SquareEmptyContainerWrapper = function(symbolSizeConfig) {
-    eqEd.EmptyContainerWrapper.call(this, symbolSizeConfig); // call super constructor.
+eqEd.SquareEmptyContainerWrapper = function(fontMetrics) {
+    eqEd.EmptyContainerWrapper.call(this, fontMetrics); // call super constructor.
     this.className = "eqEd.SquareEmptyContainerWrapper";
 
-    this.squareEmptyContainer = new eqEd.SquareEmptyContainer(symbolSizeConfig);
+    this.squareEmptyContainer = new eqEd.SquareEmptyContainer(fontMetrics);
     this.squareEmptyContainer.parent = this;
     this.domObj = this.buildDomObj();
     this.domObj.append(this.squareEmptyContainer.domObj);
@@ -38,7 +38,7 @@ eqEd.SquareEmptyContainerWrapper = function(symbolSizeConfig) {
             topAlign = value;
         },
         compute: function() {
-            var fontHeight = this.symbolSizeConfig.height[this.parent.fontSize];
+            var fontHeight = this.fontMetrics.height[this.parent.fontSize];
             return 0.5 * fontHeight;
         },
         updateDom: function() {}
@@ -54,7 +54,7 @@ eqEd.SquareEmptyContainerWrapper = function(symbolSizeConfig) {
             bottomAlign = value;
         },
         compute: function() {
-            var fontHeight = this.symbolSizeConfig.height[this.parent.fontSize];
+            var fontHeight = this.fontMetrics.height[this.parent.fontSize];
             return 0.5 * fontHeight;
         },
         updateDom: function() {}
@@ -69,7 +69,7 @@ eqEd.SquareEmptyContainerWrapper = function(symbolSizeConfig) {
             '<div class="eqEdWrapper emptyContainerWrapper squareEmptyContainerWrapper"></div>')
     }
     eqEd.SquareEmptyContainerWrapper.prototype.clone = function() {
-        var copy = new this.constructor(this.symbolSizeConfig);
+        var copy = new this.constructor(this.fontMetrics);
         copy.squareEmptyContainer = this.squareEmptyContainer.clone();
         copy.squareEmptyContainer.parent = copy;
         copy.domObj = copy.buildDomObj();

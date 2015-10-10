@@ -1,5 +1,5 @@
-eqEd.WholeBracket = function(symbolSizeConfig) {
-    eqEd.Equation.call(this, symbolSizeConfig); // call super constructor.
+eqEd.WholeBracket = function(fontMetrics) {
+    eqEd.Equation.call(this, fontMetrics); // call super constructor.
     this.className = "eqEd.WholeBracket";
     
     // Set up the width calculation
@@ -84,7 +84,7 @@ eqEd.WholeBracket = function(symbolSizeConfig) {
             '<div class="wholeBracket ' + this.fontStyle + '">' + this.character + '</div>');
     };
     eqEd.WholeBracket.prototype.clone = function() {
-        var copy = new this.constructor(this.fontStyle, this.symbolSizeConfig);
+        var copy = new this.constructor(this.fontStyle, this.fontMetrics);
         return copy;
     };
 })();

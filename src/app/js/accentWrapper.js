@@ -1,12 +1,12 @@
-eqEd.AccentWrapper = function(character, fontStyle, symbolSizeConfig) {
-    eqEd.Wrapper.call(this, symbolSizeConfig); // call super constructor.
+eqEd.AccentWrapper = function(character, fontStyle, fontMetrics) {
+    eqEd.Wrapper.call(this, fontMetrics); // call super constructor.
     this.className = "eqEd.AccentWrapper";
 
     this.character = character;
     this.fontStyle = fontStyle;
 
-    this.accentSymbol = new eqEd.AccentSymbol(character, fontStyle, symbolSizeConfig);
-    this.accentContainer = new eqEd.AccentContainer(symbolSizeConfig);
+    this.accentSymbol = new eqEd.AccentSymbol(character, fontStyle, fontMetrics);
+    this.accentContainer = new eqEd.AccentContainer(fontMetrics);
     this.accentSymbol.parent = this;
     this.accentContainer.parent = this;
     this.domObj = this.buildDomObj();
@@ -28,11 +28,11 @@ eqEd.AccentWrapper = function(character, fontStyle, symbolSizeConfig) {
         compute: function() {
             var accentGapVal = 0.25;
             if (this.accentContainerCharacter !== "") {
-                if (this.symbolSizeConfig.shortCharacters.contains(this.accentContainerCharacter)) {
+                if (this.fontMetrics.shortCharacters.contains(this.accentContainerCharacter)) {
                     accentGapVal = -0.02;
-                } else if (this.symbolSizeConfig.mediumCharacters.contains(this.accentContainerCharacter)) {
+                } else if (this.fontMetrics.mediumCharacters.contains(this.accentContainerCharacter)) {
                     accentGapVal = 0.135;
-                } else if (this.symbolSizeConfig.tallCharacters.contains(this.accentContainerCharacter)) {
+                } else if (this.fontMetrics.tallCharacters.contains(this.accentContainerCharacter)) {
                     accentGapVal = 0.22;
                 }
             }
@@ -115,7 +115,7 @@ eqEd.AccentWrapper = function(character, fontStyle, symbolSizeConfig) {
             topAlign = value;
         },
         compute: function() {
-            var fontHeight = this.symbolSizeConfig.height[this.parent.fontSize];
+            var fontHeight = this.fontMetrics.height[this.parent.fontSize];
             var topAlignVal = 0;
             if (this.accentContainer.wrappers.length > 0) {
                 topAlignVal = this.accentContainer.wrappers[this.accentContainer.maxTopAlignIndex].topAlign;
@@ -156,8 +156,8 @@ eqEd.AccentWrapper = function(character, fontStyle, symbolSizeConfig) {
             '<div class="eqEdWrapper accentWrapper"></div>')
     };
     eqEd.AccentWrapper.prototype.clone = function() {
-        var copy = new this.constructor(this.character, this.fontStyle, this.symbolSizeConfig);
-        copy.accentSymbol = new eqEd.AccentSymbol(this.character, this.fontStyle, this.symbolSizeConfig);
+        var copy = new this.constructor(this.character, this.fontStyle, this.fontMetrics);
+        copy.accentSymbol = new eqEd.AccentSymbol(this.character, this.fontStyle, this.fontMetrics);
         copy.accentContainer = this.accentContainer.clone();
         copy.accentSymbol.parent = copy;
         copy.accentContainer.parent = copy;
@@ -180,11 +180,11 @@ eqEd.AccentWrapper = function(character, fontStyle, symbolSizeConfig) {
         };
         return jsonObj;
     };
-    eqEd.AccentWrapper.constructFromJsonObj = function(jsonObj, symbolSizeConfig) {
-      var accentWrapper = new eqEd.AccentWrapper(jsonObj.value, 'MathJax_Main', symbolSizeConfig);
+    eqEd.AccentWrapper.constructFromJsonObj = function(jsonObj, fontMetrics) {
+      var accentWrapper = new eqEd.AccentWrapper(jsonObj.value, 'MathJax_Main', fontMetrics);
       for (var i = 0; i < jsonObj.operands.accentedExpression.length; i++) {
         var innerWrapperCtor = eqEd.Equation.JsonTypeToConstructor(jsonObj.operands.accentedExpression[i].type);
-        var innerWrapper = innerWrapperCtor.constructFromJsonObj(jsonObj.operands.accentedExpression[i], symbolSizeConfig);
+        var innerWrapper = innerWrapperCtor.constructFromJsonObj(jsonObj.operands.accentedExpression[i], fontMetrics);
         accentWrapper.accentContainer.addWrappers([i, innerWrapper]);
       }
       return accentWrapper;

@@ -1,9 +1,9 @@
-eqEd.SuperscriptContainer = function(symbolSizeConfig) {
-	eqEd.Container.call(this, symbolSizeConfig);
+eqEd.SuperscriptContainer = function(fontMetrics) {
+	eqEd.Container.call(this, fontMetrics);
 	this.className = "eqEd.SuperscriptContainer";
 
 	this.domObj = this.buildDomObj();
-    var squareEmptyContainerWrapper = new eqEd.SquareEmptyContainerWrapper(symbolSizeConfig);
+    var squareEmptyContainerWrapper = new eqEd.SquareEmptyContainerWrapper(fontMetrics);
     this.addWrappers([0, squareEmptyContainerWrapper]);
     this.offsetTop = 0.2;
 

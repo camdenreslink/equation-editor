@@ -1,8 +1,8 @@
-eqEd.TopLevelEmptyContainerWrapper = function(symbolSizeConfig) {
-    eqEd.EmptyContainerWrapper.call(this, symbolSizeConfig); // call super constructor.
+eqEd.TopLevelEmptyContainerWrapper = function(fontMetrics) {
+    eqEd.EmptyContainerWrapper.call(this, fontMetrics); // call super constructor.
     this.className = "eqEd.EmptyContainerWrapper";
 
-    this.topLevelEmptyContainerMessage = new eqEd.TopLevelEmptyContainerMessage(symbolSizeConfig);
+    this.topLevelEmptyContainerMessage = new eqEd.TopLevelEmptyContainerMessage(fontMetrics);
     this.topLevelEmptyContainerMessage.parent = this;
     this.domObj = this.buildDomObj();
     this.domObj.append(this.topLevelEmptyContainerMessage.domObj);
