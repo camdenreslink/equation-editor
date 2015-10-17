@@ -10,8 +10,10 @@ I need to refactor the application. To do this, the application needs split up i
 
 Improvements:
 COMPLETE - Dynamically insert "testEquation" div onto the page when calculating font metrics. It shouldn't have to exist on the page already. Delete the test div when metric calculation has been completed.
-- Improve the way that new equations are created. The following should create and set up a new equation: var equation = new Equation(); Need to create new root equation object that has a container property.
-- Possibly move symbolSizeConfig to property on root equation object. Change parameter lists to accept rootEquation and parent. Remove symbolSizeConfig from parameter lists.
+- Create a bootstrapper to set up an Equation object for each "equation-editor" css class.
+IN PROGRESS - Improve the way that new equations are created. The following should create and set up a new equation: var equation = new Equation(); Need to create new root equation object that has a container property.
+IN PROGRESS - Possibly move symbolSizeConfig to property on root equation object. Change parameter lists to accept rootEquation and parent. Remove symbolSizeConfig from parameter lists.
+- Property is a global singleton, when it should be local per equation.
 - Rethink the way that the top level empty container works.
 - Consider moving the cursor as an absolutely positioned child of the equation div. This will allow for less css trickery (overflow can be hidden for all containers now). Also allows for animation when moving the cursor, rather than deleting it, and recreating it (might give a nicer/smoother experience).
 - The z-index calculation stuff could be more transparent. Maybe a declarative order of precedence could be placed in a json file or something. Right now seems to be a bit of voodoo to make it work.
@@ -20,4 +22,21 @@ COMPLETE - Dynamically insert "testEquation" div onto the page when calculating 
 - The code to add a wrapper to a container is an absolute mess (actually just looked at it, and it's in better shape than I thought it was). Still, need some way to specify where in an equation the cursor is, and where in an equation to insert a new wrapper.
 - JsonTypeToConstructor probably shouldn't be a static field on the eqEd.Equation object.
 - Underscore isn't used enough to justify its use.
-- Property is a global singleton, when it should be local per equation.
+
+10/11/2015 11:43PM 
+- What I've done so far on IN PROGRESS items. I've changed the former eqEd.Equation class to eqEd.EquationComponent. I changed all inheritance code to replace eqEd.Equation with eqEd.EquationComponent. I altered eqEd.Equation to make more sense as a top level equation object. I've removed fontMetrics object from parameter list on constructors for objects derived from eqEd.EquationComponent, and replaced it with equation and parent. Remove parent property assignment on children from constructors. Replace all newed up objects with correct equation/parent arguments. Replace instances of this.fontMetrics with this.equation.fontMetrics.
+- Still need to do on IN PROGRESS items.  Finish definition of eqEd.Equation.
+
+
+-----------------------------------------
+
+Why have a top level eqEd.Equation object?
+- Have a place to store a single reference to properties shared by all equation components within the equation. (Ex: fontMetrics, propertiesPool)
+- Aesthetically nice to have a top level object that represents a single equation. Seems cleaner logically that just having whatever the root Node is represent the top level equation.
+- Nicer API for users of the library. A user of the library can just call: 
+	new eqEd.Equation();
+  and bind that expression to the DOM. This is much nicer than the current container/wrapper construction for each equation required.
+
+What are some drawbacks of a top level eqEd.Equation object?
+- Objects within an equation need to have a reference to their parent equation (to reference the shared properties). This needs to be passed into the constructor, or assigned as a property somehow.
+- If an object tree gets transferred from one equation to another, the equation property for each of these objects will need to be updated.

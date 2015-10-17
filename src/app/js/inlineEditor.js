@@ -1,5 +1,5 @@
 var insertEquationAtCursor = function() {
-    var container = new eqEd.Container(fontMetrics);
+    var container = new eqEd.Container(parent);
     container.padTop = 0.2;
     container.padBottom = 0.2;
     container.fontSize = "fontSizeNormal";
@@ -7,7 +7,7 @@ var insertEquationAtCursor = function() {
     container.domObj.updateFontSize(container.fontSize);
     container.domObj.value.addClass('equation');
     insertNodeAtCursor(container.domObj.value[0]);
-    var topLevelEmptyContainerWrapper = new eqEd.TopLevelEmptyContainerWrapper(fontMetrics);
+    var topLevelEmptyContainerWrapper = new eqEd.TopLevelEmptyContainerWrapper(equation);
     container.addWrappers([0, topLevelEmptyContainerWrapper]);
     topLevelEmptyContainerWrapper.updateAll();
 }

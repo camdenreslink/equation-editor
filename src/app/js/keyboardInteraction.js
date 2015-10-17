@@ -108,52 +108,58 @@ var setupKeyboardEvents = function(fontMetrics, clipboard) {
     }
 
     $(document).on('keypress', function(e) {
-        if($('.cursor').length > 0) {
+        if ($('.cursor').length > 0 || $('.highlight').length > 0) {
+            var equation = null;
+            if ($('.cursor').length > 0) {
+                equation = $('.cursor').parent().data('eqObject').equation;
+            } else {
+                equation = $('.highlight').parent().data('eqObject').equation;
+            }  
             var character = String.fromCharCode(e.which);
             if ($.inArray(character, MathJax_MathItalic) > -1) {
-                var symbolWrapper = new eqEd.SymbolWrapper(character, "MathJax_MathItalic", fontMetrics);
+                var symbolWrapper = new eqEd.SymbolWrapper(equation, character, "MathJax_MathItalic");
                 insertWrapper(symbolWrapper);
                 return false;
             } else if ($.inArray(character, MathJax_Main) > -1) {
-                var symbolWrapper = new eqEd.SymbolWrapper(character, "MathJax_Main", fontMetrics);
+                var symbolWrapper = new eqEd.SymbolWrapper(equation, character, "MathJax_Main");
                 insertWrapper(symbolWrapper);
                 return false;
             } else if ($.inArray(character, operatorCharacters) > -1) {
-                var operatorWrapper = new eqEd.OperatorWrapper(operatorCharactersMap[character], "MathJax_Main", fontMetrics);
+                var operatorWrapper = new eqEd.OperatorWrapper(equation, operatorCharactersMap[character], "MathJax_Main");
                 insertWrapper(operatorWrapper);
                 return false;
             } else if ($.inArray(character, bracketCharacters) > -1) {
-                var bracketWrapper = new eqEd.BracketWrapper(bracketCharactersMap[character], fontMetrics);
+                var bracketWrapper = new eqEd.BracketWrapper(equation, bracketCharactersMap[character]);
                 insertWrapper(bracketWrapper);
                 return false;
             } else if (character === '\\') {
                 // setminus
-                var operatorWrapper = new eqEd.OperatorWrapper('∖', "MathJax_Main", fontMetrics);
+                var operatorWrapper = new eqEd.OperatorWrapper(equation, '∖', "MathJax_Main");
                 insertWrapper(operatorWrapper);
                 return false;
             } else if (character === ':') {
                 // colon
-                var operatorWrapper = new eqEd.OperatorWrapper(':', "MathJax_Main", fontMetrics);
+                var operatorWrapper = new eqEd.OperatorWrapper(equation, ':', "MathJax_Main");
                 insertWrapper(operatorWrapper);
                 return false;
             } else if (character === '\'') {
                 // apostrophe
-                var operatorWrapper = new eqEd.OperatorWrapper('\'', "MathJax_MathItalic", fontMetrics);
+                var operatorWrapper = new eqEd.OperatorWrapper(equation, '\'', "MathJax_MathItalic");
                 insertWrapper(operatorWrapper);
                 return false;
             } else if (character === '^') {
                 // superscript shortcut
-                var superscriptWrapper = new eqEd.SuperscriptWrapper(fontMetrics);
+                var superscriptWrapper = new eqEd.SuperscriptWrapper(equation);
                 insertWrapper(superscriptWrapper);
                 return false;
             } else if (character === '_') {
                 // subscript shortcut
-                var subscriptWrapper = new eqEd.SubscriptWrapper(fontMetrics);
+                var subscriptWrapper = new eqEd.SubscriptWrapper(equation);
                 insertWrapper(subscriptWrapper);
                 return false;
             } else if (character === '_') {
                 // copy
-                var subscriptWrapper = new eqEd.SubscriptWrapper(fontMetrics);
+                var subscriptWrapper = new eqEd.SubscriptWrapper(equation);
                 insertWrapper(subscriptWrapper);
                 return false;
             } else {
@@ -205,11 +211,11 @@ var setupKeyboardEvents = function(fontMetrics, clipboard) {
                 }
                 if (container !== null && container.wrappers.length === 0) {
                     if (container.parent === null) {
-                        container.addWrappers([0, new eqEd.TopLevelEmptyContainerWrapper(container.fontMetrics)]);
+                        container.addWrappers([0, new eqEd.TopLevelEmptyContainerWrapper(container.equation)]);
                         container.updateAll();
                         addCursorAtIndex(container, 0);
                     } else {
-                        container.addWrappers([0, new eqEd.SquareEmptyContainerWrapper(container.fontMetrics)]);
+                        container.addWrappers([0, new eqEd.SquareEmptyContainerWrapper(container.equation)]);
                         container.updateAll();
                         addCursorAtIndex(container.wrappers[0].childContainers[0], 0);
                     }
@@ -253,11 +259,11 @@ var setupKeyboardEvents = function(fontMetrics, clipboard) {
                 }
                 if (container !== null && container.wrappers.length === 0) {
                     if (container.parent === null) {
-                        container.addWrappers([0, new eqEd.TopLevelEmptyContainerWrapper(container.fontMetrics)]);
+                        container.addWrappers([0, new eqEd.TopLevelEmptyContainerWrapper(container.equation)]);
                         container.updateAll();
                         addCursorAtIndex(container, 0);
                     } else {
-                        container.addWrappers([0, new eqEd.SquareEmptyContainerWrapper(container.fontMetrics)]);
+                        container.addWrappers([0, new eqEd.SquareEmptyContainerWrapper(container.equation)]);
                         container.updateAll();
                         addCursorAtIndex(container.wrappers[0].childContainers[0], 0);
                     }

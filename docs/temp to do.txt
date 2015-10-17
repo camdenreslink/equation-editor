@@ -1,0 +1,32 @@
+What are the possible actions?
+- Click on an equation, and have a cursor be created at the location of the click.
+- Click and drag over an equation, causing the characters dragged over to highlight.
+- Type a character using the keyboard. This character should be inserted into the equation on the level of the cursor or highlight.
+- Click a menu item to insert an element into the equation. This element should be inserted into the equation on the level of the cursor or highlight.
+- Use arrow keys to navigate the equation. Moving the cursor between elements.
+- Use the backspace and delete key to remove equation elements at the cursor or all highlighted elements.
+- Have highlighted elements nested when a menu item is clicked with a container.
+- Click and drag to move highlighted elements around the equation.
+- Copy, cut and paste functionality. Within the same page. (Between word/latex in the future)
+
+
+What issues could tying an element to its parent at runtime create?
+For containers and misc equationComponents, there is no issue. These are tied to their parent no matter what (a superscript container will always belong to the same superscript wrapper. It cannot dynamically jump wrappers. A stackedFractionHorizontalBar will always belong to the same stackedFractionWrapper). 
+Wrappers could be an issue. They can be moved between containers.
+
+For a wrapper to be correctly placed within the object hierarchy the following must be true:
+- The wrapper must have its parent property set to its outer container
+- The wrapper must have its index property set to its index in the parent container's wrappers array
+- The outer container must have the wrapper in its wrappers array.
+
+If I'm requiring the parent to be passed into the wrapper, why not include the index as well? Then I'm saying that a wrapper cannot be created outside of the context of a parent.
+
+
+Decision:
+X - eqEd.EquationComponent constructor will not have any parameters, but it will have an equation and parent property.
+X - eqEd.Container and non-wrapper class constructors will have parent parameters.
+X - eqEd.Wrapper class constructors will not have parent or equation parameters.
+
+Still need to:
+- add parent/equation property assignments in misc equation components
+- figure out how parent/equation are being assigned to wrappers

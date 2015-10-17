@@ -2,8 +2,9 @@ var fontMetrics = null;
 var clipboard = null;
 var fontsLoaded = false;
 var imagesLoaded = false;
+/*
 var setupInitialContainer = function() {
-    var container = new eqEd.Container(fontMetrics);
+    var container = new eqEd.Container(parent);
     container.padTop = 0.2;
     container.padBottom = 0.2;
     container.fontSize = "fontSizeNormal";
@@ -11,20 +12,23 @@ var setupInitialContainer = function() {
     container.domObj.updateFontSize(container.fontSize);
     container.domObj.value.addClass('equation');
     $('.equation-editor').after(container.domObj.value);
-    var topLevelEmptyContainerWrapper = new eqEd.TopLevelEmptyContainerWrapper(fontMetrics);
+    var topLevelEmptyContainerWrapper = new eqEd.TopLevelEmptyContainerWrapper(equation);
     container.addWrappers([0, topLevelEmptyContainerWrapper]);
     topLevelEmptyContainerWrapper.updateAll();
 };
-
+*/
 var setup = function() {
     if (fontsLoaded && imagesLoaded) {
-        fontMetrics = new eqEd.FontMetrics();
+        //fontMetrics = new eqEd.FontMetrics();
         $('.loadingMessage').remove();
         clipboard = new eqEd.Clipboard();
         inializePropertyHooks(fontMetrics);
         setupKeyboardEvents(fontMetrics, clipboard);
         setupMenuEvents(fontMetrics);
-        setupInitialContainer();
+        var equation = new eqEd.Equation();
+        $('.equation-editor').replaceWith(equation.getDomRef());
+        equation.updateAll();
+        //setupInitialContainer();
     }
 }
 
