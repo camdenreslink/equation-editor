@@ -39,7 +39,7 @@ eqEd.SubscriptContainer = function(parent) {
             if (this.parent.index !== 0) {
                 baseWrapper = this.parent.parent.wrappers[this.parent.index - 1];
             } else {
-                baseWrapper = new eqEd.SymbolWrapper(equation, 'a', 'MathJax_MathItalic');
+                baseWrapper = new eqEd.SymbolWrapper(this.equation, 'a', 'MathJax_MathItalic');
                 baseWrapper.parent = this.parent.parent;
                 baseWrapper.index = 0;
                 baseWrapper.update();

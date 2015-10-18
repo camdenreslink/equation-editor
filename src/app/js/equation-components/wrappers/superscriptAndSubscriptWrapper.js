@@ -71,8 +71,9 @@ eqEd.SuperscriptAndSubscriptWrapper = function(equation) {
                 // The superscript wrapper is the first entry in the container.
                 // We want to format it, as if there is a symbol immediately
                 // preceeding it.
-                baseWrapper = new eqEd.SymbolWrapper(equation, 'a', 'MathJax_MathItalic');
+                baseWrapper = new eqEd.SymbolWrapper(this.equation, 'a', 'MathJax_MathItalic');
                 baseWrapper.index = 0;
+                baseWrapper.parent = this.parent;
                 // Can't just call baseWrapper.update(), because it creates a circular reference
                 for (var i = 0; i < baseWrapper.properties.length; i++) {
                     var prop = baseWrapper.properties[i];
@@ -124,8 +125,9 @@ eqEd.SuperscriptAndSubscriptWrapper = function(equation) {
         		// The subscript wrapper is the first entry in the container.
         		// We want to format it, as if there is a symbol immediately
         		// preceeding it.
-        		baseWrapper = new eqEd.SymbolWrapper(equation, 'a', 'MathJax_MathItalic');
+        		baseWrapper = new eqEd.SymbolWrapper(this.equation, 'a', 'MathJax_MathItalic');
         		baseWrapper.index = 0;
+                baseWrapper.parent = this.parent;
         		// Can't just call baseWrapper.update(), because it creates a circular reference
                 for (var i = 0; i < baseWrapper.properties.length; i++) {
                     var prop = baseWrapper.properties[i];

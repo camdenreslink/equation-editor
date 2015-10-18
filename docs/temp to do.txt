@@ -19,14 +19,7 @@ For a wrapper to be correctly placed within the object hierarchy the following m
 - The wrapper must have its index property set to its index in the parent container's wrappers array
 - The outer container must have the wrapper in its wrappers array.
 
-If I'm requiring the parent to be passed into the wrapper, why not include the index as well? Then I'm saying that a wrapper cannot be created outside of the context of a parent.
+---------------------
 
-
-Decision:
-X - eqEd.EquationComponent constructor will not have any parameters, but it will have an equation and parent property.
-X - eqEd.Container and non-wrapper class constructors will have parent parameters.
-X - eqEd.Wrapper class constructors will not have parent or equation parameters.
-
-Still need to:
-- add parent/equation property assignments in misc equation components
-- figure out how parent/equation are being assigned to wrappers
+- Cannot add superscript/subscript wrappers as first wrapper of a container.
+- highlighting a superscript wrapper and then clicking a stacked fraction menu item fails.
