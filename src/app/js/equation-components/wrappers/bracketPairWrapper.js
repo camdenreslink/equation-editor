@@ -130,6 +130,9 @@ eqEd.BracketPairWrapper = function(equation, bracketType) {
         copy.leftBracket = this.leftBracket.clone();
         copy.bracketContainer = this.bracketContainer.clone();
         copy.rightBracket = this.rightBracket.clone();
+        copy.leftBracket.parent = copy;
+        copy.bracketContainer.parent = copy;
+        copy.rightBracket.parent = copy;
         copy.domObj = copy.buildDomObj();
         copy.domObj.append(copy.leftBracket.domObj);
         copy.domObj.append(copy.bracketContainer.domObj);

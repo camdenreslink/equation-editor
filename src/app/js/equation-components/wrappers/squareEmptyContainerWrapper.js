@@ -70,6 +70,7 @@ eqEd.SquareEmptyContainerWrapper = function(equation) {
     eqEd.SquareEmptyContainerWrapper.prototype.clone = function() {
         var copy = new this.constructor(this.equation);
         copy.squareEmptyContainer = this.squareEmptyContainer.clone();
+        copy.squareEmptyContainer.parent = copy;
         copy.domObj = copy.buildDomObj();
         copy.domObj.append(copy.squareEmptyContainer.domObj);
         copy.childContainers = [copy.squareEmptyContainer];

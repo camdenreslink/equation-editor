@@ -2,6 +2,8 @@ eqEd.LimitSymbol = function(parent) {
     eqEd.Symbol.call(this, parent, '→', 'MathJax_Main'); // call super constructor.
     this.className = "eqEd.LimitSymbol";
 
+    this.adjustTop = -0.07;
+
     // Height has already been added to properties in superclass
     // needs removed to be overriden
     for(var i = 0; i < this.properties.length; i++) {

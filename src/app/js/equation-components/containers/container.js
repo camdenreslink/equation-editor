@@ -192,8 +192,12 @@ eqEd.Container = function(parent) {
       // of the properties for this object.  It will also recursively
       // resolve all of the dependencies required to compute the 
       // properties in this object.
+      
       for (var i = 0; i < this.properties.length; i++) {
-          this.properties[i].compute();
+        if (this instanceof eqEd.SubscriptContainer) {
+          var x = 2;
+        }
+        this.properties[i].compute();
       }
       // This loop will now recursively through the equation,
       // ensuring that all connected objects in the equation will

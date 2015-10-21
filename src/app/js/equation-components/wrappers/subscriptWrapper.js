@@ -17,7 +17,7 @@ eqEd.SubscriptWrapper = function(equation) {
             padRight = value;
         },
         compute: function() {
-            var padRightVal = 0;
+            var padRightVal = 0.05;
             if (this.index !== 0 
                 && this.parent.wrappers[this.index - 1] instanceof eqEd.FunctionWrapper) {
                 if (this.parent.wrappers[this.index + 1] instanceof eqEd.BracketWrapper
@@ -61,7 +61,6 @@ eqEd.SubscriptWrapper = function(equation) {
         compute: function() {
         	var baseWrapper = null;
         	if (this.index !== 0) {
-                console.log(this);
         		baseWrapper = this.parent.wrappers[this.index - 1];
         	} else {
         		// The subscript wrapper is the first entry in the container.
@@ -116,7 +115,6 @@ eqEd.SubscriptWrapper = function(equation) {
                         prop.compute();
                     }
                 }
-                base = baseWrapper;
         	}
             var fontHeightNested = this.equation.fontMetrics.height[this.subscriptContainer.fontSize];
             return this.subscriptContainer.height + baseWrapper.bottomAlign - this.subscriptContainer.offsetTop * fontHeightNested;
@@ -136,9 +134,11 @@ eqEd.SubscriptWrapper = function(equation) {
     eqEd.SubscriptWrapper.prototype.clone = function() {
         var copy = new this.constructor(this.equation);
         copy.subscriptContainer = this.subscriptContainer.clone();
+        copy.subscriptContainer.parent = copy;
         copy.domObj = copy.buildDomObj();
         copy.domObj.append(copy.subscriptContainer.domObj);
         copy.childContainers = [copy.subscriptContainer];
+
         return copy;
     };
     eqEd.SubscriptWrapper.prototype.buildJsonObj = function() {

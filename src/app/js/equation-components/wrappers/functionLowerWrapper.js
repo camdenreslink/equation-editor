@@ -87,14 +87,14 @@ eqEd.FunctionLowerWrapper = function(equation, characters, fontStyle) {
             '<div class="eqEdWrapper functionLowerWrapper"></div>')
     }
     eqEd.FunctionLowerWrapper.prototype.clone = function() {
-        var copy = new this.constructor(this.equation, this.characters, this.fontStyle);
-        copy.functionWord = new eqEd.FunctionWord(copy.parent, copy.characters, copy.fontStyle);
+        var copy = new this.constructor(this.equation, this.word.characters.join(""), this.word.fontStyle);
         copy.functionLowerContainer = this.functionLowerContainer.clone();
+        copy.functionLowerContainer.parent = copy;
         copy.domObj = copy.buildDomObj();
-        copy.domObj.append(copy.functionWord.domObj);
+        copy.domObj.append(copy.word.domObj);
         copy.domObj.append(copy.functionLowerContainer.domObj);
         
-        copy.childNoncontainers = [copy.functionWord];
+        copy.childNoncontainers = [copy.word];
         copy.childContainers = [copy.functionLowerContainer];
 
         return copy;

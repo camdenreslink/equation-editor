@@ -202,16 +202,19 @@ eqEd.BigOperatorWrapper = function(equation, isInline, hasUpperLimit, hasLowerLi
 
         if (copy.hasUpperLimit) {
             copy.upperLimitContainer = this.upperLimitContainer.clone();
+            copy.upperLimitContainer.parent = copy;
             copy.domObj.append(copy.upperLimitContainer.domObj);
             copy.childContainers.push(copy.upperLimitContainer);
         }
         if (copy.hasLowerLimit) {
             copy.lowerLimitContainer = this.lowerLimitContainer.clone();
+            copy.lowerLimitContainer.parent = copy;
             copy.domObj.append(copy.lowerLimitContainer.domObj);
             copy.childContainers.push(copy.lowerLimitContainer);
         }
         copy.operandContainer = this.operandContainer.clone();
-        copy.symbol = new copy.bigOperatorSymbolCtors[copy.bigOperatorType](copy.parent);
+        copy.operandContainer.parent = copy;
+        copy.symbol = new copy.bigOperatorSymbolCtors[copy.bigOperatorType](copy);
 
         copy.domObj.append(copy.operandContainer.domObj);
         copy.domObj.append(copy.symbol.domObj);

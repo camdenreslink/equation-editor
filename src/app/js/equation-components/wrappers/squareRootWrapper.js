@@ -139,9 +139,13 @@ eqEd.SquareRootWrapper = function(equation) {
         copy.domObj = copy.buildDomObj();    
 
         copy.radicandContainer = this.radicandContainer.clone();
+        copy.radicandContainer.parent = copy;
         copy.squareRootOverBar = this.squareRootOverBar.clone();
+        copy.squareRootOverBar.parent = copy;
         copy.radical = this.radical.clone();
+        copy.radical.parent = copy;
         copy.squareRootDiagonal = this.squareRootDiagonal.clone();
+        copy.squareRootDiagonal.parent = copy;
         copy.domObj.append(copy.radicandContainer.domObj);
         copy.domObj.append(copy.squareRootOverBar.domObj);
         copy.domObj.append(copy.radical.domObj);

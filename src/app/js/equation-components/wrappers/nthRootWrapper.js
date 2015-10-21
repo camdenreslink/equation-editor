@@ -131,10 +131,15 @@ eqEd.NthRootWrapper = function(equation) {
         copy.domObj = copy.buildDomObj();    
 
         copy.radicandContainer = this.radicandContainer.clone();
+        copy.radicandContainer.parent = copy;
         copy.nthRootOverBar = this.nthRootOverBar.clone();
+        copy.nthRootOverBar.parent = copy;
         copy.radical = this.radical.clone();
+        copy.radical.parent = copy;
         copy.nthRootDiagonal = this.nthRootDiagonal.clone();
+        copy.nthRootDiagonal.parent = copy;
         copy.nthRootDegreeContainer = this.nthRootDegreeContainer.clone();
+        copy.nthRootDegreeContainer.parent = copy;
         copy.domObj.append(copy.radicandContainer.domObj);
         copy.domObj.append(copy.nthRootOverBar.domObj);
         copy.domObj.append(copy.radical.domObj);

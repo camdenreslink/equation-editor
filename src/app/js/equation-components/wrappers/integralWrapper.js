@@ -183,16 +183,18 @@ eqEd.IntegralWrapper = function(equation, isInline, hasUpperLimit, hasLowerLimit
 
         if (copy.hasUpperLimit) {
             copy.upperLimitContainer = this.upperLimitContainer.clone();
+            copy.upperLimitContainer.parent = copy;
             copy.domObj.append(copy.upperLimitContainer.domObj);
             copy.childContainers.push(copy.upperLimitContainer);
         }
         if (copy.hasLowerLimit) {
             copy.lowerLimitContainer = this.lowerLimitContainer.clone();
+            copy.lowerLimitContainer.parent = copy;
             copy.domObj.append(copy.lowerLimitContainer.domObj);
             copy.childContainers.push(copy.lowerLimitContainer);
         }
 
-        copy.symbol = new copy.integralSymbolCtors[copy.integralType](copy.parent);
+        copy.symbol = new copy.integralSymbolCtors[copy.integralType](copy);
         copy.domObj.append(copy.symbol.domObj);
         copy.childNoncontainers = [copy.symbol];
         return copy;

@@ -3,7 +3,6 @@
 eqEd.BoundEquationComponent = function(parent) {
   eqEd.EquationComponent.call(this); // call super constructor.
   this.className = "eqEd.BoundEquationComponent";
-  
   this.parent = parent;
   this.equation = (parent === null) ? null : parent.equation;
 };

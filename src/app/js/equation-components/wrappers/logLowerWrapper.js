@@ -81,8 +81,8 @@ eqEd.LogLowerWrapper = function(equation) {
     };
     eqEd.LogLowerWrapper.prototype.clone = function() {
         var copy = new this.constructor(this.equation);
-        copy.functionWord = new eqEd.FunctionWord(this.parent, this.characters, this.fontStyle);
         copy.functionLowerContainer = this.functionLowerContainer.clone();
+        copy.functionLowerContainer.parent = copy;
         copy.domObj = copy.buildDomObj();
         copy.domObj.append(copy.functionWord.domObj);
         copy.domObj.append(copy.functionLowerContainer.domObj);

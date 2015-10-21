@@ -75,13 +75,13 @@ eqEd.SuperscriptWrapper = function(equation) {
         			fontHeight = this.equation.fontMetrics.height[base.fontSize];
         		} else {
         			if (baseWrapper instanceof eqEd.SquareRootWrapper) {
-	                    baseWrapperOverlap = (superscriptContainerBottomAlign / baseWrapper.height);
+	                    baseWrapperOverlap = (superscriptContainerBottomAlign / baseWrapper.squareRootDiagonal.height);
 	                    if (baseWrapperOverlap > this.maxBaseWrapperOverlap) {
 	                        baseWrapperOverlap = this.maxBaseWrapperOverlap;
 	                    }
 	                }
 	                if (baseWrapper instanceof eqEd.NthRootWrapper) {
-	                    var baseWrapperOverlap = (superscriptContainerBottomAlign / baseWrapper.nthRootDiagonal.height);
+	                    baseWrapperOverlap = (superscriptContainerBottomAlign / baseWrapper.nthRootDiagonal.height);
 	                    if (baseWrapperOverlap > this.maxBaseWrapperOverlap) {
 	                        baseWrapperOverlap = this.maxBaseWrapperOverlap;
 	                    }
@@ -106,12 +106,12 @@ eqEd.SuperscriptWrapper = function(equation) {
         	}
         	var topAlign = 0;
         	if (baseWrapper instanceof eqEd.NthRootWrapper) {
-	            if (this.superscriptContainer.offsetTop * fontHeight + superscriptContainerBottomAlign > baseWrapper.nthRootDiagonal.height * baseWrapperOverlap) {
-	                topAlign = this.superscriptContainer.height - (baseWrapper.nthRootDiagonal.height * baseWrapperOverlap - (base.topAlign - (base.height - baseWrapper.nthRootDiagonal.height)));
-	            } else {
-	                topAlign = (baseWrapper.topAlign - (base.height - baseWrapper.nthRootDiagonal.height)) + this.superscriptContainer.height - superscriptContainerBottomAlign - this.superscriptContainer.offsetTop * fontHeight;
-	            }
-	        } else {
+                if (this.superscriptContainer.offsetTop * fontHeight + superscriptContainerBottomAlign > baseWrapper.nthRootDiagonal.height * baseWrapperOverlap) {
+                    topAlign = this.superscriptContainer.height - (baseWrapper.nthRootDiagonal.height * baseWrapperOverlap - (base.topAlign - (base.height - baseWrapper.nthRootDiagonal.height)));
+                } else {
+                    topAlign = (baseWrapper.topAlign - (base.height - baseWrapper.nthRootDiagonal.height)) + this.superscriptContainer.height - superscriptContainerBottomAlign - this.superscriptContainer.offsetTop * fontHeight;
+                }
+            } else {
 	            if (this.superscriptContainer.offsetTop * fontHeight + superscriptContainerBottomAlign > base.height * baseWrapperOverlap) {
 	                topAlign = this.superscriptContainer.height - (base.height * baseWrapperOverlap - baseWrapper.topAlign);
 	            } else {
@@ -168,6 +168,7 @@ eqEd.SuperscriptWrapper = function(equation) {
     eqEd.SuperscriptWrapper.prototype.clone = function() {
         var copy = new this.constructor(this.equation);
         copy.superscriptContainer = this.superscriptContainer.clone();
+        copy.superscriptContainer.parent = copy;
     	copy.domObj = copy.buildDomObj();
     	copy.domObj.append(copy.superscriptContainer.domObj);
     	copy.childContainers = [copy.superscriptContainer];

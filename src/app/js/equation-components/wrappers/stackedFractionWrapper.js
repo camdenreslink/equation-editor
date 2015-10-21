@@ -74,8 +74,11 @@ eqEd.StackedFractionWrapper = function(equation) {
     eqEd.StackedFractionWrapper.prototype.clone = function() {
         var copy = new this.constructor(this.equation);
         copy.stackedFractionNumeratorContainer = this.stackedFractionNumeratorContainer.clone();
+        copy.stackedFractionNumeratorContainer.parent = copy;
         copy.stackedFractionDenominatorContainer = this.stackedFractionDenominatorContainer.clone();
+        copy.stackedFractionDenominatorContainer.parent = copy;
         copy.stackedFractionHorizontalBar = this.stackedFractionHorizontalBar.clone();
+        copy.stackedFractionHorizontalBar.parent = copy;
         copy.domObj = copy.buildDomObj();
         copy.domObj.append(copy.stackedFractionNumeratorContainer.domObj);
         copy.domObj.append(copy.stackedFractionDenominatorContainer.domObj);

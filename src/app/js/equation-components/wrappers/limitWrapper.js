@@ -111,10 +111,12 @@ eqEd.LimitWrapper = function(equation) {
     };
     eqEd.LimitWrapper.prototype.clone = function() {
         var copy = new this.constructor(this.equation);
-        copy.limitWord = new eqEd.LimitWord(this.parent);
+        copy.limitWord = new eqEd.LimitWord(copy);
         copy.limitLeftContainer = this.limitLeftContainer.clone();
+        copy.limitLeftContainer.parent = copy;
         copy.limitRightContainer = this.limitRightContainer.clone();
-        copy.symbol = new eqEd.LimitSymbol(this.parent);
+        copy.limitRightContainer.parent = copy;
+        copy.symbol = new eqEd.LimitSymbol(copy);
         copy.domObj = copy.buildDomObj();
         copy.domObj.append(copy.limitWord.domObj);
         copy.domObj.append(copy.limitLeftContainer.domObj);

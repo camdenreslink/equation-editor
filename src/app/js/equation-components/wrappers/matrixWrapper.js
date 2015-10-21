@@ -200,6 +200,7 @@ eqEd.MatrixWrapper = function(equation, numRows, numCols, horAlign) {
             var row = [];
             for (var j = 0; j < copy.numCols; j++) {
                 var matrixContainer = this.matrixContainers[i][j].clone();
+                matrixContainer.parent = copy;
                 copy.domObj.append(matrixContainer.domObj);
                 row.push(matrixContainer);
                 copy.childContainers.push(matrixContainer);

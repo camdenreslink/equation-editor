@@ -155,8 +155,9 @@ eqEd.AccentWrapper = function(equation, character, fontStyle) {
     };
     eqEd.AccentWrapper.prototype.clone = function() {
         var copy = new this.constructor(this.equation, this.character, this.fontStyle);
-        copy.accentSymbol = new eqEd.AccentSymbol(this.parent, this.character, this.fontStyle);
+        copy.accentSymbol = new eqEd.AccentSymbol(copy, this.character, this.fontStyle);
         copy.accentContainer = this.accentContainer.clone();
+        copy.accentContainer.parent = copy;
         copy.domObj = copy.buildDomObj();
         copy.domObj.append(copy.accentSymbol.domObj);
         copy.domObj.append(copy.accentContainer.domObj);
