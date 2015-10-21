@@ -11,8 +11,8 @@ I need to refactor the application. To do this, the application needs split up i
 Improvements:
 COMPLETE - Dynamically insert "testEquation" div onto the page when calculating font metrics. It shouldn't have to exist on the page already. Delete the test div when metric calculation has been completed.
 - Create a bootstrapper to set up an Equation object for each "equation-editor" css class.
-IN PROGRESS - Improve the way that new equations are created. The following should create and set up a new equation: var equation = new Equation(); Need to create new root equation object that has a container property.
-IN PROGRESS - Possibly move symbolSizeConfig to property on root equation object. Change parameter lists to accept rootEquation and parent. Remove symbolSizeConfig from parameter lists.
+COMPLETE - Improve the way that new equations are created. The following should create and set up a new equation: var equation = new Equation(); Need to create new root equation object that has a container property.
+COMPLETE - Possibly move symbolSizeConfig to property on root equation object. Change parameter lists to accept rootEquation and parent. Remove symbolSizeConfig from parameter lists.
 - Property is a global singleton, when it should be local per equation.
 - Rethink the way that the top level empty container works.
 - Consider moving the cursor as an absolutely positioned child of the equation div. This will allow for less css trickery (overflow can be hidden for all containers now). Also allows for animation when moving the cursor, rather than deleting it, and recreating it (might give a nicer/smoother experience).

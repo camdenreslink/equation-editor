@@ -161,16 +161,16 @@ eqEd.NthRootWrapper = function(equation) {
         };
         return jsonObj;
     };
-    eqEd.NthRootWrapper.constructFromJsonObj = function(jsonObj, fontMetrics) {
+    eqEd.NthRootWrapper.constructFromJsonObj = function(jsonObj, equation) {
         var nthRootWrapper = new eqEd.NthRootWrapper(equation);
         for (var i = 0; i < jsonObj.operands.radicand.length; i++) {
             var innerWrapperCtor = eqEd.Equation.JsonTypeToConstructor(jsonObj.operands.radicand[i].type);
-            var innerWrapper = innerWrapperCtor.constructFromJsonObj(jsonObj.operands.radicand[i], fontMetrics);
+            var innerWrapper = innerWrapperCtor.constructFromJsonObj(jsonObj.operands.radicand[i], equation);
             nthRootWrapper.radicandContainer.addWrappers([i, innerWrapper]);
         }
         for (var i = 0; i < jsonObj.operands.degree.length; i++) {
             var innerWrapperCtor = eqEd.Equation.JsonTypeToConstructor(jsonObj.operands.degree[i].type);
-            var innerWrapper = innerWrapperCtor.constructFromJsonObj(jsonObj.operands.degree[i], fontMetrics);
+            var innerWrapper = innerWrapperCtor.constructFromJsonObj(jsonObj.operands.degree[i], equation);
             nthRootWrapper.nthRootDegreeContainer.addWrappers([i, innerWrapper]);
         }
         return nthRootWrapper;

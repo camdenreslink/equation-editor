@@ -154,11 +154,11 @@ eqEd.BracketPairWrapper = function(equation, bracketType) {
         return jsonObj;
     };
 
-    eqEd.BracketPairWrapper.constructFromJsonObj = function(jsonObj, fontMetrics) {
-      var bracketPairWrapper = new eqEd.BracketPairWrapper(equation, jsonObj.value, fontMetrics);
+    eqEd.BracketPairWrapper.constructFromJsonObj = function(jsonObj, equation) {
+      var bracketPairWrapper = new eqEd.BracketPairWrapper(equation, jsonObj.value);
       for (var i = 0; i < jsonObj.operands.bracketedExpression.length; i++) {
         var innerWrapperCtor = eqEd.Equation.JsonTypeToConstructor(jsonObj.operands.bracketedExpression[i].type);
-        var innerWrapper = innerWrapperCtor.constructFromJsonObj(jsonObj.operands.bracketedExpression[i], fontMetrics);
+        var innerWrapper = innerWrapperCtor.constructFromJsonObj(jsonObj.operands.bracketedExpression[i], equation);
         bracketPairWrapper.bracketContainer.addWrappers([i, innerWrapper]);
       }
       return bracketPairWrapper;

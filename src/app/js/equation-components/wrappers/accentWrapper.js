@@ -177,11 +177,11 @@ eqEd.AccentWrapper = function(equation, character, fontStyle) {
         };
         return jsonObj;
     };
-    eqEd.AccentWrapper.constructFromJsonObj = function(jsonObj, fontMetrics) {
-      var accentWrapper = new eqEd.AccentWrapper(this.equation, jsonObj.value, 'MathJax_Main');
+    eqEd.AccentWrapper.constructFromJsonObj = function(jsonObj, equation) {
+      var accentWrapper = new eqEd.AccentWrapper(equation, jsonObj.value, 'MathJax_Main');
       for (var i = 0; i < jsonObj.operands.accentedExpression.length; i++) {
         var innerWrapperCtor = eqEd.Equation.JsonTypeToConstructor(jsonObj.operands.accentedExpression[i].type);
-        var innerWrapper = innerWrapperCtor.constructFromJsonObj(jsonObj.operands.accentedExpression[i], fontMetrics);
+        var innerWrapper = innerWrapperCtor.constructFromJsonObj(jsonObj.operands.accentedExpression[i], equation);
         accentWrapper.accentContainer.addWrappers([i, innerWrapper]);
       }
       return accentWrapper;

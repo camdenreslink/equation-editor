@@ -176,8 +176,8 @@ eqEd.OperatorWrapper = function(equation, operatorSymbol, fontStyle) {
         };
         return jsonObj;
     };
-    eqEd.OperatorWrapper.constructFromJsonObj = function(jsonObj, fontMetrics) {
-      var operatorWrapper = new eqEd.OperatorWrapper(this.equation, jsonObj.value, "MathJax_Main");
+    eqEd.OperatorWrapper.constructFromJsonObj = function(jsonObj, equation) {
+      var operatorWrapper = new eqEd.OperatorWrapper(equation, jsonObj.value, "MathJax_Main");
       return operatorWrapper;
     }
 })();

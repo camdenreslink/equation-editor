@@ -109,11 +109,11 @@ eqEd.FunctionLowerWrapper = function(equation, characters, fontStyle) {
         };
         return jsonObj;
     };
-    eqEd.FunctionLowerWrapper.constructFromJsonObj = function(jsonObj, fontMetrics) {
+    eqEd.FunctionLowerWrapper.constructFromJsonObj = function(jsonObj, equation) {
       var functionLowerWrapper = new eqEd.FunctionLowerWrapper(equation, jsonObj.value, "MathJax_Main");
       for (var i = 0; i < jsonObj.operands.lower.length; i++) {
         var innerWrapperCtor = eqEd.Equation.JsonTypeToConstructor(jsonObj.operands.lower[i].type);
-        var innerWrapper = innerWrapperCtor.constructFromJsonObj(jsonObj.operands.lower[i], fontMetrics);
+        var innerWrapper = innerWrapperCtor.constructFromJsonObj(jsonObj.operands.lower[i], equation);
         functionLowerWrapper.functionLowerContainer.addWrappers([i, innerWrapper]);
       }
       return functionLowerWrapper;

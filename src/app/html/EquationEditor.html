@@ -496,11 +496,11 @@
     <div id="ContentLatex" style="margin: 20px; border: solid 1px #000">&nbsp;</div>
     <script>
       $('#toJSON').on('click', function() {
-        var jsonObj = $('.testEquation').next().data('eqObject').buildJsonObj();
+        var jsonObj = $('.equation').data('eqObject').buildJsonObj();
         $('#ContentJSON').html(JSON.stringify(jsonObj));
       });
       $('#toLatex').on('click', function() {
-        var jsonObj = $('.testEquation').next().data('eqObject').buildJsonObj();
+        var jsonObj = $('.equation').data('eqObject').buildJsonObj();
         $('#ContentLatex').html(generateLatex(jsonObj));
       });
     </script>
@@ -510,21 +510,15 @@
     <script>
       $('#JSONtoEqEd').on('click', function(e) {
         var jsonObj = $.parseJSON($('#TextJSON').val());
-        var container = new eqEd.Container(symbolSizeConfig);
-        container.padTop = 0.2;
-        container.padBottom = 0.2;
-        container.fontSize = "fontSizeNormal";
-        container.domObj = container.buildDomObj();
-        container.domObj.updateFontSize(container.fontSize);
-        container.domObj.value.addClass('equation');
+        var equation = new eqEd.Equation();
         $('#renderedEq').empty();
-        $('#renderedEq').append(container.domObj.value);
+        $('#renderedEq').append(equation.getDomRef());
         for (var i = 0; i < jsonObj.length; i++) {
           var innerWrapperCtor = eqEd.Equation.JsonTypeToConstructor(jsonObj[i].type);
-          var innerWrapper = innerWrapperCtor.constructFromJsonObj(jsonObj[i], symbolSizeConfig);
-          container.addWrappers([i, innerWrapper]);
+          var innerWrapper = innerWrapperCtor.constructFromJsonObj(jsonObj[i], equation);
+          equation.topLevelContainer.addWrappers([i, innerWrapper]);
         }
-        container.updateAll();
+        equation.updateAll();
       });
     </script>
     <div id="renderedEq"></div>

@@ -102,11 +102,11 @@ eqEd.LogLowerWrapper = function(equation) {
         };
         return jsonObj;
     };
-    eqEd.LogLowerWrapper.constructFromJsonObj = function(jsonObj, fontMetrics) {
+    eqEd.LogLowerWrapper.constructFromJsonObj = function(jsonObj, equation) {
         var logLowerWrapper = new eqEd.LogLowerWrapper(equation);
         for (var i = 0; i < jsonObj.operands.lower.length; i++) {
             var innerWrapperCtor = eqEd.Equation.JsonTypeToConstructor(jsonObj.operands.lower[i].type);
-            var innerWrapper = innerWrapperCtor.constructFromJsonObj(jsonObj.operands.lower[i], fontMetrics);
+            var innerWrapper = innerWrapperCtor.constructFromJsonObj(jsonObj.operands.lower[i], equation);
             logLowerWrapper.functionLowerContainer.addWrappers([i, innerWrapper]);
         }
         return logLowerWrapper;

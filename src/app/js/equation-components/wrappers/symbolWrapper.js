@@ -157,16 +157,16 @@ eqEd.SymbolWrapper = function(equation, character, fontStyle) {
         };
         return jsonObj;
     };
-    eqEd.SymbolWrapper.constructFromJsonObj = function(jsonObj, fontMetrics) {
+    eqEd.SymbolWrapper.constructFromJsonObj = function(jsonObj, equation) {
         var fontStyle = "";
-        if (_.indexOf(fontMetrics.MathJax_MathItalic, jsonObj.value) !== -1) {
+        if (_.indexOf(equation.fontMetrics.MathJax_MathItalic, jsonObj.value) !== -1) {
             fontStyle = "MathJax_MathItalic";
-        } else if (_.indexOf(fontMetrics.MathJax_Main, jsonObj.value) !== -1) {
+        } else if (_.indexOf(equation.fontMetrics.MathJax_Main, jsonObj.value) !== -1) {
             fontStyle = "MathJax_Main";
-        } else if (_.indexOf(fontMetrics.MathJax_MainItalic, jsonObj.value) !== -1) {
+        } else if (_.indexOf(equation.fontMetrics.MathJax_MainItalic, jsonObj.value) !== -1) {
             fontStyle = "MathJax_MainItalic";
         }
-        var symbolWrapper = new eqEd.SymbolWrapper(equation, jsonObj.value, fontStyle, fontMetrics);
+        var symbolWrapper = new eqEd.SymbolWrapper(equation, jsonObj.value, fontStyle);
         return symbolWrapper;
     }
 })();

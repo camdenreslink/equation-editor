@@ -223,21 +223,21 @@ eqEd.IntegralWrapper = function(equation, isInline, hasUpperLimit, hasLowerLimit
         return jsonObj;
     };
 
-    eqEd.IntegralWrapper.constructFromJsonObj = function(jsonObj, fontMetrics) {
+    eqEd.IntegralWrapper.constructFromJsonObj = function(jsonObj, equation) {
         var hasUpperLimit = (jsonObj.operands !== null && typeof jsonObj.operands.upperLimit !== "undefined");
         var hasLowerLimit = (jsonObj.operands !== null && typeof jsonObj.operands.lowerLimit !== "undefined");
         var integralWrapper = new eqEd.IntegralWrapper(equation, true, hasUpperLimit, hasLowerLimit, jsonObj.value);
         if (hasUpperLimit) {
             for (var i = 0; i < jsonObj.operands.upperLimit.length; i++) {
                 var innerWrapperCtor = eqEd.Equation.JsonTypeToConstructor(jsonObj.operands.upperLimit[i].type);
-                var innerWrapper = innerWrapperCtor.constructFromJsonObj(jsonObj.operands.upperLimit[i], fontMetrics);
+                var innerWrapper = innerWrapperCtor.constructFromJsonObj(jsonObj.operands.upperLimit[i], equation);
                 integralWrapper.upperLimitContainer.addWrappers([i, innerWrapper]);
             }
         }
         if (hasLowerLimit) {
             for (var i = 0; i < jsonObj.operands.lowerLimit.length; i++) {
                 var innerWrapperCtor = eqEd.Equation.JsonTypeToConstructor(jsonObj.operands.lowerLimit[i].type);
-                var innerWrapper = innerWrapperCtor.constructFromJsonObj(jsonObj.operands.lowerLimit[i], fontMetrics);
+                var innerWrapper = innerWrapperCtor.constructFromJsonObj(jsonObj.operands.lowerLimit[i], equation);
                 integralWrapper.lowerLimitContainer.addWrappers([i, innerWrapper]);
             }
         }

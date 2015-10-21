@@ -252,27 +252,27 @@ eqEd.BigOperatorWrapper = function(equation, isInline, hasUpperLimit, hasLowerLi
         }
         return jsonObj;
     };
-    eqEd.BigOperatorWrapper.constructFromJsonObj = function(jsonObj, fontMetrics) {
+    eqEd.BigOperatorWrapper.constructFromJsonObj = function(jsonObj, equation) {
         var hasUpperLimit = (typeof jsonObj.operands.upperLimit !== "undefined");
         var hasLowerLimit = (typeof jsonObj.operands.lowerLimit !== "undefined");
         var bigOperatorWrapper = new eqEd.BigOperatorWrapper(equation, false, hasUpperLimit, hasLowerLimit, jsonObj.value);
         if (hasUpperLimit) {
             for (var i = 0; i < jsonObj.operands.upperLimit.length; i++) {
                 var innerWrapperCtor = eqEd.Equation.JsonTypeToConstructor(jsonObj.operands.upperLimit[i].type);
-                var innerWrapper = innerWrapperCtor.constructFromJsonObj(jsonObj.operands.upperLimit[i], fontMetrics);
+                var innerWrapper = innerWrapperCtor.constructFromJsonObj(jsonObj.operands.upperLimit[i], equation);
                 bigOperatorWrapper.upperLimitContainer.addWrappers([i, innerWrapper]);
             }
         }
         if (hasLowerLimit) {
             for (var i = 0; i < jsonObj.operands.lowerLimit.length; i++) {
                 var innerWrapperCtor = eqEd.Equation.JsonTypeToConstructor(jsonObj.operands.lowerLimit[i].type);
-                var innerWrapper = innerWrapperCtor.constructFromJsonObj(jsonObj.operands.lowerLimit[i], fontMetrics);
+                var innerWrapper = innerWrapperCtor.constructFromJsonObj(jsonObj.operands.lowerLimit[i], equation);
                 bigOperatorWrapper.lowerLimitContainer.addWrappers([i, innerWrapper]);
             }
         }
         for (var i = 0; i < jsonObj.operands.operand.length; i++) {
             var innerWrapperCtor = eqEd.Equation.JsonTypeToConstructor(jsonObj.operands.operand[i].type);
-            var innerWrapper = innerWrapperCtor.constructFromJsonObj(jsonObj.operands.operand[i], fontMetrics);
+            var innerWrapper = innerWrapperCtor.constructFromJsonObj(jsonObj.operands.operand[i], equation);
             bigOperatorWrapper.operandContainer.addWrappers([i, innerWrapper]);
         }
 

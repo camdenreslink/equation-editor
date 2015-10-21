@@ -151,11 +151,11 @@ eqEd.SubscriptWrapper = function(equation) {
         };
         return jsonObj;
     };
-    eqEd.SubscriptWrapper.constructFromJsonObj = function(jsonObj, fontMetrics) {
+    eqEd.SubscriptWrapper.constructFromJsonObj = function(jsonObj, equation) {
         var subscriptWrapper = new eqEd.SubscriptWrapper(equation);
         for (var i = 0; i < jsonObj.operands.subscript.length; i++) {
             var innerWrapperCtor = eqEd.Equation.JsonTypeToConstructor(jsonObj.operands.subscript[i].type);
-            var innerWrapper = innerWrapperCtor.constructFromJsonObj(jsonObj.operands.subscript[i], fontMetrics);
+            var innerWrapper = innerWrapperCtor.constructFromJsonObj(jsonObj.operands.subscript[i], equation);
             subscriptWrapper.subscriptContainer.addWrappers([i, innerWrapper]);
         }
         return subscriptWrapper;

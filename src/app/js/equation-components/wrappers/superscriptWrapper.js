@@ -184,11 +184,11 @@ eqEd.SuperscriptWrapper = function(equation) {
         };
         return jsonObj;
     };
-    eqEd.SuperscriptWrapper.constructFromJsonObj = function(jsonObj, fontMetrics) {
+    eqEd.SuperscriptWrapper.constructFromJsonObj = function(jsonObj, equation) {
         var superscriptWrapper = new eqEd.SuperscriptWrapper(equation);
         for (var i = 0; i < jsonObj.operands.superscript.length; i++) {
             var innerWrapperCtor = eqEd.Equation.JsonTypeToConstructor(jsonObj.operands.superscript[i].type);
-            var innerWrapper = innerWrapperCtor.constructFromJsonObj(jsonObj.operands.superscript[i], fontMetrics);
+            var innerWrapper = innerWrapperCtor.constructFromJsonObj(jsonObj.operands.superscript[i], equation);
             superscriptWrapper.superscriptContainer.addWrappers([i, innerWrapper]);
         }
         return superscriptWrapper;

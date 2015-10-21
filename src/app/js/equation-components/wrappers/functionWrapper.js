@@ -100,7 +100,7 @@ eqEd.FunctionWrapper = function(equation, functionCharacters, fontStyle) {
         };
         return jsonObj;
     };
-    eqEd.FunctionWrapper.constructFromJsonObj = function(jsonObj, fontMetrics) {
+    eqEd.FunctionWrapper.constructFromJsonObj = function(jsonObj, equation) {
       var functionWrapper = new eqEd.FunctionWrapper(equation, jsonObj.value, "MathJax_Main");
       return functionWrapper;
     }

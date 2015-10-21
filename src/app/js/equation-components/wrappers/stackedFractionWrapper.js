@@ -100,16 +100,16 @@ eqEd.StackedFractionWrapper = function(equation) {
         };
         return jsonObj;
     };
-    eqEd.StackedFractionWrapper.constructFromJsonObj = function(jsonObj, fontMetrics) {
+    eqEd.StackedFractionWrapper.constructFromJsonObj = function(jsonObj, equation) {
         var stackedFractionWrapper = new eqEd.StackedFractionWrapper(equation);
         for (var i = 0; i < jsonObj.operands.numerator.length; i++) {
             var innerWrapperCtor = eqEd.Equation.JsonTypeToConstructor(jsonObj.operands.numerator[i].type);
-            var innerWrapper = innerWrapperCtor.constructFromJsonObj(jsonObj.operands.numerator[i], fontMetrics);
+            var innerWrapper = innerWrapperCtor.constructFromJsonObj(jsonObj.operands.numerator[i], equation);
             stackedFractionWrapper.stackedFractionNumeratorContainer.addWrappers([i, innerWrapper]);
         }
         for (var i = 0; i < jsonObj.operands.denominator.length; i++) {
             var innerWrapperCtor = eqEd.Equation.JsonTypeToConstructor(jsonObj.operands.denominator[i].type);
-            var innerWrapper = innerWrapperCtor.constructFromJsonObj(jsonObj.operands.denominator[i], fontMetrics);
+            var innerWrapper = innerWrapperCtor.constructFromJsonObj(jsonObj.operands.denominator[i], equation);
             stackedFractionWrapper.stackedFractionDenominatorContainer.addWrappers([i, innerWrapper]);
         }
         return stackedFractionWrapper;

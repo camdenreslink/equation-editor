@@ -165,11 +165,11 @@ eqEd.SquareRootWrapper = function(equation) {
         };
         return jsonObj;
     };
-    eqEd.SquareRootWrapper.constructFromJsonObj = function(jsonObj, fontMetrics) {
-        var squareRootWrapper = new eqEd.SquareRootWrapper(this.equation);
+    eqEd.SquareRootWrapper.constructFromJsonObj = function(jsonObj, equation) {
+        var squareRootWrapper = new eqEd.SquareRootWrapper(equation);
         for (var i = 0; i < jsonObj.operands.radicand.length; i++) {
             var innerWrapperCtor = eqEd.Equation.JsonTypeToConstructor(jsonObj.operands.radicand[i].type);
-            var innerWrapper = innerWrapperCtor.constructFromJsonObj(jsonObj.operands.radicand[i], fontMetrics);
+            var innerWrapper = innerWrapperCtor.constructFromJsonObj(jsonObj.operands.radicand[i], equation);
             squareRootWrapper.radicandContainer.addWrappers([i, innerWrapper]);
         }
         return squareRootWrapper;

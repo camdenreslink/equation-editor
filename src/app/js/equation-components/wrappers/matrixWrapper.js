@@ -228,7 +228,7 @@ eqEd.MatrixWrapper = function(equation, numRows, numCols, horAlign) {
         }
         return jsonObj;
     };
-    eqEd.MatrixWrapper.constructFromJsonObj = function(jsonObj, fontMetrics) {
+    eqEd.MatrixWrapper.constructFromJsonObj = function(jsonObj, equation) {
         var numRows = jsonObj.operands.elements.length;
         var numCols = jsonObj.operands.elements[0].length;
         var matrixWrapper = new eqEd.MatrixWrapper(equation, numRows, numCols, 'center');
@@ -238,7 +238,7 @@ eqEd.MatrixWrapper = function(equation, numRows, numCols, horAlign) {
                 var matrixEntry = matrixRow[j];
                 for (var k = 0; k < matrixEntry.length; k++) {
                     var innerWrapperCtor = eqEd.Equation.JsonTypeToConstructor(matrixEntry[k].type);
-                    var innerWrapper = innerWrapperCtor.constructFromJsonObj(matrixEntry[k], fontMetrics);
+                    var innerWrapper = innerWrapperCtor.constructFromJsonObj(matrixEntry[k], equation);
                     matrixWrapper.matrixContainers[i][j].addWrappers([k, innerWrapper]);
                 }
             }

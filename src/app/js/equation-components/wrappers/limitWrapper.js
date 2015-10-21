@@ -139,16 +139,16 @@ eqEd.LimitWrapper = function(equation) {
         };
         return jsonObj;
     };
-    eqEd.LimitWrapper.constructFromJsonObj = function(jsonObj, fontMetrics) {
+    eqEd.LimitWrapper.constructFromJsonObj = function(jsonObj, equation) {
         var limitWrapper = new eqEd.LimitWrapper(equation);
         for (var i = 0; i < jsonObj.operands.left.length; i++) {
             var innerWrapperCtor = eqEd.Equation.JsonTypeToConstructor(jsonObj.operands.left[i].type);
-            var innerWrapper = innerWrapperCtor.constructFromJsonObj(jsonObj.operands.left[i], fontMetrics);
+            var innerWrapper = innerWrapperCtor.constructFromJsonObj(jsonObj.operands.left[i], equation);
             limitWrapper.limitLeftContainer.addWrappers([i, innerWrapper]);
         }
         for (var i = 0; i < jsonObj.operands.right.length; i++) {
             var innerWrapperCtor = eqEd.Equation.JsonTypeToConstructor(jsonObj.operands.right[i].type);
-            var innerWrapper = innerWrapperCtor.constructFromJsonObj(jsonObj.operands.right[i], fontMetrics);
+            var innerWrapper = innerWrapperCtor.constructFromJsonObj(jsonObj.operands.right[i], equation);
             limitWrapper.limitRightContainer.addWrappers([i, innerWrapper]);
         }
         return limitWrapper;

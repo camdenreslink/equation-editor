@@ -202,16 +202,16 @@ eqEd.SuperscriptAndSubscriptWrapper = function(equation) {
         };
         return jsonObj;
     };
-    eqEd.SuperscriptAndSubscriptWrapper.constructFromJsonObj = function(jsonObj, fontMetrics) {
+    eqEd.SuperscriptAndSubscriptWrapper.constructFromJsonObj = function(jsonObj, equation) {
         var superscriptAndSubscriptWrapper = new eqEd.SuperscriptAndSubscriptWrapper(equation);
         for (var i = 0; i < jsonObj.operands.superscript.length; i++) {
             var innerWrapperCtor = eqEd.Equation.JsonTypeToConstructor(jsonObj.operands.superscript[i].type);
-            var innerWrapper = innerWrapperCtor.constructFromJsonObj(jsonObj.operands.superscript[i], fontMetrics);
+            var innerWrapper = innerWrapperCtor.constructFromJsonObj(jsonObj.operands.superscript[i], equation);
             superscriptAndSubscriptWrapper.superscriptContainer.addWrappers([i, innerWrapper]);
         }
         for (var i = 0; i < jsonObj.operands.subscript.length; i++) {
             var innerWrapperCtor = eqEd.Equation.JsonTypeToConstructor(jsonObj.operands.subscript[i].type);
-            var innerWrapper = innerWrapperCtor.constructFromJsonObj(jsonObj.operands.subscript[i], fontMetrics);
+            var innerWrapper = innerWrapperCtor.constructFromJsonObj(jsonObj.operands.subscript[i], equation);
             superscriptAndSubscriptWrapper.subscriptContainer.addWrappers([i, innerWrapper]);
         }
         return superscriptAndSubscriptWrapper;

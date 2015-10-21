@@ -111,7 +111,7 @@ eqEd.BracketWrapper = function(equation, bracketType) {
         };
         return jsonObj;
     };
-    eqEd.BracketWrapper.constructFromJsonObj = function(jsonObj, fontMetrics) {
+    eqEd.BracketWrapper.constructFromJsonObj = function(jsonObj, equation) {
       var bracketWrapper = new eqEd.BracketWrapper(equation, jsonObj.value);
       return bracketWrapper;
     }
