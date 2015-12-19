@@ -1,15 +1,7 @@
 var insertEquationAtCursor = function() {
-    var container = new eqEd.Container(parent);
-    container.padTop = 0.2;
-    container.padBottom = 0.2;
-    container.fontSize = "fontSizeNormal";
-    container.domObj = container.buildDomObj();
-    container.domObj.updateFontSize(container.fontSize);
-    container.domObj.value.addClass('equation');
-    insertNodeAtCursor(container.domObj.value[0]);
-    var topLevelEmptyContainerWrapper = new eqEd.TopLevelEmptyContainerWrapper(equation);
-    container.addWrappers([0, topLevelEmptyContainerWrapper]);
-    topLevelEmptyContainerWrapper.updateAll();
+    var equation = new eqEd.Equation();
+    insertNodeAtCursor(equation.domObj.value[0]);
+    equation.updateAll();
 }
 
 $(document).on('click', '#insertEquation', function(e) {

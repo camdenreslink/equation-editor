@@ -130,7 +130,7 @@ eqEd.FontMetrics = function() {
 (function() {
 
     eqEd.FontMetrics.prototype.addTestDiv = function() {
-      $('body').append('<div id="testDiv' + this.testDivId + '" class="testEquation equation"></div>');
+      $('body').append('<div id="testDiv' + this.testDivId + '" class="testEquation eqEdEquation"></div>');
     }
 
     eqEd.FontMetrics.prototype.removeTestDiv = function() {

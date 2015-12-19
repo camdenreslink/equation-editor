@@ -152,5 +152,5 @@ eqEd.LimitWrapper = function(equation) {
             limitWrapper.limitRightContainer.addWrappers([i, innerWrapper]);
         }
         return limitWrapper;
-    }
+    };
 })();

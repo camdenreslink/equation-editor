@@ -194,9 +194,6 @@ eqEd.Container = function(parent) {
       // properties in this object.
       
       for (var i = 0; i < this.properties.length; i++) {
-        if (this instanceof eqEd.SubscriptContainer) {
-          var x = 2;
-        }
         this.properties[i].compute();
       }
       // This loop will now recursively through the equation,

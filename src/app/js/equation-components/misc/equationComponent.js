@@ -79,13 +79,18 @@ eqEd.EquationComponent = function() {
     // that some object belongs to without having a
     // reference to the root node.
     eqEd.EquationComponent.prototype.updateAll = function() {
-        var rootElement = this.equation.topLevelContainer;
         // Do some set up in the static Property object
         // to allow for scanning of compute() methods
         // to determine dependencies dynamically.
         Property.beginComputing();
         
         // This line kicks off the recursive formatting cycle.
+        var rootElement = null;
+        if (this instanceof eqEd.Equation) {
+            rootElement = this;
+        } else {
+            rootElement = this.equation;
+        }
         rootElement.update();
 
         // Do some clean up for the static Property object.
@@ -101,6 +106,12 @@ eqEd.EquationComponent = function() {
         while (typeof context.fontSize === "undefined") {
           context = context.parent;
         }
-        return this.equation.fontMetrics.height[context.fontSize];
+        var rootElement = null;
+        if (this instanceof eqEd.Equation) {
+            rootElement = this;
+        } else {
+            rootElement = this.equation;
+        }
+        return rootElement.fontMetrics.height[context.fontSize];
     }
 })();

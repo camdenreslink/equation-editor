@@ -1,4 +1,4 @@
-.equation {
+.eqEdEquation {
     position: relative;
     line-height: 1;
     display: inline-block;
@@ -16,10 +16,10 @@
     background: #E8E8E8;
 }
 
-.equation div,
-.equation span,
-.equation svg,
-.equation img {
+.eqEdEquation div,
+.eqEdEquation span,
+.eqEdEquation svg,
+.eqEdEquation img {
     position: absolute;
     top: 0em;
     left: 0em;

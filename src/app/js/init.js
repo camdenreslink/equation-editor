@@ -129,7 +129,7 @@ var insertNodeAtCursor = function(node) {
     }
 }
 
-var inializePropertyHooks = function(fontMetrics) {
+var inializePropertyHooks = function() {
   // Set up some general rules for computing property values.
   Property.postComputeHooks['width'] = function(value) {
     if (typeof value === "undefined" || value === null) {

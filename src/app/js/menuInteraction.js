@@ -1,4 +1,4 @@
-var setupMenuEvents = function(fontMetrics) {
+var setupMenuEvents = function() {
     var getEquation = function() {
         var equation = null;
         if ($('.cursor').length > 0) {
