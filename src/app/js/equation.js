@@ -7,7 +7,8 @@ eqEd.Equation = function() {
     // objects without accessing the DOM.
     this.fontMetrics = new eqEd.FontMetrics();
     // TODO: Fix this. It shouldn't be so verbose. (Maybe make a new class that contains all of this.)
-    this.topLevelContainer = new eqEd.Container(this);
+    this.topLevelContainer = new eqEd.TopLevelContainer(this);
+    /*
     this.topLevelContainer.equation = this;
     this.topLevelContainer.padTop = 0.2;
     this.topLevelContainer.padBottom = 0.2;
@@ -16,7 +17,7 @@ eqEd.Equation = function() {
     this.topLevelContainer.domObj.updateFontSize(this.topLevelContainer.fontSize);
     var topLevelEmptyContainerWrapper = new eqEd.TopLevelEmptyContainerWrapper(this);
     this.topLevelContainer.addWrappers([0, topLevelEmptyContainerWrapper]);
-
+    */
     this.domObj = this.buildDomObj();
     this.domObj.append(this.topLevelContainer.domObj);
 

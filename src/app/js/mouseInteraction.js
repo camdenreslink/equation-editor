@@ -236,8 +236,7 @@ $(document).on('mousemove', '.eqEdContainer', function(e) {
     }
     if (mouseDown 
         && !$(this).children().first().hasClass('squareEmptyContainerWrapper') 
-        && !$(this).hasClass('squareEmptyContainer')
-        && !$(this).children().first().hasClass('topLevelEmptyContainerWrapper')) {
+        && !$(this).hasClass('squareEmptyContainer')) {
         var container = $(this).data("eqObject");
         if (highlightStartIndex !== null && container.domObj.value.children('.highlight').length > 0) {
             var characterClickPos = e.pageX - container.domObj.value.offset().left;
@@ -253,7 +252,7 @@ $(document).on('mousemove', '.eqEdContainer', function(e) {
         var container = $(this).data("eqObject");
         $('.hoverContainer').removeClass('hoverContainer');
         if (!($(this).hasClass('activeContainer')) &&
-            !(container.wrappers[0] instanceof eqEd.EmptyContainerWrapper) &&
+            !(container.wrappers[0] instanceof eqEd.SquareEmptyContainerWrapper) &&
             !($('.highlighted').length > 0)) {
             $(this).addClass('hoverContainer');
         }

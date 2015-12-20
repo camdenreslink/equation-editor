@@ -19,7 +19,7 @@ var setup = function() {
         fontMetrics = new eqEd.FontMetrics();
         $('.loadingMessage').remove();
         clipboard = new eqEd.Clipboard();
-        inializePropertyHooks(fontMetrics);
+        initializePropertyHooks(fontMetrics);
         setupKeyboardEvents(fontMetrics, clipboard);
         setupMenuEvents(fontMetrics);
     }

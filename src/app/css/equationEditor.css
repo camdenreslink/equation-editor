@@ -1,11 +1,9 @@
 .eqEdEquation {
+    /*border: 1px solid #F0F0F0;*/
     position: relative;
     line-height: 1;
     display: inline-block;
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-
+    /*background: #FAFAFA;*/
 }
 
 .activeContainer .hoverContainer {
@@ -164,11 +162,11 @@ div.activeContainer {
 .activeContainer .topLevelEmptyContainerWrapper {
     background: #CFCFCF;
 }
-
+/*
 .topLevelEmptyContainerWrapper {
     background: #EDEDED;
 }
-
+*/
 .stackedFractionHorizontalBar {
     background: #000000;
 }

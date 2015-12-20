@@ -30,7 +30,6 @@ var getChromeVersion = function() {
   }
 }
 
-//var ChromeVersion = parseInt(window.navigator.appVersion.match(/Chrome\/(\d+)\./)[1], 10);
 var ChromeVersion = getChromeVersion();
 var IEVersion = getInternetExplorerVersion();
 
@@ -129,7 +128,7 @@ var insertNodeAtCursor = function(node) {
     }
 }
 
-var inializePropertyHooks = function() {
+var initializePropertyHooks = function() {
   // Set up some general rules for computing property values.
   Property.postComputeHooks['width'] = function(value) {
     if (typeof value === "undefined" || value === null) {
@@ -145,13 +144,11 @@ var inializePropertyHooks = function() {
     var fontHeight = this.getFontHeight();
 
     // TODO: Figure out why this special case is in here. It has a funny code smell.
-    if (this instanceof eqEd.Container) {
-      if (this.wrappers[0] instanceof eqEd.TopLevelEmptyContainerWrapper) {
-        return value;
-      }
-    } else if (this instanceof eqEd.Wrapper) {
+    /*
+    if (this instanceof eqEd.Wrapper) {
       return value;
     }
+    */
     return value + (this.padTop + this.padBottom) * fontHeight;
   };
   Property.postComputeHooks['left'] = function(value) {
@@ -178,9 +175,6 @@ var inializePropertyHooks = function() {
       value = 0;
     }
     var fontHeight = this.getFontHeight();
-    if (this instanceof eqEd.TopLevelEmptyContainerWrapper) {
-      return value;
-    }
     return value + (this.parent.padTop + this.adjustTop) * fontHeight;
   };
   Property.postComputeHooks['topAlign'] = function(value) {

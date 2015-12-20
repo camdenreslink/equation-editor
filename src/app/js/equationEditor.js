@@ -4,7 +4,7 @@ var imagesLoaded = false;
 var setup = function() {
     if (fontsLoaded && imagesLoaded) {
         $('.loadingMessage').remove();
-        inializePropertyHooks();
+        initializePropertyHooks();
         setupKeyboardEvents();
         setupMenuEvents();
         var equation = new eqEd.Equation();
