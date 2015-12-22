@@ -142,13 +142,6 @@ var initializePropertyHooks = function() {
       value = 0;
     }
     var fontHeight = this.getFontHeight();
-
-    // TODO: Figure out why this special case is in here. It has a funny code smell.
-    /*
-    if (this instanceof eqEd.Wrapper) {
-      return value;
-    }
-    */
     return value + (this.padTop + this.padBottom) * fontHeight;
   };
   Property.postComputeHooks['left'] = function(value) {

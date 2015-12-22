@@ -9,12 +9,10 @@ eqEd.BigOperatorWrapper = function(equation, isInline, hasUpperLimit, hasLowerLi
 
     this.upperLimitGap = 0.1;
     this.lowerLimitGap = 0.2;
-    this.operandGap = 0.15;
 
     this.inlineUpperLimitOverlap = 0.4;
     this.inlineLowerLimitOverlap = 0.4;
     this.inlineLimitGap = 0.1;
-    this.inlineOperandGap = 0.15;
 
     this.bigOperatorSymbolCtors = {
         'sum': eqEd.SumBigOperatorSymbol,
@@ -42,18 +40,14 @@ eqEd.BigOperatorWrapper = function(equation, isInline, hasUpperLimit, hasLowerLi
         this.childContainers.push(this.lowerLimitContainer)
     }
     
-    this.operandContainer = new eqEd.BigOperatorOperandContainer(this);
     this.symbol = new this.bigOperatorSymbolCtors[this.bigOperatorType](this);
 
-    this.domObj.append(this.operandContainer.domObj);
     this.domObj.append(this.symbol.domObj);
     
     this.childNoncontainers = [this.symbol];
-    this.childContainers.push(this.operandContainer);
 
     this.padLeft = 0.05;
-    this.padRight = 0.05;
-
+    this.padRight = 0.15;
 
     // Set up the width calculation
     var width = 0;
@@ -76,7 +70,7 @@ eqEd.BigOperatorWrapper = function(equation, isInline, hasUpperLimit, hasLowerLi
                     maxWidthList.push(this.lowerLimitContainer.width);
                 }
                 var limitWidth = (maxWidthList.length > 0) ? maxWidthList.max() : 0;
-                widthVal = this.symbol.width + this.inlineLimitGap * fontHeight + limitWidth + this.inlineOperandGap * fontHeight + this.operandContainer.width;
+                widthVal = this.symbol.width + this.inlineLimitGap * fontHeight + limitWidth;
             } else {
                 var maxWidthList = [];
                 if (this.hasUpperLimit) {
@@ -87,7 +81,7 @@ eqEd.BigOperatorWrapper = function(equation, isInline, hasUpperLimit, hasLowerLi
                 }
                 maxWidthList.push(this.symbol.width);
                 var maxWidth = maxWidthList.max();
-                widthVal = maxWidth + this.operandContainer.width + this.operandGap * fontHeight;
+                widthVal = maxWidth;
             }
             return widthVal;
         },
@@ -107,34 +101,24 @@ eqEd.BigOperatorWrapper = function(equation, isInline, hasUpperLimit, hasLowerLi
         },
         compute: function() {
             var topAlignVal = 0;
-            var leftPartTopAlign = 0;
-            var rightPartTopAlign = 0;
-            // Need to check if maxTopAlignIndex exists, because it doesn't exist
-            // when this.operandContainer.wrappers.length === 0
-            if (this.operandContainer.maxTopAlignIndex !== null) {
-                rightPartTopAlign = this.operandContainer.wrappers[this.operandContainer.maxTopAlignIndex].topAlign;
-            }
             if (this.isInline) {
                 if (this.hasUpperLimit) {
                     if (this.upperLimitContainer.height > this.symbol.height * this.inlineUpperLimitOverlap) {
-                        leftPartTopAlign = 0.1 * this.symbol.height + this.upperLimitContainer.height;
+                        topAlignVal = 0.1 * this.symbol.height + this.upperLimitContainer.height;
                     } else {
-                        leftPartTopAlign = 0.5 * this.symbol.height;
+                        topAlignVal = 0.5 * this.symbol.height;
                     }
                 } else {
-                    leftPartTopAlign = 0.5 * this.symbol.height;
+                    topAlignVal = 0.5 * this.symbol.height;
                 }
             } else {
-                if (this.operandContainer.wrappers.length > 0) {
-                    if (this.hasUpperLimit) {
-                        var fontHeight = this.equation.fontMetrics.height[this.parent.fontSize];
-                        leftPartTopAlign = 0.5 * this.symbol.height + this.upperLimitContainer.height + this.upperLimitGap * fontHeight;
-                    } else {
-                        leftPartTopAlign = 0.5 * this.symbol.height;
-                    }
+                if (this.hasUpperLimit) {
+                    var fontHeight = this.equation.fontMetrics.height[this.parent.fontSize];
+                    topAlignVal = 0.5 * this.symbol.height + this.upperLimitContainer.height + this.upperLimitGap * fontHeight;
+                } else {
+                    topAlignVal = 0.5 * this.symbol.height;
                 }
             }
-            topAlignVal = (leftPartTopAlign > rightPartTopAlign) ? leftPartTopAlign : rightPartTopAlign;
             return topAlignVal;
         },
         updateDom: function() {}
@@ -151,36 +135,25 @@ eqEd.BigOperatorWrapper = function(equation, isInline, hasUpperLimit, hasLowerLi
         },
         compute: function() {
             var bottomAlignVal = 0;
-            var leftPartBottomAlign = 0;
-            var rightPartBottomAlign = 0;
-            
-            // Need to check if maxBottomAlignIndex exists, because it doesn't exist
-            // when this.operandContainer.wrappers.length === 0
-            if (this.operandContainer.maxBottomAlignIndex !== null) {
-                rightPartBottomAlign = this.operandContainer.wrappers[this.operandContainer.maxBottomAlignIndex].topAlign;
-            }
 
             if (this.isInline) {
                 if (this.hasLowerLimit) {
                     if (this.lowerLimitContainer.height > this.symbol.height * this.inlineLowerLimitOverlap) {
-                        leftPartBottomAlign = 0.1 * this.symbol.height + this.lowerLimitContainer.height;
+                        bottomAlignVal = 0.1 * this.symbol.height + this.lowerLimitContainer.height;
                     } else {
-                        leftPartBottomAlign = 0.5 * this.symbol.height;
+                        bottomAlignVal = 0.5 * this.symbol.height;
                     }
                 } else {
-                    leftPartBottomAlign = 0.5 * this.symbol.height;
+                    bottomAlignVal = 0.5 * this.symbol.height;
                 }
             } else {
-                if (this.operandContainer.wrappers.length > 0) {
-                    if (this.hasLowerLimit) {
-                        var fontHeight = this.equation.fontMetrics.height[this.parent.fontSize];
-                        leftPartBottomAlign = 0.5 * this.symbol.height + this.lowerLimitContainer.height + this.lowerLimitGap * fontHeight;
-                    } else {
-                        leftPartBottomAlign = 0.5 * this.symbol.height;
-                    }
+                if (this.hasLowerLimit) {
+                    var fontHeight = this.equation.fontMetrics.height[this.parent.fontSize];
+                    bottomAlignVal = 0.5 * this.symbol.height + this.lowerLimitContainer.height + this.lowerLimitGap * fontHeight;
+                } else {
+                    bottomAlignVal = 0.5 * this.symbol.height;
                 }
             }
-            bottomAlignVal = (leftPartBottomAlign > rightPartBottomAlign) ? leftPartBottomAlign : rightPartBottomAlign;
             return bottomAlignVal;
         },
         updateDom: function() {}
@@ -212,15 +185,11 @@ eqEd.BigOperatorWrapper = function(equation, isInline, hasUpperLimit, hasLowerLi
             copy.domObj.append(copy.lowerLimitContainer.domObj);
             copy.childContainers.push(copy.lowerLimitContainer);
         }
-        copy.operandContainer = this.operandContainer.clone();
-        copy.operandContainer.parent = copy;
         copy.symbol = new copy.bigOperatorSymbolCtors[copy.bigOperatorType](copy);
 
-        copy.domObj.append(copy.operandContainer.domObj);
         copy.domObj.append(copy.symbol.domObj);
 
         copy.childNoncontainers = [copy.symbol];
-        copy.childContainers.push(copy.operandContainer);
 
         return copy;
     };
@@ -230,24 +199,19 @@ eqEd.BigOperatorWrapper = function(equation, isInline, hasUpperLimit, hasLowerLi
             value: this.bigOperatorType
         };
         if (!this.hasLowerLimit && !this.hasUpperLimit) {
-            jsonObj.operands = {
-                operand: this.operandContainer.buildJsonObj()
-            };
+            jsonObj.operands = null;
         } else if (this.hasLowerLimit && !this.hasUpperLimit) {
             jsonObj.operands = {
-                lowerLimit: this.lowerLimitContainer.buildJsonObj(),
-                operand: this.operandContainer.buildJsonObj()
+                lowerLimit: this.lowerLimitContainer.buildJsonObj()
             }
         } else if (!this.hasLowerLimit && this.hasUpperLimit) {
             jsonObj.operands = {
-                upperLimit: this.upperLimitContainer.buildJsonObj(),
-                operand: this.operandContainer.buildJsonObj()
+                upperLimit: this.upperLimitContainer.buildJsonObj()
             }
         } else {
             jsonObj.operands = {
                 lowerLimit: this.lowerLimitContainer.buildJsonObj(),
-                upperLimit: this.upperLimitContainer.buildJsonObj(),
-                operand: this.operandContainer.buildJsonObj()
+                upperLimit: this.upperLimitContainer.buildJsonObj()
             }
         }
         return jsonObj;
@@ -269,11 +233,6 @@ eqEd.BigOperatorWrapper = function(equation, isInline, hasUpperLimit, hasLowerLi
                 var innerWrapper = innerWrapperCtor.constructFromJsonObj(jsonObj.operands.lowerLimit[i], equation);
                 bigOperatorWrapper.lowerLimitContainer.addWrappers([i, innerWrapper]);
             }
-        }
-        for (var i = 0; i < jsonObj.operands.operand.length; i++) {
-            var innerWrapperCtor = eqEd.Equation.JsonTypeToConstructor(jsonObj.operands.operand[i].type);
-            var innerWrapper = innerWrapperCtor.constructFromJsonObj(jsonObj.operands.operand[i], equation);
-            bigOperatorWrapper.operandContainer.addWrappers([i, innerWrapper]);
         }
 
         return bigOperatorWrapper;
