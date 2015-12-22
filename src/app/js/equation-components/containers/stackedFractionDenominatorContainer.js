@@ -8,6 +8,33 @@ eqEd.StackedFractionDenominatorContainer = function(parent) {
     this.padBottom = 0.025;
     this.padTop = 0.025;
 
+    // Set up the padTop calculation
+    var padTop = 0;
+    this.properties.push(new Property(this, "padTop", padTop, {
+        get: function() {
+            return padTop;
+        },
+        set: function(value) {
+            padTop = value;
+        },
+        compute: function() {
+            var padTopVal = 0.025;
+            var hasRoot = false;
+            for (var i = 0; i < this.wrappers.length; i++) {
+                if (this.wrappers[i] instanceof eqEd.SquareRootWrapper || this.wrappers[i] instanceof eqEd.NthRootWrapper) {
+                    hasRoot = true;
+                    break;
+                }
+            }
+            if (hasRoot) {
+                padTopVal = 0.1;
+            }
+            return padTopVal;
+        },
+        updateDom: function() {}
+    }));
+
+
     // Set up the left calculation
     var left = 0;
     this.properties.push(new Property(this, "left", left, {

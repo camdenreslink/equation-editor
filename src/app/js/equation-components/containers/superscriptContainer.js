@@ -5,7 +5,6 @@ eqEd.SuperscriptContainer = function(parent) {
 	this.domObj = this.buildDomObj();
     var squareEmptyContainerWrapper = new eqEd.SquareEmptyContainerWrapper(this.equation);
     this.addWrappers([0, squareEmptyContainerWrapper]);
-    this.offsetTop = 0.275;
 
     // Set up the left calculation
     var left = 0;

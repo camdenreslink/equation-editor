@@ -20,7 +20,7 @@ eqEd.NthRootWrapper = function(equation) {
     this.padBottomWhenParentIsFraction = 0.2;
     this.padLeft = 0.1;
     this.padRight = 0.1;
-    this.padTop = 0.1;
+    //this.padTop = 0.1;
 
     // Set up the padBottom calculation
     var padBottom = 0;

@@ -18,25 +18,6 @@ eqEd.SquareRootWrapper = function(equation) {
     this.padLeft = 0.1;
     this.padRight = 0.1;
 
-    // Set up the padTop calculation
-    var padTop = 0;
-    this.properties.push(new Property(this, "padTop", padTop, {
-        get: function() {
-            return padTop;
-        },
-        set: function(value) {
-            padTop = value;
-        },
-        compute: function() {
-            var padTopVal = 0;
-            if (this.parent instanceof eqEd.StackedFractionDenominatorContainer) {
-                padTopVal = 0.1;
-            }
-            return padTopVal;
-        },
-        updateDom: function() {}
-    }));
-
     // Set up the padBottom calculation
     var padBottom = 0;
     this.properties.push(new Property(this, "padBottom", padBottom, {
