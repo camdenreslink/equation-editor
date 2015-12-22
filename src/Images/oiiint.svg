@@ -66,14 +66,10 @@
          id="path3789"
          inkscape:connector-curvature="0" />
     </g>
-    <rect
-       style="fill:none;stroke:#000000;stroke-width:2.20000005;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+    <path
+       style="font-size:medium;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-indent:0;text-align:start;text-decoration:none;line-height:normal;letter-spacing:normal;word-spacing:normal;text-transform:none;direction:ltr;block-progression:tb;writing-mode:lr-tb;text-anchor:start;baseline-shift:baseline;color:#000000;fill:#000000;fill-opacity:1;stroke:none;stroke-width:2.20000005;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate;font-family:Sans;-inkscape-font-specification:Sans"
+       d="m 341.5,401.1875 c -9.21407,0 -17.51119,1.41617 -23.625,3.75 -3.05691,1.16691 -5.56849,2.55168 -7.375,4.1875 -1.80651,1.63582 -2.9375,3.59497 -2.9375,5.71875 0,2.12378 1.13099,4.08293 2.9375,5.71875 1.80651,1.63582 4.31809,3.02059 7.375,4.1875 6.11381,2.33383 14.41093,3.71875 23.625,3.71875 l 3.40625,0 c 9.21407,0 17.51119,-1.38492 23.625,-3.71875 3.05691,-1.16691 5.56849,-2.55168 7.375,-4.1875 1.80651,-1.63582 2.9375,-3.59497 2.9375,-5.71875 0,-2.12378 -1.13099,-4.08293 -2.9375,-5.71875 -1.80651,-1.63582 -4.31809,-3.02059 -7.375,-4.1875 -6.11381,-2.33383 -14.41093,-3.75 -23.625,-3.75 l -3.40625,0 z m 0,2.21875 3.40625,0 c 8.98871,0 17.07976,1.39346 22.84375,3.59375 2.882,1.10014 5.17751,2.38268 6.6875,3.75 1.50999,1.36732 2.21875,2.74326 2.21875,4.09375 0,1.35049 -0.70876,2.69518 -2.21875,4.0625 -1.50999,1.36732 -3.8055,2.68111 -6.6875,3.78125 -5.76399,2.20029 -13.85504,3.59375 -22.84375,3.59375 l -3.40625,0 c -8.98871,0 -17.07976,-1.39346 -22.84375,-3.59375 -2.882,-1.10014 -5.17751,-2.41393 -6.6875,-3.78125 -1.50999,-1.36732 -2.21875,-2.71201 -2.21875,-4.0625 0,-1.35049 0.70876,-2.72643 2.21875,-4.09375 1.50999,-1.36732 3.8055,-2.64986 6.6875,-3.75 5.76399,-2.20029 13.85504,-3.59375 22.84375,-3.59375 z"
        id="rect2993"
-       width="69.102997"
-       height="25.085001"
-       x="308.64969"
-       y="402.29843"
-       rx="32.856998"
-       ry="13.393" />
+       inkscape:connector-curvature="0" />
   </g>
 </svg>
