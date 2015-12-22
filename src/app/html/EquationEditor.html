@@ -6,6 +6,7 @@
   <script src="../../lib/jquery-2.0.0.js"></script>
   <script src="../../lib/underscore-1.6.0.js"></script>
   <script src="../../lib/mousetrap-1.4.6.js"></script>
+  <script src="../../lib/spin.min.js"></script>
   <script src="http://ajax.googleapis.com/ajax/libs/webfont/1.4.7/webfont.js"></script>
   <script src="../js/property.js"></script>
   <script src="../js/init.js"></script>
@@ -178,7 +179,9 @@
     <button id="toLatex">To LaTeX</button>
     <br /><br />
     <input id="hiddenFocusInput" style="width: 0; height: 0; opacity: 0; position: absolute; top: 0; left: 0;" type="text" autocapitalize="off" />
-    <div class="loadingMessage fontSizeSmaller">Please wait a moment, while fonts/images load...</div>
+    <div id="loadingMessageOuter" style="width: 234px; height: 64px;">
+      <div id="loadingMessage" class="fontSizeSmaller" style="width: 234px; height: 64px; position: fixed;"></div>
+    </div>
     <div class="equation-editor"></div>
     <div class="tabs">
         <ul class="outer-tab-links tab-links">
