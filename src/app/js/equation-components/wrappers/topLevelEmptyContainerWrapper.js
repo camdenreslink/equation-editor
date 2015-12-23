@@ -37,7 +37,7 @@ eqEd.TopLevelEmptyContainerWrapper = function(equation) {
         },
         compute: function() {
             var fontHeight = this.getFontHeight();
-            return (0.5 + this.parent.padTop) * fontHeight;
+            return 0.5 * fontHeight;
         },
         updateDom: function() {}
     }));
@@ -53,7 +53,7 @@ eqEd.TopLevelEmptyContainerWrapper = function(equation) {
         },
         compute: function() {
             var fontHeight = this.getFontHeight();
-            return (0.5 + this.parent.padBottom) * fontHeight;
+            return 0.5 * fontHeight;
         },
         updateDom: function() {}
     }));

@@ -53,7 +53,9 @@ var calculateIndex = function(offsetLeft) {
 var addCursor = function(container, characterClickPos) {
     removeCursor();
     $('.activeContainer').removeClass('activeContainer');
-    container.domObj.value.addClass('activeContainer');
+    if (!(container instanceof eqEd.TopLevelContainer)) {
+        container.domObj.value.addClass('activeContainer');
+    }
     var cursor;
     if (container instanceof eqEd.SquareEmptyContainer) {
         cursor = $('<div class="cursor squareCursor"></div>');
@@ -62,7 +64,7 @@ var addCursor = function(container, characterClickPos) {
         var cursorLeft = -1;
         var cursorLeftSet = false;
         var toggleLinesEmpty = (toggleLines.length === 0);
-        if (!container.domObj.value.children().first().hasClass('topLevelEmptyContainerWrapper')) {
+        if (!(container.wrappers[0] instanceof eqEd.TopLevelEmptyContainerWrapper)) {
             for (var i = 0; i < container.wrappers.length; i++) {
                 var wrapper = container.wrappers[i];
                 cumulative += 0.5 * wrapper.width;
@@ -82,8 +84,6 @@ var addCursor = function(container, characterClickPos) {
                 cursorLeft += cumulative;
                 highlightStartIndex = container.wrappers.length;
             }
-        } else {
-            container.domObj.value.children().first().addClass('activeContainer');
         }
         cursor = $('<div class="cursor normalCursor"></div>');
         cursor.css('left', cursorLeft);
@@ -99,7 +99,9 @@ var addCursorAtIndex = function(container, index) {
     removeHighlight();
     addHighlight(container);
     $('.activeContainer').removeClass('activeContainer');
-    container.domObj.value.addClass('activeContainer');
+    if (!(container instanceof eqEd.TopLevelContainer)) {
+        container.domObj.value.addClass('activeContainer');
+    }
     var cursor;
     highlightStartIndex = index;
     if (container instanceof eqEd.SquareEmptyContainer) {
@@ -209,7 +211,6 @@ var onMouseDown = function(self, e) {
         e.preventDefault();
         e.stopPropagation();
         clearOnMouseDown();
-        $(self).addClass('activeContainer');
         var container = $(self).data("eqObject");
         addHighlight(container);
         var xOffset = (typeof e.originalEvent.pageX !== 'undefined') ? e.originalEvent.pageX : e.originalEvent.touches[0].pageX;
@@ -234,6 +235,7 @@ $(document).on('mousemove', '.eqEdContainer', function(e) {
     if (mouseDown) {
         clearHighlighted();
     }
+
     if (mouseDown 
         && !$(this).children().first().hasClass('squareEmptyContainerWrapper') 
         && !$(this).hasClass('squareEmptyContainer')) {
@@ -251,9 +253,10 @@ $(document).on('mousemove', '.eqEdContainer', function(e) {
     } else {
         var container = $(this).data("eqObject");
         $('.hoverContainer').removeClass('hoverContainer');
-        if (!($(this).hasClass('activeContainer')) &&
-            !(container.wrappers[0] instanceof eqEd.SquareEmptyContainerWrapper) &&
-            !($('.highlighted').length > 0)) {
+        if (!($(this).hasClass('activeContainer')) 
+         && !(container.wrappers[0] instanceof eqEd.SquareEmptyContainerWrapper)
+         && !$(this).hasClass('topLevelContainer')
+         && !($('.highlighted').length > 0)) {
             $(this).addClass('hoverContainer');
         }
         e.preventDefault();
